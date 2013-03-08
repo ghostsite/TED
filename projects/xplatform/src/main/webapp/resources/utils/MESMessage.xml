@@ -1,0 +1,1244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Message>
+    <Text Key="0">
+        <L>Loading option ...</L>
+        <L>옵션을 로딩 중입니다...</L>
+        <L>选项加载中 ...</L>
+    </Text>
+    <Text Key="1">
+        <L>Loading resource ...</L>
+        <L>리소스를 로딩 중입니다...</L>
+        <L>资源加载中 ....</L>
+    </Text>
+    <Text Key="2">
+        <L>Loading message bus ...</L>
+        <L>메시지 버스를 로딩 중입니다...</L>
+        <L>消息总线加载中 ...</L>
+    </Text>
+    <Text Key="3">
+        <L>You must restart this program to apply this option. Do you want to restart the program?</L>
+        <L>이 옵션을 적용하기 위해서는 프로그램을 새로 시작하여야 합니다. 새로 시작하시겠습니까?</L>
+        <L>需要重新启动才能应用此选项。确定重新启动程序？</L>
+    </Text>
+    <Text Key="4">
+        <L>Do you want to exit the program?</L>
+        <L>프로그램을 종료하시겠습니까?</L>
+        <L>确定关闭程序？</L>
+    </Text>
+    <Text Key="5">
+        <L>Do you want to restart the program?</L>
+        <L>프로그램을 다시 시작하시겠습니까?</L>
+        <L>确定重新启动程序？</L>
+    </Text>
+    <Text Key="6">
+        <L>The client currently uses old version system. Version check now will upgrade to new version</L>
+        <L>이 버전은 현재 서버와 맞지 않습니다. 최신 버전을 받겠습니다.</L>
+        <L>当前的版本与服务器版本不一致，安装最新版本。</L>
+    </Text>
+    <Text Key="7">
+        <L>Auto logout time has passed. Program will now exit.</L>
+        <L>Auto logout 시간이 초과되었습니다. 프로그램이 자동 종료됩니다.</L>
+        <L>自动退出时间已到，系统将自动退出。</L>
+    </Text>
+    <Text Key="8">
+        <L>An error occurred while reading language XML file</L>
+        <L>Language XML File을 읽는 동안 에러가 발생했습니다.</L>
+        <L>在读取XML语言文件时出现了错误。</L>
+    </Text>
+    <Text Key="9">
+        <L>The client currently uses old version system. Do you wish to upgrade to new version?</L>
+        <L>이 버전은 현재 서버와 맞지 않습니다. 최신 버전을 받으시겠습니까?.</L>
+        <L>当前的版本是旧版本，是否更新新版本？</L>
+    </Text>
+    <Text Key="10">
+        <L>Do you wish to continue?</L>
+        <L>계속 하시겠습니까?.</L>
+        <L>是否继续操作？</L>
+    </Text>
+    <Text Key="11">
+        <L>Do you wish to download the latest version?</L>
+        <L>최신 버전을 받으시겠습니까?.</L>
+        <L>是否下载最新版本?</L>
+    </Text>
+    <Text Key="12">
+        <L>A new ALARM MESSAGE has arrived.</L>
+        <L>알람 메세지가 도착했습니다!!!</L>
+        <L>收到新的报警信息。</L>
+    </Text>
+    <Text Key="13">
+        <L>Do you want to log off?</L>
+        <L>로그오프 하시겠습니까?</L>
+        <L>确定注销?</L>
+    </Text>
+
+    <Text Key="51">
+        <L>CMN051 INFO - Waiting for reply ...</L>
+        <L>CMN051 INFO - 응답을 기다리고 있습니다 ...</L>
+        <L>CMN051 INFO - 等待回应...</L>
+    </Text>
+    <Text Key="52">
+        <L>CMN052 INFO - Successfully completed.</L>
+        <L>CMN052 INFO - 작업을 성공적으로 수행하였습니다.</L>
+        <L>CMN052 INFO - 成功完成作业。</L>
+    </Text>
+    <Text Key="53">
+        <L>CMN053 INFO - Are you sure you want to delete the data?</L>
+        <L>CMN053 INFO - 데이타를 지우시겠습니까?</L>
+        <L>CMN053 INFO - 确定要删除此信息?</L>
+    </Text>
+    <Text Key="54">
+        <L>CMN054 INFO - This command will DELETE related data from database. Are you sure you want to execute the command?</L>
+        <L>CMN054 INFO - 이 명령을 수행하면 이와 관련된 여러 데이타가 데이타베이스에서 삭제됩니다. 그래도 지우시겠습니까?</L>
+        <L>CMN054 INFO - 进行此操作，将会把数据从数据库永久删除。继续进行此操作？</L>
+    </Text>
+    <Text Key="55">
+        <L>CMN055 INFO - The application must be restarted to apply new favorite.</L>
+        <L>CMN055 INFO - 새로운 즐겨찾기를 적용하기 위해서는 다시 시작해야 합니다.</L>
+        <L>CMN055 INFO - 要想应用新快捷方式必须重新启动程序。</L>
+    </Text>
+    <Text Key="56">
+        <L>CMN056 INFO - PM is scheduled successfully. But some Item Cannot be Scheduled because Schedule Exist or PM already executed. Please Schedule those items Non Periodically.</L>
+        <L>CMN056 INFO - PM 계획이 정상적으로 수립되었습니다. 그런 이미 정의되었거나 PM이 수행되어 SCHEDULE에서 제외된 날이 있으니 이런 날에 대해서는 비주기적으로 SCHEDULE하여 주십시요. </L>
+        <L>CMN056 INFO - PM成功安排。但部分项目无法安排，其可能是时间表已存在或已经进行。请不定期的检查这些项目。</L>
+    </Text>
+    <Text Key="57">
+        <L>CMN057 INFO - Some days are not available for schedule because schedule already exist or PM already executed on that day. Do you wish to continue except those days?</L>
+        <L>CMN057 INFO - 이미 정의되었거나 PM이 수행되어 SCHEDULE이 불가능한 날이 있습니다. 이를 제외하고 Schedule을 계속 진행하시겠습니까?</L>
+        <L>CMN057 INFO - 部分日期无法安排新日程，其可能是之前已经在此时间段安排了行程或已执行完毕。是否排除这些日期安排?</L>
+    </Text>
+    <Text Key="58">
+        <L>CMN058 INFO - The Lot violates the queue time limitation. Will you proceed with ignoring the alarm?</L>
+        <L>CMN058 INFO - 이 Lot은 Queue Time 설정시간이 지났습니다. 알람을 무시하고 계속 진행하시겠습니까?</L>
+        <L>CMN058 INFO - 此Lot已经超出等待时间限制。是否忽略警告？</L>
+    </Text>
+    <Text Key="59">
+        <L>CMN059 INFO - This command will UPDATE related data of the chart. Are you sure you want to execute the command?</L>
+        <L>CMN059 INFO - 이 명령을 수행하면 차트의 이와 관련된 여러 데이타가 업데이트됩니다. 그래도 계속하시겠습니까?</L>
+        <L>CMN059 INFO - 进行这个操作将会更新与此相连的数据，确定执行此操作？</L>
+    </Text>
+
+    <Text Key="60">
+        <L>CMN060 INFO - Can't open screen because exceeded maximum GDI resource, Close don't use screen.</L>
+        <L>CMN060 INFO - 할당할 수 있는 최대 GDI 리소스를 초과하여 새로운 화면을 열수 없습니다. 사용하지 않는 화면을 닫아주십시오.</L>
+        <L>CMN060 INFO - GID资源超过最大限度，无法打开界面。请关闭不使用的界面。</L>
+    </Text>
+
+    <Text Key="61">
+        <L>CMN061 INFO - An error occurs during the conversion to Excel. Please check if the supportive number of columns is converted to Excel.</L>
+        <L>CMN061 INFO - Excel 변환 중 에러가 발생 하였습니다. Excel에서 지원할 수 없는 칼럼수를 변환 하였는지 확인해 주십시오.</L>
+        <L>CMN061 INFO - An error occurs during the conversion to Excel. Please check if the supportive number of columns is converted to Excel.</L>
+    </Text>
+
+    <Text Key="101">
+        <L>CMN101 ERROR - Message time out error!</L>
+        <L>CMN101 ERROR - 서버에서 응답이 없습니다!</L>
+        <L>CMN101 ERROR - 服务器没有应答!</L>
+    </Text>
+    <Text Key="102">
+        <L>CMN102 ERROR - Unknown error!</L>
+        <L>CMN102 ERROR - 알수 없는 오류가 발생했습니다.</L>
+        <L>CMN102 ERROR - 未知错误!</L>
+    </Text>
+    <Text Key="103">
+        <L>CMN103 ERROR - An error has occurred.</L>
+        <L>CMN103 ERROR - 메세지 에러가 발생했습니다. </L>
+        <L>CMN103 ERROR - 发生错误。</L>
+    </Text>
+    <Text Key="104">
+        <L>CMN104 ERROR - Failed to initialize message bus. Please check if message bus is installed correctly.</L>
+        <L>CMN104 ERROR - 메시지 버스를 초기화에 실패 하였습니다. 메시지 버스가 제대로 설치 되었는지 확인하십시요!</L>
+        <L>CMN104 ERROR - 信息总线初始化失败，请检查安装信息总线是否正确。</L>
+    </Text>
+    <Text Key="105">
+        <L>CMN105 ERROR - You are a certified user. But you have no authority to access MES functions.</L>
+        <L>CMN105 ERROR - 귀하는 등록된 사용자이나 MES의 function을 사용할수 있는 권한이 없습니다.</L>
+        <L>CMN105 ERROR - 您已注册用户或您没有权限访问MES的功能。</L>
+    </Text>
+    <Text Key="106">
+        <L>CMN106 ERROR - You have no privilege to use this function.</L>
+        <L>CMN106 ERROR - Function을 사용할 권한이 없습니다.</L>
+        <L>CMN106 ERROR - 你没有权限使用此功能。</L>
+    </Text>
+    <Text Key="107">
+        <L>CMN107 ERROR - No data entered. Please enter the desired data.</L>
+        <L>CMN107 ERROR - 데이타가 입력되지 않았습니다. 필요한 데이타를 입력해 주십시요.</L>
+        <L>CMN107 ERROR - 没有输入信息。请输入信息。</L>
+    </Text>
+    <Text Key="108">
+        <L>CMN108 ERROR - Required field. Please enter a value.</L>
+        <L>CMN108 ERROR - 이 필드는 입력이 필요한 필드입니다. 데이타를 입력해 주십시요.</L>
+        <L>CMN108 ERROR - 此字段需要输入信息，请输入数据。</L>
+    </Text>
+    <Text Key="109">
+        <L>CMN109 ERROR - No item was selected. Please select item.</L>
+        <L>CMN109 ERROR - Item이 선택되지 않았습니다. Item을 선택해 주십시요.</L>
+        <L>CMN109 ERROR - 没有选择项目，请选择。</L>
+    </Text>
+    <Text Key="110">
+        <L>CMN110 ERROR - Invalid data format. Please input valid data format.</L>
+        <L>CMN110 ERROR - DATA 형식이 올바르지 않습니다. 다시 입력해 주세요.</L>
+        <L>CMN110 ERROR - 输入的数据格式错误。请输入有效的数据格式。</L>
+    </Text>
+    <Text Key="111">
+        <L>CMN111 ERROR - The data is duplicated.</L>
+        <L>CMN111 ERROR - 데이타가 다른 데이타와 중복됩니다.</L>
+        <L>CMN111 ERROR - 此数据与其它数据重复。</L>
+    </Text>
+    <Text Key="112">
+        <L>CMN112 ERROR - This lot is not in a condition to start. </L>
+        <L>CMN112 ERROR - 이 Lot은 Start 시킬수 있는 상태가 아닙니다.</L>
+        <L>CMN112 ERROR - 此Lot的状态下，无法开始执行。</L>
+    </Text>
+    <Text Key="113">
+        <L>CMN113 ERROR - This lot has incorrect M-F-O(Material-Flow-Operation) information.</L>
+        <L>CMN113 ERROR - 이 LOT의 M-F-O(Material-Flow-Operation) 정보가 올바르지 않습니다.</L>
+        <L>CMN113 ERROR - Lot的M-F-O(Material-Flow-Operation) 信息不正确。</L>
+    </Text>
+    <Text Key="114">
+        <L>CMN114 ERROR - Please enter a value which is greater than 0.</L>
+        <L>CMN114 ERROR - 0보다 큰 값을 입력해 주세요.</L>
+        <L>CMN114 ERROR - 请输入比0大的值。</L>
+    </Text>
+    <Text Key="115">
+        <L>CMN115 ERROR - Operation must have at least 1 unit.</L>
+        <L>CMN115 ERROR - Operation은 최소 1개의 Unit을 가지고 있어야 합니다.</L>
+        <L>CMN115 ERROR - 工序至少带有1个unit。</L>
+    </Text>
+    <Text Key="116">
+        <L>CMN116 ERROR - Numeric data is required in this field. Please enter numeric data.</L>
+        <L>CMN116 ERROR - 이 필드는 숫자를 입력해야 하는 필드입니다.</L>
+        <L>CMN116 ERROR - 此字段必须输入数值，请输入数字。</L>
+    </Text>
+    <Text Key="117">
+        <L>CMN117 ERROR - Source Material cannot be the same as Target Material.</L>
+        <L>CMN117 ERROR - 같은 Material로 복사할 수 없습니다.</L>
+        <L>CMN117 ERROR - 不能使用相同的Material。</L>
+    </Text>
+    <Text Key="118">
+        <L>CMN118 ERROR - This Resource has no history.</L>
+        <L>CMN118 ERROR - 리소스의 History가 없습니다.</L>
+        <L>CMN118 ERROR - 没有资材的历史记录。</L>
+    </Text>
+    <Text Key="119">
+        <L>CMN119 ERROR - This lot has no history.</L>
+        <L>CMN119 ERROR - Lot의 History가 없습니다.</L>
+        <L>CMN119 ERROR - 这个Lot没有历史记录。</L>
+    </Text>
+    <Text Key="120">
+        <L>CMN120 ERROR - Invalid start date. </L>
+        <L>CMN120 ERROR - 시작 날짜가 부적절 합니다.</L>
+        <L>CMN120 ERROR - 无效的开始日期。</L>
+    </Text>
+    <Text Key="121">
+        <L>CMN121 ERROR - Resource does not exist. Please select Resource.</L>
+        <L>CMN121 ERROR - 리소스를 선택해 주세요.</L>
+        <L>CMN121 ERROR - 没有资材，请选择设资材。</L>
+    </Text>
+    <Text Key="122">
+        <L>CMN122 ERROR - Resource does not exist.</L>
+        <L>CMN122 ERROR - 리소스가 존재하지 않습니다.</L>
+        <L>CMN122 ERROR - 设备不存在。</L>
+    </Text>
+    <Text Key="123">
+        <L>CMN123 ERROR - Invalid password. Please enter correct password.</L>
+        <L>CMN123 ERROR - 입력된 Password가 다릅니다. 다시 입력하여 주세요.</L>
+        <L>CMN123 ERROR - 无效的密码。请输入正确的密码。</L>
+    </Text>
+    <Text Key="124">
+        <L>CMN124 ERROR - Unregistered user group. please register user group first.</L>
+        <L>CMN124 ERROR - 등록되지 않은 User Group입니다. 먼저 User group을 등록해 주세요.</L>
+        <L>CMN124 ERROR - 未注册的用户群。请先注册一个用户群。</L>
+    </Text>
+    <Text Key="125">
+        <L>CMN125 ERROR - Input quantity must not exceed current quantity.</L>
+        <L>CMN125 ERROR - 입력수량이 현재의 수량을 초과해서는 안됩니다.</L>
+        <L>CMN125 ERROR - 输入的数量不得超过当前数量。</L>
+    </Text>
+    <Text Key="126">
+        <L>CMN126 ERROR - Input value exceeds limit value. Try another value.</L>
+        <L>CMN126 ERROR - 입력한 값이 한계값을 넘었습니다. 다른 수를 입력해 주세요.</L>
+        <L>CMN126 ERROR - 输入值超出限度值。请输入其它值。</L>
+    </Text>
+    <Text Key="127">
+        <L>CMN127 ERROR - Failed to load resource.  Check if resource file exists.</L>
+        <L>CMN127 ERROR - 리소스를 로딩하는 도중 문제가 발생하였습니다. 리소스 화일이 존재하는지 확인하십시요!</L>
+        <L>CMN127 ERROR - 无法加载资源。检查资源文件是否存在。</L>
+    </Text>
+    <Text Key="128">
+        <L>CMN128 ERROR - Upgrade program does not exist. Please reinstall client.</L>
+        <L>CMN128 ERROR - UPGRADE PROGRAM을 찾을 수 없습니다. CLIENT를 다시 SETUP 하세요.</L>
+        <L>CMN128 ERROR - 升级程序不存在。请重新安装客户端。</L>
+    </Text>
+    <Text Key="129">
+        <L>CMN129 ERROR - Invalid Step. Please Check Step.</L>
+        <L>CMN129 ERROR - Step이 올바르지 않습니다. Step을 확인하세요.</L>
+        <L>CMN129 ERROR - 无效的步骤。请检查步骤。</L>
+    </Text>
+    <Text Key="130">
+        <L>CMN130 ERROR - Key value size must equal to or greater than 0, and equal to or smaller than 30.</L>
+        <L>CMN130 ERROR - Key값의 Size는 0과 같거나 크고 30과 같거나 작아야 합니다.</L>
+        <L>CMN130 ERROR - 输入值的大小必须等于或大于0并且等于或小于30。</L>
+    </Text>
+    <Text Key="131">
+        <L>CMN131 ERROR - Data value size must equal to or greater than 0, and equal to or smaller than 50.</L>
+        <L>CMN131 ERROR - Data값의 Size는 0과 같거나 크고 50과 같거나 작아야 합니다.</L>
+        <L>CMN131 ERROR - 数据值必须等于或大于0，并且等于或小于50。</L>
+    </Text>
+    <Text Key="132">
+        <L>CMN132 ERROR - The character already exist.</L>
+        <L>CMN132 ERROR - 이 Character는 이미 존재 합니다.</L>
+        <L>CMN132 ERROR - 此character已存在。</L>
+    </Text>
+    <Text Key="133">
+        <L>CMN133 ERROR - Please, select at least one item.</L>
+        <L>CMN133 ERROR - 최소한 1개 이상의 아이템을 선택해 주세요.</L>
+        <L>CMN133 ERROR - 至少选择一项。</L>
+    </Text>
+    <Text Key="134">
+        <L>CMN134 ERROR - The number of selected item exceed the maximum limit.</L>
+        <L>CMN134 ERROR - 선택된 아이템의 개수가 최대 개수를 초과했습니다.</L>
+        <L>CMN134 ERROR - 被选中的项，超出了最大限度。</L>
+    </Text>
+    <Text Key="135">
+        <L>CMN135 ERROR - Split quantity must not exceed current quantity.</L>
+        <L>CMN135 ERROR - SPLIT 수량이 현재의 수량을 초과해서는 안됩니다.</L>
+        <L>CMN135 ERROR - 分裂的数量不得超过当前数量。</L>
+    </Text>
+    <Text Key="136">
+        <L>CMN136 ERROR - Merge quantity must not exceed current quantity.</L>
+        <L>CMN136 ERROR - MERGE 수량이 현재의 수량을 초과해서는 안됩니다.</L>
+        <L>CMN136 ERROR - 合并数量不得超过当前数量。</L>
+    </Text>
+    <Text Key="137">
+        <L>CMN137 ERROR - Combine quantity must not exceed current quantity.</L>
+        <L>CMN137 ERROR - COMBINE 수량이 현재의 수량을 초과해서는 안됩니다.</L>
+        <L>CMN137 ERROR - 结合数量不得超过当前数量。</L>
+    </Text>
+    <Text Key="138">
+        <L>CMN138 ERROR - Field mask character must be 'Y', 'N' or ' '.</L>
+        <L>CMN138 ERROR - Field Mask 값은 'Y', 'N', Space 문자만을 허용합니다.</L>
+        <L>CMN138 ERROR - Field mask character必须是'Y', 'N'，' '。</L>
+    </Text>
+    <Text Key="139">
+        <L>CMN139 ERROR - Only Float value is allowed. Please correct the value.</L>
+        <L>CMN139 ERROR - 실수형의 값만 허용됩니다. 값을 수정해 주세요.</L>
+        <L>CMN139 ERROR - 只能输入浮动值，请修改值。</L>
+    </Text>
+    <Text Key="140">
+        <L>CMN140 ERROR - Only Fixedpoint numeric value is allowed. Please correct the value</L>
+        <L>CMN140 ERROR - 정수형의 값만 허용됩니다. 값을 수정해 주세요.</L>
+        <L>CMN140 ERROR - 只有固定数字值是被允许的。请输入正确的价值。</L>
+    </Text>
+    <Text Key="141">
+        <L>CMN141 ERROR - Unit count range is 1 to MAX. Please correct the value</L>
+        <L>CMN141 ERROR - Unit Count의 값은 1 부터 MAX 까지입니다. 값을 수정해 주세요.</L>
+        <L>CMN141 ERROR - Unit的范围是0到MAX。请输入正确的值。</L>
+    </Text>
+    <Text Key="142">
+        <L>CMN142 ERROR - Value count range is 1 to MAX. Please correct the value</L>
+        <L>CMN142 ERROR - Value Count의 값은 1 부터 MAX 까지입니다. 값을 수정해 주세요.</L>
+        <L>CMN142 ERROR - Value count的范围是0到MAX。请输入正确的值。</L>
+    </Text>
+    <Text Key="143">
+        <L>CMN143 ERROR - USL must be greater than UCL. Please Check UCL.</L>
+        <L>CMN143 ERROR - USL 은 UCL의 값보다 커야합니다. UCL 을 확인해 주세요.</L>
+        <L>CMN143 ERROR - USL值必须大于UCL值，请确认UCL。</L>
+    </Text>
+    <Text Key="144">
+        <L>CMN144 ERROR - LCL must be greater than LSL. Please Check LSL.</L>
+        <L>CMN144 ERROR - LCL 은 LSL의 값보다 커야합니다. USL 을 확인해 주세요.</L>
+        <L>CMN144 ERROR - LCL值必须大于LSL值，请确认LSL。</L>
+    </Text>
+    <Text Key="145">
+        <L>CMN145 ERROR - USL must be greater than LSL. Please Check LSL.</L>
+        <L>CMN145 ERROR - USL 은 LSL의 값보다 커야합니다. LSL 을 확인해 주세요.</L>
+        <L>CMN145 ERROR - USL值必须大于LSL值，请确认LSL。</L>
+    </Text>
+    <Text Key="146">
+        <L>CMN146 ERROR - UCL must be greater than LCL. Please Check LCL.</L>
+        <L>CMN146 ERROR - UCL 은 LCL의 값보다 커야합니다. LCL 을 확인해 주세요.</L>
+        <L>CMN146 ERROR - UCL值必须大于LCL值，请确认LCL。</L>
+    </Text>
+    <Text Key="147">
+        <L>CMN147 ERROR - RUSL must be greater than RUCL. Please Check RUCL.</L>
+        <L>CMN147 ERROR - RUSL 은 RUCL의 값보다 커야합니다. RUCL 을 확인해 주세요.</L>
+        <L>CMN147 ERROR - RUSL值必须大于RUCL值，请确认 RUCL。</L>
+    </Text>
+    <Text Key="148">
+        <L>CMN148 ERROR - RLCL must be greater than RLSL. Please Check RLSL.</L>
+        <L>CMN148 ERROR - RLCL 은 RLSL의 값보다 커야합니다. RUSL 을 확인해 주세요.</L>
+        <L>CMN148 ERROR - RLCL值必须大于RLSL值，请确认RLSL。</L>
+    </Text>
+    <Text Key="149">
+        <L>CMN149 ERROR - RUSL must be greater than RLSL. Please Check RLSL.</L>
+        <L>CMN149 ERROR - RUSL 은 LSL의 값보다 커야합니다. RLSL 을 확인해 주세요.</L>
+        <L>CMN149 ERROR - RUSL值必须大于RLSL值，请确认RLSL。</L>
+    </Text>
+    <Text Key="150">
+        <L>CMN150 ERROR - RUCL must be greater than RLCL. Please Check RLCL.</L>
+        <L>CMN150 ERROR - RUCL 은 RLCL의 값보다 커야합니다. RLCL 을 확인해 주세요.</L>
+        <L>CMN150 ERROR - RUCL值必须大于RLCL值，请确认RLRC。</L>
+    </Text>
+    <Text Key="151">
+        <L>CMN151 ERROR - Please, select at least one character.</L>
+        <L>CMN151 ERROR - 최소한 1개 이상의 Character를 선택해 주세요.</L>
+        <L>CMN151 ERROR - 请至少选择一个character。</L>
+    </Text>
+    <Text Key="152">
+        <L>CMN152 ERROR - Select a version.</L>
+        <L>CMN152 ERROR - Version을 선택해 주세요.</L>
+        <L>CMN152 ERROR - 请选择版本。</L>
+    </Text>
+    <Text Key="153">
+        <L>CMN153 ERROR - Data length has exceeded maximum length. Input valid data length.</L>
+        <L>CMN153 ERROR - 데이타의 길이가 최대 길이를 초과했습니다. 데이타 길이를 수정해 주세요.</L>
+        <L>CMN153 ERROR - 数据的长度已经超过最大长度。输入有效的数据长度。</L>
+    </Text>
+    <Text Key="154">
+        <L>CMN154 ERROR - No Data found. Please check Lot information.</L>
+        <L>CMN154 ERROR - 데이타가 없습니다. LOT 정보를 확인해주십시오.</L>
+        <L>CMN154 ERROR - 没有找到数据。请确认Lot的信息。</L>
+    </Text>
+    <Text Key="155">
+        <L>CMN155 ERROR - Input data in order.</L>
+        <L>CMN155 ERROR - 데이터를 차례대로 입력해주세요.</L>
+        <L>CMN155 ERROR - 请按顺序输入信息。</L>
+    </Text>
+    <Text Key="156">
+        <L>CMN156 CONFIRM - The resource is deleted. Do you wish to recover the deleted resource?</L>
+        <L>CMN156 CONFIRM - 삭제된 장비입니다. 복구 하시겠습니까? </L>
+        <L>CMN156 CONFIRM - 此设备已被删除，是否恢复此设备?</L>
+    </Text>
+    <Text Key="157">
+        <L>CMN157 ERROR - Collection Set information is invalid.</L>
+        <L>CMN157 ERROR - Collection Set 정보가 올바르지 않습니다.</L>
+        <L>CMN157 ERROR - Collection Set信息不正确。</L>
+    </Text>
+    <Text Key="158">
+        <L>CMN158 ERROR - Collection Set Version information is invalid.</L>
+        <L>CMN158 ERROR - Collection Set Version 정보가 올바르지 않습니다.</L>
+        <L>CMN158 ERROR - Collection Set的版本信息不正确。</L>
+    </Text>
+    <Text Key="159">
+        <L>CMN159 ERROR - The unit already exist.</L>
+        <L>CMN159 ERROR - 이 Unit는 이미 존재 합니다.</L>
+        <L>CMN159 ERROR - 此unit已经存在。</L>
+    </Text>
+    <Text Key="160">
+        <L>CMN160 ERROR - To Tran Time must greater than From Tran Time. Please Check To Tran Time</L>
+        <L>CMN160 ERROR - To Tran Time 은 From Tran Time의 값보다 커야합니다. To Tran Time 을 확인해 주세요.</L>
+        <L>CMN160 ERROR - To Tran Time值必须大于From Tran Time值.请确认To Tran Time。</L>
+    </Text>
+    <Text Key="161">
+        <L>CMN161 ERROR - Select a resource history.</L>
+        <L>CMN161 ERROR - Resource History를 선택해 주세요.</L>
+        <L>CMN161 ERROR - 请选择资材历史记录。</L>
+    </Text>
+    <Text Key="162">
+        <L>CMN162 CONFIRM - Main lot material does not match with child lot material. Do you want to continue?</L>
+        <L>CMN162 CONFIRM - Mother Lot의 Material과 Child Lot의 Material이 일치 하지 않습니다. 계속하시겠습니까?</L>
+        <L>CMN162 CONFIRM - 主料的材料与子Lot的材料不相配，确定继续操作?</L>
+    </Text>
+    <Text Key="163">
+        <L>CMN163 CONFIRM - Main lot operation does not match with child lot operation. Do you want to continue?</L>
+        <L>CMN163 CONFIRM - Mother Lot의 Operation과 Child Lot의 Operation이 일치 하지 않습니다. 계속하시겠습니까?</L>
+        <L>CMN163 CONFIRM - 主Lot工序与子Lot的工序不相配，确定继续操作?</L>
+    </Text>
+    <Text Key="164">
+        <L>CMN164 ERROR - The specified lot does already exist. Please check lot ID.</L>
+        <L>CMN164 ERROR - 이 Lot은 이미 존재 합니다. Lot을 확인 하세요.</L>
+        <L>CMN164 ERROR - 此Lot已存在,请确认Lot ID。</L>
+    </Text>
+    <Text Key="165">
+        <L>CMN165 ERROR - Please select at least one material</L>
+        <L>CMN165 ERROR - 최소한 1개 이상의 Material를 선택해 주세요.</L>
+        <L>CMN165 ERROR - 请至少选择一个材料。</L>
+    </Text>
+    <Text Key="166">
+        <L>CMN166 ERROR - The material already exist</L>
+        <L>CMN166 ERROR - 이 Material는 이미 존재 합니다.</L>
+        <L>CMN166 ERROR - 此材料已存在。</L>
+    </Text>
+    <Text Key="167">
+        <L>CMN167 ERROR - BOM_SET_VERSION of Lot does not match with new BOM_SET_VERSION. Do you want to continue by current BOM_SET_VERSION?</L>
+        <L>CMN167 ERROR - LOT의 BOM_SET_VERSION 이 최신 BOM_SET_VERSION과 일치하지 않습니다. 기존 BOM_SET_VERSION 으로 계속 진행하시겠습니까?</L>
+        <L>CMN167 ERROR - BOM_SET_VERSION的Lot与新的BOM_SET_VERSION不相符。</L>
+    </Text>
+    <Text Key="168">
+        <L>CMN168 ERROR - Invalid work shift format. Please choose ' ' or any number between 1 and 4.</L>
+        <L>CMN168 ERROR - WORK SHIFT 형식이 올바르지 않습니다. ' '이나 1~4 중 선택해주세요.</L>
+        <L>CMN168 ERROR - 无效的work shift format。请选择' '或者1~4之间的数。</L>
+    </Text>
+    <Text Key="169">
+        <L>CMN169 ERROR - Out quantity can not be greater than current quantity.</L>
+        <L>CMN169 ERROR - OUT 수량이 현재의 수량을 초과해서는 안됩니다.</L>
+        <L>CMN169 ERROR - Out的数量不能大于当前的数量。</L>
+    </Text>
+    <Text Key="170">
+        <L>CMN170 ERROR - Specified transfer inventory is the same as current inventory. Please select another inventory.</L>
+        <L>CMN170 ERROR - Transfer 하려는 Inventory가 같습니다. 다른 Inventory를 선택하세요.</L>
+        <L>CMN170 ERROR - 已选转移仓库与当前的相同，请选择其他的仓库。</L>
+    </Text>
+    <Text Key="171">
+        <L>CMN171 ERROR - Convert quantity can not be greater than current quantity.</L>
+        <L>CMN171 ERROR - CONVERT 수량이 현재의 수량을 초과해서는 안됩니다.</L>
+        <L>CMN171 ERROR - 转换数量不能大于当前数量。</L>
+    </Text>
+    <Text Key="172">
+        <L>CMN172 ERROR - Order In quantity can not be greater than order quantity.</L>
+        <L>CMN172 ERROR - Order In 수량이 Order 수량을 초과해서는 안됩니다.</L>
+        <L>CMN172 ERROR - Order In的数量不能大于定单量。</L>
+    </Text>
+    <Text Key="173">
+        <L>CMN173 ERROR - Selected order is already deleted.</L>
+        <L>CMN173 ERROR - 선택한 Order는 이미 삭제 되었습니다.</L>
+        <L>CMN173 ERROR - 已选定的订单已经删除。</L>
+    </Text>
+    <Text Key="174">
+        <L>CMN174 ERROR - Improper relation between previous shift and current shift.</L>
+        <L>CMN174 ERROR - 현재 SHIFT와 이전 SHIFT와의 관계가 부적합합니다.</L>
+        <L>CMN174 ERROR - 当前班次和之前班次的关系不符合。</L>
+    </Text>
+    <Text Key="175">
+        <L>CMN175 ERROR - DISPLAY_PRECISION must be smaller than 10.</L>
+        <L>CMN175 ERROR - DISPLAY_PRECISION 는 10 보다 작아야 합니다.</L>
+        <L>CMN175 ERROR - DISPLAY_PRECISION必须少于10。</L>
+    </Text>
+    <Text Key="176">
+        <L>CMN176 ERROR - Select minimum one resource and PM date.</L>
+        <L>CMN176 ERROR - 최소 1개의 장비와 PM 날짜를 선택하셔야 합니다.</L>
+        <L>CMN176 ERROR - 至少选择1个设备和PM日期。</L>
+    </Text>
+    <Text Key="177">
+        <L>CMN177 ERROR - Schedule plan date must be today or future date.</L>
+        <L>CMN177 ERROR - 계획 날짜는 항상 현재이거나 미래이어야 합니다.</L>
+        <L>CMN177 ERROR - 计划日期必须是当前或未来日期。</L>
+    </Text>
+    <Text Key="178">
+        <L>CMN178 ERROR - PM plan date is improper.</L>
+        <L>CMN178 ERROR - PM 계획 날짜가 부적절 합니다.</L>
+        <L>CMN178 ERROR - PM计划日期不符合。</L>
+    </Text>
+    <Text Key="179">
+        <L>CMN179 ERROR - Cannot activate periodic PM in the specified period. Please select another period.</L>
+        <L>CMN179 ERROR - 선택하신 PM 주기에서는 주기적으로 PM을 실시할 수 없습니다. 다른 PM주기를 선택해 주세요.</L>
+        <L>CMN179 ERROR - 已选定的PM周期里无法定期实行PM。</L>
+    </Text>
+    <Text Key="180">
+        <L>CMN180 ERROR - Cannot delete or change PM schedule since PM is already processed.</L>
+        <L>CMN180 ERROR - PM을 이미 수행했으므로 스케줄을 삭제또는 변경할 수 없습니다.</L>
+        <L>CMN180 ERROR -  因PM已经实行，所以无法删除或变更排程。</L>
+    </Text>
+    <Text Key="181">
+        <L>CMN181 ERROR - PM schedule does not exist for the specified date.</L>
+        <L>CMN181 ERROR - 선택하신 날짜에는 계획된 PM Schedule이 없습니다.</L>
+        <L>CMN181 ERROR - 已选择的日期里不存在PM排程。</L>
+    </Text>
+    <Text Key="182">
+        <L>CMN182 ERROR - PM schedule already exist for the specified date.</L>
+        <L>CMN182 ERROR - 선택하신 날짜에는 계획된 PM Schedule이 이미 있습니다.</L>
+        <L>CMN182 ERROR - 已选择的日期里已存在PM排程。</L>
+    </Text>
+    <Text Key="183">
+        <L>CMN183 ERROR - Selected rework flow and operation are the same as current flow and operation. </L>
+        <L>CMN183 ERROR - Rework Flow, Operation이 현재 Flow, Operation과 같습니다.</L>
+        <L>CMN183 ERROR - 'Rework Flow'和'Rework Operation'跟当前的流程，工序相同。</L>
+    </Text>
+    <Text Key="184">
+        <L>CMN184 ERROR - Please select operation.</L>
+        <L>CMN184 ERROR - Operation을 선택하세요.</L>
+        <L>CMN184 ERROR - 请选择工序。</L>
+    </Text>
+    <Text Key="185">
+        <L>CMN185 ERROR - Invalid shift format. Please choose 'P', 'T' or 'N'.</L>
+        <L>CMN185 ERROR - SHIFT 형식이 올바르지 않습니다. 'P', 'T', 'N' 중에서 선택해주세요.</L>
+        <L>CMN185 ERROR - 轮班形式不正确。在'P'，'T'，'N'当中选择。</L>
+    </Text>
+    <Text Key="186">
+        <L>CMN186 ERROR - 'From flow' and 'from operation' are the same as current flow and operation.</L>
+        <L>CMN186 ERROR - From Flow, Operation이 현재 Flow, Operation과 같습니다.</L>
+        <L>CMN186 ERROR - 'From Flow'和'From Operation'跟当前流程，工序相同。</L>
+    </Text>
+    <Text Key="187">
+        <L>CMN187 ERROR - Invalid Lot ID. Please check lot ID.</L>
+        <L>CMN187 ERROR - Lot id 가 올바르지 않습니다. Lot id를 체크해 주세요.</L>
+        <L>CMN187 ERROR - Lot ID不正确。请重新检查Lot ID。</L>
+    </Text>
+    <Text Key="188">
+        <L>CMN188 ERROR - The number of selected item exceed the number of empty slot.</L>
+        <L>CMN188 ERROR - 선택한 아이템의 개수가 빈 Slot수를 초과했습니다.</L>
+        <L>CMN188 ERROR - 已选择的项目数超过了空位置数。</L>
+    </Text>
+    <Text Key="189">
+        <L>CMN189 ERROR - Data exceed the maximum value.</L>
+        <L>CMN189 ERROR - 데이타가 최대값을 초과했습니다.</L>
+        <L>CMN189 ERROR - 数据超过的最大值。</L>
+    </Text>
+    <Text Key="190">
+        <L>CMN190 CONFIRM - Lot Quantity is Zero. Do you want to continue?</L>
+        <L>CMN190 CONFIRM - Lot의 Quantity가 0입니다. 계속 하시겠습니까?</L>
+        <L>CMN190 CONFIRM - Lot的数量是0。要继续吗？</L>
+    </Text>
+    <Text Key="191">
+        <L>CMN191 CONFIRM - Do you want to split the whole quantity?</L>
+        <L>CMN191 CONFIRM - 전량 Split 하시겠습니까?</L>
+        <L>CMN191 CONFIRM - 要对整个数量进行分离吗？</L>
+    </Text>
+    <Text Key="192">
+        <L>CMN192 ERROR - No history found to delete. Please refresh the history window.</L>
+        <L>CMN192 ERROR - 삭제할 이력이 없습니다. 이력을 다시 조회하세요.</L>
+        <L>CMN192 ERROR - 没有要删除的履历。请重新查询履历。</L>
+    </Text>
+    <Text Key="193">
+        <L>CMN193 CONFIRM - Cassette does not have enough space. Do you want to continue?</L>
+        <L>CMN193 CONFIRM - 카셋트에 여유공간이 부족합니다. 계속 하시겠습니까?</L>
+        <L>CMN193 CONFIRM - 卡盒没有剩余的空间。要继续吗？</L>
+    </Text>
+    <Text Key="194">
+        <L>CMN194 ERROR - The different class types of the item cannot be set at the same level. Please change level.</L>
+        <L>CMN194 ERROR - Class Type이 다르면 같은 레벨에 설정할 수 없습니다. 레벨을 바꿔주십시오.</L>
+        <L>CMN194 ERROR - 事件和数字的类型不能设定在相同的标签里。</L>
+    </Text>
+    <Text Key="195">
+        <L>CMN195 ERROR - The operation has no rework code table. Please, setup rework code table.</L>
+        <L>CMN195 ERROR - 이 공정에는 Rework Code Table이 설정되어 있지 않습니다. 먼저 Rework Code Table를 설정하세요.</L>
+        <L>CMN195 ERROR - 此工序没有设定重工代码表。先设定重工代码表。</L>
+    </Text>
+    <Text Key="196">
+        <L>CMN196 ERROR - The alarm is already cleared.</L>
+        <L>CMN196 ERROR - 이미 Cleared된 알람입니다.</L>
+        <L>CMN196 ERROR - 已清除的警报。</L>
+    </Text>
+    <Text Key="197">
+        <L>CMN197 ERROR - One tool event can not transact defect data collection and defect data deletion at the same time.</L>
+        <L>CMN197 ERROR - 하나의 TOOL EVENT에서 Defect Data 수집과 제거를 동시에 진행할 수 없습니다.</L>
+        <L>CMN197 ERROR - 不能同时执行一个工具事件里的缺陷数据的收集和清除。</L>
+    </Text>
+    <Text Key="198">
+        <L>CMN198 ERROR - Loss quantity must not be greater than current quantity.</L>
+        <L>CMN198 ERROR - LOSS 수량이 현재의 수량을 초과해서는 안됩니다.</L>
+        <L>CMN198 ERROR -  LOSS数量不能超过当前数量。</L>
+    </Text>
+    <Text Key="199">
+        <L>CMN199 ERROR - There is no lot selected. Please, select a lot.</L>
+        <L>CMN199 ERROR - 선택된 Lot이 없습니다. 먼저 Lot을 선택하여 주세요.</L>
+        <L>CMN199 ERROR - 没有被选择的Lot。请先选择Lot。</L>
+    </Text>
+    <Text Key="200">
+        <L>CMN200 ERROR - Batch quantity must not exceed maximum batch quantity.</L>
+        <L>CMN200 ERROR - Batch 수량이 Batch의 최대 수량을 초과해서는 안됩니다.</L>
+        <L>CMN200 ERROR - 分批数量不能超过分批最大数量。</L>
+    </Text>
+    <Text Key="201">
+        <L>CMN201 ERROR - Batch quantity must not exceed maximum quantity of inspection set.</L>
+        <L>CMN201 ERROR - Batch 수량이 Inspection Set의 최대 수량을 초과해서는 안됩니다.</L>
+        <L>CMN201 ERROR - 分批数量不能超过检查集合的最大数量。</L>
+    </Text>
+    <Text Key="202">
+        <L>CMN202 ERROR - Input quantity does not match current quantity.</L>
+        <L>CMN202 ERROR - 입력수량이 현재의 수량과 일치하지 않습니다..</L>
+        <L>CMN202 ERROR - 输入数量和当前数量不一致。</L>
+    </Text>
+    <Text Key="203">
+        <L>CMN203 ERROR - You have no authority to perform request on the specified equipment type.</L>
+        <L>CMN203 ERROR - Equipment Type에 대한 권한이 없습니다.</L>
+        <L>CMN203 ERROR - 没有设备类型的权限。</L>
+    </Text>
+    <Text Key="204">
+        <L>CMN204 ERROR - The recipe version is already approved.</L>
+        <L>CMN204 ERROR - 이 RECIPE VERSION은 이미 승인되었습니다.</L>
+        <L>CMN204 ERROR - 此配方版本已被认可。</L>
+    </Text>
+    <Text Key="205">
+        <L>CMN205 ERROR - The parameter already exist.</L>
+        <L>CMN205 ERROR - 이 PARAMETER는 이미 존재합니다.</L>
+        <L>CMN205 ERROR - 此参数已存在。</L>
+    </Text>
+    <Text Key="206">
+        <L>CMN206 ERROR - UCL must be greater than CL. Please Check CL.</L>
+        <L>CMN206 ERROR - UCL은 CL의 값보다 커야합니다. CL을 확인해 주세요.</L>
+        <L>CMN206 ERROR - UCL必须大于CL值。请确认CL。</L>
+    </Text>
+    <Text Key="207">
+        <L>CMN207 ERROR - CL must be greater than LCL. Please Check LCL.</L>
+        <L>CMN207 ERROR - CL은 LCL의 값보다 커야합니다. LCL을 확인해 주세요.</L>
+        <L>CMN207 ERROR - CL必须大于LCL值。请确认LCL。</L>
+    </Text>
+    <Text Key="208">
+        <L>CMN208 CONFIRM - The chart is deleted. Do you wish to recover the deleted chart?</L>
+        <L>CMN208 CONFIRM - 삭제된 차트입니다. 복구 하시겠습니까? </L>
+        <L>CMN208 CONFIRM - 是已删除的图表。需要修复吗？</L>
+    </Text>
+    <Text Key="209">
+        <L>CMN209 ERROR - UCL2 must be greater than CL2. Please Check CL2.</L>
+        <L>CMN209 ERROR - UCL2은 CL2의 값보다 커야합니다. CL2을 확인해 주세요.</L>
+        <L>CMN209 ERROR - UCL2必须大于CL2值。请确认CL2值。</L>
+    </Text>
+    <Text Key="210">
+        <L>CMN210 ERROR - CL2 must be greater than LCL2. Please Check LCL2.</L>
+        <L>CMN210 ERROR - CL2은 LCL2의 값보다 커야합니다. LCL2을 확인해 주세요.</L>
+        <L>CMN210 ERROR - CL2必须大于LCL2值。请确认LCL2。</L>
+    </Text>
+    <Text Key="211">
+        <L>CMN211 CONFIRM - You did NOT input all of ooc history's comment yet. Do you want to close?</L>
+        <L>CMN211 CONFIRM - OOC 이력에 대한 정보를 아직 다 입력하지 않았습니다. 창을 닫으시겠습니까?</L>
+        <L>CMN211 CONFIRM - 关于OOC的履历信息没有完全输入。要关闭窗口吗？</L>
+    </Text>
+    <Text Key="212">
+        <L>CMN212 ERROR - Apply Start Time must be greater than Current Time. </L>
+        <L>CMN212 ERROR - 적용 시작 시간은 현재 시간 보다 커야 합니다.</L>
+        <L>CMN212 ERROR - 应用开始时间需要大于当前时间。</L>
+    </Text>
+    <Text Key="213">
+        <L>CMN213 ERROR - Apply End Time must be greater than Apply Start Time. </L>
+        <L>CMN213 ERROR - 적용 시작 시간은 적용 완료 시간 보다 커야 합니다.</L>
+        <L>CMN213 ERROR - 应用开始时间需要大于实用完成时间。</L>
+    </Text>
+    <Text Key="214">
+        <L>CMN214 ERROR - To Time must be greater than From Time. </L>
+        <L>CMN214 ERROR - To Time은 From Time 보다 커야 합니다.</L>
+        <L>CMN214 ERROR - To Time必须大于From Time。</L>
+    </Text>
+    <Text Key="215">
+        <L>CMN215 ERROR - Do you want to change the data?</L>
+        <L>CMN215 ERROR - 데이터를 변경하시겠습니까?</L>
+        <L>CMN215 ERROR - 要变更数据吗？</L>
+    </Text>
+    <Text Key="216">
+        <L>You've got a message.</L>
+        <L>메세지가 도착하였습니다.</L>
+        <L>已收到信息。</L>
+    </Text>
+    <Text Key="217">
+        <L>CMN217 ERROR - Invalid data.</L>
+        <L>CMN217 ERROR - 데이터가 올바르지 않습니다.</L>
+        <L>CMN217 ERROR - 数据不正确。</L>
+    </Text>
+    <Text Key="218">
+        <L>CMN218 ERROR - USL must be greater than TARGET. Please Check TARGET.</L>
+        <L>CMN218 ERROR - USL은 TARGET의 값보다 커야합니다. TARGET을 확인해 주세요.</L>
+        <L>CMN218 ERROR - USL值必须大于目标值。请确认目标值。</L>
+    </Text>
+    <Text Key="219">
+        <L>CMN219 ERROR - TARGET must be greater than LSL. Please Check LSL.</L>
+        <L>CMN219 ERROR - TARGET은 LSL의 값보다 커야합니다. LSL을 확인해 주세요.</L>
+        <L>CMN219 ERROR - 目标值必须大于LSL的值。请确认LSL。</L>
+    </Text>
+    <Text Key="220">
+        <L>CMN220 ERROR - The chart id is duplicated.</L>
+        <L>CMN220 ERROR - Chart ID 가 중복됩니다.</L>
+        <L>CMN220 ERROR - Chart ID已重复。</L>
+    </Text>
+    <Text Key="221">
+        <L>CMN221 ERROR - Do you want to exclude the data?</L>
+        <L>CMN221 ERROR - 데이터를 분석에서 제외하시겠습니까?</L>
+        <L>CMN221 ERROR - 要除去数据分析吗？</L>
+    </Text>
+    <Text Key="222">
+        <L>CMN222 ERROR - Do you want to include the data?</L>
+        <L>CMN222 ERROR - 데이터를 분석에 포함하시겠습니까?</L>
+        <L>CMN222 ERROR - 要包括数据分析吗？</L>
+    </Text>
+    <Text Key="223">
+        <L>CMN223 ERROR - This character cannot synchronize with SPC because unit count is smaller than '1'</L>
+        <L>CMN223 ERROR - Unit Count가 1보다 작기 때문에 이 캐릭터는 SPC와 연동시킬 수 없습니다.</L>
+        <L>CMN223 ERROR - 单位计数小于1，所以此特征无法跟SPC连动。</L>
+    </Text>
+    <Text Key="224">
+        <L>CMN224 ERROR - This character cannot synchronize with SPC because sample size is smaller than '1'</L>
+        <L>CMN224 ERROR - Sample Size가 1보다 작기 때문에 이 캐릭터는 SPC와 연동시킬 수 없습니다.</L>
+        <L>CMN224 ERROR - 因样本大小小于1，所以此特征无法跟SPC连动。</L>
+    </Text>
+    <Text Key="225">
+        <L>CMN225 ERROR - This character cannot synchronize with SPC because value of 'Spec Out Unit Flag' and value of 'Use Unit Flag' are different.</L>
+        <L>CMN225 ERROR - 'Spec Out Unit Flag'값과 'Use Unit Flag' 값이 다르기 때문에 이 캐릭터는 SPC와 연동시킬 수 없습니다.</L>
+        <L>CMN225 ERROR - 因'Spec Out Unit Flag'的值和'Use Unit Flag'的值不同，所以此特征无法跟SPC连动。</L>
+    </Text>
+    <Text Key="226">
+        <L>CMN226 ERROR - This character cannot synchronize with SPC because value of 'Blank Save Flag' is 'Y'.</L>
+        <L>CMN226 ERROR - 'Blank Save Flag'값이 'Y'이기 때문에 이 캐릭터는 SPC와 연동시킬 수 없습니다.</L>
+        <L>CMN226 ERROR - 因为‘Black Save Flag’的值是‘Y’，所以此特征无法跟SPC连动。</L>
+    </Text>
+    <Text Key="227">
+        <L>CMN227 ERROR - This character cannot synchronize with SPC because sample size is smaller than '2'</L>
+        <L>CMN227 ERROR - Sample Size가 2보다 작기 때문에 이 캐릭터는 SPC와 연동시킬 수 없습니다.</L>
+        <L>CMN227 ERROR - 因为样品大小小于2，所以此特征无法跟SPC连动。</L>
+    </Text>
+    <Text Key="228">
+        <L>CMN228 ERROR - There are controls out of the LayOut. Do you want to move controls by force?</L>
+        <L>CMN228 ERROR - 레이아웃 밖으로 콘트롤이 존재합니다. 강제로 이동하시겠습니까?</L>
+        <L>CMN228 ERROR - 布局外存在调控。需要强制移动吗？</L>
+    </Text>
+    <Text Key="229">
+        <L>CMN229 ERROR - There are controls out of the UDR Group. Do you want to move controls by force?</L>
+        <L>CMN229 ERROR - UDR 그룹 밖으로 콘트롤이 존재합니다. 강제로 이동하시겠습니까?</L>
+        <L>CMN229 ERROR - UDR组以外存在调控。需要强制移动吗？</L>
+    </Text>
+    <Text Key="230">
+        <L>CMN230 ERROR - Save changes to design?</L>
+        <L>CMN230 ERROR - 변경된 디자인을 저장하시겠습니까?</L>
+        <L>CMN230 ERROR - 要储存已变更的设计吗？</L>
+    </Text>
+    <Text Key="231">
+        <L>CMN231 ERROR - Continue reload changes to design?</L>
+        <L>CMN231 ERROR - 변경된 디자인을 새로 로딩하시겠습니까?</L>
+        <L>CMN231 ERROR - 需要装载已变更的设计吗？</L>
+    </Text>
+    <Text Key="232">
+        <L>CMN232 ERROR - The resource's xcoordinate has gone out of layout. Do you want to move into layout?</L>
+        <L>CMN232 ERROR - 장비의 X 좌표가 레이아웃 영역을 벗어났습니다. 레이아웃 안으로 이동하시겠습니까?</L>
+        <L>CMN232 ERROR - 设备的X坐标脱离的布局领域。要移动到布局里吗？</L>
+    </Text>
+    <Text Key="233">
+        <L>CMN233 ERROR - The resource's ycoordinate has gone out of layout. Do you want to move into layout?</L>
+        <L>CMN233 ERROR - 장비의 Y 좌표가 레이아웃 영역을 벗어났습니다. 레이아웃 안으로 이동하시겠습니까?</L>
+        <L>CMN233 ERROR - 设备的Y坐标脱离的布局领域。要移动到布局里吗？</L>
+    </Text>
+    <Text Key="234">
+        <L>CMN234 ERROR - Please enter value which is larger than </L>
+        <L>보다 큰 값을 입력해 주십시요.</L>
+        <L>CMN234 ERROR - 请输入更大的值。</L>
+    </Text>
+    <Text Key="235">
+        <L>CMN235 ERROR - Please enter value which is smaller than </L>
+        <L>보다 작은 값을 입력해 주십시요.</L>
+        <L>CMN235 ERROR - 请输入更小的值。 </L>
+    </Text>
+    <Text Key="236">
+        <L>CMN236 ERROR - Please enter value which is same or smaller than </L>
+        <L>보다 작거나 같은 값을 입력해 주십시요.</L>
+        <L>CMN236 ERROR - 请输入更小或相同的值。 </L>
+    </Text>
+    <Text Key="237">
+        <L>CMN237 ERROR - Please enter loss code of sublot grade.</L>
+        <L>CMN237 ERROR - SUBLOT GRADE에 대한 LOSS CODE를 입력해 주십시오.</L>
+        <L>CMN237 ERROR - 请输入关于SUBLOT GRADE的LOSS CODE。</L>
+    </Text>
+    <Text Key="238">
+        <L>CMN238 ERROR - Cell grade have values of all cells.</L>
+        <L>CMN238 ERROR - CELL GRADE는 모든 CELL의 값을 가지고 있어야 합니다.</L>
+        <L>CMN238 ERROR - CELL GRADE需要包括所有的CELL值。</L>
+    </Text>
+    <Text Key="239">
+        <L>CMN239 ERROR - Discord qty of unit2 loss code with scrap qty of qty_2.</L>
+        <L>CMN239 ERROR - UNIT2의 LOSS CODE 수량과 QTY_2의 SCRAP 수량이 일치하지 않습니다.</L>
+        <L>CMN239 ERROR - UNIT2的LOSS CODE数量和QTY_2的SCRAP数量不一致。</L>
+    </Text>
+    <Text Key="240">
+        <L>CMN240 ERROR - Please enter sublot grade of loss code.</L>
+        <L>CMN240 ERROR - LOSS CODE에 대한 SUBLOT GRADE를 입력해 주십시오.</L>
+        <L>CMN240 ERROR - 请输入关于LOSS CODE的SUBLOT GRADE。</L>
+    </Text>
+    <Text Key="241">
+        <L>CMN241 ERROR - Please enter value in required fields or leave a blank because the character synchronized with SPC.</L>
+        <L>CMN241 ERROR - 이 캐릭터는 SPC와 연동되어 있기 때문에 데이터를 모두 입력하거나 모두 공백이여야 합니다. 확인해주세요.</L>
+        <L>CMN241 ERROR - 此特征已连动到SPC，所以只能把数据全部输入，或者清空。</L>
+    </Text>
+    <Text Key="242">
+        <L>CMN242 ERROR - The chart set is not attached chart. Please select another one.</L>
+        <L>CMN242 ERROR - 이 CHART SET은 차트가 등록되어 있지 않습니다. 다른 CHART SET을 선택해주세요. </L>
+        <L>CMN242 ERROR - 此CHART SET里没有图表。请选择其他的CHART SET。</L>
+    </Text>
+    <Text Key="243">
+        <L>CMN243 ERROR - Can't attach sublot to carrier in exceed attached lot quantity.</L>
+        <L>CMN243 ERROR - 이 캐리어에 담긴 LOT의 수량을 초과하여 SUBLOT을 할당할 수 없습니다. </L>
+        <L>CMN243 ERROR - 已超过货架载体的LOT数量，所以无法分配SUBLOT。</L>
+    </Text>
+    <Text Key="244">
+        <L>CMN244 ERROR - No Data exists during specified period.</L>
+        <L>CMN244 ERROR - 지정한 기간동안에는 데이터가 없습니다.</L>
+        <L>CMN244 ERROR - 指定的期间内不存在数据。</L>
+    </Text>
+    <Text Key="245">
+        <L>CMN245 CONFIRM - Do you want to continue to trace lot history continue?</L>
+        <L>CMN245 CONFIRM - Data가 더 있습니다. 계속 하시겠습니까?</L>
+        <L>CMN245 CONFIRM - 还存在数据。需要继续执行吗？</L>
+    </Text>
+    <Text Key="246">
+        <L>CMN246 ERROR - It is imposible to download data. Because column count is over 256.</L>
+        <L>CMN246 ERROR - Column Count가 256를 초과 하여 Excel로 Download할 수 없습니다.</L>
+        <L>CMN246 ERROR - 列数量已超过了256，所以无法下载Excel。</L>
+    </Text>
+    <Text Key="247">
+        <L>CMN247 ERROR - This operation does not have a loss code table. Please check operation setup.</L>
+        <L>CMN247 ERROR - 이 공정에는 Loss Code Table 이 존재하지 않습니다. 공정설정을 확인하십시오.</L>
+        <L>CMN247 ERROR - 此工序不存在Loss代码表。请重新设定工序。</L>
+    </Text>
+    <Text Key="248">
+        <L>CMN248 ERROR - This operation do not has bonus code table. Please check operation setup.</L>
+        <L>CMN248 ERROR - 이 공정에는 Bonus Code Table 이 존재하지 않습니다. 공정설정을 확인하십시오.</L>
+        <L>CMN248 ERROR - 此工序不存在Bonus代码表。请重新设定工序。</L>
+    </Text>
+    <Text Key="249">
+        <L>CMN249 ERROR - Not selected rework code.</L>
+        <L>CMN249 ERROR - Rework Code가 선택되지 않았습니다.</L>
+        <L>CMN249 ERROR - 没有选择返工代码。</L>
+    </Text>
+    <Text Key="250">
+        <L>CMN250 ERROR - The data which were changed do already exist. Do you want to save them anyway?</L>
+        <L>CMN250 ERROR - 변경된 데이터가 존재합니다. 데이터를 저장하시겠습니까?</L>
+        <L>CMN250 ERROR - 存在变更的数据。需要储存数据吗？</L>
+    </Text>
+    <Text Key="251">
+        <L>CMN251 ERROR - The source carrier and the target carrier are the same. Select another carrier.</L>
+        <L>CMN251 ERROR - 소스 캐리어와 대상 캐리어가 동일합니다. 다른 캐리어를 선택하십시오.</L>
+        <L>CMN251 ERROR - 源货架与目标货架一致，请选择其他货架。</L>
+    </Text>
+    <Text Key="252">
+        <L>CMN252 ERROR - You cannot allocate a lot that has the sublot from this screen to the carrier. Use Screen [Assign Sublot to Carrier] instead.</L>
+        <L>CMN252 ERROR - 이 화면에서는 Sublot을 가진 Lot의 Carrier 할당을 지원하지 않습니다. [Assign Sublot to Carrier] 화면을 사용하십시오.</L>
+        <L>CMN252 ERROR - 此界面无法激活有Sublot的Lot的货架。请使用[分派Sublot给货架]界面。</L>
+    </Text>
+    <Text Key="253">
+        <L>CMN253 ERROR - You cannot allocate a lot that hasn't the sublot from this screen to the carrier. Use screen [Attach Carrier to Lot] instead.</L>
+        <L>CMN253 ERROR - 이 화면에서는 Sublot이 없는 Lot의 Carrier 할당을 지원하지 않습니다. [Attach Carrier to Lot] 화면을 사용하십시오.</L>
+        <L>CMN253 ERROR - 此界面无法激活没有Sublot的Lot的货架。请使用[添加货架给Lot]界面。</L>
+    </Text>
+    <Text Key="254">
+        <L>CMN254 ERROR - This lot does not have carrier.</L>
+        <L>CMN254 ERROR - 이 Lot은 Carrier를 가지고 있지 않습니다.</L>
+        <L>CMN254 ERROR - 此Lot不存在货架。</L>
+    </Text>
+    <Text Key="255">
+        <L>CMN255 ERROR - The select carrier isn't attached to this lot.</L>
+        <L>CMN255 ERROR - Lot은 선택 Carrier에 할당되어 있지 않습니다.</L>
+        <L>CMN255 ERROR - 此货架没有添加Lot。</L>
+    </Text>
+    <Text Key="256">
+        <L>CMN256 ERROR - Key Prompt Input Error : The Value is empty.</L>
+        <L>CMN256 ERROR - Key 문자열 입력이 잘못되었습니다.</L>
+        <L>CMN256 ERROR - Key值输入错误：不可以为空。</L>
+    </Text>
+    <Text Key="257">
+        <L>CMN257 ERROR - Data Prompt Input Error : The Value is empty.</L>
+        <L>CMN257 ERROR - Data 문자열의 입력이 잘못되었습니다.</L>
+        <L>CMN257 ERROR - Data值输入错误：不可以为空。</L>
+    </Text>
+    <Text Key="258">
+        <L>CMN258 ERROR - This field required filter text. Please enter a value.</L>
+        <L>CMN258 ERROR - 이 필드는 필터 문자열이 필요합니다.</L>
+        <L>CMN258 ERROR - 此项为必须输入项。请输入值。</L>
+    </Text>
+    <Text Key="259">
+        <L>CMN259 ERROR - USL must be greater than UWL. Please Check UWL.</L>
+        <L>CMN259 ERROR - USL 은 UCL의 값보다 커야합니다. UWL 을 확인해 주세요.</L>
+        <L>CMN259 ERROR - USL必须大于UWL的值。请确认UWL。</L>
+    </Text>
+    <Text Key="260">
+        <L>CMN260 ERROR - LWL must be greater than LSL. Please Check LSL.</L>
+        <L>CMN260 ERROR - LWL 은 LSL의 값보다 커야합니다. LSL 을 확인해 주세요.</L>
+        <L>CMN260 ERROR - LWL必须大于LSL的值。请确认LSL。</L>
+    </Text>
+    <Text Key="261">
+        <L>CMN261 ERROR - USL must be greater than LSL. Please Check LSL.</L>
+        <L>CMN261 ERROR - USL 은 LSL의 값보다 커야합니다. LSL 을 확인해 주세요.</L>
+        <L>CMN261 ERROR - USL必须大于LSL的值。请确认LSL。</L>
+    </Text>
+    <Text Key="262">
+        <L>CMN262 ERROR - UWL must be greater than LWL. Please Check LWL.</L>
+        <L>CMN262 ERROR - UWL 은 LWL의 값보다 커야합니다. LWL 을 확인해 주세요.</L>
+        <L>CMN262 ERROR - UWL必须大于LWL的值。请确认LWL。</L>
+    </Text>
+    <Text Key="263">
+        <L>CMN263 ERROR - The Collection Set already exist in the specified operation.</L>
+        <L>CMN263 ERROR - 이 Collection Set은 선택한 공정에 이미 존재 합니다.</L>
+        <L>CMN263 ERROR - Collection Set已经在所选工序里存在。</L>
+    </Text>
+    <Text Key="264">
+        <L>CMN264 ERROR - This item has incorrect M-F-O(Material-Flow-Operation) information.</L>
+        <L>CMN264 ERROR - 이 Item의 M-F-O(Material-Flow-Operation) 정보가 올바르지 않습니다.</L>
+        <L>CMN264 ERROR - 此Item的M-F-O（Material-Flow-Operation）信息不正确。</L>
+    </Text>
+    <Text Key="267">
+        <L>CMN267 ERROR - Multi Transaction can not transact Transaction and Carrier Change at the same time.</L>
+        <L>CMN267 ERROR - Multi Transaction에서 Transaction과 Carrier Change를 동시에 진행할 수 없습니다.</L>
+        <L>CMN267 ERROR - 无法在Multi Transaction中同时进行Transaction和Carrier Change操作。</L>
+    </Text>
+    <Text Key="268">
+        <L>CMN268 ERROR - Rule of dispatcher does not allow to process the lot.</L>
+        <L>CMN268 ERROR - Dispatch Rule에 의하여 Lot을 진행 할 수 없습니다.</L>
+        <L>CMN268 ERROR - 无法按照Dispatcher规则进行Lot。</L>
+    </Text>
+    <Text Key="269">
+        <L>CMN269 ERROR - Multi Transaction can not transact Transaction and Alram at the same time.</L>
+        <L>CMN269 ERROR - Multi Transaction에서 Transaction과 Alram을 동시에 진행할 수 없습니다.</L>
+        <L>CMN269 ERROR - 无法在Multi Transaction中同时进行Transaction和Alram操作。</L>
+    </Text>
+    <Text Key="270">
+        <L>CMN270 ERROR - Multi Transaction can not transact because This resource have port.</L>
+        <L>CMN270 ERROR - Resource에 Port가 설정되어 있기 떄문에 Multi Transaction을 진행할 수 없습니다.</L>
+        <L>CMN270 ERROR - 此设备设定了Port，无法进行Multi Transaction。</L>
+    </Text>
+    <Text Key="271">
+        <L>CMN271 ERROR - Qc Batch material does not match with lot material.</L>
+        <L>CMN271 ERROR - QC Batch의 Material과 Lot의 Material이 일치 하지 않습니다. </L>
+        <L>CMN271 ERROR - Qc Batch的原料与Lot原料不一致。</L>
+    </Text>
+    <Text Key="272">
+        <L>CMN272 ERROR - There is no resource selected. Please, select a resource.</L>
+        <L>CMN272 ERROR - 선택된 Resource가 없습니다. 먼저 Resource를 선택하여 주세요.</L>
+        <L>CMN272 ERROR - 所选的设备不存在，请选择其他设备。</L>
+    </Text>
+    <Text Key="273">
+        <L>CMN273 ERROR - Multi Transaction can not transact because This event have Collection Set.</L>
+        <L>CMN273 ERROR - Event에 Collection Set이 설정되어 있기 떄문에 Multi Transaction을 진행할 수 없습니다.</L>
+        <L>CMN273 ERROR - 此事件已经存在Collection Set，无法进行Multi Transaction。</L>
+    </Text>
+    <Text Key="274">
+        <L>CMN274 ERROR - This item has incorrect R-G-T(Resource-Group-Type) information.</L>
+        <L>CMN274 ERROR - 이 Item의 R-G-T(Resource-Group-Type) 정보가 올바르지 않습니다.</L>
+        <L>CMN274 ERROR - 此Item的R-G-T(Resource-Group-Type)信息不正确。</L>
+    </Text>
+    <Text Key="275">
+        <L>CMN275 ERROR - Are you sure you want to return this tool?</L>
+        <L>CMN275 ERROR - 이 Tool을 반납하시겠습니까?</L>
+        <L>CMN275 ERROR - 确定要返还所选工具吗？</L>
+    </Text>
+
+    <Text Key="276">
+        <L>CMN276 ERROR - The item already exist.</L>
+        <L>CMN276 ERROR - 이 항목은 이미 존재 합니다.</L>
+        <L>CMN276 ERROR - 已存在的项。</L>
+    </Text>
+
+    <Text Key="277">
+        <L>CMN277 ERROR - Invalid prompt count. Please input prompt.</L>
+        <L>CMN277 ERROR - 문자열 개수가 올바르지 않습니다. 입력해주시기바랍니다.</L>
+        <L>CMN277 ERROR - 长度不正确，请重新输入。</L>
+    </Text>
+
+    <Text Key="278">
+        <L>CMN278 ERROR - Invalid value size. Please check value again.</L>
+        <L>CMN278 ERROR - 값의 길이가 올바르지 않습니다. 값을 다시 확인해주시기 바랍니다.</L>
+        <L>CMN278 ERROR - 值的长度不正确，请重新确认。</L>
+    </Text>
+
+    <Text Key="279">
+        <L>CMN279 ERROR - You cannot change Service Sequence.</L>
+        <L>CMN279 ERROR - Service Sequence는 변경할 수 없습니다.</L>
+        <L>CMN279 ERROR - 无法修改Service Sequence。</L>
+    </Text>
+
+    <Text Key="280">
+        <L>CMN280 ERROR - Cannot set the same level with the real-time custom rule. Please change level.</L>
+        <L>CMN280 ERROR - Custom rule과 같은 레벨에 설정할 수 없습니다. 레벨을 바꿔주십시오.</L>
+        <L>CMN280 ERROR - 无法设定与Custom Rule同样的等级。请修改等级。</L>
+    </Text>
+
+    <Text Key="281">
+        <L>CMN281 ERROR - The class types of the item cannot be set at the same level as other items. Please change level.</L>
+        <L>CMN281 ERROR - 이 Class Type은 다른 아이템과 같은 레벨에 설정할 수 없습니다. 레벨을 바꿔주십시오.</L>
+        <L>CMN281 ERROR - 此Class类型无法与其他Item同样的等级。请修改等级。</L>
+    </Text>
+
+    <Text Key="282">
+        <L>CMN282 ERROR - Cannot make batch because the lot is on hold.</L>
+        <L>CMN282 ERROR - 이 Lot은 HOLD 중이기 때문에 BATCH를 만들 수 없습니다.</L>
+        <L>CMN282 ERROR - 此Lot已被 Hold，无法创建Batch。</L>
+    </Text>
+
+    <Text Key="283">
+        <L>CMN283 ERROR - Cannot make batch because the lot is processing.</L>
+        <L>CMN283 ERROR - 이 Lot은 작업 중이기 때문에 BATCH를 만들 수 없습니다.</L>
+        <L>CMN283 ERROR - 此Lot在工作中，无法创建Batch。</L>
+    </Text>
+
+    <Text Key="284">
+        <L>CMN284 ERROR - Cannot make batch because the lot is in shipping.</L>
+        <L>CMN284 ERROR - 이 Lot은 SHIP 중이기 때문에 BATCH를 만들 수 없습니다.</L>
+        <L>CMN284 ERROR - 此Lot在搬运中，无法创建Batch。</L>
+    </Text>
+
+    <Text Key="285">
+        <L>CMN285 ERROR - Cannot make batch because the lot is already included at batch.</L>
+        <L>CMN285 ERROR - 이 Lot은 이미 다른 BATCH에 포함되어 있기 때문에 BATCH를 만들 수 없습니다.</L>
+        <L>CMN285 ERROR - 此Lot已经包含在其他Batch，无法再创建Batch。</L>
+    </Text>
+
+    <Text Key="286">
+        <L>CMN286 ERROR - Cannot use the argument of query.</L>
+        <L>CMN286 ERROR - 이 인수는 쿼리에서 사용할 수 없습니다.</L>
+        <L>CMN286 ERROR - 此变量无法再Query中使用。</L>
+    </Text>
+
+    <Text Key="287">
+        <L>CMN287 ERROR - This member is not registered member.Use Create or Override.</L>
+        <L>CMN287 ERROR - 이 member는 등록되지 않은 멤버입니다. Create 또는 Override를 사용하세요.</L>
+        <L>CMN287 ERROR - 此成员还没有进行登记。请创建或覆盖。</L>
+    </Text>
+
+    <Text Key="288">
+        <L>CMN288 ERROR - This member is not registered member. Use Override</L>
+        <L>CMN288 ERROR - 이 member는 등록되지 않은 멤버입니다. Override를 사용하세요</L>
+        <L>CMN288 ERROR - 此成员还没有进行登记。请覆盖。</L>
+    </Text>
+
+    <Text Key="289">
+        <L>CMN289 ERROR - Need reload member data as new member name.Do you want reload or cancel?</L>
+        <L>CMN289 ERROR - 새로운 member name으로 member data를 reload하게 됩니다. reload를 하시겠습니까? cancel 하시겠습니까?</L>
+        <L>CMN289 ERROR - 将加载新用户名的数据，确定要重新加载吗？</L>
+    </Text>
+
+    <Text Key="290">
+        <L>CMN290 ERROR - Only override member can be changed Member name! (new member name is not registered member name)</L>
+        <L>CMN290 ERROR - Override member만 member name이 변경될 수 있습니다! (새로운 member name은 member name에 등록되지 않습니다.</L>
+        <L>CMN290 ERROR - 只有覆盖的成员才可以修改用户名（新用户名是没有被注册的用户名）。</L>
+    </Text>
+
+    <Text Key="291">
+        <L>CMN291 ERROR - Same member name is already exist in the tree as a sibling.</L>
+        <L>CMN291 ERROR - 같은 member 이름이 트리 노드안에 이미 존재합니다.</L>
+        <L>CMN291 ERROR - 在Tree Node中已经存在相同成员名。</L>
+    </Text>
+
+    <Text Key="292">
+        <L>CMN292 ERROR - Override Uncheck is not allowed. This member is not registered member.</L>
+        <L>CMN292 ERROR - Override Uncheck를 할 수 없습니다. 이 member는 등록되지 않은 멤버입니다.</L>
+        <L>CMN292 ERROR - 无法进行Override Uncheck。此成员还没有进行登记。</L>
+    </Text>
+
+    <Text Key="293">
+        <L>CMN293 ERROR - The lot has sublot. Use [Sublot] tab.</L>
+        <L>CMN293 ERROR - 이 Lot은 Sublot을 가지고 있습니다. [Sublot] tab을 사용하세요.</L>
+        <L>CMN293 ERROR - 此Lot已经存在Sublot。请使用[Sublot]tab。</L>
+    </Text>
+
+    <Text Key="294">
+        <L>CMN294 ERROR - Attach the sublot to empty slot of carrier.</L>
+        <L>CMN294 ERROR - Sublot을 캐리어의 빈 Slot에 할당하십시오.</L>
+        <L>CMN294 ERROR - 请把Sublot附加到货架的空Slot。</L>
+    </Text>
+
+    <Text Key="295">
+        <L>CMN295 ERROR - Select sublots that belong to same lot.</L>
+        <L>CMN295 ERROR - 같은 Lot에 속해있는 sublot들을 선택하십시오.</L>
+        <L>CMN295 ERROR - 请选择相同Lot的Sublot。</L>
+    </Text>
+
+    <Text Key="296">
+        <L>CMN296 CONFIRM - This lot have carrier relationship. If you do not input carrier, MES system will be process bonus transaction without carrier. Do you want to continue?</L>
+        <L>CMN296 CONFIRM - 이 LOT은 CARRIER에 할당되어 있습니다. CARRIER가 입력되지 않으면 CARRIER와의 관계없이 BONUS가 발생합니다. 그래도 계속 하시겠습니까?</L>
+        <L>CMN296 CONFIRM - 此Lot已连接到货架。如果没有输入货架，MES系统会不适用货架进行Bonus处理。是否继续？</L>
+    </Text>
+
+    <Text Key="297">
+        <L>CMN297 CONFIRM - It will Cancel the selected Batch from Confirm status. It can add, remove, or change sequence a Lot of the Batch after this Cancel, but it requires Confirmation after all changing procedure to reuse the Batch. Do you want to proceed Cancel?</L>
+        <L>CMN297 CONFIRM - 선택된 Batch의 구성의 Confirm 상태로부터 Cancel 합니다. Cancel 후에는 해당 Batch에 Lot의 추가,삭제 및 순서변경 작업이 가능하고, 모든 변경 후 Confirm을 해줘야 정상적으로 Batch를 사용할 수 있습니다. Cancel하시겠습까?</L>
+        <L>CMN297 CONFIRM - 从确认状态中取消已被选择的批次。取消后能添加，删除或改变顺序已批次的Lot。但是确认后需要进行重用批次的工程。你要继续执行取消吗？</L>
+    </Text>
+
+    <Text Key="298">
+        <L>CMN298 CONFIRM - Need value of "New Sublot Grade" in case of lot have sublots and changed unit 1 quantity of lot. Do you continue to "G" grade?</L>
+        <L>CMN298 CONFIRM - LOT에 SUBLOT이 존재하는 상태에서 UNIT 1의 수량이 증가하므로 New Sublot Grade 값이 필요합니다. "G" Grade 로 계속 진행하시겠습니까?</L>
+        <L>CMN298 CONFIRM - Lot拥有sublot和改变unit的数量为1时需要'New Sublot Grade'值。继续以'G'等级继续吗？</L>
+    </Text>
+
+    <Text Key="299">
+        <L>CMN299 CONFIRM - Operator "IN" or "NOT IN" is not allowed for Fixed value.</L>
+        <L>CMN299 CONFIRM - 연산자 "IN" 또는 "NOT IN" 은 고정값에서는 허용되지 않습니다.</L>
+        <L>CMN299 CONFIRM - 工序'IN'和'NOT IN'不支持固定值。</L>
+    </Text>
+
+    <Text Key="300">
+        <L>CMN300 CONFIRM - Only operator "IN" or "NOT IN" is allowed for GCM table.</L>
+        <L>CMN300 CONFIRM - GCM 테이블을 사용하는 경우에는 연산자 "IN" 또는 "NOT IN" 만 가능합니다.</L>
+        <L>CMN300 CONFIRM - 工序'IN'和'NOT IN'支持固定值。</L>
+    </Text>
+
+    <Text Key="301">
+        <L>CMN301 CONFIRM - Already exist same condition as input.</L>
+        <L>CMN301 CONFIRM - 입력된 조건과 동일한 조건이 이미 존재합니다.</L>
+        <L>CMN301 CONFIRM - 相同的条件已输入。</L>
+    </Text>
+
+    <Text Key="302">
+        <L>CMN302 CONFIRM - Left and right bracket count is not match.</L>
+        <L>CMN302 CONFIRM - 왼쪽 괄호와 오른쪽 괄호의 개수가 맞지 않습니다.</L>
+        <L>CMN302 CONFIRM - 左右括号数不匹配。</L>
+    </Text>
+
+    <Text Key="303">
+        <L>CMN303 CONFIRM - Please register service name to "FAC_OA_SERVICES" GCM Table for</L>
+        <L>CMN303 CONFIRM - "FAC_OA_SERVICES" GCM 테이블에 서비스를 등록해 주십시오. 서비스 =</L>
+        <L>CMN303 CONFIRM - 请注册服务名到‘FAC_OA_SERVICES’的GCM表里。</L>
+    </Text>
+
+    <Text Key="304">
+        <L>CMN0304 INFO - This command will process Pre-Calculation Queue Time of all Lots in the Material-Flow-Operation. Do you want to continue?</L>
+        <L>CMN0304 INFO - 이 명령을 수행하면 해당 MFO에 존재하는 모든 Lot에 대해 Pre-Calculation Queue Time이 진행됩니다. 계속 하시겠습니까?</L>
+        <L>CMN0304 INFO - 此命令对Material-Flow-Operation里所有Lot的等待时间进行预统计。是否继续？</L>
+    </Text>
+
+    <Text Key="305">
+        <L>CMN305 ERROR - Please, input at least one item.</L>
+        <L>CMN305 ERROR - 최소한 1개 이상의 아이템을 입력해 주세요.</L>
+        <L>CMN305 ERROR - 请至少输入一个项。</L>
+    </Text>
+
+    <Text Key="306">
+        <L>CMN306 ERROR - Source Lot and Target Lot is same. Please input correct Lot.</L>
+        <L>CMN306 ERROR - Source Lot와 Target Lot이 동일합니다. 정확한 Lot을 입력하십시오.</L>
+        <L>CMN306 ERROR - 源Lot和目标Lot相同。请输入正确的Lot。</L>
+    </Text>
+
+    <Text Key="307">
+        <L>CMN307 ERROR - Source Batch and Target Batch is same. Please input correct Batch.</L>
+        <L>CMN307 ERROR - Source Batch와 Target Batch이 동일합니다. 정확한 Batch을 입력하십시오.</L>
+        <L>CMN307 ERROR - 源批次和目标批次相同。请输入正确的批次。</L>
+    </Text>
+
+    <Text Key="308">
+        <L>CMN308 ERROR - Discord qty of unit3 loss code with scrap qty of qty_3.</L>
+        <L>CMN308 ERROR - UNIT3의 LOSS CODE 수량과 QTY_3의 SCRAP 수량이 일치하지 않습니다.</L>
+        <L>CMN308 ERROR - Unit3 Loss Code的数量跟qty_3的废弃数量不一致。</L>
+    </Text>
+
+    <Text Key="309">
+        <L>CMN309 ERROR - If Rework Flow is not authorized, then error may occur related to F-O(Flow-Operation) during process Rework. Do you want to continue?</L>
+        <L>CMN309 ERROR - Rework Flow를 지정하지 않으면, Rework 발생시 F-O(Flow-Operation) 관계에서 에러가 발생 할 수있습니다. 계속 하시겠습니까?</L>
+        <L>CMN309 ERROR - 返工流程进行中，如果返工流程没被认可的话会发生F-O（Flow-Operation）的错误。是否继续吗？</L>
+    </Text>
+
+    <Text Key="310">
+        <L>CMN310 ERROR - Size of key value must be equal to or greater than 0, and equal to or smaller than 100.</L>
+        <L>CMN310 ERROR - Key값의 Size는 0과 같거나 크고 100과 같거나 작아야 합니다.</L>
+        <L>CMN310 ERROR - 无法变更Sequence。请先更新data。</L>
+    </Text>
+
+    <Text Key="311">
+        <L>CMN311 ERROR - Size of data value must be equal to or greater than 0, and equal to or smaller than 1000.</L>
+        <L>CMN311 ERROR - Data값의 Size는 0과 같거나 크고 1000과 같거나 작아야 합니다.</L>
+        <L>CMN311 ERROR - Data值的大小必须等大于等于0，且小于等于1000.</L>
+    </Text>
+
+    <Text Key="312">
+        <L>CMN312 ERROR - The tool status does not exist in the tool type. Please check the tool status of the tool type.</L>
+        <L>CMN312 ERROR - Tool Status 가 해당 Tool Type 에 존재하지 않습니다. Tool Type 의 Tool Status 를 확인해 보시기 바랍니다.</L>
+        <L>CMN312 ERROR - 工具状态在工具类型中不存在。请确认工具类型的工具状态。</L>
+    </Text>
+
+    <Text Key="313">
+        <L>CMN313 ERROR - Cannot find screen ID. Please check flexible screen relation or default screen ID.</L>
+        <L>CMN313 ERROR - Screen ID를 찾을 수 없습니다. Flexible screen relation이나 Default screen ID를 확인 해 주십시요.</L>
+        <L>CMN313 ERROR - 无法查找 Screen ID。请确认 Flexible screen 关系或默认 screen ID。</L>
+    </Text>
+
+    <Text Key="314">
+        <L>CMN314 ERROR - Failed to scan the screen macro.</L>
+        <L>CMN314 ERROR - Screen의 매크로 탐색에 실패하였습니다.</L>
+        <L>CMN314 ERROR - 扫描Screen的 Macro失败了。</L>
+    </Text>
+
+    <Text Key="315">
+        <L>CMN315 ERROR - This convert type is not supported. Only "DATE", "TIME", "DATETIME" is supported.</L>
+        <L>CMN315 ERROR - 이 변환 타입은 지원되지 않습니다. 단지 "DATE", "TIME", "DATETIME" 타입만이 지원됩니다.</L>
+        <L>CMN315 ERROR - 不支持此转换类型。只支持"DATE","TIME","DATETIME"类型。</L>
+    </Text>
+    <Text Key="316">
+        <L>CMN316 ERROR - Please select a step.</L>
+        <L>CMN316 ERROR - Step을 선택해 주세요.</L>
+        <L>CMN316 ERROR - 请选择步骤</L>
+    </Text>
+
+</Message>
+

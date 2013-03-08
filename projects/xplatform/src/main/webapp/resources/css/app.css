@@ -1,0 +1,78 @@
+.btn-new{background-image: url(../image/icon/btn_new.gif) !important;}
+.btn-edit{background-image: url(../image/icon/btn_edit.gif) !important;}
+.btn-del{background-image: url(../image/icon/delete.gif) !important;}
+.btn-save{background-image: url(../image/icon/btn_save.gif) !important;}
+.btn-undo{background-image: url(../image/icon/btn_undo.gif) !important;}
+.btn-query{background-image: url(../image/icon/query.gif) !important;}
+.btn-userlist{background-image: url(../image/icon/buddy_buddies.png) !important;}
+
+.icon-add {background-image: url(../image/icon/add.gif) !important;}
+.icon-modify {background-image: url(../image/icon/start.gif) !important;}
+.icon-remove {background-image: url(../image/icon/delete.gif) !important;}
+.icon-refresh {background-image: url(../image/icon/refresh.gif) !important;}
+.tabs {background-image:url(../image/icon/tabs.gif) !important;}
+
+.user {background-image:url(../image/icon/user.gif) !important;}
+.icon-user-add {
+    background-image: url(../image/icon/user_add.gif) !important;
+}
+.icon-user-delete {
+    background-image: url(../image/icon/user_delete.gif) !important;
+}
+
+.icon-excel {
+    background-image: url(../image/icon/excel.png) !important;
+}
+
+.add8 {
+    background-image: url(../image/icon/add8.gif) !important;
+}
+.add16 {
+    background-image: url(../image/icon/add16.gif) !important;
+}
+.add24 {
+    background-image: url(../image/icon/add24.gif) !important;
+}
+.extanim32 {
+    background-image: url(../image/icon/extanim32.gif) !important;
+}
+.im32x32 {
+    background-image: url(../image/icon/im32x32.gif) !important;
+}
+.edit {
+    background-image: url(../image/icon/edit.gif) !important;
+}
+.find {
+    background-image: url(../image/icon/find.gif) !important;
+}
+.view {
+    background-image: url(../image/icon/view.gif) !important;
+}
+.box_upload {
+    background-image: url(../image/icon/box_upload.png) !important;
+}
+.folder_add {
+    background-image: url(../image/icon/folder_add.png) !important;
+}
+
+.done {padding-left:22px;background:url(../image/icon/tick.gif) no-repeat;}
+.undo {padding-left:22px;background:url(../image/icon/c-sep-l.gif) no-repeat;}
+
+.settings {
+    background-image:url( ../image/icon/folder_wrench.png ) !important;
+}
+.nav {
+    background-image:url( ../image/icon/folder_go.png ) !important;
+}
+
+.blist {
+    background-image: url(../image/icon/list-items.gif) !important;
+}
+
+.bmenu {
+    background-image: url(../image/icon/menu-show.gif) !important;
+}
+
+.upload-icon {
+    background: url('../image/icon/image_add.png') no-repeat 0 0 !important;
+}

@@ -1,0 +1,42 @@
+body{font-family:"MSYahei",tahoma,arial,verdana,sans-serif}
+.welcome{background:url('../image/bgWelcomeHeader.gif') repeat-x;background-color:#ececec;margin:0;padding:0;text-align:center}
+.welcomeMent{background:url('../image/iconWelcomeFactory.png') 0 -2px no-repeat;padding:0px 0 0 165px;margin:3px 0 0 15px;height:90px;color:#fff;font-size:24px;text-align:left}
+.welcomeMent span{font-weight:bold}
+.productName{font-size:14px;color:#92c3f5;display:block;margin:5px 0 18px 0}
+.welcome form{background:url('../image/loginImg.png') no-repeat;margin:50px auto;padding-left:250px;width:300px;text-align:left;width:550px\9;}
+.welcome label{display:inline-block;width:80px;text-transform:capitalize;font-size:14px;color:#333;margin-bottom:12px\9;}
+.welcome form select{width:200px;margin-bottom:10px\9;}
+.welcome .loginInput{margin:3px 0 15px 0;width:200px;font-size:18px;margin-bottom:10px\9;}
+.welcome .btnWelcomeLogin{
+	background:url('../image/bgBtnBlue90.gif') no-repeat;
+	margin-top:-5px;margin-top :0\9;margin-right:4px;padding-left:10px;
+	width:90px;height:31px;display:inline-block;border:0;
+	color:#fff;font-size:14px;text-align:left;
+}
+.welcome .btnWelcomeReset{
+	background:url('../image/bgBtnGray.gif') no-repeat;
+	margin-top:-5px;margin-top :0\9;margin-left:0px;padding-left :7px\9;
+	width:90px;height:31px;display:inline-block;border:0;
+	color:#fff;font-size:14px;text-align:left;
+}
+.welcome .btnWelcomeLogin:hover,.welcome .btnWelcomeReset:hover{background:url('../image/bgBtnGreen90.gif') no-repeat;cursor:pointer}
+.welcome .btnline span{font-size:12px;color:#666;display:inline-block;}
+.welcome .btnline{width:295px;margin-top:15px;margin-left:-5px;margin-top:10px\9;padding-left:-5px;padding-top:5px;padding-top:20px\9;border-top:1px dotted #ccc;text-align:right;width:290px\9;text-align:left\9;}
+.welcome .btnline div{display:inline-block;margin-top:10px;float:right\9;margin-top:-23px\9;}
+.defaultSupplementImg{background:url('../image/bgSupplement.gif') 50% 50% no-repeat;margin-right:5px}
+
+
+.welcome .btnLoginManager{
+	background:url('../image/bgBtnBlue.gif') no-repeat;
+	margin-top:-5px;margin-top :0\9;margin-right:4px;padding-left:10px;
+	width:200px;height:31px;display:inline-block;border:0;
+	color:#fff;font-size:14px;text-align:left;
+}
+.otherMode{position:absolute;bottom:0;right:0;width:125px;height:90px;text-align:right;cursor:pointer}
+.otherMode span{margin-top:73px;font-size:11px !important;color:#d0d0d0 !important;font-weight:normal !important;}
+.opcMode{background:url('../image/otherOpc.gif') no-repeat;}
+.managerMode{background:url('../image/otherManager.gif') no-repeat;}
+.opcMode .opc{padding-right:3px}
+.opcMode .manager,.managerMode .opc{display:none !important}
+.managerMode .manager{padding-right:3px}
+.opcMode:hover,.managerMode:hover{color:#fff}

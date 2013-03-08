@@ -1,0 +1,141 @@
+{
+"success": true,
+"statusvalue": "0",
+"msgcate": "S",
+"msgcode": "CMN-0000",
+"msg": "CMN-0000 : This service is successful.",
+"dataList": [
+{
+"key1": "N/A",
+"data1": "MIRACOM",
+"data2": "미라콤"
+},
+{
+"key1": "SRAC-1100022",
+"data2": "한국주택금융공사 유지보수 계약"
+},
+{
+"key1": "SRAC-1100025",
+"data2": "하나마이크론 MES/TAMS 유지보수"
+},
+{
+"key1": "SRAC-1100027",
+"data2": "한라공조 MES 유지보수"
+},
+{
+"key1": "SRAC-1100050",
+"data2": "지오메디칼MA"
+},
+{
+"key1": "SRAC-1100052",
+"data2": "씨앗 유지보수 계약"
+},
+{
+"key1": "SRAC-1100053",
+"data2": "삼성전자 네덜란드 MA 계약"
+},
+{
+"key1": "SRAC-1100054",
+"data2": "롯데마트 MA 계약"
+},
+{
+"key1": "SRAC-1100073",
+"data2": "CJGLS유지보수계약(EAI11GLSMA1)"
+},
+{
+"key1": "SRAC-1100093",
+"data2": "SBLimotive 울산공장 License MA"
+},
+{
+"key1": "SRAC-1200003",
+"data2": "12년 동우화인캠 SM(MES12DWOSM)"
+},
+{
+"key1": "SRAC-1200011",
+"data2": "2012년 TG삼보 MA(EAI12TGMA)"
+},
+{
+"key1": "SRAC-1200012",
+"data2": "지멤스 MA프로젝트"
+},
+{
+"key1": "SRAC-1200014",
+"data2": "2012년 서강대학교MA(EAI12SGMA)"
+},
+{
+"key1": "SRAC-1200022",
+"data2": "2012년 SMD SM 프로젝트"
+},
+{
+"key1": "SRAC-1200025",
+"data2": "STATS CHIPPAC CHINA MA(SCCGL)"
+},
+{
+"key1": "SRAC-1200026",
+"data2": "STATS CHIPPAC TAIWAN MA"
+},
+{
+"key1": "SRAC-1200027",
+"data2": "STATS CHIPPAC MALAYSIA MA"
+},
+{
+"key1": "SRAC-1200028",
+"data2": "STATS CHIPPAC SHANGHAI MA"
+},
+{
+"key1": "SRAC-1200029",
+"data2": "STATS CHIPPAC KOREA MA"
+},
+{
+"key1": "SRAC-1200031",
+"data2": "[하남전기 MA계약]"
+},
+{
+"key1": "SSIC-1100008",
+"data2": "홍원제지 MES구축"
+},
+{
+"key1": "SSIC-1100046",
+"data2": "KT SM"
+},
+{
+"key1": "SSIC-1100069",
+"data2": "두산DST MES구축"
+},
+{
+"key1": "SSIC-1100154",
+"data2": "원익쿼츠 세정LINE MES프로젝트"
+},
+{
+"key1": "SSIC-1200030",
+"data2": "CJE EAI구축(EAI12CJENM)"
+},
+{
+"key1": "SSIC-1200034",
+"data2": "SUMaterials FMB 개발비"
+},
+{
+"key1": "SSIC-1200035",
+"data2": "가상계측고도화 구축 및 개발"
+},
+{
+"key1": "SSIC-1200037",
+"data1": "SMD",
+"data2": "SMD Infra EES 개발"
+},
+{
+"key1": "SSIC-1200047",
+"data2": "SBL 증량/증설 MES구축"
+},
+{
+"key1": "SSIC-1200051",
+"data1": "SMD",
+"data2": "SMD 부품(N+1) 개발"
+},
+{
+"key1": "SSIC-1200059",
+"data1": "SCP",
+"data2": "삼성코닝정밀소재"
+}
+]
+}

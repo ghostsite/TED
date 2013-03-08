@@ -1,0 +1,134 @@
+{
+    "projectName": "SmartFactory CMN module",
+    "licenseText": "Copyright(c) 2012 Miracom, Inc.",
+    "builds": [
+        {
+            "name": "All Classes - Production",
+            "target": "CMN.js",
+            "compress": true,
+            "files": [
+                {
+                    "path": "data/proxy/",
+                    "name": "PayloadProxy.js"
+                },
+                {
+                    "path": "mixin/",
+                    "name": "Search.js"
+                },
+                {
+                    "path": "mixin/",
+                    "name": "Status.js"
+                },
+                {
+                    "path": "mixin/",
+                    "name": "Vtypes.js"
+                },
+                {
+                    "path": "plugin/",
+                    "name": "Supplement.js"
+                },
+                {
+                    "path": "model/",
+                    "name": "AppSearch.js"
+                },
+                {
+                    "path": "model/",
+                    "name": "Favorite.js"
+                },
+                {
+                    "path": "model/",
+                    "name": "MainMenu.js"
+                },
+                {
+                    "path": "store/",
+                    "name": "AppSearchStore.js"
+                },
+                {
+                    "path": "store/",
+                    "name": "FavoriteStore.js"
+                },
+                {
+                    "path": "store/",
+                    "name": "MainMenuStore.js"
+                },
+                {
+                    "path": "view/common/",
+                    "name": "AppSearchField.js"
+                },
+                {
+                    "path": "view/common/",
+                    "name": "AppTool.js"
+                },
+                {
+                    "path": "view/common/",
+                    "name": "MainMenu.js"
+                },
+                {
+                    "path": "view/common/",
+                    "name": "NavFavorite.js"
+                },
+                {
+                    "path": "view/common/",
+                    "name": "NavMainMenu.js"
+                },
+                {
+                    "path": "view/common/",
+                    "name": "RowStatic.js"
+                },
+                {
+                    "path": "view/common/",
+                    "name": "SideMenu.js"
+                },
+                {
+                    "path": "view/common/",
+                    "name": "StatusBar.js"
+                },
+                {
+                    "path": "view/form/",
+                    "name": "DatePeriodField.js"
+                },
+                {
+                    "path": "view/form/",
+                    "name": "DateTimeField.js"
+                },
+                {
+                    "path": "view/form/",
+                    "name": "DateTimePeriodField.js"
+                },
+                {
+                    "path": "view/form/",
+                    "name": "TimePeriodField.js"
+                },
+                {
+                    "path": "view/form/",
+                    "name": "ValueRangeField.js"
+                },
+                {
+                    "path": "view/viewport/",
+                    "name": "North.js"
+                },
+                {
+                    "path": "view/viewport/",
+                    "name": "South.js"
+                },
+                {
+                    "path": "view/viewport/",
+                    "name": "East.js"
+                },
+                {
+                    "path": "view/viewport/",
+                    "name": "West.js"
+                },
+                {
+                    "path": "view/viewport/",
+                    "name": "Center.js"
+                },
+                {
+                    "path": "controller/",
+                    "name": "CMNController.js"
+                }
+            ]
+        }
+    ],
+    "resources" : []
+}

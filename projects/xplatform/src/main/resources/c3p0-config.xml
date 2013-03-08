@@ -1,0 +1,15 @@
+<c3p0-config>
+	<default-config>  
+	</default-config>
+	
+	<named-config name="log4j">
+		<property name="user">root</property>
+		<property name="password">zwz</property>
+		<property name="driverClass">com.mysql.jdbc.Driver</property>
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/xplatform</property>
+		<property name="initialPoolSize">3</property>
+		<property name="maxIdleTime">3</property>
+		<property name="maxPoolSize">9</property>
+		<property name="minPoolSize">3</property>
+	</named-config>
+</c3p0-config>

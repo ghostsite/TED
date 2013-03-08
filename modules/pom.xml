@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ted</groupId>
+	<artifactId>ted-project</artifactId>
+	<version>0.0.1</version>
+	<name>TED :: Project</name>
+	<packaging>pom</packaging>
+
+	<description>TED is a Spring Framework based JavaEE application reference architecture. </description>
+	<url>http://www.github.com/ghostsite/TED</url>
+	<inceptionYear>2013-2013</inceptionYear>
+	<organization>
+		<name>TED</name>
+		<url>http://www.github.com/ghostsite/TED</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>ghost</id>
+			<name>Ghost Zhang</name>
+			<email>ghostzhang at gmail.com</email>
+			<organization>THRILLER</organization>
+			<roles>
+				<role>Project lead</role>
+			</roles>
+			<timezone>+8</timezone>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
+	<modules>
+		<module>common</module>
+    </modules>
+
+    <scm>
+        <url>https://github.com/ghostsite/TED</url>
+        <connection>scm:git:git://github.com/ghostsite/TED.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:ghostsite/TED.git</developerConnection>
+    </scm>
+</project>

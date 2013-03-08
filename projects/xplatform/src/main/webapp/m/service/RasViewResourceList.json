@@ -1,0 +1,1154 @@
+{
+"success": true,
+"statusvalue": "0",
+"msgcate": "S",
+"msgcode": "CMN-0000",
+"msg": "CMN-0000 : This service is successful.",
+"resList": [
+{
+"resId": "7320001",
+"resDesc": "남상혁",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320002",
+"resDesc": "조영수",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320003",
+"resDesc": "민동식",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320004",
+"resDesc": "윤주덕",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320005",
+"resDesc": "이재광",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320006",
+"resDesc": "이규흥",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320007",
+"resDesc": "백종현",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320008",
+"resDesc": "정주석",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320009",
+"resDesc": "권진영",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320010",
+"resDesc": "민효성",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320011",
+"resDesc": "이헌주",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320012",
+"resDesc": "정주현",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320013",
+"resDesc": "연제우",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320014",
+"resDesc": "이석환",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320016",
+"resDesc": "황주영",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320017",
+"resDesc": "이영수",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320018",
+"resDesc": "이지윤",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320019",
+"resDesc": "조민수",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320020",
+"resDesc": "구찬모",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320021",
+"resDesc": "유치수",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320022",
+"resDesc": "이건우",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320023",
+"resDesc": "김병기",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320024",
+"resDesc": "서미경",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320025",
+"resDesc": "정재호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320026",
+"resDesc": "김석룡",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320027",
+"resDesc": "이복만",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320028",
+"resDesc": "김해성",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320029",
+"resDesc": "임영신",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320030",
+"resDesc": "김태진",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320031",
+"resDesc": "이종원",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320033",
+"resDesc": "이동훈",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320034",
+"resDesc": "김민정",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320035",
+"resDesc": "이환노",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320036",
+"resDesc": "김상호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320037",
+"resDesc": "이지형",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320039",
+"resDesc": "정헌식",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320041",
+"resDesc": "김호수",
+"resUpDownFlag": "D"
+},
+{
+"resId": "7320042",
+"resDesc": "김원범",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320043",
+"resDesc": "오범석",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320044",
+"resDesc": "김태호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320045",
+"resDesc": "심현석",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320046",
+"resDesc": "장영재",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320047",
+"resDesc": "이우종",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320048",
+"resDesc": "유수연",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320049",
+"resDesc": "한동언",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320050",
+"resDesc": "임혁수",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320051",
+"resDesc": "최성천",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320052",
+"resDesc": "우숙경",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320056",
+"resDesc": "서종구",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320057",
+"resDesc": "문정열",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320058",
+"resDesc": "이한수",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320059",
+"resDesc": "이형주",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320060",
+"resDesc": "노현종",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320061",
+"resDesc": "박경은",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320062",
+"resDesc": "송행섭",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320063",
+"resDesc": "신종관",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320064",
+"resDesc": "김경준",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320065",
+"resDesc": "조해연",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320066",
+"resDesc": "윤여훈",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320067",
+"resDesc": "홍현기",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320068",
+"resDesc": "김원",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320069",
+"resDesc": "김의환",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320070",
+"resDesc": "임영준",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320071",
+"resDesc": "최민석",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320073",
+"resDesc": "이재영",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320074",
+"resDesc": "김승한",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320075",
+"resDesc": "서영국",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320076",
+"resDesc": "김일상",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320077",
+"resDesc": "정연희",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320078",
+"resDesc": "엄진태",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320079",
+"resDesc": "황병훈",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320080",
+"resDesc": "유홍구",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320081",
+"resDesc": "이광주",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320082",
+"resDesc": "윤상균",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320083",
+"resDesc": "이재명",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320084",
+"resDesc": "조성환",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320085",
+"resDesc": "김재한",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320086",
+"resDesc": "임미화",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320087",
+"resDesc": "박성환",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320088",
+"resDesc": "이화섭",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320090",
+"resDesc": "박진영",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320091",
+"resDesc": "신경호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320092",
+"resDesc": "이주환",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320093",
+"resDesc": "진인철",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320094",
+"resDesc": "고도형",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320097",
+"resDesc": "김태석",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320098",
+"resDesc": "조현상",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320099",
+"resDesc": "김기현",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320100",
+"resDesc": "최대욱",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320101",
+"resDesc": "송민용",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320102",
+"resDesc": "정윤환",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320103",
+"resDesc": "김정임",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320104",
+"resDesc": "서배현",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320105",
+"resDesc": "지정호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320106",
+"resDesc": "백동민",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320107",
+"resDesc": "국승호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320108",
+"resDesc": "김용민",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320109",
+"resDesc": "서병화",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320110",
+"resDesc": "김동명",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320111",
+"resDesc": "김사선",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320112",
+"resDesc": "이항복",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320113",
+"resDesc": "서영환",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320114",
+"resDesc": "윤제경",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320115",
+"resDesc": "손동민",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320116",
+"resDesc": "강승철",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320117",
+"resDesc": "김선영",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320118",
+"resDesc": "박상언",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320120",
+"resDesc": "이성재",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320121",
+"resDesc": "배인출",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320122",
+"resDesc": "정문영",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320123",
+"resDesc": "이주윤",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320124",
+"resDesc": "유병진",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320125",
+"resDesc": "황참온",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320126",
+"resDesc": "여광은",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320127",
+"resDesc": "양상해",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320128",
+"resDesc": "최종인",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320129",
+"resDesc": "박재석",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320130",
+"resDesc": "박상용",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320131",
+"resDesc": "박흥철",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320132",
+"resDesc": "김태희",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320133",
+"resDesc": "유명규",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320134",
+"resDesc": "최병규",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320135",
+"resDesc": "윤현준",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320136",
+"resDesc": "이정탁",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320137",
+"resDesc": "이재철",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320139",
+"resDesc": "전병윤",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320141",
+"resDesc": "홍정호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320142",
+"resDesc": "성태석",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320143",
+"resDesc": "정성훈",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320145",
+"resDesc": "이원희",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320146",
+"resDesc": "이광희",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320147",
+"resDesc": "이주호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320149",
+"resDesc": "권윤혁",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320150",
+"resDesc": "신욱연",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320151",
+"resDesc": "강성묵",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320153",
+"resDesc": "최효주",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320154",
+"resDesc": "장일환",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320155",
+"resDesc": "홍성욱",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320156",
+"resDesc": "곽병승",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320157",
+"resDesc": "김두현",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320158",
+"resDesc": "박정규",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320159",
+"resDesc": "오득연",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320160",
+"resDesc": "고민석",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320161",
+"resDesc": "권민정",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320162",
+"resDesc": "최승복",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320164",
+"resDesc": "황욱철",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320165",
+"resDesc": "주효건",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320166",
+"resDesc": "이병근",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320167",
+"resDesc": "이상철",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320168",
+"resDesc": "임무성",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320169",
+"resDesc": "김동완",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320170",
+"resDesc": "김기태",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320171",
+"resDesc": "이상철B",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320172",
+"resDesc": "이상철A",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320173",
+"resDesc": "김민우",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320174",
+"resDesc": "유경수",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320175",
+"resDesc": "김영훈",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320176",
+"resDesc": "정영주",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320177",
+"resDesc": "우병국",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320178",
+"resDesc": "이수연",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320179",
+"resDesc": "김성수",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320180",
+"resDesc": "김한창",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320182",
+"resDesc": "김진호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320183",
+"resDesc": "정원구",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320184",
+"resDesc": "이재춘",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320185",
+"resDesc": "최홍석",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320187",
+"resDesc": "김상민",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320188",
+"resDesc": "김영준",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320189",
+"resDesc": "심재국",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320190",
+"resDesc": "호건웅",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320192",
+"resDesc": "강승구",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320193",
+"resDesc": "김대준",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320194",
+"resDesc": "박찬호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320195",
+"resDesc": "전상민",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320196",
+"resDesc": "임상민",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320197",
+"resDesc": "조현준",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320198",
+"resDesc": "권세영",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320199",
+"resDesc": "권오현",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320200",
+"resDesc": "오일준",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320202",
+"resDesc": "허재욱",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320204",
+"resDesc": "강성복",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320205",
+"resDesc": "하원수",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320206",
+"resDesc": "김경향",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320207",
+"resDesc": "조규호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320209",
+"resDesc": "박상준",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320210",
+"resDesc": "정덕용",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320211",
+"resDesc": "박정진",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320212",
+"resDesc": "박종광",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320213",
+"resDesc": "송상훈",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320214",
+"resDesc": "안복동",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320215",
+"resDesc": "최호수",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320216",
+"resDesc": "이종현",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320217",
+"resDesc": "홍정",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320218",
+"resDesc": "이창선",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320222",
+"resDesc": "최창진",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320223",
+"resDesc": "변성용",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320225",
+"resDesc": "조성훈",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320226",
+"resDesc": "김대혁",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320227",
+"resDesc": "송유정",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320228",
+"resDesc": "김정빈",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320230",
+"resDesc": "남민정",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320231",
+"resDesc": "노경욱",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320232",
+"resDesc": "박대희",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320233",
+"resDesc": "박석규",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320234",
+"resDesc": "선진영",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320235",
+"resDesc": "성승현",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320236",
+"resDesc": "손영곤",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320237",
+"resDesc": "손흥주",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320238",
+"resDesc": "오정재",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320239",
+"resDesc": "유금종",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320240",
+"resDesc": "이준용",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320241",
+"resDesc": "조원기",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320242",
+"resDesc": "박주은",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320243",
+"resDesc": "허유리",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320244",
+"resDesc": "모상훈",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320245",
+"resDesc": "이태호",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320246",
+"resDesc": "김호영",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320247",
+"resDesc": "김정민",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320248",
+"resDesc": "노효섭",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320249",
+"resDesc": "신흥재",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320250",
+"resDesc": "유정근",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320251",
+"resDesc": "조재근",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320252",
+"resDesc": "한성희",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320254",
+"resDesc": "우승희",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320255",
+"resDesc": "김두헌",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320256",
+"resDesc": "정진선",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320257",
+"resDesc": "배현우",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320258",
+"resDesc": "권석원",
+"resUpDownFlag": "U"
+},
+{
+"resId": "7320259",
+"resDesc": "장호수",
+"resUpDownFlag": "U"
+}
+]
+}

@@ -1,0 +1,5 @@
+이 폴더에 .senchasdk 파일을 만들고, .senchasdk 파일에 sencha-touch-sdk의 풀소스가 설치된 절대 경로를 담는다.
+(개인마다 다른 정보이므로 커밋하지 않는다.)
+그 다음에
+$ sencha app build production
+으로 build/production 폴더에 어플리케이션을 생성하고, delta 폴더를 제외하고 웹서버에 디플로이한다.

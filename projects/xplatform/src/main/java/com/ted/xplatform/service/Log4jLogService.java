@@ -1,0 +1,80 @@
+package com.ted.xplatform.service;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.collect.Maps;
+import com.ted.common.dao.jdbc.JdbcTemplateDao;
+import com.ted.common.dao.jpa.JpaSupportDao;
+import com.ted.common.dao.jpa.JpaTemplateDao;
+import com.ted.common.support.page.JsonPage;
+import com.ted.xplatform.pojo.common.Log4jLog;
+
+/**
+ * 日志类Service
+ * @date 20130218
+ */
+@Transactional
+@Service("log4jLogService")
+public class Log4jLogService {
+    @Inject
+    JdbcTemplateDao jdbcTemplateDao;
+
+    @Inject
+    JpaSupportDao   jpaSupportDao;
+
+    @Inject
+    JpaTemplateDao  jpaTemplateDao;
+
+    @Inject
+    MessageSource   messageSource;
+
+    
+    
+    public void setJdbcTemplateDao(JdbcTemplateDao jdbcTemplateDao) {
+        this.jdbcTemplateDao = jdbcTemplateDao;
+    }
+
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
+    public void setJpaSupportDao(JpaSupportDao jpaSupportDao) {
+        this.jpaSupportDao = jpaSupportDao;
+    }
+
+    public void setJpaTemplateDao(JpaTemplateDao jpaTemplateDao) {
+        this.jpaTemplateDao = jpaTemplateDao;
+    }
+
+    /**
+     * 查询from to 
+     * Integer type:Log4jLog type
+     */
+    @Transactional(readOnly = true)
+    public JsonPage<Log4jLog> query(Date from, Date to, Integer type, int start, int limit) {
+        Map<String, Object> params = Maps.newHashMap();
+        params.put("from", from);
+        params.put("to", to);
+        params.put("type", type);
+        JsonPage<Log4jLog> page = jpaTemplateDao.pagedByJPQLQuery("admin-jpql-queryLog4jLog", params, Log4jLog.class, start, limit);
+        return page;
+    };
+
+    /**
+     * 删除，选择性删除个别几个
+     * @param ids
+     */
+    @Transactional
+    public void deleteLog4jLog(Collection<Long> ids) {
+        jpaSupportDao.bulkUpdate("delete Log4jLog where id in (:ids)", ids);
+    }
+
+}

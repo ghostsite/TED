@@ -1,0 +1,110 @@
+$theme-name: 'smartfactory';
+$base-color: #f0f0f0;
+$font-size: 12px;
+$font-family: "MSYahei",tahoma,arial,verdana,sans-serif !default;
+
+//tabs
+$tab-height: 21px !default;
+$tab-base-color: #a3b4d3;
+
+$tabbar-background-gradient:color-stops(#a3b5d3, #5d779c);
+$tab-border-color:#5d779c;
+$tab-background-gradient: color-stops(#c1cde0, #afc2dc);
+$tab-background-gradient-over: 'tab-over' !default;
+$tab-background-gradient-active: color-stops(#fff, #fff);
+$tab-background-gradient-disabled: 'tab-disabled' !default;
+
+$tabbar-strip-height: 0px !default;
+$tabbar-strip-border-color: #5d779c !default;
+$tabbar-strip-background-color: #fff !default;
+$tabbar-top-strip-border-width: 0px !default;
+
+$tabbar-top-body-padding: 3px 0 0px !default;
+$tabbar-bottom-body-padding: 0px 0 3px !default;
+$tabbar-bottom-body-border-width: 0 !default;
+$tabbar-bottom-plain-body-border-width: 0 !default;
+$tabbar-bottom-plain-body-padding: 0 0 0 !default;
+$tab-inner-border:false !default;
+
+$tab-color:#496f9c;
+$tab-font-weight: normal !default;
+$tab-font-weight-active: bold !default;
+
+$tab-closable-icon-top: 6px !default;
+$tab-spacing: 1px;
+
+//form
+$form-field-empty-color:#999999;
+$fieldset-header-color:#3B7928;
+$fieldset-border-color:#d0d0d0;
+$fieldset-padding:0 10px 4px 10px !default;
+.x-fieldset{margin-bottom:0}
+
+//buttons
+$button-default-border-color:#b0b0b0;
+$button-default-border-color-over:#b5ccdd;
+$button-default-border-color-pressed:#b5ccdd;
+$button-default-color-over:#5b7cb3;
+$button-default-border-color-disabled:#ccc;
+
+//pickers
+$datepicker-today-item-border-color: #ff6600 !default;
+
+//loadmask
+$loadmask-opacity: 0.3 !default;
+$loadmask-backgorund: #000 !default;
+
+//window
+$window-header-color:#333;
+$panel-header-color:#ced9ea;
+$window-border-radius: 7px 7px !default;
+$window-border-width: 0 !default;
+
+//separator
+$toolbar-separator-color: #ccc !default;
+
+//toolbar
+$toolbar-background-color:#ffffff;
+$toolbar-background-gradient:#ffffff;
+
+//accordion
+$accordion-header-color: #1B4C86 !default;
+
+//font size
+$button-small-font-size: ceil($font-size * 1) !default;
+$button-medium-font-size: ceil($font-size * 1) !default;
+$button-large-font-size: ceil($font-size * 1) !default;
+$btn-group-header-font: normal ceil($font-size * 1) $font-family !default;
+$tab-font-size: ceil($font-size * 1) !default;
+$toolbar-text-font-size: ceil($font-size * 1) !default;
+$toolbar-font-size: ceil($font-size * 1) !default;
+$grid-row-cell-font-size: ceil($font-size * 1) !default;
+$grid-grouped-title-font: bold ceil($font-size * 1) $font-family !default;
+$grid-row-cell-font-size: ceil($font-size * 1) !default;
+$form-error-msg-font-size: ceil($font-size * 1) !default;
+$fieldset-header-font-size: ceil($font-size * 1) !default;
+$loadmask-msg-inner-font-size: ceil($font-size * 1) !default;
+$panel-header-font-size: ceil($font-size * 1) !default;
+$progress-text-font-size: ceil($font-size * 1) !default;
+$tip-body-font-size  : ceil($font-size * 1) !default;
+$window-header-font-size: ceil($font-size * 1) !default;
+
+
+
+@import 'compass';
+@import 'ext4/default/all';
+
+.x-autocontainer-form-item, .x-anchor-form-item, .x-vbox-form-item, .x-checkboxgroup-form-item, .x-table-form-item{margin-bottom:0};
+//grid
+.x-column-header-over,.x-column-header-sort-asc,.x-column-header-sort-desc{
+	background-image:-webkit-linear-gradient(top, #eaf6ff 50%, #cadeff);
+	background-image:-moz-linear-gradient(top, #eaf6ff 50%, #cadeff);
+	background-image:-o-linear-gradient(top, #eaf6ff 50%, #cadeff);
+	background-image:linear-gradient(top, #eaf6ff 50%, #cadeff);
+};
+.taskStep{@include border-radius(5px, 5px);border:1px solid #ddd;@include box-shadow(#ddd 0 2px 2px);}
+.taskViewOpinions div{@include border-radius(5px, 5px);border:1px solid #e6e6e6}
+.taskViewOpinions div.rejected{@include border-radius(5px, 5px);border:1px solid #edb7a5}
+
+//font-size
+.x-menu-item-text,.x-column-header{font-size:12px}

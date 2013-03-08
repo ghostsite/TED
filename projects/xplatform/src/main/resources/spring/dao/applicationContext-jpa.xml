@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
+		default-lazy-init="true">
+
+	<description>Spring jpa公共配置</description>
+
+	<!-- Jpa Entity Manager 配置 -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
+		<property name="packagesToScan" value="com.ted.xplatform.pojo"/>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<!--prop key="net.sf.ehcache.configurationResourceName">cache/ehcache-hibernate-local.xml</prop-->
+				<!--prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop-->
+				<prop key="hibernate.ejb.resource_scanner">org.hibernate.ejb.packaging.NativeScanner</prop><!--ghostzhang add 20130305-->
+				<prop key="hibernate.show_sql">true</prop><!--ghostzhang add 20130305-->
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop><!--ghostzhang add 20130305-->
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="databasePlatform">
+			<bean factory-method="getDialect" class="org.springside.modules.persistence.Hibernates">
+				<constructor-arg ref="dataSource"/>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- Spring Data Jpa配置, 扫描base-package下所有继承于Repository<T,ID>的接口 -->
+ 	<jpa:repositories base-package="com.ted.xplatform.repository" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
+	
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+    
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    
+    
+	<!-- 事务管理器配置, Jpa单数据源事务 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+
+	<bean id="entityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    
+	<bean id="jpaSupportDao" class="com.ted.common.dao.jpa.JpaSupportDaoAdaptor" scope="prototype" >
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	
+	<bean id="jpaTemplateDao" class="com.ted.common.dao.jpa.JpaTemplateDaoAdaptor" scope="prototype">
+		<property name="entityManager" ref="entityManager" />
+		<property name="delay" value="3" />
+		<property name="fileNames">
+			<list>
+				<value>classpath*:template/ql/jpql/ql-jpql-*.xml</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<!--#runMode is prod,dev,test-->
+	<runMode>dev</runMode>
+	
+	<!--#db config : oracle, mysql ,sqlserver-->
+	<dbType>oracle</dbType>
+
+	<!--#附件的存放根目录.附件的存放方案是：根目录的常量在这里定义，中间的目录作为一个变量传进service，最后的随机数UUID生成。数据库中并不记录root，只记录相对路径。-->
+	<attachFileDir>D:/temp2/web7attachfiles/</attachFileDir>
+
+	<!--#超级用户(系统管理员)的id-->
+	<superuserid>1</superuserid>
+	
+	<!--grid的每页显示多少行-->
+	<pageSize>20</pageSize>
+	
+	<!--默认密码-->
+	<defaultPassword>123456</defaultPassword>
+	
+	<!--Extjs的等待信息-->
+	<waitMsg><![CDATA[请稍等...]]></waitMsg>
+	
+	<!--主键前缀，为业务主键生成考虑,成都的前缀是510100-->
+	<idPrefix>510100</idPrefix>
+	
+	<!--js的pretty print-->
+	<prettyPrint>true</prettyPrint>
+	
+	<!--ExtModelController.java scan-->
+	<packageScan>com.ted.xplatform.pojo,com.ted.xplatform.vo</packageScan>
+	
+	<!--extjs version-->
+	<extjsversion>4</extjsversion>
+	
+	<dozerBeanMappings>dozerBeanMapping.xml</dozerBeanMappings>
+	<!--todo:可以存放系统的名称，欢迎信息等-->
+</root>
+	

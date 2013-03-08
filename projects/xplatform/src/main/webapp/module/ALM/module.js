@@ -1,0 +1,1 @@
+Ext.module.register('ALM', [ 'ALM.controller.ALMController' ]);

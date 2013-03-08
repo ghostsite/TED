@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dynamic-hibernate>
+	<query name="admin-jpql-queryUser">
+	<![CDATA[
+		from User
+			where 1=1
+			<#if (email?? && email?length > 0)>
+				and email like :email
+			</#if>
+			<#if (loginName?? && loginName?length > 0 )>
+				and loginName like  :loginName
+			</#if>
+			<#if (userName?? && userName?length > 0 )>
+				and userName  like  :userName 
+			</#if>
+			<#if (state?? && state?length > 0)>
+				and state =:state
+			</#if>
+			order by createTime desc
+	]]>
+	</query>
+	
+	<query name="admin-jpql-queryWorkDay">
+	<![CDATA[
+		from WorkDay
+			where 1=1
+			<#if (from??)>
+				and dayDate > :from
+			</#if>
+			<#if (to?? )>
+				and dayDate <= :to
+			</#if>
+			<#if (workDay??  )>
+				and workDay = :workDay 
+			</#if>
+			order by dayDate desc
+	]]>
+	</query>
+	
+	<query name="admin-jpql-deleteWorkDay">
+	<![CDATA[
+		delete WorkDay
+		where 2=2
+		<#if (from??)>
+			and dayDate >= :from
+		</#if>
+		<#if (to?? )>
+			and dayDate <= :to
+		</#if>
+	]]>
+	</query>
+	
+	<query name="admin-jpql-queryLog4jLog">
+	<![CDATA[
+		 from Log4jLog
+			where 1=1
+			<#if (from??)>
+				and createTime > :from
+			</#if>
+			<#if (to?? )>
+				and createTime <= :to
+			</#if>
+			<#if (type??  )>
+				and type = :type 
+			</#if>
+			order by createTime desc
+	]]>
+	</query>
+	
+</dynamic-hibernate>

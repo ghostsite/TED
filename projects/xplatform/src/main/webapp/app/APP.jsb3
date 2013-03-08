@@ -1,0 +1,102 @@
+{
+    "projectName": "SmartFactory Application module",
+    "licenseText": "Copyright(c) 2012 Miracom, Inc.",
+    "builds": [
+        {
+            "name": "All Classes - Production",
+            "target": "APP.js",
+            "compress": false,
+            "files": [
+                {
+                    "path": "../product/mixin/",
+                    "name": "Communicator.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "Constant.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "ExtOverride.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "LocalSetting.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "Mixin.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "AutoExpire.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "Msg.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "User.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "UserInterface.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "Util.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "Logger.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "History.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "DeepLink.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "Sound.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "Lock.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "Ajax.js"
+                },
+                {
+                    "path": "../product/mixin/",
+                    "name": "Exporter.js"
+                },
+                {
+                    "path": "../product/",
+                    "name": "SmartFactory.js"
+                },
+                {
+                    "path": "view/",
+                    "name": "Downloader.js"
+                },
+                {
+                    "path": "view/",
+                    "name": "Viewport.js"
+                },
+                {
+                    "path": "controller/",
+                    "name": "ApplicationController.js"
+                },
+                {
+                    "path": "./",
+                    "name": "application.js"
+                }
+            ]
+        }
+    ],
+    "resources" : []
+}

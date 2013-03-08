@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd"
+		default-lazy-init="true">
+
+	<description>Spring公共配置</description>
+
+	<import resource="security/applicationContext-shiro.xml" />
+	<import resource="dao/applicationContext-jdbc.xml" />
+	<import resource="dao/applicationContext-jpa.xml" />
+	<import resource="dao/applicationContext-mybatis.xml" />
+	<import resource="cache/applicationContext-ehcache.xml" />
+	<!--import resource="cache/applicationContext-memcached.xml" />
+	<import resource="email/applicationContext-email.xml" />
+	<import resource="jms/applicationContext-jms-simple.xml" />
+	<import resource="jms/applicationContext-jms-advanced.xml" />
+	<import resource="jmx/applicationContext-jmx.xml" />
+	<import resource="schedule/applicationContext-jdk-timer.xml" />
+	<import resource="schedule/applicationContext-spring-scheduler.xml" />
+	<import resource="schedule/applicationContext-quartz-cron-local.xml" />
+	<import resource="schedule/applicationContext-quartz-timer-cluster.xml" />
+	<import resource="webservice/applicationContext-soap-server.xml" />
+	<import resource="webservice/applicationContext-jaxrs-server.xml" /-->
+	
+
+	<context:component-scan base-package="com.ted" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+	
+	<!-- 另一个事务管理器, Jdbc单数据源事务 -->
+	<!--bean id="quartzTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="quartzDataSource" />
+	</bean-->
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+	
+	<!-- 定义aspectj -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<!-- hibernate validator -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:/message/messages" />
+		<property name="cacheSeconds" value="-1" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+
+	<!--jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/--> 
+	<!--bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    	<property name="jndiName" value="ChinaPortalDS"/>
+  	</bean-->
+	<!-- production环境 -->
+	<beans profile="production">
+		<context:property-placeholder ignore-resource-not-found="true"
+			location="classpath*:/application.properties" />	
+
+		<!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+         <property name="driverClass" value="${jdbc.driver}" />
+         <property name="jdbcUrl" value="${jdbc.url}" />  
+         <property name="user" value="${jdbc.username}" />
+         <property name="password" value="${jdbc.password}" />
+          
+         <property name="minPoolSize"><value>5</value></property>
+         <property name="maxPoolSize"><value>30</value></property>
+         <property name="maxIdleTime"><value>1800</value></property>
+         <property name="acquireIncrement"><value>2</value></property>
+         <property name="maxStatements"><value>0</value></property>
+         <property name="initialPoolSize"><value>2</value></property>
+         <property name="idleConnectionTestPeriod"><value>1800</value></property>
+         <property name="acquireRetryAttempts"><value>30</value></property>
+         <property name="breakAfterAcquireFailure"><value>true</value></property>
+         <property name="testConnectionOnCheckout"><value>false</value></property>
+    </bean>
+	
+		<!-- quartz使用的数据源配置 -->
+		<!--bean id="quartzDataSource"  class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+			<property name="driverClassName" value="${quartz.jdbc.driver}" />
+			<property name="url" value="${quartz.jdbc.url}" />
+			<property name="username" value="${quartz.jdbc.username}" />
+			<property name="password" value="${quartz.jdbc.password}" />
+			<property name="defaultAutoCommit" value="false" />
+		</bean-->
+	</beans>
+	
+	<!-- local development环境 -->
+	<beans profile="development">
+		<context:property-placeholder ignore-resource-not-found="true"
+			location="classpath*:/application.properties,
+          			  classpath*:/application.development.properties" />	
+
+		<!-- DBCP连接池 -->
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+         <property name="driverClass" value="${jdbc.driver}" />
+         <property name="jdbcUrl" value="${jdbc.url}" />  
+         <property name="user" value="${jdbc.username}" />
+         <property name="password" value="${jdbc.password}" />
+          
+         <property name="minPoolSize"><value>5</value></property>
+         <property name="maxPoolSize"><value>30</value></property>
+         <property name="maxIdleTime"><value>1800</value></property>
+         <property name="acquireIncrement"><value>2</value></property>
+         <property name="maxStatements"><value>0</value></property>
+         <property name="initialPoolSize"><value>2</value></property>
+         <property name="idleConnectionTestPeriod"><value>1800</value></property>
+         <property name="acquireRetryAttempts"><value>30</value></property>
+         <property name="breakAfterAcquireFailure"><value>true</value></property>
+         <property name="testConnectionOnCheckout"><value>false</value></property>
+		</bean>
+		
+		<!-- Simple连接池 for quartz -->
+		<!--bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+			<property name="driverClass" value="${quartz.jdbc.driver}" />
+			<property name="url" value="${quartz.jdbc.url}" />
+			<property name="username" value="${quartz.jdbc.username}" />
+			<property name="password" value="${quartz.jdbc.password}" />
+		</bean-->
+	</beans>
+
+	<!-- functional test环境 -->
+	<beans profile="functional">
+		<context:property-placeholder ignore-resource-not-found="true"
+			location="classpath*:/application.properties,
+          			  classpath*:/application.functional.properties,
+          			  classpath*:/application.functional-local.properties" />	
+		
+		<!-- DBCP连接池 -->
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+         <property name="driverClass" value="${jdbc.driver}" />
+         <property name="jdbcUrl" value="${jdbc.url}" />  
+         <property name="user" value="${jdbc.username}" />
+         <property name="password" value="${jdbc.password}" />
+          
+         <property name="minPoolSize"><value>5</value></property>
+         <property name="maxPoolSize"><value>30</value></property>
+         <property name="maxIdleTime"><value>1800</value></property>
+         <property name="acquireIncrement"><value>2</value></property>
+         <property name="maxStatements"><value>0</value></property>
+         <property name="initialPoolSize"><value>2</value></property>
+         <property name="idleConnectionTestPeriod"><value>1800</value></property>
+         <property name="acquireRetryAttempts"><value>30</value></property>
+         <property name="breakAfterAcquireFailure"><value>true</value></property>
+         <property name="testConnectionOnCheckout"><value>false</value></property>
+		</bean>
+			
+		<!-- Simple连接池 for quartz -->
+		<!--bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+			<property name="driverClass" value="${quartz.jdbc.driver}" />
+			<property name="url" value="${quartz.jdbc.url}" />
+			<property name="username" value="${quartz.jdbc.username}" />
+			<property name="password" value="${quartz.jdbc.password}" />
+		</bean-->
+				
+		<!-- 初始化数据结构 -->
+		<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
+			<jdbc:script location="classpath:sql/h2/schema.sql" />
+		</jdbc:initialize-database>
+
+		<!--jdbc:initialize-database data-source="quartzDataSource" ignore-failures="ALL">
+			<jdbc:script location="classpath:sql/h2/quartz.sql" />
+		</jdbc:initialize-database-->
+	</beans>
+	
+	<!-- unit test环境 -->
+	<beans profile="test">
+		<context:property-placeholder ignore-resource-not-found="true"
+			location="classpath*:/application.properties,
+          			  classpath*:/application.test.properties" />	
+		
+		<!-- Simple连接池 -->
+		<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+			<property name="driverClass" value="${jdbc.driver}" />
+			<property name="url" value="${jdbc.url}" />
+			<property name="username" value="${jdbc.username}" />
+			<property name="password" value="${jdbc.password}" />	
+		</bean>
+			
+		<!-- Simple连接池 for quartz -->
+		<!--bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+			<property name="driverClass" value="${quartz.jdbc.driver}" />
+			<property name="url" value="${quartz.jdbc.url}" />
+			<property name="username" value="${quartz.jdbc.username}" />
+			<property name="password" value="${quartz.jdbc.password}" />
+		</bean-->
+		
+		<!-- 初始化数据结构与默认数据 -->
+		<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
+			<jdbc:script location="classpath:sql/h2/schema.sql" />
+			<jdbc:script location="classpath:data/import-data.sql" encoding="UTF-8" />
+		</jdbc:initialize-database>
+
+		<!--jdbc:initialize-database data-source="quartzDataSource" ignore-failures="ALL">
+			<jdbc:script location="classpath:sql/h2/quartz.sql" />
+		</jdbc:initialize-database-->
+	</beans>
+</beans>
