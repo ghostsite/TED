@@ -4,13 +4,13 @@
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
-		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
-		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
-		default-lazy-init="true">
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
+	default-lazy-init="true">
 
 	
 	<!-- MyBatis配置 -->
@@ -19,11 +19,28 @@
 		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
 		<property name="typeAliasesPackage" value="org.springside.examples.showcase.entity" />
 		<!-- 显式指定Mapper文件位置 -->
-		<property name="mapperLocations" value="classpath:/template/ql/mybatis/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath:/template/ql/mybatis/**/*.xml" />
+		<property name="plugins">
+			<list>
+				<!--Add new file name here -->
+				<bean class="com.ted.common.dao.mybatis.plugin.DialectStatementHandlerInterceptor"/>
+			</list>
+		</property>
 	</bean>
 	<!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口-->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.ted" />
 		<property name="annotationClass" value="com.ted.common.dao.mybatis.annotation.MyBatisRepository"/>
 	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+		<constructor-arg>
+			<ref bean="sqlSessionFactory" />
+		</constructor-arg>
+	</bean>
+    
+	<bean id="mybatisTemplateDao" class="com.ted.common.dao.mybatis.MybatisTemplateDaoAdaptor">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
 </beans>

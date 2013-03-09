@@ -24,9 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.ted.common.dao.jpa.support.JpaHelper;
-import com.ted.common.dao.util.DaoTemplateUtils;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.CommonUtils;
+import com.ted.common.util.DaoTemplateUtils;
 
 /**
  * 

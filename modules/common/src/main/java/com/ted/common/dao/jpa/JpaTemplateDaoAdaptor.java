@@ -14,9 +14,9 @@ import org.springframework.data.domain.PageRequest;
 
 import com.ted.common.dao.TemplateDaoSupport;
 import com.ted.common.dao.jpa.support.JpaHelper;
-import com.ted.common.dao.util.DaoTemplateUtils;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.support.page.PageHelper;
+import com.ted.common.util.DaoTemplateUtils;
 
 public class JpaTemplateDaoAdaptor extends TemplateDaoSupport implements JpaTemplateDao {
     //@PersistenceContext

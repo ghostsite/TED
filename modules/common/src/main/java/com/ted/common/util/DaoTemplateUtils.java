@@ -1,4 +1,4 @@
-package com.ted.common.dao.util;
+package com.ted.common.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -75,7 +75,7 @@ public abstract class DaoTemplateUtils {
      *
      * @param sql an sql query
      */
-    protected static void replaceDistinctWithGroupBy(StringBuilder sql) {
+    public static void replaceDistinctWithGroupBy(StringBuilder sql) {
         int distinctIndex = sql.indexOf(DISTINCT);
         int selectEndIndex = sql.indexOf(FROM);
         if (distinctIndex > 0 && distinctIndex < selectEndIndex) {

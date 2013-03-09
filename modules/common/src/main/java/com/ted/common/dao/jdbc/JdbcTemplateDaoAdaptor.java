@@ -10,11 +10,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.ted.common.dao.TemplateDaoSupport;
-import com.ted.common.dao.util.DaoTemplateUtils;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.support.page.PageHelper;
 import com.ted.common.support.page.PageMetaData;
 import com.ted.common.util.ConfigUtils;
+import com.ted.common.util.DaoTemplateUtils;
 import com.ted.common.util.SpringUtils;
 
 @SuppressWarnings("all")
