@@ -8,16 +8,13 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.MDC;
+import org.slf4j.MDC;
 
 import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.util.PlatformUtils;
 
-//use Slf4jFilter
-@Deprecated
-public class Log4jFilter implements Filter {
+public class Slf4jFilter implements Filter {
     private static final String DEFAULT_USERID = "";
 
     @Override
@@ -28,7 +25,6 @@ public class Log4jFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
         User user = PlatformUtils.getCurrentUser();
         if (user == null) {
             MDC.put("userId", DEFAULT_USERID);
@@ -43,8 +39,7 @@ public class Log4jFilter implements Filter {
 
     @Override
     public void destroy() {
-        // TODO Auto-generated method stub
-
+        
     }
 
 }

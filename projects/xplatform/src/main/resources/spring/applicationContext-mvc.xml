@@ -161,6 +161,7 @@
 	
 	<bean id="exceptionHandler" class="com.ted.xplatform.extension.springmvc.XPlatformGlobalExceptionHandler">
 		<property name="insertDb" value="true"/>
+		<property name="dbAppenderName" value="DB"/>
 	</bean>
 	
 </beans>

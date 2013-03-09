@@ -1,4 +1,4 @@
-package com.ted.common.log4j;
+package com.ted.common.log.log4j;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,6 +14,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
  * 主要是提升性能用连接池，否则的话，每次都要重建连接池，费时。
+ * @deprecated use Slf4jDBAppender
  */
 public class JDBCExtAppender extends JDBCAppender {
     /**
@@ -70,15 +71,16 @@ public class JDBCExtAppender extends JDBCAppender {
     }
 
     protected String getLogStatement(LoggingEvent event) {
-        String fqnOfCategoryClass = event.fqnOfCategoryClass;
+        //String fqnOfCategoryClass = event.fqnOfCategoryClass;
         Category logger = Logger.getRootLogger();
-        Priority level = event.getLevel();
-        Object message = event.getMessage();
+        //Priority level = event.getLevel();
+        //Object message = event.getMessage();
         Throwable throwable = null;
         Date currentDate = new Date();
         long timeStamp = currentDate.getTime();
-        ReLoggingEvent bEvent = new ReLoggingEvent(fqnOfCategoryClass,  logger, timeStamp, level, message, throwable);
-        return super.getLogStatement(bEvent);
+        //ReLoggingEvent bEvent = new ReLoggingEvent(fqnOfCategoryClass,  logger, timeStamp, level, message, throwable);
+        //return super.getLogStatement(bEvent);
+        return null;
     }
     
     //这个是给外部用的

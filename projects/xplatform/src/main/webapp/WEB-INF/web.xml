@@ -47,10 +47,10 @@
 	</filter>
 	
 	<!-- log4j filter 后台有错误，如果日志调为debug-->
-	<!--filter>
-		<filter-name>log4jFilter</filter-name>
-		<filter-class>com.ted.xplatform.filter.Log4jFilter</filter-class>
-	</filter-->
+	<filter>
+		<filter-name>slf4jFilter</filter-name>
+		<filter-class>com.ted.xplatform.filter.Slf4jFilter</filter-class>
+	</filter>
    
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
@@ -64,10 +64,10 @@
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!--filter-mapping>
-		<filter-name>log4jFilter</filter-name>
+	<filter-mapping>
+		<filter-name>slf4jFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping-->
+	</filter-mapping>
     
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

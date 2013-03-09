@@ -41,7 +41,7 @@ public class Log4jManager {
 	public void setRootLoggerLevel(String newLevel) {
 		Logger logger = Logger.getRootLogger();
 		Level level = Level.toLevel(newLevel);
-		logger.setLevel(level);
+		//logger.setLevel(level);
 		managerLogger.info("设置Root Logger 级别为{}", newLevel);
 	}
 
@@ -89,7 +89,7 @@ public class Log4jManager {
 	public void setLoggerLevel(String loggerName, String newLevel) {
 		Logger logger = Logger.getLogger(loggerName);
 		Level level = Level.toLevel(newLevel);
-		logger.setLevel(level);
+		//logger.setLevel(level);
 		managerLogger.info("设置{}级别为{}", loggerName, newLevel);
 	}
 
