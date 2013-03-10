@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd"
+	default-lazy-init="true">
+
+	<!-- 自动扫描且只扫描@Controller -->
+	<context:component-scan base-package="app.octopus,org.springframework,com.samsung.sdsc"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!--begin1, 这部分等价于begin2...end2部分,使用示例可以参考http://starscream.iteye.com/blog/1098880-->
+	<mvc:annotation-driven >
+		<mvc:argument-resolvers>
+			<bean class="app.octopus.web.ext.mi.resolver.MiDatasetModelArgumentResolver"/>
+			<bean class="app.octopus.web.ext.mi.resolver.MiDatasetListArgumentResolver"/>
+			<bean class="app.octopus.web.ext.mi.resolver.MiVariableArgumentResolver"/>
+		</mvc:argument-resolvers>
+		<mvc:return-value-handlers>
+			<bean class="app.octopus.web.ext.mi.handler.MiResponseBodyReturnValueHandler">
+				<property name="messageConverters">
+					<list>
+						<bean class="app.octopus.web.ext.mi.converter.MiVariableMessageConverter"/>
+						<bean class="app.octopus.web.ext.mi.converter.MiDatasetMessageConverter"/>
+						<bean class="app.octopus.web.ext.mi.converter.MiListMessageConverter"/>
+						<bean class="app.octopus.web.ext.mi.converter.MiObjectMessageConverter"/>
+					</list>
+				</property>
+			</bean>
+		</mvc:return-value-handlers>
+	</mvc:annotation-driven>
+	<!--end1-->
+	
+	<!--begin2-->
+	<!--bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name = "messageConverters">
+			<list>  
+				<bean class = "org.springframework.http.converter.StringHttpMessageConverter">  
+					<property name = "supportedMediaTypes">  
+						<list>
+							<value>text/html;charset=UTF-8</value>
+						</list>
+					</property> 
+				</bean>
+				<bean class="com.ted.common.spring.mvc.converter.json.MappingJacksonHttpMessageConverterExt"> 
+					<property name = "supportedMediaTypes">
+						<list>
+							<value>text/html;charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+						</list>  
+					</property> 
+					<property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"/>
+				</bean>
+				<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+			</list>  
+		</property>  
+		<property name="webBindingInitializer">
+			<bean
+				class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+				<property name="validator" ref="validator" />
+				<property name="conversionService" ref="conversionService" />
+			</bean>
+		</property> 
+        <property name="synchronizeOnSession" value="true"/>   
+        <property name="customArgumentResolvers">  
+            <list>  
+               <bean class="com.ted.common.spring.mvc.method.annotation.RequestJsonParamMethodArgumentResolver"/>  
+               <bean class="com.ted.common.spring.mvc.method.annotation.FormModelMethodArgumentResolver"/>  
+            </list>  
+         </property> 
+	</bean-->  
+	<!--end2-->
+	
+	<bean class="app.octopus.web.ext.mi.factory.MiPlatformFactory" scope="request">
+		<aop:scoped-proxy />
+	</bean>
+	
+<!-- 	<mvc:interceptors>
+		<bean class="app.octopus.web.context.web.CommonContextPersistenceFilter"> 
+			<property name="paramName" value="paramName" /> </bean> 
+		 <mvc:interceptor>
+			<mvc:mapping path="/**/*.action" />
+			<bean
+				class="app.octopus.web.context.web.CommonContextPersistenceInterceptor">
+				<property name="paramName" value="paramName" />
+			</bean>
+		</mvc:interceptor> 
+	</mvc:interceptors> -->
+
+	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
+	<mvc:default-servlet-handler />
+
+	<!-- Forwards requests to the "/" resource to the "welcome" view -->
+	<mvc:view-controller path="/" view-name="index" />
+
+	<!-- 定义JSP文件的位置 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+		<property name="exceptionMappings">  
+			<props>  
+				<prop key="org.springframework.validation.BindException">error/400</prop>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>  
+            </props>  
+		</property>  
+    </bean> --> 
+    
+    <mvc:resources mapping="/js/**" location="/js/" />
+    <mvc:resources mapping="/css/**" location="/css/" />
+    <mvc:resources mapping="/images/**" location="/images/" />
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    
+    <bean id="contextFilter"
+		class="app.octopus.web.context.web.CommonContextPersistenceFilter"></bean>
+    
+</beans>
