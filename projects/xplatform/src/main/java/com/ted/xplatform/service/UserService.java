@@ -15,6 +15,7 @@ import com.google.common.collect.Maps;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
 import com.ted.common.dao.jpa.JpaTemplateDao;
+import com.ted.common.dao.mybatis.spring.ReloadableSqlSessionTemplate;
 import com.ted.common.exception.BusinessException;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.PasswordUtils;
@@ -38,8 +39,14 @@ public class UserService {
 
     @Inject
     MessageSource   messageSource;
-
     
+    @Inject
+    ReloadableSqlSessionTemplate sqlSessionTemplate;
+    
+    public void setSqlSessionTemplate(ReloadableSqlSessionTemplate sqlSessionTemplate) {
+        this.sqlSessionTemplate = sqlSessionTemplate;
+    }
+
     public void setJdbcTemplateDao(JdbcTemplateDao jdbcTemplateDao) {
         this.jdbcTemplateDao = jdbcTemplateDao;
     }

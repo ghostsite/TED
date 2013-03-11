@@ -14,7 +14,8 @@
 
 	
 	<!-- MyBatis配置 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!--bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"-->
+	<bean id="sqlSessionFactory" class="com.ted.common.dao.mybatis.spring.ReloadableSqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
 		<property name="typeAliasesPackage" value="org.springside.examples.showcase.entity" />
@@ -26,18 +27,40 @@
 				<bean class="com.ted.common.dao.mybatis.plugin.DialectStatementHandlerInterceptor"/>
 			</list>
 		</property>
+		<!--extend-->
+		<property name="sqlSessionFactoryBuilder">
+			<bean class="com.ted.common.dao.mybatis.session.ReloadableSqlSessionFactoryBuilder" />
+		</property>
+		<property name="delay" value="3" />
 	</bean>
+	
 	<!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口-->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.ted" />
 		<property name="annotationClass" value="com.ted.common.dao.mybatis.annotation.MyBatisRepository"/>
 	</bean>
 	
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+	<!--这个是mybatis-spring提供的-->
+	<!--bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+		<constructor-arg>
+			<ref bean="sqlSessionFactory" />
+		</constructor-arg>
+	</bean-->
+	
+	<!--这个是mybatis3自己提供的，线程安全，尽量用原生的等价于上面的配置,but由于这个类不然继承,所以只能用下面的ReloadableSqlSessionTemplate extends SqlSessionTemplate-->
+	<!--bean id="sqlSessionManager" class="org.apache.ibatis.session.SqlSessionManager" scope="prototype">
+		<constructor-arg>
+			<ref bean="sqlSessionFactory" />
+		</constructor-arg>
+	</bean-->
+	
+	<!--这个是mybatis-spring提供的-->
+	<bean id="sqlSessionTemplate" class="com.ted.common.dao.mybatis.spring.ReloadableSqlSessionTemplate" scope="prototype">
 		<constructor-arg>
 			<ref bean="sqlSessionFactory" />
 		</constructor-arg>
 	</bean>
+	
     
 	<bean id="mybatisTemplateDao" class="com.ted.common.dao.mybatis.MybatisTemplateDaoAdaptor">
 		<property name="sqlSession" ref="sqlSession" />

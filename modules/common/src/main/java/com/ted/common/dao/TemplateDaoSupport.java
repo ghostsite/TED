@@ -70,7 +70,7 @@ public class TemplateDaoSupport implements TemplateDao, InitializingBean, Resour
     private void loadFile2CacheXmlsByCheck(String fileURI) throws Exception {
         Resource resource = resourceLoader.getResource(fileURI);
         XmlHolder xmlHolder = xmlHolderMap.get(fileURI);
-        if (resource.lastModified() > xmlHolder.getLastModified()) {
+        if (resource.lastModified() > xmlHolder.getLastModified()+ this.getDelay()*1000) {
             loadFile2CacheXmls(resource);
         }
     }
