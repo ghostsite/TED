@@ -1,37 +1,34 @@
 package com.ted.common.util;
 
-import org.springside.modules.security.utils.Cryptos;
+import org.apache.commons.collections.KeyValue;
+import org.apache.commons.collections.keyvalue.DefaultKeyValue;
+import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
 
 public abstract class PasswordUtils {
+    public static final String HASH_ALGORITHM   = "SHA-1";
+    public static final int    HASH_INTERATIONS = 1024;
+    private static final int   SALT_SIZE        = 8;      //这3个是给用户加密用的
+
     /**
-     * 加密，返回明文。
-     * re[0] = 密钥
-     * rs[1] = 加密后的密码
-     * @param plainPassword
+     * Key is salt ,value is password
      */
-    public static final String[] encrypto(String plainPassword) {
-        String[] result = new String[2];
-        byte[] key = Cryptos.generateAesKey();
-        byte[] encryptResult = Cryptos.aesEncrypt(plainPassword.getBytes(), key);
-
-        String hexKey = Encodes.encodeHex(key);
-        String hexResult = Encodes.encodeHex(encryptResult);
-
-        result[0] = hexKey;
-        result[1] = hexResult;
-        return result;
+    public static final KeyValue encryptPassword(String plainPassword) {
+        byte[] salt = Digests.generateSalt(SALT_SIZE);
+        DefaultKeyValue keyValue = new DefaultKeyValue(Encodes.encodeHex(salt), encryptPassword(plainPassword, salt));
+        return keyValue;
     }
 
-    public static final String encrypto(String plainPassword, String key) {
-        byte[] decodeKey = Encodes.decodeHex(key);
-        byte[] encryptResult = Cryptos.aesEncrypt(plainPassword.getBytes(), decodeKey);
-        String hexResult = Encodes.encodeHex(encryptResult);
-        return hexResult;
+    public static final String encryptPassword(String plainPassword, String salt) { // salt is Encodes.encodeHex(salt)之后的值
+        return encryptPassword(plainPassword, Encodes.decodeHex(salt));
+    }
+    
+    public static final String encryptPassword(String plainPassword, byte[] salt) {
+        return Encodes.encodeHex(Digests.sha1(plainPassword.getBytes(), salt, HASH_INTERATIONS));
     }
 
-    public static final String[] getDefaultKeyEncrypto() {
+    public static final KeyValue getDefaultKeyEncrypt() {
         String plainPassword = ConfigUtils.getDefaultPassword();
-        return encrypto(plainPassword);
+        return encryptPassword(plainPassword);
     }
 }

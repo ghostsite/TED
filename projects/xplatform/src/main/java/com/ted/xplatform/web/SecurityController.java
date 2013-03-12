@@ -35,7 +35,7 @@ public class SecurityController {
     public String login(Model model, @RequestParam(value = "username") String loginName, @RequestParam(value = "password") String password, @RequestParam(value = "language",required = false) String language) {
         User user = userService.getUserByLoginNameAssociate(loginName);
         if (null != user) {
-            String encrypto = PasswordUtils.encrypto(password, user.getPasswordKey());
+            String encrypto = PasswordUtils.encryptPassword(password, user.getPasswordKey());
             if (encrypto.equals(user.getPassword())) {
                 setLogin(user.getLoginName(), user.getPassword());
                 user.setLanguage(language);

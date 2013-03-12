@@ -46,33 +46,33 @@
 	</logger>
     
 	<logger name="jdbc.resultset">
-		<level value="INFO"/>
+		<level value="WARN"/>
 		<appender-ref ref="STDOUT"/>
 	</logger>
     
 	<logger name="jdbc.audit">
-		<level value="INFO"/>
+		<level value="WARN"/>
 		<appender-ref ref="STDOUT"/>
 	</logger>
     
 	<logger name="jdbc.resultsettable">
-		<level value="INFO"/>
+		<level value="WARN"/>
 		<appender-ref ref="STDOUT"/>
 	</logger>
     
 	<logger name="org.springframework.web">
-		<level value="INFO"/>
+		<level value="WARN"/>
 		<appender-ref ref="STDOUT"/>
 		<appender-ref ref="DB"/>
 	</logger>
     
 	<logger name="com.ckfinder">
-		<level value="INFO"/>
+		<level value="WARN"/>
 		<appender-ref ref="STDOUT"/>
 	</logger>
     
 	<logger name="org.apache.shiro">
-		<level value="INFO"/>
+		<level value="WARN"/>
 		<appender-ref ref="STDOUT"/>
 		<appender-ref ref="ROLLING"/>
 	</logger>

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections.KeyValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -102,33 +103,31 @@ public class UserController {
     @RequestMapping(value = "/resetPassword")
     public @ResponseBody
     String resetPassword(@RequestJsonParam Collection<Long> userIds) {
-        String[] keyEncrypto = PasswordUtils.getDefaultKeyEncrypto();
+        KeyValue keyPwd = PasswordUtils.getDefaultKeyEncrypt();
         for (Long userId : userIds) {
-            userService.updatePassword(userId, keyEncrypto[0], keyEncrypto[1]);
+            userService.updatePassword(userId, (String) keyPwd.getKey(), (String) keyPwd.getValue());
         }
         return Constants.SUCCESS_JSON;
     };
-    
+
     /**
      * 用户自己更新重置, id is userId
      */
     @RequestMapping(value = "/updatePassword")
     public @ResponseBody
-    String resetPassword(@RequestParam Long id,@RequestParam String oldPassword, @RequestParam String newPassword) {
+    String resetPassword(@RequestParam Long id, @RequestParam String oldPassword, @RequestParam String newPassword) {
         //check oldPassword is right
         User user = userService.getUserById(id);
         String passwordKey = user.getPasswordKey();
-        String encodedOldPassword = PasswordUtils.encrypto(oldPassword, passwordKey);
-        if(encodedOldPassword.equals(user.getPassword())){
-            String[] keyEncrypto = PasswordUtils.encrypto(newPassword);
-            userService.updatePassword(id, keyEncrypto[0], keyEncrypto[1]);
+        String encodedOldPassword = PasswordUtils.encryptPassword(oldPassword, passwordKey);
+        if (encodedOldPassword.equals(user.getPassword())) {
+            KeyValue saltPwd = PasswordUtils.encryptPassword(newPassword);
+            userService.updatePassword(id, (String) saltPwd.getKey(), (String) saltPwd.getValue());
             return Constants.SUCCESS_JSON;
-        }else{
+        } else {
             return "{success:false, errorMessage:'旧密码错误'}";
         }
     };
-    
-    
 
     /**
      * 用户在组织机构的移动

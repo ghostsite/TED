@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections.KeyValue;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -67,7 +68,7 @@ public class UserService {
     public User getUserByLoginNameAssociate(String loginName) {
         return jpaSupportDao.findByPropertyWithDepth(User.class, "loginName", loginName, "organization", "roleList");
     }
-
+    
     /**
      * 根据用户的loginName判断已经存在于db
      * @param loginName
@@ -172,9 +173,10 @@ public class UserService {
             if (dbUser != null) {
                 throw new BusinessException(SpringUtils.getMessage("message.common.user.duplicated", messageSource));
             } else { //密码初始化
-                String[] keyEncrypto = PasswordUtils.getDefaultKeyEncrypto();
-                user.setPasswordKey(keyEncrypto[0]);
-                user.setPassword(keyEncrypto[1]);
+                //String[] keyEncrypto = PasswordUtils.getDefaultKeyEncrypto();
+                KeyValue saltPwd = PasswordUtils.getDefaultKeyEncrypt();
+                user.setPasswordKey((String)saltPwd.getKey());
+                user.setPassword((String)saltPwd.getValue());
             }
         } else {//修改，则需要把密码load进来
             User dbUser = jpaSupportDao.getEntityManager().find(User.class, user.getId());
