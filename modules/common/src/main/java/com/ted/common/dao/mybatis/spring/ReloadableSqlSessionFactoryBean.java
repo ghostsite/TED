@@ -19,10 +19,12 @@ import com.ted.common.dao.mybatis.session.ReloadableSqlSessionFactory;
 
 /**
  * 这种只支持通过SqlSessionTemplate.java调用的方法，不支持接口映射XML的DAO 
+ * 注意：这个和TemplateDaoSupport的缓存方式不一样，so多了一个lastCheck的属性。
  */
 public class ReloadableSqlSessionFactoryBean extends SqlSessionFactoryBean {
     private static final Map<Resource, ResourceHolder> resourceHolderMap = Maps.newConcurrentMap(); //string 是文件的名字，由于不能得不到namedQL到file的映射，故全文件扫描
-    private long                                       delay             = 10;                     //准备配置在xml中用的,秒
+    private long                                       delay             = 10;                     //准备配置在xml中用的,秒, -1 表示永不reload,0，表示时刻reload（另外的前提是文件发生改变）,>0 表示根据delay进行reload
+    private long                                       lastCheck         = -1;                     //上一次的check时间
 
     @Override
     protected SqlSessionFactory buildSqlSessionFactory() throws IOException {
@@ -33,6 +35,7 @@ public class ReloadableSqlSessionFactoryBean extends SqlSessionFactoryBean {
         }
 
         loadAll2ResourceHolderList();
+        lastCheck = System.currentTimeMillis();
         return buildSqlSessionFactory;
     };
 
@@ -66,11 +69,22 @@ public class ReloadableSqlSessionFactoryBean extends SqlSessionFactoryBean {
     public void refresh() {//全文件扫描,因为找不到匹配的方法
         final long delayTime = this.getDelay();
 
-        if (delayTime > 0) {//如果delayTime <= 0, 则不reload
-            for (ResourceHolder resourceHolder : resourceHolderMap.values()) {
-                if (resourceChangedDelayTime(resourceHolder)) {
-                    refreshMapping(resourceHolder);
-                }
+        if (delayTime < 0) {//如果delayTime <= 0, 则不reload
+            return;
+        } else if (delayTime == 0) {
+            refreshMappings();
+        } else if (delayTime * 1000 + lastCheck < System.currentTimeMillis()) {
+            refreshMappings();
+            synchronized (this) {
+                lastCheck = System.currentTimeMillis();
+            }
+        }
+    };
+
+    private void refreshMappings() {//如果有变化才reload
+        for (ResourceHolder resourceHolder : resourceHolderMap.values()) {
+            if (resourceChanged(resourceHolder)) {
+                refreshMapping(resourceHolder);
             }
         }
     };
@@ -114,9 +128,9 @@ public class ReloadableSqlSessionFactoryBean extends SqlSessionFactoryBean {
     }
 
     //变化了then return true
-    private boolean resourceChangedDelayTime(ResourceHolder resourceHolder) {
+    private boolean resourceChanged(ResourceHolder resourceHolder) {
         try {
-            if (resourceHolder.lastModified + getDelay() * 1000 < resourceHolder.getResource().getFile().lastModified()) {
+            if (resourceHolder.lastModified < resourceHolder.getResource().getFile().lastModified()) {
                 return true;
             }
         } catch (IOException e) {
@@ -127,7 +141,7 @@ public class ReloadableSqlSessionFactoryBean extends SqlSessionFactoryBean {
 
     public class ResourceHolder {
         private Resource resource;         //查询的映射
-        private long     lastModified = -1;
+        private long     lastModified = -1; //文件的modified时间
 
         public ResourceHolder(Resource resource, long lastModified) {
             this.resource = resource;

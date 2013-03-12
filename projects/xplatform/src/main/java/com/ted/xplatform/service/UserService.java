@@ -149,6 +149,7 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public List<User> getUserListByOrgId(Long orgId) {
+        //List<User> users = sqlSessionTemplate.selectList("test.getUserList");
         //Organization org = (Organization)hibernateSupport.getSession().load(Organization.class, orgId);
         return jpaSupportDao.find("from User u where u.organization.id=?0", orgId);
     };
