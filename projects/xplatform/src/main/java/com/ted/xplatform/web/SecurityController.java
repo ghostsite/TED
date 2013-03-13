@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +49,27 @@ public class SecurityController {
         } else {
             return "login"; //返回登录页
         }
+    }
+    
+    /**
+     * 这个是登陆后，cas认证后跳转到的页面
+     */
+    @RequestMapping(value ="/loginSso")
+    public String loginSso(Model model) {
+        Subject currentUser = SecurityUtils.getSubject();
+        Object principal = currentUser.getPrincipal();
+        Session session = currentUser.getSession();
+
+        User user = userService.getUserByLoginNameAssociate("manager"); //TODO change it
+        if (null != user) {
+            user.setLanguage("cn");
+            PlatformUtils.setCurrentUser(user);
+            model.addAttribute(user);
+            return "redirect:main";
+        } else {
+            return "login"; //返回登录页
+        }
+        
     }
 
     // 设置登录信息,userId 主键 profile

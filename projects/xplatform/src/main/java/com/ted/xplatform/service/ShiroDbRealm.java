@@ -35,20 +35,11 @@ import com.ted.xplatform.pojo.common.User;
  * 支持SSO
  */
 @Transactional
-public class ShiroDbRealm extends AuthorizingRealm implements InitializingBean {
-    private boolean isSso = false;
+public class ShiroDbRealm extends AuthorizingRealm {
 
     @Inject
     private UserService userService;
-    
-    public boolean isSso() {
-        return isSso;
-    }
 
-    public void setSso(boolean isSso) {
-        this.isSso = isSso;
-    }
-    
     public UserService getUserService() {
         return userService;
     }
@@ -57,25 +48,17 @@ public class ShiroDbRealm extends AuthorizingRealm implements InitializingBean {
         this.userService = userService;
     }
 
-
     /**
      * 认证回调函数,登录时调用.
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         Object username = token.getPrincipal();
-        if (isSso) {
-            if (username == null) {
-                throw new AccountException("用户名不允许为空!");
-            }
-            return new SimpleAuthenticationInfo(token.getPrincipal(), token.getCredentials(), getName());
+        User user = userService.getUserByUserIdPwd(token.getUsername(), new String(token.getPassword()));
+        if (user != null) {
+            return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
         } else {
-            User user = userService.getUserByUserIdPwd(token.getUsername(), new String(token.getPassword()));
-            if (user != null) {
-                return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
-            } else {
-                return null;
-            }
+            return null;
         }
     }
 
@@ -103,19 +86,20 @@ public class ShiroDbRealm extends AuthorizingRealm implements InitializingBean {
      */
     @PostConstruct
     public void initCredentialsMatcher() {
-        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(PasswordUtils.HASH_ALGORITHM);
-        matcher.setHashIterations(PasswordUtils.HASH_INTERATIONS);
-        setCredentialsMatcher(matcher);
+        setAuthenticationTokenClass(UsernamePasswordToken.class);
+        //HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(PasswordUtils.HASH_ALGORITHM);
+        //  matcher.setHashIterations(PasswordUtils.HASH_INTERATIONS);
+        // setCredentialsMatcher(matcher);
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        setAuthenticationTokenClass(UsernamePasswordToken.class);
-        if (isSso) {
-            // 设置无需凭证，因为从sso认证后才会有用户名
-            setCredentialsMatcher(new AllowAllCredentialsMatcher());
-        }
-    }
+//    @Override
+//    public void afterPropertiesSet() throws Exception {
+//        setAuthenticationTokenClass(UsernamePasswordToken.class);
+//        if (isSso()) {
+//            // 设置无需凭证，因为从sso认证后才会有用户名
+//            setCredentialsMatcher(new AllowAllCredentialsMatcher());
+//        }
+//    }
 
     /**
      * 清空用户关联权限认证，待下次使用时重新加载。
