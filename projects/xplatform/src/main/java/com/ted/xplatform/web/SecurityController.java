@@ -60,7 +60,7 @@ public class SecurityController {
         Object principal = currentUser.getPrincipal();
         Session session = currentUser.getSession();
 
-        User user = userService.getUserByLoginNameAssociate("manager"); //TODO change it
+        User user = userService.getUserByLoginNameAssociate((String)principal); 
         if (null != user) {
             user.setLanguage("cn");
             PlatformUtils.setCurrentUser(user);

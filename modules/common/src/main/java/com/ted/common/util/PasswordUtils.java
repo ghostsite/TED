@@ -23,7 +23,7 @@ public abstract class PasswordUtils {
         return encryptPassword(plainPassword, Encodes.decodeHex(salt));
     }
     
-    public static final String encryptPassword(String plainPassword, byte[] salt) {
+    private static final String encryptPassword(String plainPassword, byte[] salt) {
         return Encodes.encodeHex(Digests.sha1(plainPassword.getBytes(), salt, HASH_INTERATIONS));
     }
 

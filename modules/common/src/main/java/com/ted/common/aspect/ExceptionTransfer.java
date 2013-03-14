@@ -30,7 +30,6 @@ public class ExceptionTransfer {
 
     @AfterThrowing(pointcut = "serviceMethod()", throwing = "exception")
     public void transfer(JoinPoint thisJoinPoint, Exception exception) throws Exception {
-        System.out.println("ddddddddddddddd");
         Object target = thisJoinPoint.getTarget();
         Object[] arguments = thisJoinPoint.getArgs();
         for (Object arg : arguments) {

@@ -82,7 +82,7 @@
          <property name="acquireRetryAttempts"><value>30</value></property>
          <property name="breakAfterAcquireFailure"><value>true</value></property>
          <property name="testConnectionOnCheckout"><value>false</value></property>
-    </bean>
+        </bean>
 	
 		<!-- quartz使用的数据源配置 -->
 		<!--bean id="quartzDataSource"  class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
