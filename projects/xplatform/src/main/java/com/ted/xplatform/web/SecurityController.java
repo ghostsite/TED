@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,14 +51,13 @@ public class SecurityController {
     }
     
     /**
-     * 这个是登陆后，cas认证后跳转到的页面
+     * 这个是登陆后，cas认证后跳转到的页面,这个是给sso登陆用的
+     * 如果是sso登陆，请访问 http://wsria.com:8080/xp/loginSso
      */
     @RequestMapping(value ="/loginSso")
     public String loginSso(Model model) {
         Subject currentUser = SecurityUtils.getSubject();
         Object principal = currentUser.getPrincipal();
-        Session session = currentUser.getSession();
-
         User user = userService.getUserByLoginNameAssociate((String)principal); 
         if (null != user) {
             user.setLanguage("cn");
@@ -69,8 +67,7 @@ public class SecurityController {
         } else {
             return "login"; //返回登录页
         }
-        
-    }
+    };
 
     // 设置登录信息,userId 主键 profile
     public static final void setLogin(String userId, String password) {

@@ -5,13 +5,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authc.credential.AllowAllCredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -19,7 +17,6 @@ import org.apache.shiro.cache.Cache;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ted.common.util.PasswordUtils;
@@ -67,8 +64,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
      */
     @Transactional(readOnly = false)
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String loginName = (String) principals.fromRealm(getName()).iterator().next();
-        User user = userService.getUserByLoginName(loginName);
+        User user = (User) principals.fromRealm(getName()).iterator().next();
         if (user != null) {
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
             List<ACL> aclList = user.getAcls();
@@ -87,19 +83,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
     @PostConstruct
     public void initCredentialsMatcher() {
         setAuthenticationTokenClass(UsernamePasswordToken.class);
-        //HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(PasswordUtils.HASH_ALGORITHM);
-        //  matcher.setHashIterations(PasswordUtils.HASH_INTERATIONS);
-        // setCredentialsMatcher(matcher);
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(PasswordUtils.HASH_ALGORITHM);
+        matcher.setHashIterations(PasswordUtils.HASH_INTERATIONS);
+        setCredentialsMatcher(matcher);
     }
-
-//    @Override
-//    public void afterPropertiesSet() throws Exception {
-//        setAuthenticationTokenClass(UsernamePasswordToken.class);
-//        if (isSso()) {
-//            // 设置无需凭证，因为从sso认证后才会有用户名
-//            setCredentialsMatcher(new AllowAllCredentialsMatcher());
-//        }
-//    }
 
     /**
      * 清空用户关联权限认证，待下次使用时重新加载。
