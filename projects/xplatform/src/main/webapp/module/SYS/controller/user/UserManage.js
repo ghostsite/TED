@@ -69,9 +69,11 @@ Ext.define('SYS.controller.user.UserManage', {
 					url : 'user/resetPassword',
 					showErrorMsg : true,
 					showSuccessMsg : true,
-					callback : function(response, success) {
+					callback : function(action, success) {
 						if (success) {
 							Ext.Msg.alert("消息", "重置成功!");
+						}else{
+							Ext.Msg.alert('Fail', Ext.decode(action.response.responseText).msg);
 						}
 					},
 					scope : this

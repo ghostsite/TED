@@ -54,14 +54,16 @@ Ext.define('SYS.controller.user.UserPopup', {
 			checkFormValid: true,
 			form : this.getForm().sub('formId'),
 			url : 'user/save',
-			showErrorMsg : true,
+			showErrorMsg : false,
 			showSuccessMsg : true,
-			callback : function(response, success) {
+			callback : function(action, success) {
 				if (success) {
 					var supStuff = self.targetControl.getSupStuff();
 					var selNode = supStuff.selNodes[0];
 					supStuff.tree.fireEvent('itemclick', null, selNode);
 					this.getForm().close();
+				}else{
+					Ext.Msg.alert('Fail', Ext.decode(action.response.responseText).msg);
 				}
 			},
 			scope : this

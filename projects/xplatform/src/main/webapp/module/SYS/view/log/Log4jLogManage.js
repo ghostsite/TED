@@ -105,7 +105,7 @@ Ext.define('SYS.view.log.Log4jLogManage', {
 					if (val == '3') {
 						return '<span style="color:red;">' + '异常' + '</span>';
 					} else if (val == '2') {
-						return '<span style="color:yellow;">' + '业务' + '</span>';
+						return '<span style="color:blue;">' + '业务' + '</span>';
 					} else if (val == '1') {
 						return '<span style="color:green;">' + '日志' + '</span>';
 					} else {

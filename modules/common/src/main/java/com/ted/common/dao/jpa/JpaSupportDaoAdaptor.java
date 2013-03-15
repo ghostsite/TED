@@ -39,15 +39,14 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
     //@PersistenceContext
     @Inject
     EntityManager entityManager;
-    
+
     //@Inject
     //EntityManagerFactory entityManagerFactory;
 
     //public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
-       // this.entityManagerFactory = entityManagerFactory;
+    // this.entityManagerFactory = entityManagerFactory;
     //}
 
-    
     public EntityManager getEntityManager() {
         //return entityManagerFactory.createEntityManager();
         return entityManager;
@@ -69,6 +68,9 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
         }
     }
 
+    /**
+     * becareful:if no result ,there will <b>NOT</b> be a exception
+     */
     @Override
     public <T> T findSingleByProperty(Class<T> entityClass, String propertyName, Object value) {
         Assert.hasText(propertyName);
@@ -78,10 +80,13 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
         Predicate condition = criteriaBuilder.equal(root.get(propertyName), value);
         criteriaQuery.where(condition);
         TypedQuery<T> typedQuery = getEntityManager().createQuery(criteriaQuery);
-        T result = typedQuery.getSingleResult();
-        return result;
+        List<T> resultList = typedQuery.getResultList();
+        if (resultList != null && resultList.size() > 0) {
+            return resultList.get(0);
+        }
+        return null;
     };
-    
+
     /**原来我的名字叫：  findEntityAssociate
      * copy from http://jdevelopment.nl/fetching-arbitrary-object-graphs-jpa-2/
      * @param type
@@ -103,7 +108,7 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
         criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
         return getSingleOrNoneResult(getEntityManager().createQuery(criteriaQuery));
     }
-    
+
     @Override
     public <T> T findByPropertyWithDepth(Class<T> type, String property, Object value, String... fetchRelations) {
         CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();

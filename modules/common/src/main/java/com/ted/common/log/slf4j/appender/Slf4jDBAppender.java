@@ -41,7 +41,7 @@ public class Slf4jDBAppender extends DBAppender {
             stmt.setString(1, null);
             stmt.setString(2, null);
             stmt.setInt(3, Slf4jLoggingEvent.LOG4J);
-            stmt.setString(4, DateUtils.getCurrentStringDateYYMDHMSS());
+            stmt.setString(4, DateUtils.getCurrentStringDateYMDHMS());
             stmt.setString(5, null);
             stmt.setString(6, event.getFormattedMessage());
         }

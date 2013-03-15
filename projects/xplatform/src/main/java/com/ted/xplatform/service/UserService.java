@@ -1,6 +1,7 @@
 package com.ted.xplatform.service;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -160,6 +161,7 @@ public class UserService {
      */
     @Transactional
     public void save(User user) {
+        
         //如果用户属于一个机构
         if (user.getOrganization() != null && user.getOrganization().getId() != null) {
             Organization org = (Organization) jpaSupportDao.getEntityManager().find(Organization.class, user.getOrganization().getId());
@@ -184,6 +186,12 @@ public class UserService {
             user.setPasswordKey(dbUser.getPasswordKey());
         }
         jpaSupportDao.getEntityManager().merge(user);
+        
+//        List<Object> selectList = sqlSessionTemplate.selectList("test.getUserList");
+//        System.out.println(selectList);
+//        
+//        List a = jdbcTemplateDao.getNamedJdbcOperation().queryForList("select * from users", new HashMap());
+//        System.out.println(a);
     }
 
     /**

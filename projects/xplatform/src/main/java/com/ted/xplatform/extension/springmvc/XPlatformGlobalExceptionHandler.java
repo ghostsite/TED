@@ -78,6 +78,8 @@ public class XPlatformGlobalExceptionHandler implements InitializingBean {
 
     @ExceptionHandler(value = { MaxUploadSizeExceededException.class, BusinessException.class, Exception.class })
     public ResponseEntity<String> handle(Exception exception) throws SQLException {
+        exception.printStackTrace();
+        
         if (insertDb) {
             if (exception instanceof BusinessException) {
                 BusinessException businessException = (BusinessException) exception;

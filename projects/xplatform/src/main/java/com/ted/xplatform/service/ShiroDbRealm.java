@@ -83,9 +83,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
     @PostConstruct
     public void initCredentialsMatcher() {
         setAuthenticationTokenClass(UsernamePasswordToken.class);
-        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(PasswordUtils.HASH_ALGORITHM);
-        matcher.setHashIterations(PasswordUtils.HASH_INTERATIONS);
-        setCredentialsMatcher(matcher);
+        //HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(PasswordUtils.HASH_ALGORITHM);
+        //matcher.setHashIterations(PasswordUtils.HASH_INTERATIONS);
+        //setCredentialsMatcher(matcher);//这个注释，是因为密码已经是加密后的密码了。
     }
 
     /**
