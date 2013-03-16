@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.apache.commons.collections.KeyValue;
 import org.slf4j.Logger;
@@ -72,7 +73,7 @@ public class UserController {
      */
     @RequestMapping(value = "/save")
     public @ResponseBody
-    String save(User user) {
+    String save(@Valid User user) {
         userService.save(user);
         return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
     };

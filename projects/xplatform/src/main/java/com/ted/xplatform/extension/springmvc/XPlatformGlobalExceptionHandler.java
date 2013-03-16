@@ -2,6 +2,7 @@ package com.ted.xplatform.extension.springmvc;
 
 import java.nio.charset.Charset;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.log4j.MDC;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springside.modules.utils.Exceptions;
@@ -22,6 +25,7 @@ import com.ted.common.log.slf4j.appender.Slf4jDBAppender;
 import com.ted.common.log.slf4j.event.Slf4jLoggingEvent;
 import com.ted.common.spring.mvc.method.annotation.ExtensionExceptionHandlerExceptionResolver;
 import com.ted.common.support.extjs4.JsonOut;
+import com.ted.common.util.ConvertUtils;
 import com.ted.common.util.DateUtils;
 
 /**
@@ -100,14 +104,22 @@ public class XPlatformGlobalExceptionHandler implements InitializingBean {
             return new ResponseEntity<String>(new JsonOut(false, "", businessException.getMessage()).toString(), headers, HttpStatus.METHOD_FAILURE);//EXCEPTION_FAILURE
         } else if (exception instanceof MaxUploadSizeExceededException) {
 
+        } else if(exception instanceof BindException){
+            BindException bindException = (BindException)exception;
+            List<ObjectError> allErrors = bindException.getAllErrors();
+            return getAjaxResult(ConvertUtils.convertObjectErrorsToString(allErrors));
         } else if (exception instanceof RuntimeException) {
-            HttpHeaders headers = new HttpHeaders();
-            MediaType mt = new MediaType("text", "html", Charset.forName("utf-8"));
-            headers.setContentType(mt);
-            return new ResponseEntity<String>(new JsonOut(false, "", getTrimedStackTraceString(exception)).toString(), headers, HttpStatus.METHOD_FAILURE);//EXCEPTION_FAILURE
+            return getAjaxResult(getTrimedStackTraceString(exception));
         }
         return null;
     };
+    
+    private ResponseEntity<String> getAjaxResult(String message){
+        HttpHeaders headers = new HttpHeaders();
+        MediaType mt = new MediaType("text", "html", Charset.forName("utf-8"));
+        headers.setContentType(mt);
+        return new ResponseEntity<String>(new JsonOut(false, "", message).toString(), headers, HttpStatus.METHOD_FAILURE);//EXCEPTION_FAILURE
+    }
 
     public String getTrimedStackTraceString(Exception exception) {
         String trace = Exceptions.getStackTraceAsString(exception);

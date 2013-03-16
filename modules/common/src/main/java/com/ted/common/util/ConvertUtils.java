@@ -15,6 +15,9 @@ import java.util.List;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springside.modules.utils.Reflections;
 
 /**
  * spring4里面已经删除了这个类。存在于springside3中。
@@ -79,5 +82,22 @@ public class ConvertUtils {
 		dc.setUseLocaleFormat(true);
 		dc.setPatterns(new String[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss" });
 		org.apache.commons.beanutils.ConvertUtils.register(dc, Date.class);
+	}
+	
+	//==============以下是新增20130316=================
+	/**
+	 * 针对@Valid 的错误(List<ObjectError>)，返回一个字符串到前台。
+	 */
+	public static final String convertObjectErrorsToString(List<ObjectError> objectErrors){
+	    StringBuilder sb = new StringBuilder();
+	    for(ObjectError error: objectErrors){
+	        if(error instanceof FieldError){
+	            FieldError fe = (FieldError)error;
+	            sb.append(fe.getField()+":"+ error.getDefaultMessage()+"<br>");
+	        }else{
+	            sb.append(error.getCode()+":"+ error.getDefaultMessage()+"<br>");
+	        }
+	    }
+	    return sb.toString();
 	}
 }

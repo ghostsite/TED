@@ -12,9 +12,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
@@ -188,6 +196,8 @@ public class User extends LogicDeleteEntity {
     /**
      * @return the loginName
      */
+    @NotBlank
+    @Size(min = 3, max = 20)
     @Column(name="loginName",nullable = false, unique = true)
     public String getLoginName() {
         return loginName;
@@ -217,6 +227,8 @@ public class User extends LogicDeleteEntity {
     /**
      * @return the password
      */
+    @NotEmpty(message = "Password must not be blank.")
+    @Size(min = 1, max = 10, message = "Password must between 1 to 10 Characters.")
     public String getPassword() {
         return password;
     }
@@ -250,6 +262,10 @@ public class User extends LogicDeleteEntity {
     /**
      * @return the sex
      */
+    @NotNull
+    @NumberFormat(style = Style.NUMBER)
+    @Min(0)
+    @Max(2)
     public Integer getSex() {
         return sex;
     }
@@ -278,6 +294,7 @@ public class User extends LogicDeleteEntity {
     /**
      * @return the userName
      */
+    @NotBlank
     @Column(name="userName")
     public String getUserName() {
         return userName;
