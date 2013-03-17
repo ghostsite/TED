@@ -29,6 +29,11 @@ public class JdbcTemplateDaoAdaptor extends TemplateDaoSupport implements JdbcTe
     }
 
     @Override
+    public <T> List<T> queryForList(String sql, Class<T> clazz, Object... args){
+        return namedJdbcTemplate.getJdbcOperations().query(sql,  new BeanPropertyRowMapper(clazz), args);
+    }
+    
+    @Override
     public <T> List<T> findBySQLBeanQuerySpring(String queryName, Map<String, Object> params, Class<?> clazz) {
         String sql = getTemplatedQLString(queryName, params);
         List list = namedJdbcTemplate.getJdbcOperations().query(sql, new BeanPropertyRowMapper(clazz), params);

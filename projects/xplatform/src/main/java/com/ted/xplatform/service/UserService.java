@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.context.MessageSource;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,6 @@ import com.ted.common.dao.jpa.JpaTemplateDao;
 import com.ted.common.dao.mybatis.spring.ReloadableSqlSessionTemplate;
 import com.ted.common.exception.BusinessException;
 import com.ted.common.support.page.JsonPage;
-import com.ted.common.util.CollectionUtils;
 import com.ted.common.util.PasswordUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.Organization;
@@ -155,8 +153,8 @@ public class UserService {
         //List<User> users = sqlSessionTemplate.selectList("test.getUserList");
         //Organization org = (Organization)hibernateSupport.getSession().load(Organization.class, orgId);
         //return jpaSupportDao.find("select u from User u join u.organization org where org.id=?0", orgId);//
-        String sql ="select u.id, u.login_name as loginName,u.user_name as userName, u.email, u.mobile,u.sex,u.telephone,u.state,o.name as orgName from users u left join organization o on u.organization_id=o.id and o.id=?";
-        return jdbcTemplateDao.getNamedJdbcOperation().getJdbcOperations().query(sql, new BeanPropertyRowMapper(User.class),  orgId);
+        String sql = "select u.id, u.login_name as loginName,u.user_name as userName, u.email, u.mobile,u.sex,u.telephone,u.state,o.name as orgName from users u left join organization o on u.organization_id=o.id and o.id=?";
+        return jdbcTemplateDao.queryForList(sql, User.class, orgId);
     };
 
     /**

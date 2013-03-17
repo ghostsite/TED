@@ -21,6 +21,13 @@ public interface JdbcTemplateDao extends TemplateDao{
     Log LOGGER = LogFactory.getLog(JdbcTemplateDao.class);
 
     NamedParameterJdbcOperations getNamedJdbcOperation();
+    
+    /**
+     * 提取jdbcTemplate.query,注意，这个是sql语句，不是template来的
+     * 注意JdbcOperation的queryForList()方法，要求只能有一列(column)，这个
+     * 意思跟下面的queryForList不是一个意思。下面的是返回的bean
+     */
+    <T> List<T> queryForList(String sql, Class<T> clazz, Object... args);
     //-----------------------SQL-----------------------//
     <T> List<T> findBySQLBeanQuerySpring(String queryName, Map<String, Object> params, Class<?> clazz);
 
