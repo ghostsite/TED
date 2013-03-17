@@ -16,13 +16,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+//import org.hibernate.annotations.Cache;
+//import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.ted.xplatform.pojo.LogicDeleteEntity;
+import com.ted.xplatform.pojo.base.LogicDeleteEntity;
 
 /**
  * 资源的超类,用户权限框架中。
@@ -33,7 +33,7 @@ import com.ted.xplatform.pojo.LogicDeleteEntity;
 @Table(name = "resource")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "category", discriminatorType = DiscriminatorType.STRING)
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public abstract class Resource extends LogicDeleteEntity {
     /**
      * 资源名称,必须唯一,用在权限中user.hasPermission("code:CRUD")
@@ -52,8 +52,9 @@ public abstract class Resource extends LogicDeleteEntity {
 
     /**
      * 资源所拥有的所有的可以操作的ACL,通过ACL获得所有的Operation
-     * @return
      */
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "acl_resourceid")
     Set<ACL>       acls = Sets.newHashSet();
 
     public String getName() {
@@ -82,8 +83,6 @@ public abstract class Resource extends LogicDeleteEntity {
     }
 
     @JsonIgnore
-    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "acl_resourceid")
     public Set<ACL> getAcls() {
         return acls;
     }

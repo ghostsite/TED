@@ -1,6 +1,10 @@
-package com.ted.xplatform.pojo;
+package com.ted.xplatform.pojo.base;
 
 import javax.persistence.MappedSuperclass;
+
+import org.springframework.data.jpa.domain.AbstractAuditable;
+
+import com.ted.xplatform.pojo.common.User;
 
 /**
  * 只能逻辑删除的基类
@@ -9,7 +13,7 @@ import javax.persistence.MappedSuperclass;
  * @updated 28-三月-2011 13:47:35
  */
 @MappedSuperclass
-public abstract class LogicDeleteEntity extends AuditableEntity {
+public abstract class LogicDeleteEntity extends AbstractAuditable<User, Long> {
 
 	/**
 	 * 删除标志，0：未删除，非0：已删除
@@ -29,5 +33,6 @@ public abstract class LogicDeleteEntity extends AuditableEntity {
 	public void setDeleted(Long deleted) {
 		this.deleted = deleted;
 	}
+	
 
 }

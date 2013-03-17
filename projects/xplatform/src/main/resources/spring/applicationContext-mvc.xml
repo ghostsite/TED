@@ -81,10 +81,10 @@
 			 
 	
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<property name = "messageConverters">
+		<property name="messageConverters">
 			<list>  
-				<bean class = "org.springframework.http.converter.StringHttpMessageConverter">  
-					<property name = "supportedMediaTypes">  
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">  
+					<property name="supportedMediaTypes">  
 						<list>
 							<value>text/html;charset=UTF-8</value>
 						</list>
@@ -92,7 +92,7 @@
 				</bean>
 				<!--bean class = "org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"-->
 				<bean class="com.ted.common.spring.mvc.converter.json.MappingJacksonHttpMessageConverterExt"> 
-					<property name = "supportedMediaTypes">
+					<property name="supportedMediaTypes">
 						<list>
 							<value>text/html;charset=UTF-8</value>
 							<value>application/json;charset=UTF-8</value>
@@ -126,9 +126,7 @@
 	<!-- Configures the @Controller programming model -->
 	<!--mvc:annotation-driven /-->
 
-	<bean id="conversionService"
-		class="org.springframework.format.support.FormattingConversionServiceFactoryBean"/>
-
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"/>
 
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">

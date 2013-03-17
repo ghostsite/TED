@@ -38,7 +38,7 @@ Ext.define('SYS.view.role.RoleManage', {
 			items : [{
 				xtype : 'hidden',
 				fieldLabel : '父菜单Id',
-				name : 'parentId'
+				name : 'parent.id'
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '父菜单名称',
@@ -98,7 +98,7 @@ Ext.define('SYS.view.role.RoleManage', {
 				root : {
 					expanded : true,
 					text : '角色',
-					id : 0
+					id : null
 				},
 				store : Ext.create('Ext.data.TreeStore', {
 					proxy : {

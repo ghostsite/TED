@@ -33,9 +33,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.UniqueConstraint;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Persistable;
 import org.springframework.util.ReflectionUtils;
-
-import com.ted.common.domain.Identifiable;
 
 @Named
 @Singleton
@@ -46,7 +45,7 @@ public class JpaUniqueUtil {
     /**
      * Return the error code if the given property is already present in the database, returns null otherwise.
      */
-    public String validateSimpleUnique(Identifiable<?> entity, String property, Object value) {
+    public String validateSimpleUnique(Persistable<?> entity, String property, Object value) {
         Map<String, Object> values = newHashMap();
         values.put(property, value);
         return existsInDatabaseOnAllObjects(entity, values) ? simpleUniqueConstraintError(entity, property) : null;
@@ -55,20 +54,20 @@ public class JpaUniqueUtil {
     /**
      * Return a list of error codes for all composite unique and simple unique constraints violations.
      */
-    public List<String> validateUniques(Identifiable<?> entity) {
+    public List<String> validateUniques(Persistable<?> entity) {
         return newArrayList(concat( //
                 validateCompositeUniqueConstraints(entity), //
                 validateSimpleUniqueConstraints(entity) //
         ));
     }
 
-    private List<String> validateSimpleUniqueConstraints(Identifiable<?> entity) {
+    private List<String> validateSimpleUniqueConstraints(Persistable<?> entity) {
         return newArrayList(concat( //
                 validateSimpleUniqueConstraintsDefinedOnMethods(entity), //
                 validateSimpleUniqueConstraintsDefinedOnFields(entity)));
     }
 
-    private List<String> validateSimpleUniqueConstraintsDefinedOnFields(Identifiable<?> entity) {
+    private List<String> validateSimpleUniqueConstraintsDefinedOnFields(Persistable<?> entity) {
         Class<?> entityClass = getClassWithoutInitializingProxy(entity);
         List<String> errors = newArrayList();
         for (Field field : entityClass.getFields()) {
@@ -84,7 +83,7 @@ public class JpaUniqueUtil {
         return errors;
     }
 
-    private List<String> validateSimpleUniqueConstraintsDefinedOnMethods(Identifiable<?> entity) {
+    private List<String> validateSimpleUniqueConstraintsDefinedOnMethods(Persistable<?> entity) {
         Class<?> entityClass = getClassWithoutInitializingProxy(entity);
         List<String> errors = newArrayList();
         for (Method method : entityClass.getMethods()) {
@@ -101,11 +100,11 @@ public class JpaUniqueUtil {
         return errors;
     }
 
-    private String simpleUniqueConstraintError(Identifiable<?> entity, String property) {
+    private String simpleUniqueConstraintError(Persistable<?> entity, String property) {
         return getEntityName(entity).toLowerCase() + "_" + property + "_already_exists";
     }
 
-    private List<String> validateCompositeUniqueConstraints(Identifiable<?> entity) {
+    private List<String> validateCompositeUniqueConstraints(Persistable<?> entity) {
         Class<?> entityClass = getClassWithoutInitializingProxy(entity);
         Table table = findAnnotation(entityClass, Table.class);
         if (table == null) {
@@ -120,12 +119,12 @@ public class JpaUniqueUtil {
         return errors;
     }
 
-    private String compositeUniqueConstraintErrorCode(Identifiable<?> entity, UniqueConstraint uniqueConstraint) {
+    private String compositeUniqueConstraintErrorCode(Persistable<?> entity, UniqueConstraint uniqueConstraint) {
         return getEntityName(entity).toLowerCase() + "_"
                 + (uniqueConstraint.name() == null ? "composite_unique_constraint_error" : uniqueConstraint.name().toLowerCase());
     }
 
-    private boolean checkCompositeUniqueConstraint(Identifiable<?> entity, Class<?> entityClass, UniqueConstraint u) {
+    private boolean checkCompositeUniqueConstraint(Persistable<?> entity, Class<?> entityClass, UniqueConstraint u) {
         Map<String, Object> values = newHashMap();
         values.putAll(getPropertyConstraints(entity, entityClass, u, ""));
         return !existsInDatabaseOnAllObjects(entity, values);
@@ -167,7 +166,7 @@ public class JpaUniqueUtil {
         return null;
     }
 
-    private boolean existsInDatabaseOnAllObjects(Identifiable<?> entity, Map<String, Object> values) {
+    private boolean existsInDatabaseOnAllObjects(Persistable<?> entity, Map<String, Object> values) {
         if (entity == null || values == null || values.isEmpty()) {
             return false;
         }
@@ -178,7 +177,7 @@ public class JpaUniqueUtil {
             sqlQuery += (!first ? " and " : " ") + propertyName + "=:" + propertyName;
             first = false;
         }
-        if (entity.isIdSet()) {
+        if (!entity.isNew()) {
             if (!first) {
                 sqlQuery += " and";
             }
@@ -188,13 +187,13 @@ public class JpaUniqueUtil {
         for (String propertyName : values.keySet()) {
             query.setParameter(propertyName, values.get(propertyName));
         }
-        if (entity.isIdSet()) {
+        if (!entity.isNew()) {
             query.setParameter("id", entity.getId());
         }
         return query.getSingleResult() > 0;
     }
 
-    private String getEntityName(Identifiable<?> entity) {
+    private String getEntityName(Persistable<?> entity) {
         Entity entityAnnotation = findAnnotation(entity.getClass(), Entity.class);
         if (isBlank(entityAnnotation.name())) {
             return getClassWithoutInitializingProxy(entity).getSimpleName();

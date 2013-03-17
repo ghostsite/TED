@@ -16,7 +16,7 @@ public class Slf4jDBAppender extends DBAppender {
     @Override
     public void start() {
         super.start();
-        insertSQL = "INSERT INTO log4jlog(userId, userName,type, clazz, method, createTime, loglevel, errorCode, msg) VALUES (?,?,?,'','',?,'',?,?)";
+        insertSQL = "INSERT INTO log4jlog(user_id, user_name,type, clazz, method, create_time, log_level, error_code, msg) VALUES (?,?,?,'','',?,'',?,?)";
     }
 
     @Override

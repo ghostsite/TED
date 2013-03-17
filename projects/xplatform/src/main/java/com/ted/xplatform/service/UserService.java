@@ -1,7 +1,6 @@
 package com.ted.xplatform.service;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.context.MessageSource;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +20,7 @@ import com.ted.common.dao.jpa.JpaTemplateDao;
 import com.ted.common.dao.mybatis.spring.ReloadableSqlSessionTemplate;
 import com.ted.common.exception.BusinessException;
 import com.ted.common.support.page.JsonPage;
+import com.ted.common.util.CollectionUtils;
 import com.ted.common.util.PasswordUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.Organization;
@@ -31,20 +32,20 @@ import com.ted.xplatform.pojo.common.User;
 @Service("userService")
 public class UserService {
     @Inject
-    JdbcTemplateDao jdbcTemplateDao;
+    JdbcTemplateDao              jdbcTemplateDao;
 
     @Inject
-    JpaSupportDao   jpaSupportDao;
+    JpaSupportDao                jpaSupportDao;
 
     @Inject
-    JpaTemplateDao  jpaTemplateDao;
+    JpaTemplateDao               jpaTemplateDao;
 
     @Inject
-    MessageSource   messageSource;
-    
+    MessageSource                messageSource;
+
     @Inject
     ReloadableSqlSessionTemplate sqlSessionTemplate;
-    
+
     public void setSqlSessionTemplate(ReloadableSqlSessionTemplate sqlSessionTemplate) {
         this.sqlSessionTemplate = sqlSessionTemplate;
     }
@@ -69,7 +70,7 @@ public class UserService {
     public User getUserByLoginNameAssociate(String loginName) {
         return jpaSupportDao.findByPropertyWithDepth(User.class, "loginName", loginName, "organization", "roleList");
     }
-    
+
     /**
      * 根据用户的loginName判断已经存在于db
      * @param loginName
@@ -153,7 +154,9 @@ public class UserService {
     public List<User> getUserListByOrgId(Long orgId) {
         //List<User> users = sqlSessionTemplate.selectList("test.getUserList");
         //Organization org = (Organization)hibernateSupport.getSession().load(Organization.class, orgId);
-        return jpaSupportDao.find("from User u where u.organization.id=?0", orgId);
+        //return jpaSupportDao.find("select u from User u join u.organization org where org.id=?0", orgId);//
+        String sql ="select u.id, u.login_name as loginName,u.user_name as userName, u.email, u.mobile,u.sex,u.telephone,u.state,o.name as orgName from users u left join organization o on u.organization_id=o.id and o.id=?";
+        return jdbcTemplateDao.getNamedJdbcOperation().getJdbcOperations().query(sql, new BeanPropertyRowMapper(User.class),  orgId);
     };
 
     /**
@@ -161,7 +164,7 @@ public class UserService {
      */
     @Transactional
     public void save(User user) {
-        
+
         //如果用户属于一个机构
         if (user.getOrganization() != null && user.getOrganization().getId() != null) {
             Organization org = (Organization) jpaSupportDao.getEntityManager().find(Organization.class, user.getOrganization().getId());
@@ -177,8 +180,8 @@ public class UserService {
             } else { //密码初始化
                 //String[] keyEncrypto = PasswordUtils.getDefaultKeyEncrypto();
                 KeyValue saltPwd = PasswordUtils.getDefaultKeyEncrypt();
-                user.setPasswordKey((String)saltPwd.getKey());
-                user.setPassword((String)saltPwd.getValue());
+                user.setPasswordKey((String) saltPwd.getKey());
+                user.setPassword((String) saltPwd.getValue());
             }
         } else {//修改，则需要把密码load进来
             User dbUser = jpaSupportDao.getEntityManager().find(User.class, user.getId());
@@ -186,12 +189,12 @@ public class UserService {
             user.setPasswordKey(dbUser.getPasswordKey());
         }
         jpaSupportDao.getEntityManager().merge(user);
-        
-//        List<Object> selectList = sqlSessionTemplate.selectList("test.getUserList");
-//        System.out.println(selectList);
-//        
-//        List a = jdbcTemplateDao.getNamedJdbcOperation().queryForList("select * from users", new HashMap());
-//        System.out.println(a);
+
+        //        List<Object> selectList = sqlSessionTemplate.selectList("test.getUserList");
+        //        System.out.println(selectList);
+        //        
+        //        List a = jdbcTemplateDao.getNamedJdbcOperation().queryForList("select * from users", new HashMap());
+        //        System.out.println(a);
     }
 
     /**

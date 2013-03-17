@@ -82,6 +82,13 @@ public class TypeController {
         }
         return treeNodeList;//DozerUtils.mapList(subTypeList, TreeNode.class);
     };
+    
+    @RequiresAuthentication 
+    @RequestMapping(value = "/getSubTypeListWithLeafCheckByTypeId", method = RequestMethod.POST)
+    public @ResponseBody
+    List<TreeNode> getSubTypeListWithLeafCheckByTypeId() {
+       return getSubTypeListWithLeafCheckByTypeId(null);
+    };
 
     /**
      * 系统管理->基础类型数据管理：获得一个Type的详细信息，右边的FormPanel
@@ -103,9 +110,9 @@ public class TypeController {
     Map<String, Object> getTypeAsSuperInfoById(@RequestParam(required = true) Long typeId) {
         Type type = typeService.getTypeById(typeId);
         Type newType = new Type();
-        newType.setId(-1L); //this is hack ,否则页面显示不出来。
+        //newType.setId(-1L); //this is hack ,否则页面显示不出来。
         if (null != type) {
-            newType.setParentId(type.getId());
+            newType.setParent(type);
             newType.setParentName(type.getName());
         }
         return JsonUtils.getJsonMap(newType);

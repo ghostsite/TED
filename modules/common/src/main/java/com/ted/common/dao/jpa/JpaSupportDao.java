@@ -41,7 +41,7 @@ public interface JpaSupportDao {
     public <T> T findByPropertyWithDepth(Class<T> type, String property, Object value, String... fetchRelations);
 
     //======================查询without page==========================//
-    Query createQuery(String hql, Object... values);
+    Query createQuery(String jpql, Object... values);
 
     <T> List<T> findBySQLQuery(String sql, Map<String, Object> params, Class<T> entityClass);
 

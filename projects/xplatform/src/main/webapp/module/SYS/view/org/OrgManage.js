@@ -38,7 +38,7 @@ Ext.define('SYS.view.org.OrgManage', {
 			items : [{
 				xtype : 'hidden',
 				fieldLabel : '父机构Id',
-				name : 'parentId'
+				name : 'parent.id'
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '父机构名称',
@@ -137,7 +137,7 @@ Ext.define('SYS.view.org.OrgManage', {
 				root : {
 					expanded : true,
 					text : T('Caption.Other.Org'),
-					id : 1
+					id : null
 				},
 				store : Ext.create('Ext.data.TreeStore', {
 					proxy : {

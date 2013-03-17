@@ -209,7 +209,7 @@ Ext.define('SYS.view.user.UserManage', {
 				root : {
 					expanded : true,
 					text : T('Caption.Other.Org'),
-					id : 1
+					id : null
 				},
 				store : Ext.create('Ext.data.TreeStore', {
 					proxy : {

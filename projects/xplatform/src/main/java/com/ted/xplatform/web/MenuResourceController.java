@@ -75,10 +75,20 @@ public class MenuResourceController {
      */
     @RequestMapping(value = "/getCurrentUserMenusCascade/{menuid}")
     public @ResponseBody
-    List<TreeNodeWithChildren> getCurrentUserMenusCascade(@PathVariable Long menuid) {
+    List<TreeNodeWithChildren> getCurrentUserMenusCascade(@PathVariable() Long menuid) {
         List<MenuResource> menuResourceList = menuResourceService.getSubMenusCascadeByParentIdFilterByCurrentSubject(menuid);
         List<TreeNodeWithChildren> treeNodeList = DozerUtils.mapList(menuResourceList, TreeNodeWithChildren.class);
         return treeNodeList;
+    };
+    
+    /**
+     * 由于PathVariable不能为空，故只能写2个方法
+     * @return
+     */
+    @RequestMapping(value = "/getCurrentUserMenusCascade")
+    public @ResponseBody
+    List<TreeNodeWithChildren> getCurrentUserMenusCascade() {
+       return getCurrentUserMenusCascade(null);
     };
 
     /**
@@ -135,8 +145,8 @@ public class MenuResourceController {
     Map<String, Object> getMenuResourceAsSuperInfoById(@RequestParam Long resourceId) {
         MenuResource menuResource = menuResourceService.getMenuResourceById(resourceId);
         MenuResource newMenu = new MenuResource();
-        newMenu.setId(-1L); //this is hack ,否则页面显示不出来。
-        newMenu.setParentId(menuResource.getId());
+        //newMenu.setId(-1L); //this is hack ,否则页面显示不出来。
+        //newMenu.setParentId(menuResource.getId());
         newMenu.setParentName(menuResource.getName());
         return JsonUtils.getJsonMap(newMenu);
     };

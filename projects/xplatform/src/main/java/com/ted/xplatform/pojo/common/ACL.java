@@ -1,5 +1,6 @@
 package com.ted.xplatform.pojo.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,13 +10,12 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.jpa.domain.AbstractAuditable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ted.xplatform.pojo.AuditableEntity;
 
 /**
  * ACL:对资源所有的可以操作的动作集合。
@@ -27,29 +27,37 @@ import com.ted.xplatform.pojo.AuditableEntity;
  */
 
 @Entity
-public class ACL extends AuditableEntity {
+@Table(name = "acl")
+public class ACL extends AbstractAuditable<User, Long> {
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @JoinColumn(name = "acl_resourceid")
     Resource   resource;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @JoinColumn(name = "acl_operationid")
     Operation  operation;
 
-    List<Role> roles;
+    @ManyToMany(cascade = CascadeType.REFRESH, mappedBy = "acls", fetch = FetchType.LAZY)
+    List<Role> roles = new ArrayList<Role>();
 
+    @Column(name = "acl_resourceid", insertable = false, updatable = false)
     Long       resourceId;
 
+    @Column(name = "acl_operationid", insertable = false, updatable = false)
     Long       operationId;
-    
+
     //for extcontroller 反射出name
     @Transient
-    public String getResourceName(){
+    public String getResourceName() {
         return this.resource.getName();
     }
-    
+
     //for extcontroller 反射出name
     @Transient
-    public String getOperationName(){
+    public String getOperationName() {
         return this.operation.getName();
     }
 
-    @Column(name = "acl_resourceid", insertable = false, updatable = false)
     public Long getResourceId() {
         return resourceId;
     }
@@ -58,7 +66,6 @@ public class ACL extends AuditableEntity {
         this.resourceId = resourceId;
     }
 
-    @Column(name = "acl_operationid", insertable = false, updatable = false)
     public Long getOperationId() {
         return operationId;
     }
@@ -68,8 +75,6 @@ public class ACL extends AuditableEntity {
     }
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.REFRESH, mappedBy = "acls", fetch = FetchType.LAZY)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     public List<Role> getRoles() {
         return roles;
     }
@@ -78,8 +83,6 @@ public class ACL extends AuditableEntity {
         this.roles = roles;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "acl_resourceid")
     public Resource getResource() {
         return resource;
     }
@@ -88,8 +91,6 @@ public class ACL extends AuditableEntity {
         this.resource = resource;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "acl_operationid")
     public Operation getOperation() {
         return operation;
     }
@@ -102,5 +103,6 @@ public class ACL extends AuditableEntity {
     public String getPermissionString() {
         return resource.getCode() + ":" + operation.getCode();
     }
+
 
 }

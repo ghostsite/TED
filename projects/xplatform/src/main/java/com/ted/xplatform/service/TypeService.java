@@ -1,6 +1,7 @@
 package com.ted.xplatform.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -23,7 +24,7 @@ import com.ted.xplatform.pojo.common.Type;
 public class TypeService {
     final Logger               logger       = LoggerFactory.getLogger(TypeService.class);
     //this is hack parentId can be null to set
-    public static final String SUBTYPES_JPQL = "from Type m where m.parentId=:typeId or (m.parentId is null and :typeId is null) order by m.idx asc";
+    public static final String SUBTYPES_JPQL = "from Type m where m.parent.id=:typeId or (m.parent.id is null and :typeId is null) order by m.idx asc";
 
     @Inject
     JdbcTemplateDao            jdbcTemplateDao;
@@ -54,10 +55,8 @@ public class TypeService {
      */
     @Transactional(readOnly = true)
     public List<Type> getSubTypeListByTypeId(Long typeId) {
-        if (0 == typeId) {
-            typeId = null;
-        }
-        List<Type> subTypeList = jpaSupportDao.find(SUBTYPES_JPQL, CollectionUtils.newMap("typeId", typeId));
+        Map<String, Object> newMap = CollectionUtils.newMap("typeId", typeId);
+        List<Type> subTypeList = jpaSupportDao.find(SUBTYPES_JPQL, newMap);
         return subTypeList;
     };
 
@@ -84,12 +83,12 @@ public class TypeService {
     @Transactional
     public Type save(Type type) {
         //判断父亲
-        if(null == type.getParentId()){
-            type.setParentId(null);
+        if(null == type.getParent() || null == type.getParent().getId()){
+            type.setParent(null);
         }else{
-            Type parentType = jpaSupportDao.getEntityManager().find(Type.class, type.getParentId());
+            Type parentType = jpaSupportDao.getEntityManager().find(Type.class, type.getParent().getId());
             if (parentType == null) {
-                type.setParentId(null);
+                type.setParent(null);
             }else{
                 type.setParent(parentType);
                 parentType.setLeaf(false);
@@ -97,7 +96,8 @@ public class TypeService {
             }
         }
         //判断是新增还是修改
-        if(type.getId() == null || type.getId().intValue() == -1){//new, leaf=true
+        //if(type.getId() == null || type.getId().intValue() == -1){//new, leaf=true
+        if(type.isNew()){//new, leaf=true
             type.setLeaf(true);
         }
         jpaSupportDao.getEntityManager().merge(type);

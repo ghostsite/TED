@@ -19,8 +19,7 @@ import javax.persistence.metamodel.SingularAttribute;
 
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.ToStringBuilder;
-
-import com.ted.common.domain.Identifiable;
+import org.springframework.data.domain.Persistable;
 
 /**
  * The SearchParameters is used to pass search parameters to the DAO layer.
@@ -76,7 +75,7 @@ public class SearchParameters implements Serializable {
     private List<PropertySelector<?, ?>> propertySelectors = newArrayList();
 
     // entity selectors
-    private List<EntitySelector<?, ? extends Identifiable<?>, ?>> entitySelectors = newArrayList();
+    private List<EntitySelector<?, ? extends Persistable<?>, ?>> entitySelectors = newArrayList();
 
     // pattern to match against all strings.
     private String searchPattern;
@@ -346,12 +345,12 @@ public class SearchParameters implements Serializable {
         orders.add(new OrderBy(fieldName, direction));
     }
 
-    public void addOrderBy(SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute) {
+    public void addOrderBy(SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute) {
         Validate.notNull(attribute, "attribute must not be null");
         orders.add(new OrderBy(attribute));
     }
 
-    public void addOrderBy(SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute, OrderByDirection direction) {
+    public void addOrderBy(SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute, OrderByDirection direction) {
         Validate.notNull(attribute, "fieldName must not be null");
         Validate.notNull(direction, "direction must not be null");
         orders.add(new OrderBy(attribute, direction));
@@ -377,12 +376,12 @@ public class SearchParameters implements Serializable {
         return this;
     }
 
-    public SearchParameters orderBy(SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute) {
+    public SearchParameters orderBy(SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute) {
         addOrderBy(attribute);
         return this;
     }
 
-    public SearchParameters orderBy(SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute,
+    public SearchParameters orderBy(SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute,
             OrderByDirection direction) {
         addOrderBy(attribute, direction);
         return this;
@@ -444,18 +443,18 @@ public class SearchParameters implements Serializable {
     // Search by entity selector support
     // -----------------------------------
 
-    public List<EntitySelector<?, ? extends Identifiable<?>, ?>> getEntitySelectors() {
+    public List<EntitySelector<?, ? extends Persistable<?>, ?>> getEntitySelectors() {
         return entitySelectors;
     }
 
-    public void addEntitySelector(EntitySelector<?, ? extends Identifiable<?>, ?> entitySelector) {
+    public void addEntitySelector(EntitySelector<?, ? extends Persistable<?>, ?> entitySelector) {
         entitySelectors.add(entitySelector);
     }
 
     /**
      * Add the passed {@link EntitySelector} in order to construct an OR predicate for the underlying foreign key. 
      */
-    public SearchParameters entitySelector(EntitySelector<?, ? extends Identifiable<?>, ?> entitySelector) {
+    public SearchParameters entitySelector(EntitySelector<?, ? extends Persistable<?>, ?> entitySelector) {
         addEntitySelector(entitySelector);
         return this;
     }

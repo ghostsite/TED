@@ -38,7 +38,7 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 			items : [{
 				xtype : 'hidden',
 				fieldLabel : '父菜单Id',
-				name : 'parentId'
+				name : 'parent.id'
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '父菜单名称',
@@ -184,7 +184,7 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 				root : {
 					expanded : true,
 					text : '菜单',
-					id : 0
+					id : null
 				},
 				store : Ext.create('Ext.data.TreeStore', {
 					proxy : {

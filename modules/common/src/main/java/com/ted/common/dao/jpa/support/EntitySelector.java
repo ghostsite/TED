@@ -14,14 +14,14 @@ import java.util.List;
 
 import javax.persistence.metamodel.SingularAttribute;
 
-import com.ted.common.domain.Identifiable;
+import org.springframework.data.domain.Persistable;
 
 /**
  * Used to construct OR predicate for a single foreign key value. In other words you can search
  * all entities E having their x-to-one association value set to one of the selected values.
  * To avoid a join we rely on the foreign key field, not the association itself.
  */
-public class EntitySelector<E, T extends Identifiable<TPK>, TPK extends Serializable> implements Serializable {
+public class EntitySelector<E, T extends Persistable<TPK>, TPK extends Serializable> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final SingularAttribute<E, TPK> field;
@@ -83,7 +83,7 @@ public class EntitySelector<E, T extends Identifiable<TPK>, TPK extends Serializ
     /**
      * Import statically this helper for smooth instanciation.
      */
-    static public <E2, T2 extends Identifiable<TPK2>, TPK2 extends Serializable> EntitySelector<E2, T2, TPK2> newEntitySelector(
+    static public <E2, T2 extends Persistable<TPK2>, TPK2 extends Serializable> EntitySelector<E2, T2, TPK2> newEntitySelector(
             SingularAttribute<E2, TPK2> field) {
         return new EntitySelector<E2, T2, TPK2>(field);
     }
@@ -92,7 +92,7 @@ public class EntitySelector<E, T extends Identifiable<TPK>, TPK extends Serializ
      * Import statically this helper for smooth instanciation.
      * It is used in the case where the PK is composite AND the pk member(s) are/is also a foreign key. 
      */
-    static public <E2, T2 extends Identifiable<TPK2>, TPK2 extends Serializable, CPK2> EntitySelector<E2, T2, TPK2> newEntitySelectorInCpk(
+    static public <E2, T2 extends Persistable<TPK2>, TPK2 extends Serializable, CPK2> EntitySelector<E2, T2, TPK2> newEntitySelectorInCpk(
             SingularAttribute<E2, CPK2> cpkField, SingularAttribute<CPK2, TPK2> cpkInnerField) {
         return new EntitySelector<E2, T2, TPK2>(cpkField, cpkInnerField);
     }

@@ -8,12 +8,12 @@
 package com.ted.common.dao.jpa.support;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.ted.common.dao.jpa.support.JpaUtil.compositePkPropertyName;
 import static java.util.Collections.emptyList;
 import static javax.persistence.metamodel.Attribute.PersistentAttributeType.EMBEDDED;
 import static javax.persistence.metamodel.Attribute.PersistentAttributeType.MANY_TO_ONE;
 import static javax.persistence.metamodel.Attribute.PersistentAttributeType.ONE_TO_ONE;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
-import static com.ted.common.dao.jpa.support.JpaUtil.compositePkPropertyName;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -33,10 +33,10 @@ import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.apache.log4j.Logger;
+import org.springframework.data.domain.Persistable;
 import org.springframework.util.ReflectionUtils;
 
 import com.google.common.base.Throwables;
-import com.ted.common.domain.Identifiable;
 
 /**
  * Helper to create predicate by example. It processes associated entities (1 level deep).
@@ -49,7 +49,7 @@ public class ByExampleUtil {
     @PersistenceContext
     private EntityManager       em;
 
-    public <T extends Identifiable<?>> Predicate byExampleOnEntity(Root<T> rootPath, final T entityValue, SearchParameters sp, CriteriaBuilder builder) {
+    public <T extends Persistable<?>> Predicate byExampleOnEntity(Root<T> rootPath, final T entityValue, SearchParameters sp, CriteriaBuilder builder) {
         if (entityValue == null) {
             return null;
         }
@@ -65,7 +65,7 @@ public class ByExampleUtil {
         return JpaUtil.andPredicate(builder, predicates);
     }
 
-    protected <T extends Identifiable<?>> List<Predicate> byExampleOnCompositePk(Root<T> root, T entity, SearchParameters sp, CriteriaBuilder builder) {
+    protected <T extends Persistable<?>> List<Predicate> byExampleOnCompositePk(Root<T> root, T entity, SearchParameters sp, CriteriaBuilder builder) {
         String compositePropertyName = compositePkPropertyName(entity);
         if (compositePropertyName == null) {
             return emptyList();
@@ -116,12 +116,13 @@ public class ByExampleUtil {
      * entity's properties value.
      */
     @SuppressWarnings("unchecked")
-    public <T extends Identifiable<?>, M2O extends Identifiable<?>> List<Predicate> byExampleOnXToOne(ManagedType<T> mt, Root<T> mtPath, final T mtValue, SearchParameters sp, CriteriaBuilder builder) {
+    public <T extends Persistable<?>, M2O extends Persistable<?>> List<Predicate> byExampleOnXToOne(ManagedType<T> mt, Root<T> mtPath, final T mtValue, SearchParameters sp, CriteriaBuilder builder) {
         List<Predicate> predicates = newArrayList();
         for (SingularAttribute<? super T, ?> attr : mt.getSingularAttributes()) {
             if (attr.getPersistentAttributeType() == MANY_TO_ONE || attr.getPersistentAttributeType() == ONE_TO_ONE) { //
                 M2O m2oValue = (M2O) getValue(mtValue, mt.getAttribute(attr.getName()));
-                if (m2oValue != null && !m2oValue.isIdSet()) {
+                //if (m2oValue != null && !m2oValue.isIdSet()) {
+                if (m2oValue != null && m2oValue.isNew()) {
                     Class<M2O> m2oType = (Class<M2O>) attr.getBindableJavaType();
                     ManagedType<M2O> m2oMt = em.getMetamodel().entity(m2oType);
                     Path<M2O> m2oPath = (Path<M2O>) mtPath.get(attr);

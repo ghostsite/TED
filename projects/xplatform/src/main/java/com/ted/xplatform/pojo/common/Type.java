@@ -3,16 +3,17 @@ package com.ted.xplatform.pojo.common;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ted.common.domain.IdEntity;
 
 /**
  * 类型,相当于CommonCode
@@ -22,7 +23,8 @@ import com.ted.common.domain.IdEntity;
  * @created 30-三月-2011 10:06:48
  */
 @Entity
-public class Type extends IdEntity { //LogicDeleteEntity
+@Table(name = "type")
+public class Type extends AbstractPersistable<Long> { //LogicDeleteEntity
 
     /**
      * 编码
@@ -32,6 +34,8 @@ public class Type extends IdEntity { //LogicDeleteEntity
     /**
      * 所属类型
      */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
     private Type       parent;
 
     /**
@@ -52,23 +56,26 @@ public class Type extends IdEntity { //LogicDeleteEntity
     /**
      * 子类型
      */
+    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "parent", fetch = FetchType.LAZY)
+    //@JoinColumn(name = "parent_id")
     private List<Type> subTypes;
 
     /**
      * 父亲机构的主键
      */
-    private Long       parentId;
+    //private Serializable parentId;
 
     /**
      * 父亲机构的名字，注意是：Transient，不是给持久化用的，是给页面显示用的。
      */
+    @Transient
     private String     parentName;
-    
+
     /**
      * 是否是叶子
      */
     public boolean     leaf;
-    
+
     public boolean isLeaf() {
         return leaf;
     }
@@ -91,15 +98,24 @@ public class Type extends IdEntity { //LogicDeleteEntity
     public void setParentName(String parentName) {
         this.parentName = parentName;
     }
-    
-    @Column(name = "parent_id")
+
+    @Transient
     public Long getParentId() {
-        return parentId;
+        if (getParent() == null) {
+            return null;
+        } else {
+            return getParent().getId();
+        }
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
+    //    @Column(name = "parent_id")
+    //    public Serializable getParentId() {
+    //        return parentId;
+    //    }
+    //
+    //    public void setParentId(Serializable parentId) {
+    //        this.parentId = parentId;
+    //    }
 
     /**
      * @return the code
@@ -119,8 +135,6 @@ public class Type extends IdEntity { //LogicDeleteEntity
      * @return the parent
      */
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
     public Type getParent() {
         return parent;
     }
@@ -175,8 +189,6 @@ public class Type extends IdEntity { //LogicDeleteEntity
     }
 
     @JsonIgnore
-    @OneToMany(cascade = { CascadeType.ALL },mappedBy="parent", fetch = FetchType.LAZY)
-    //@JoinColumn(name = "parent_id")
     public List<Type> getSubTypes() {
         return subTypes;
     }
@@ -184,5 +196,6 @@ public class Type extends IdEntity { //LogicDeleteEntity
     public void setSubTypes(List<Type> subTypes) {
         this.subTypes = subTypes;
     }
+    
 
 }

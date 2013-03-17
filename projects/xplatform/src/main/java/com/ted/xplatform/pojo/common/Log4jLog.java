@@ -1,11 +1,13 @@
 package com.ted.xplatform.pojo.common;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
-import com.ted.common.domain.IdEntity;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
-public class Log4jLog extends IdEntity {
+@Table(name = "log4jlog")
+public class Log4jLog extends AbstractPersistable<Long> {
     public static final int LOG4J     = 1; //for type column
     public static final int BUSINESS  = 2;
     public static final int EXCEPTION = 3;

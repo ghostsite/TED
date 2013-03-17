@@ -1,5 +1,6 @@
 package com.ted.xplatform.pojo.common;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,13 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Where;
+//import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ted.xplatform.pojo.LogicDeleteEntity;
+import com.ted.xplatform.pojo.base.LogicDeleteEntity;
 
 /**
  * 组织机构
@@ -23,17 +25,22 @@ import com.ted.xplatform.pojo.LogicDeleteEntity;
  * 注意：id=1为根
  */
 @Entity
+@Table(name = "organization")
 public class Organization extends LogicDeleteEntity {
 
     /**
      * 所属组织
      */
     @JsonProperty("parentId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
     private Organization       parent;
 
     /**
      * 组织类型
      */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "type_id")
     private Type               type;
 
     /**
@@ -84,21 +91,28 @@ public class Organization extends LogicDeleteEntity {
     /**
      * 子部门机构
      */
+    @OneToMany(targetEntity = Organization.class, cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "parent")
+    //, mappedBy="subOrganizations" 
+    //@Where(clause = "deleted=0")
+    //@JoinColumn(name = "parent_id")
     private List<Organization> subOrganizations;
 
     /**
      * 机构下的用户
      */
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "organization", fetch = FetchType.LAZY)
+    //@JoinColumn(name = "organization_id")
     private List<User>         users;
 
     /**
      * 父亲机构的主键
      */
-    private Long               parentId;
+//    private Serializable       parentId;
 
     /**
      * 父亲机构的名字，注意是：Transient，不是给持久化用的，是给页面显示用的。
      */
+    @Transient
     private String             parentName;
 
     @Transient
@@ -116,18 +130,20 @@ public class Organization extends LogicDeleteEntity {
         this.parentName = parentName;
     }
 
-    @Column(name = "parent_id")
-    public Long getParentId() {
-        return parentId;
+//    @Column(name = "parent_id")
+    public Serializable getParentId() {
+        if (getParent() == null) {
+            return null;
+        } else {
+            return getParent().getId();
+        }
     }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
+//
+//    public void setParentId(Serializable parentId) {
+//        this.parentId = parentId;
+//    }
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "organization", fetch = FetchType.LAZY)
-    //@JoinColumn(name = "organization_id")
     public List<User> getUsers() {
         return users;
     }
@@ -140,8 +156,6 @@ public class Organization extends LogicDeleteEntity {
      * @return the parent
      */
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
     public Organization getParent() {
         return parent;
     }
@@ -156,7 +170,6 @@ public class Organization extends LogicDeleteEntity {
     /**
      * @return the type
      */
-    @ManyToOne
     public Type getType() {
         return type;
     }
@@ -296,10 +309,6 @@ public class Organization extends LogicDeleteEntity {
     }
 
     @JsonIgnore
-    @OneToMany(targetEntity = Organization.class, cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "parent")
-    //, mappedBy="subOrganizations" 
-    @Where(clause = "deleted=0")
-    //@JoinColumn(name = "parent_id")
     public List<Organization> getSubOrganizations() {
         return subOrganizations;
     }

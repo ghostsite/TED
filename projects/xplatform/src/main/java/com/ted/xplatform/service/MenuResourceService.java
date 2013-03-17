@@ -1,7 +1,9 @@
 package com.ted.xplatform.service;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -38,7 +40,7 @@ import com.ted.xplatform.util.PlatformUtils;
 @Service("menuResourceService")
 public class MenuResourceService {
     final Logger               logger        = LoggerFactory.getLogger(MenuResourceService.class);
-    public static final String SUBMENUS_JPQL = "from MenuResource m where m.parentId=:resourceId or (m.parentId is null and :resourceId is null)  order by m.idx asc";
+    public static final String SUBMENUS_JPQL = "from MenuResource m where m.parent.id=:resourceId or (m.parent.id is null and :resourceId is null)  order by m.idx asc";
 
     @Inject
     JdbcTemplateDao            jdbcTemplateDao;
@@ -233,7 +235,7 @@ public class MenuResourceService {
      * @return List<MenuResource>
      */
     @Transactional(readOnly = true)
-    public List<MenuResource> getMenusByParentIdFilterByCurrentSubject(Long menuid) {
+    public List<MenuResource> getMenusByParentIdFilterByCurrentSubject(Serializable menuid) {
         List<MenuResource> menuResourceList = getSubMenuResourceListByResourceId(menuid);
         return filterMenuResourceByCurrentSubject(menuResourceList);
     };
@@ -244,7 +246,7 @@ public class MenuResourceService {
      * @return List<MenuResource>
      */
     @Transactional(readOnly = true)
-    public List<MenuResource> getMenusLoadOperationsByParentIdFilterByCurrentSubject(Long menuid) {
+    public List<MenuResource> getMenusLoadOperationsByParentIdFilterByCurrentSubject(Serializable menuid) {
         List<MenuResource> filteredMenuList = getMenusByParentIdFilterByCurrentSubject(menuid);
         loadOperations(filteredMenuList);
         return filteredMenuList;
@@ -257,7 +259,7 @@ public class MenuResourceService {
      * @return List<MenuResource>
      */
     @Transactional(readOnly = true)
-    public List<MenuResource> getSubMenusCascadeLoadOperationsByParentIdFilterByCurrentSubject(Long menuid) {
+    public List<MenuResource> getSubMenusCascadeLoadOperationsByParentIdFilterByCurrentSubject(Serializable menuid) {
         List<MenuResource> menuResourceList = getMenusLoadOperationsByParentIdFilterByCurrentSubject(menuid);
         for (MenuResource menu : menuResourceList) {
             List<MenuResource> subMenuResourceList = getSubMenusCascadeLoadOperationsByParentIdFilterByCurrentSubject(menu.getId());
@@ -272,7 +274,7 @@ public class MenuResourceService {
      * @return List<MenuResource>
      */
     @Transactional(readOnly = true)
-    public List<MenuResource> getSubMenusCascadeByParentIdFilterByCurrentSubject(Long menuid) {
+    public List<MenuResource> getSubMenusCascadeByParentIdFilterByCurrentSubject(Serializable menuid) {
         List<MenuResource> menuResourceList = getMenusByParentIdFilterByCurrentSubject(menuid);
         for (MenuResource menu : menuResourceList) {
             List<MenuResource> subMenuResourceList = getSubMenusCascadeByParentIdFilterByCurrentSubject(menu.getId());
@@ -288,11 +290,9 @@ public class MenuResourceService {
      * @return List<MenuResource>
      */
     @Transactional(readOnly = true)
-    public List<MenuResource> getSubMenuResourceListByResourceId(Long resourceId) {
-        if (null == resourceId || 0 == resourceId) {
-            resourceId = null;
-        }
-        List<MenuResource> subMenuResourceList = jpaSupportDao.find(SUBMENUS_JPQL, CollectionUtils.newMap("resourceId", resourceId));
+    public List<MenuResource> getSubMenuResourceListByResourceId(Serializable resourceId) {
+        Map<String, Object> newMap = CollectionUtils.newMap("resourceId", resourceId);
+        List<MenuResource> subMenuResourceList = jpaSupportDao.find(SUBMENUS_JPQL, newMap);
         return subMenuResourceList;
     };
 
@@ -316,9 +316,9 @@ public class MenuResourceService {
     @Transactional
     public MenuResource save(MenuResource menuResource) {
         //判断是add还是update
-        if (null == menuResource.getId() || -1 == menuResource.getId()) {//add
-            if (null != menuResource.getParentId()) {
-                MenuResource parentMenuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, menuResource.getParentId());
+        if (menuResource.isNew()) {//add
+            if (null != menuResource.getParent() && null != menuResource.getParent().getId()) {
+                MenuResource parentMenuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, menuResource.getParent().getId());
                 if (null != parentMenuResource) {
                     menuResource.setLeaf(false);
                 }
@@ -330,7 +330,7 @@ public class MenuResourceService {
             //DozerUtils.copy(menuResource, dbMenuResource);//这个不好用,copy all
             BeanUtils.copyPropertiesByInclude(dbMenuResource, menuResource, new String[] { "code", "name", "description", "path", "iconCls", "buttonIconCls", "buttonScale", "buttonWidth", "buttonIconAlign", "quicktip", "idx", "leaf", "canView", "canAdd", "canUpdate", "canDelete" });
             updateOperationProperties2Operations(dbMenuResource);
-            jpaSupportDao.getEntityManager().persist(dbMenuResource);
+            jpaSupportDao.getEntityManager().merge(dbMenuResource);
         }
         return menuResource;
     }

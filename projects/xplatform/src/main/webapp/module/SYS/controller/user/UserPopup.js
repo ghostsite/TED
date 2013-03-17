@@ -30,6 +30,9 @@ Ext.define('SYS.controller.user.UserPopup', {
 		if (keys.status === 'update') {// 修改
 			view.sub('formId').loadRecord(keys.formData.record);
 			view.sub('organization.id').setValue(keys.formData.record.raw.orgId);
+			alert(keys.formData.record.raw.id);
+			view.sub('id').setValue(keys.formData.record.raw.id);
+			alert(view.sub('id').getValue());
 			view.sub('organization.name').setValue(keys.formData.record.raw.orgName);
 		} else if (keys.status === 'create') {// 新增
 			view.sub('organization.id').setValue(keys.formData['organization.id']);

@@ -1,17 +1,20 @@
 package com.ted.xplatform.pojo.common;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ted.common.domain.IdEntity;
 
 /**
  * 操作：operation or action.
  */
 
 @Entity
-public class Operation extends IdEntity {
+@Table(name = "operation")
+public class Operation extends AbstractPersistable<Long> {
     public enum Type {
         view {
             @SuppressWarnings("all")
@@ -102,5 +105,6 @@ public class Operation extends IdEntity {
     public void setCode(String code) {
         this.code = code;
     }
+    
 
 }

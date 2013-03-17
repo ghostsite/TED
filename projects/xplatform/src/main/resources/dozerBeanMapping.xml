@@ -301,7 +301,7 @@
 		</field>
 		<field>
 			<a map-get-method="getBeanMapValue" map-set-method="setBeanMapValue" key="parentId">beanMap</a>
-			<b>parentId</b>
+			<b get-method="getParentId">parent</b>
 		</field>
 		<field>
 			<a map-get-method="getBeanMapValue" map-set-method="setBeanMapValue" key="parentName">beanMap</a>
@@ -334,7 +334,7 @@
 		</field>
 		<field>
 			<a map-get-method="getBeanMapValue" map-set-method="setBeanMapValue" key="parentId">beanMap</a>
-			<b>parentId</b>
+			<b get-method="getParentId">parent</b>
 		</field>
 		<field>
 			<a map-get-method="getBeanMapValue" map-set-method="setBeanMapValue" key="parentName">beanMap</a>
@@ -363,7 +363,7 @@
 		</field>
 		<field>
 			<a map-get-method="getBeanMapValue" map-set-method="setBeanMapValue" key="parentId">beanMap</a>
-			<b>parentId</b>
+			<b get-method="getParentId">parent</b>
 		</field>
 		<field>
 			<a map-get-method="getBeanMapValue" map-set-method="setBeanMapValue" key="parentName">beanMap</a>

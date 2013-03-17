@@ -111,7 +111,7 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 			},
 			root : {
 				text : '菜单',
-				id : '0',
+				id : null,
 				expanded : true
 			}
 		});

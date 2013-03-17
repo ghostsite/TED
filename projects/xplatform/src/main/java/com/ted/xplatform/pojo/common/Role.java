@@ -1,9 +1,10 @@
 package com.ted.xplatform.pojo.common;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -12,16 +13,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.collect.Lists;
-import com.ted.common.domain.IdEntity;
 
 /**
  * 角色,用户权限框架中。
@@ -30,62 +27,72 @@ import com.ted.common.domain.IdEntity;
  */
 
 @Entity
-public class Role extends IdEntity {
+@Table(name = "role")
+public class Role extends AbstractPersistable<Long> {
     //public static final Long ROOT_ROLE_ID = 1L;
-    
+
     /**
      * 资源名称,view ,add, update,delete and so on.
      */
-    String code;
-    
+    String               code;
+
     /**
      * 描述,备注:新增 , 修改 , 添加, 删除
      */
-    String name;
-    
+    String               name;
+
     /**
      * 角色拥有的用户,many-to-many的关系
      */
-    List<User> users;
-    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    List<User>           users    = new ArrayList<User>();
+
     /**
      * 角色拥有的权限
      */
-    List<ACL> acls = Lists.newArrayList();
-    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "role_acl", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "acl_id") })
+    @OrderBy("id")
+    List<ACL>            acls     = new ArrayList<ACL>();
+
     /**
      * 父亲角色
      */
-    Role parent;
-    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
+    Role                 parent;
+
     /**
      * 为了方便查询，添加了private Long parentId;
-     * 跟parent引用的是同一个字段
+     * 跟parent引用的是同一个字段,这个在Hibernate可以，但是在JPA下不行。
      */
-    private Long parentId;
-    
+    //private Serializable parentId;
+
     /**
      * 父亲机构的名字，注意是：Transient，不是给持久化用的，是给页面显示用的。
      */
-    private String     parentName;
-    
+    @Transient
+    private String       parentName;
+
     /**
      * 子角色
      */
-    List<Role> subRoles;
-    
+    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "parent", fetch = FetchType.LAZY, targetEntity = Role.class)
+    List<Role>           subRoles = new ArrayList<Role>();
+
     /**
      * 索引号
      */
-    private Integer idx;
-    
+    private Integer      idx;
+
     /**
      * 注释
      */
-    private String remark;
-    
+    private String       remark;
+
     //----------methods------------//
-    
+
     public String getRemark() {
         return remark;
     }
@@ -93,22 +100,16 @@ public class Role extends IdEntity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "role_acl", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "acl_id") })
-    @Fetch(FetchMode.SUBSELECT)
-    @OrderBy("id")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+
     public List<ACL> getAcls() {
         return acls;
     }
-
 
     @Transient
     public String getParentName() {
         return parentName;
     }
-    
+
     public void loadParentName() {
         if (null != parent) {
             this.parentName = parent.getName();
@@ -119,24 +120,24 @@ public class Role extends IdEntity {
         this.parentName = parentName;
     }
 
-    @Column(name="parent_id")
-    public Long getParentId() {
-        return parentId;
+//    @Column(name = "parent_id")
+    public Serializable getParentId() {
+        if (getParent() == null) {
+            return null;
+        } else {
+            return getParent().getId();
+        }
     }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
+//
+//    public void setParentId(Serializable parentId) {
+//        this.parentId = parentId;
+//    }
 
     public void setAcls(List<ACL> acls) {
         this.acls = acls;
     }
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
-    @Fetch(FetchMode.SUBSELECT)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     public List<User> getUsers() {
         return users;
     }
@@ -160,10 +161,8 @@ public class Role extends IdEntity {
     public void setCode(String code) {
         this.code = code;
     }
-    
+
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
     public Role getParent() {
         return parent;
     }
@@ -173,8 +172,6 @@ public class Role extends IdEntity {
     }
 
     @JsonIgnore
-    @OneToMany(cascade = { CascadeType.ALL },mappedBy="parent", fetch = FetchType.LAZY)// mappedBy="subRoles"
-   // @JoinColumn(name = "parent_id")
     public List<Role> getSubRoles() {
         return subRoles;
     }
@@ -196,4 +193,5 @@ public class Role extends IdEntity {
     public void setIdx(Integer idx) {
         this.idx = idx;
     }
+    
 }

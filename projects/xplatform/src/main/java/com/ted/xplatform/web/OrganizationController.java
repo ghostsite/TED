@@ -77,8 +77,8 @@ public class OrganizationController {
     Map<String, Object> getOrgAsSuperInfoById(@RequestParam(required = true) Long orgId) {
         Organization org = organizationService.getOrgById(orgId);
         Organization newOrg = new Organization();
-        newOrg.setId(-1L); //this is hack ,否则页面显示不出来。
-        newOrg.setParentId(org.getId());
+        //newOrg.setId(-1L); //this is hack ,否则页面显示不出来。
+        newOrg.setParent(org);
         newOrg.setParentName(org.getName());
         return JsonUtils.getJsonMap(newOrg);
     };

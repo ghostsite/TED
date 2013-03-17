@@ -1,5 +1,6 @@
 package com.ted.xplatform.web;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -142,8 +143,8 @@ public class RoleController {
     Map<String, Object> getRoleAsSuperInfoById(@RequestParam(required=true) Long roleId) {
         Role role = roleService.getRoleById(roleId);
         Role newRole = new Role();
-        newRole.setId(-1L); //this is hack ,否则页面显示不出来。
-        newRole.setParentId(role.getId());
+        //newRole.setId(-1L); //this is hack ,否则页面显示不出来。
+        newRole.setParent(role);
         newRole.setParentName(role.getName());
         return JsonUtils.getJsonMap(newRole);
     };
@@ -204,7 +205,7 @@ public class RoleController {
     @RequestMapping(value = "/getCurrentUserBiggestSetRoleCascadeWithCheckBox")
     public @ResponseBody
     List<CheckTreeNodeWithChildren> getCurrentUserBiggestSetRoleCascadeWithCheckBox() {
-        Long userId = PlatformUtils.getCurrentUser().getId();
+        Serializable userId = PlatformUtils.getCurrentUser().getId();
         Set<Role> roleSet = roleService.getBiggestSetRoleCascade(userId);
         List<CheckTreeNodeWithChildren> treeNodeList = DozerUtils.mapList(roleSet, CheckTreeNodeWithChildren.class);
         return treeNodeList;

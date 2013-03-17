@@ -7,15 +7,15 @@
  */
 package com.ted.common.dao.jpa.support;
 
+import static com.ted.common.dao.jpa.support.OrderByDirection.ASC;
+import static com.ted.common.dao.jpa.support.OrderByDirection.DESC;
+
 import java.io.Serializable;
 
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.apache.commons.lang.Validate;
-
-import com.ted.common.domain.Identifiable;
-import static com.ted.common.dao.jpa.support.OrderByDirection.ASC;
-import static com.ted.common.dao.jpa.support.OrderByDirection.DESC;
+import org.springframework.data.domain.Persistable;
 /**
  * Holder class for search ordering used by the {@link SearchParameters}.
  * When used with {@link NamedQueryUtil}, you pass column name. For other usage, pass the property name.
@@ -36,14 +36,14 @@ public class OrderBy implements Serializable {
         this(columnOrProperty, ASC);
     }
 
-    public OrderBy(SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute, OrderByDirection direction) {
+    public OrderBy(SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute, OrderByDirection direction) {
         Validate.notNull(attribute);
         Validate.notNull(direction);
         this.columnOrProperty = attribute.getName();
         this.direction = direction;
     }
 
-    public OrderBy(SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute) {
+    public OrderBy(SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute) {
         this(attribute, ASC);
     }
 

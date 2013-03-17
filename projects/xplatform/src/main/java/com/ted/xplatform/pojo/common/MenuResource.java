@@ -1,5 +1,6 @@
 package com.ted.xplatform.pojo.common;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ted.xplatform.util.ACLUtils;
@@ -30,13 +29,18 @@ public class MenuResource extends Resource {
 	/**
 	 * 所属上级菜单
 	 */
-	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
 	private MenuResource parent;
 
 	/**
 	 * 子菜单集合
 	 */
 	@JsonIgnore
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "parent", fetch = FetchType.LAZY)
+    // mappedBy="subMenuResources"
+    //@Where(clause = "deleted=0")
+    // @JoinColumn(name = "parent_id")
 	private List<MenuResource> subMenuResources;
 
 	/**
@@ -85,6 +89,7 @@ public class MenuResource extends Resource {
 	/**
 	 * qtip，之所以命名为quicktip，因为在js文件中qtip有问题。
 	 */
+	@Column(name = "qtip")
 	private String quicktip;
 
 	/**
@@ -92,22 +97,27 @@ public class MenuResource extends Resource {
 	 */
 	public boolean leaf;
 
-	/**
-	 * 父亲Id
-	 */
-	private Long parentId;
+//	/**
+//	 * 父亲Id,当初为啥要写一个呢？因为已经有了啊
+//	 */
+//	private Serializable parentId;
 
 	/**
 	 * 父亲菜单Name，注意是：Transient，不是给持久化用的，是给页面显示用的。
 	 */
+	@Transient
 	private String parentName;
 
 	/**
 	 * 为了简化资源关联Operation的模型，暂时定义权限的CRUD属性在这里 注意，不序列化到DB,参照：Operation.Type
 	 */
+	@Transient
 	private boolean canView;
+	@Transient
 	private boolean canAdd;
+	@Transient
 	private boolean canUpdate;
+	@Transient
 	private boolean canDelete;
 
 	
@@ -254,70 +264,36 @@ public class MenuResource extends Resource {
 		this.parentName = parentName;
 	}
 
-	/**
-	 * @return the parent
-	 */
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
 	public MenuResource getParent() {
 		return parent;
 	}
 
-	/**
-	 * @param parent
-	 *            the parent to set
-	 */
 	public void setParent(MenuResource parent) {
 		this.parent = parent;
 	}
 
-	/**
-	 * @return the subMenuResources
-	 */
 	@JsonIgnore
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "parent", fetch = FetchType.LAZY)
-	// mappedBy="subMenuResources"
-	@Where(clause = "deleted=0")
-	// @JoinColumn(name = "parent_id")
 	public List<MenuResource> getSubMenuResources() {
 		return subMenuResources;
 	}
 
-	/**
-	 * @param subMenuResources
-	 *            the subMenuResources to set
-	 */
 	public void setSubMenuResources(List<MenuResource> subMenuResources) {
 		this.subMenuResources = subMenuResources;
 	}
 
-	/**
-	 * @return the path
-	 */
 	public String getPath() {
 		return path;
 	}
 
-	/**
-	 * @param path
-	 *            the path to set
-	 */
 	public void setPath(String path) {
 		this.path = path;
 	}
 
-	/**
-	 * @return the idx
-	 */
 	public Integer getIdx() {
 		return idx;
 	}
 
-	/**
-	 * @param idx
-	 *            the idx to set
-	 */
 	public void setIdx(Integer idx) {
 		this.idx = idx;
 	}
@@ -338,7 +314,6 @@ public class MenuResource extends Resource {
 		this.buttonIconCls = buttonIconCls;
 	}
 
-	@Column(name = "qtip")
 	public String getQuicktip() {
 		return quicktip;
 	}
@@ -355,13 +330,17 @@ public class MenuResource extends Resource {
 		this.leaf = leaf;
 	}
 
-	@Column(name = "parent_id")
-	public Long getParentId() {
-		return parentId;
+//	@Column(name = "parent_id")
+	public Serializable getParentId() {
+	    if (getParent() == null) {
+            return null;
+        } else {
+            return getParent().getId();
+        }
 	}
-
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
+//
+//	public void setParentId(Serializable parentId) {
+//		this.parentId = parentId;
+//	}
 
 }

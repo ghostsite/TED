@@ -3,8 +3,9 @@ package com.ted.xplatform.pojo.common;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
-import com.ted.xplatform.pojo.AuditableEntity;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 
 /**
@@ -14,7 +15,8 @@ import com.ted.xplatform.pojo.AuditableEntity;
  * @created 14-六月-2011 10:14:41
  */
 @Entity
-public class FieldType extends AuditableEntity {
+@Table(name = "fieldtype")
+public class FieldType extends AbstractPersistable<Long> {
 
 	/**
 	 * type为Class时的具体类全名
@@ -113,5 +115,5 @@ public class FieldType extends AuditableEntity {
 	public void setType(FieldTypes type) {
 		this.type = type;
 	}
-
+	
 }

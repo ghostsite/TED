@@ -11,12 +11,13 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
+//import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -33,8 +34,8 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 public class Attachment {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GenericGenerator(name = "system-uuid", strategy = "native")
     @Column(name = "attach_id", length = 32, nullable = false, updatable = false)
     protected Long   attachId; //唯一主键
 

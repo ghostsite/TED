@@ -38,7 +38,7 @@ Ext.define('SYS.view.type.TypeManage', {
 			items : [{
 				xtype : 'hidden',
 				fieldLabel : '父基础类型Id',
-				name : 'parentId'
+				name : 'parent.id'
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '父基础类型名称',
@@ -108,7 +108,7 @@ Ext.define('SYS.view.type.TypeManage', {
 				root : {
 					expanded : true,
 					text : '基础类型数据',
-					id : 0
+					id : null
 				},
 				store : Ext.create('Ext.data.TreeStore', {
 					proxy : {

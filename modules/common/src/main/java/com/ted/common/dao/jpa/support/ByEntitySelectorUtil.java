@@ -15,24 +15,26 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import com.ted.common.domain.Identifiable;
+import org.springframework.data.domain.Persistable;
+
 
 /**
  * Helper to create a predicate out of {@link EntitySelector}s.
+ * this file has been changed from Identifiable Persistable
  */
 public class ByEntitySelectorUtil {
 
-    public static <E> Predicate byEntitySelectors(Root<E> root, CriteriaBuilder builder, final List<EntitySelector<?, ? extends Identifiable<?>, ?>> selectors) {
+    public static <E> Predicate byEntitySelectors(Root<E> root, CriteriaBuilder builder, final List<EntitySelector<?, ? extends Persistable<?>, ?>> selectors) {
         List<Predicate> predicates = newArrayList();
 
-        for (EntitySelector<?, ? extends Identifiable<?>, ?> s : selectors) {
+        for (EntitySelector<?, ? extends Persistable<?>, ?> s : selectors) {
             @SuppressWarnings("unchecked")
-            EntitySelector<E, ? extends Identifiable<?>, ?> selector = (EntitySelector<E, ? extends Identifiable<?>, ?>) s;
+            EntitySelector<E, ? extends Persistable<?>, ?> selector = (EntitySelector<E, ? extends Persistable<?>, ?>) s;
 
             if (selector.isNotEmpty()) {
                 List<Predicate> selectorPredicates = newArrayList();
 
-                for (Identifiable<?> selection : selector.getSelected()) {
+                for (Persistable<?> selection : selector.getSelected()) {
                     if (selector.getField() != null) {
                         selectorPredicates.add(builder.equal(root.get(selector.getField()), selection.getId()));
                     } else {

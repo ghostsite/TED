@@ -31,8 +31,7 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
-
-import com.ted.common.domain.Identifiable;
+import org.springframework.data.domain.Persistable;
 
 public class JpaUtil {
 
@@ -158,7 +157,7 @@ public class JpaUtil {
         return path;
     }
 
-    public static <T extends Identifiable<?>> String compositePkPropertyName(T entity) {
+    public static <T extends Persistable<?>> String compositePkPropertyName(T entity) {
         for (Method m : entity.getClass().getMethods()) {
             if (m.getAnnotation(EmbeddedId.class) != null) {
                 return BeanUtils.findPropertyForMethod(m).getName();

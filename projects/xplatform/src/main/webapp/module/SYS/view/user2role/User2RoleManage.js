@@ -42,7 +42,7 @@ Ext.define('SYS.view.user2role.User2RoleManage', {
 					root : {
 						expanded : true,
 						text : T('Caption.Other.Org'),
-						id : 1
+						id : null
 					},
 					store : Ext.create('Ext.data.TreeStore', {
 						proxy : {
@@ -185,7 +185,7 @@ Ext.define('SYS.view.user2role.User2RoleManage', {
 				root : {
 					expanded : true,
 					text : '基础类型数据',
-					id : 0
+					id : null
 				},
 				store : Ext.create('Ext.data.TreeStore', {
 					proxy : {

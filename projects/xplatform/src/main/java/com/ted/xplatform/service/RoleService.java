@@ -1,7 +1,9 @@
 package com.ted.xplatform.service;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -36,7 +38,7 @@ import com.ted.xplatform.util.PlatformUtils;
 public class RoleService {
     final Logger               logger        = LoggerFactory.getLogger(RoleService.class);
     //this is hack parentId can be null to set
-    public static final String SUBROLES_JPQL = "from Role m where m.parentId=:roleId or (m.parentId is null and :roleId is null) order by m.idx asc";
+    public static final String SUBROLES_JPQL = "from Role m where m.parent.id=:roleId or (m.parent.id is null and :roleId is null) order by m.idx asc";
 
     @Inject
     JdbcTemplateDao            jdbcTemplateDao;
@@ -75,7 +77,7 @@ public class RoleService {
     /**
      * 获得一个用户的最大Role的超集。初始化返回的所有的子集角色。
      */
-    public Set<Role> getBiggestSetRoleCascade(Long userId) {
+    public Set<Role> getBiggestSetRoleCascade(Serializable userId) {
         User user = jpaSupportDao.getEntityManager().find(User.class, userId);
         Set<Role> filteredRoleSet = getBiggestSetRole(user.getRoleList());
         initSubRoleCascade(filteredRoleSet);
@@ -233,10 +235,8 @@ public class RoleService {
      */
     @Transactional(readOnly = true)
     public List<Role> getSubRoleListByRoleId(Long roleId) {
-        if (0 == roleId) {
-            roleId = null;
-        }
-        List<Role> subRoleList = jpaSupportDao.find(SUBROLES_JPQL, CollectionUtils.newMap("roleId", roleId));
+        Map<String, Object> newMap = CollectionUtils.newMap("roleId", roleId);
+        List<Role> subRoleList = jpaSupportDao.find(SUBROLES_JPQL, newMap);
         return subRoleList;
     };
 
@@ -246,7 +246,7 @@ public class RoleService {
      * @return List<Role>
      */
     @Transactional(readOnly = true)
-    public Role getRoleById(Long roleId) {
+    public Role getRoleById(Serializable roleId) {
         Role role = jpaSupportDao.getEntityManager().find(Role.class, roleId);
         role.loadParentName();
         return role;
@@ -258,9 +258,9 @@ public class RoleService {
      */
     @Transactional
     public Role save(Role role) {
-        Role parentRole = jpaSupportDao.getEntityManager().find(Role.class, role.getParentId());
+        Role parentRole = jpaSupportDao.getEntityManager().find(Role.class, role.getParent().getId());
         if (null == parentRole) {
-            role.setParentId(null);
+            role.setParent(null);
         }
         jpaSupportDao.getEntityManager().merge(role);
         return role;
@@ -334,7 +334,7 @@ public class RoleService {
      * @return List<MenuResource>
      */
     @Transactional(readOnly = true)
-    public List<Role> getSubRolesCascadeFilterByRoleWithCheckBox(Long roleId) {
+    public List<Role> getSubRolesCascadeFilterByRoleWithCheckBox(Serializable roleId) {
         List<Role> roleList = getRoleById(roleId).getSubRoles();
         for (Role role : roleList) {
             List<Role> subRoleeList = getSubRolesCascadeFilterByRoleWithCheckBox(role.getId());

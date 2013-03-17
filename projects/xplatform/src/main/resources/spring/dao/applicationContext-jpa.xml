@@ -23,10 +23,10 @@
 			<props>
 				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
 				<!--prop key="net.sf.ehcache.configurationResourceName">cache/ehcache-hibernate-local.xml</prop-->
-				<!--prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop-->
+				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
 				<prop key="hibernate.ejb.resource_scanner">org.hibernate.ejb.packaging.NativeScanner</prop><!--ghostzhang add 20130305-->
 				<prop key="hibernate.show_sql">true</prop><!--ghostzhang add 20130305-->
-				<prop key="hibernate.enable_lazy_load_no_trans">true</prop><!--ghostzhang add 20130305-->
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop><!--ghostzhang add 20130305,be careful with this is setted to true https://hibernate.onjira.com/browse/HHH-7457-->
 			</props>
 		</property>
 	</bean>

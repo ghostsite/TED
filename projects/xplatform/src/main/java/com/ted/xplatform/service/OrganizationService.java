@@ -1,6 +1,7 @@
 package com.ted.xplatform.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -23,7 +24,7 @@ import com.ted.xplatform.pojo.common.Organization;
 public class OrganizationService {
     final Logger               logger       = LoggerFactory.getLogger(OrganizationService.class);
     //this is hack parentId can be null to set
-    public static final String SUBORGS_JPQL = "from Organization m where m.parentId=:orgId or (m.parentId is null and :orgId is null) order by m.idx asc";
+    public static final String SUBORGS_JPQL = "from Organization m where m.parent.id=:orgId or (m.parent.id is null and :orgId is null) order by m.idx asc";
 
     @Inject
     JdbcTemplateDao            jdbcTemplateDao;
@@ -34,7 +35,6 @@ public class OrganizationService {
     @Inject
     JpaTemplateDao             jpaTemplateDao;
 
-    
     public void setJdbcTemplateDao(JdbcTemplateDao jdbcTemplateDao) {
         this.jdbcTemplateDao = jdbcTemplateDao;
     }
@@ -54,7 +54,8 @@ public class OrganizationService {
      */
     @Transactional(readOnly = true)
     public List<Organization> getSubOrgListByOrgId(Long orgId) {
-        List<Organization> subOrgList = jpaSupportDao.find(SUBORGS_JPQL, CollectionUtils.newMap("orgId", orgId));
+        Map<String, Object> newMap = CollectionUtils.newMap("orgId", orgId);
+        List<Organization> subOrgList = jpaSupportDao.find(SUBORGS_JPQL, newMap);
         return subOrgList;
     };
 
@@ -66,7 +67,9 @@ public class OrganizationService {
     @Transactional(readOnly = true)
     public Organization getOrgById(Long orgId) {
         Organization org = jpaSupportDao.findByIdWithDepth(Organization.class, orgId, "users");
-        org.loadParentName();
+        if (org != null) {
+            org.loadParentName();
+        }
         return org;
     };
 
@@ -78,12 +81,12 @@ public class OrganizationService {
      */
     @Transactional
     public Organization save(Organization org) {
-        if (org.getParentId() == null) {
-            org.setParentId(null);
+        if (org.getParent() == null || org.getParent().getId() == null) {
+            org.setParent(null);
         } else {
-            Organization parentOrg = jpaSupportDao.getEntityManager().find(Organization.class, org.getParentId());
+            Organization parentOrg = jpaSupportDao.getEntityManager().find(Organization.class, org.getParent().getId());
             if (null == parentOrg) {
-                org.setParentId(null);
+                org.setParent(null);
             } else {
                 org.setParent(parentOrg);
             }

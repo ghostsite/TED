@@ -128,7 +128,8 @@ Ext.define('SYS.view.user.UserPopup', {
 					name : 'remark'
 				}, {
 					xtype : 'hidden',
-					name : 'id'
+					name : 'id',
+					itemId : 'id'
 				}, {
 					xtype : 'hidden',
 					name : 'versionLock'

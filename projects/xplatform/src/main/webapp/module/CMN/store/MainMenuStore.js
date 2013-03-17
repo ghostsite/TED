@@ -17,7 +17,7 @@ Ext.define('CMN.store.MainMenuStore', {
 		config.proxy = {
 			type : 'ajax',
 			//url : 'service/SecViewFunctionNodeList.json',
-			url : 'menuresource/getCurrentUserMenusCascade/0',
+			url : 'menuresource/getCurrentUserMenusCascade',
 			reader : {
 				type : 'json'
 				//root : 'list'

@@ -1,11 +1,13 @@
 package com.ted.xplatform.pojo.common;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -17,10 +19,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
@@ -28,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.ted.common.util.ConfigUtils;
 import com.ted.common.util.ConvertUtils;
-import com.ted.xplatform.pojo.LogicDeleteEntity;
+import com.ted.xplatform.pojo.base.LogicDeleteEntity;
 
 /**
  * 用户
@@ -40,9 +39,10 @@ import com.ted.xplatform.pojo.LogicDeleteEntity;
 // 表名与类名不相同时重新定义表名.
 @Table(name = "users")
 // 默认的缓存策略.
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@EntityListeners({ org.springframework.data.jpa.domain.support.AuditingEntityListener.class })
 public class User extends LogicDeleteEntity {
-    public static final long     SUPER_USER_ID = ConfigUtils.getConfig().getLong("superuserid");
+    public static final Long     SUPER_USER_ID = ConfigUtils.getConfig().getLong("superuserid");
 
     /**
      * 停用状态
@@ -67,6 +67,7 @@ public class User extends LogicDeleteEntity {
     /**
      * 登录名
      */
+    @Column(nullable = false, unique = true)
     private String               loginName;
 
     /**
@@ -87,11 +88,14 @@ public class User extends LogicDeleteEntity {
     /**
      * 拥有角色集合,不级联。说用户有的角色，只是一级，不包括角色的角色。
      */
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "users", fetch = FetchType.LAZY)
     private java.util.List<Role> roleList      = Lists.newArrayList();
 
     /**
      * 所属组织
      */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "organization_id")
     private Organization         organization;
 
     /**
@@ -125,28 +129,42 @@ public class User extends LogicDeleteEntity {
     @Transient
     private String               language;
     
+    @Transient String orgId;
+    @Transient String orgName;
+
     /**
      * 机构Id,注意是：Transient的，即不持久化，数据来源于organization属性。主要是为了Extjs json输出
      */
     @Transient
-    public Long getOrgId() {
+    public Serializable getOrgId() {
         if (null != organization) {
             return organization.getId();
-        } else {
+        } else if(null != orgId){
+            return orgId;
+        }else{
             return null;
         }
+    }
+    
+    public void setOrgId(String orgId){
+        this.orgId = orgId;
+    }
+    
+    public void setOrgName(String orgName){
+        this.orgName = orgName;
     }
 
     @Transient
     public String getOrgName() {
         if (null != organization) {
             return organization.getName();
-        } else {
-            return "";
+        } else if(null != orgName){
+            return orgName;
+        }else{
+            return null;
         }
     }
 
-    
     @Transient
     public String getLanguage() {
         return language;
@@ -155,8 +173,7 @@ public class User extends LogicDeleteEntity {
     public void setLanguage(String language) {
         this.language = language;
     }
-    
-    @Column(name="passwordKey")
+
     public String getPasswordKey() {
         return passwordKey;
     }
@@ -198,7 +215,6 @@ public class User extends LogicDeleteEntity {
      */
     @NotBlank
     @Size(min = 3, max = 20)
-    @Column(name="loginName",nullable = false, unique = true)
     public String getLoginName() {
         return loginName;
     }
@@ -227,8 +243,8 @@ public class User extends LogicDeleteEntity {
     /**
      * @return the password
      */
-    @NotEmpty(message = "Password must not be blank.")
-    @Size(min = 1, max = 10, message = "Password must between 1 to 10 Characters.")
+    //@NotEmpty(message = "Password must not be blank.")
+    //@Size(min = 1, max = 10, message = "Password must between 1 to 10 Characters.")
     public String getPassword() {
         return password;
     }
@@ -246,8 +262,6 @@ public class User extends LogicDeleteEntity {
     // 多对多定义
     // 中间表定义,表名采用默认命名规则
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "users", fetch = FetchType.LAZY)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     public java.util.List<Role> getRoleList() {
         return roleList;
     }
@@ -294,8 +308,6 @@ public class User extends LogicDeleteEntity {
     /**
      * @return the userName
      */
-    @NotBlank
-    @Column(name="userName")
     public String getUserName() {
         return userName;
     }
@@ -337,7 +349,7 @@ public class User extends LogicDeleteEntity {
 
     @Transient
     public boolean isSuperUser() {
-        return SUPER_USER_ID == id;
+        return SUPER_USER_ID == this.getId();
     }
 
     /**
@@ -366,8 +378,6 @@ public class User extends LogicDeleteEntity {
     }
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "organization_id")
     public Organization getOrganization() {
         return organization;
     }
