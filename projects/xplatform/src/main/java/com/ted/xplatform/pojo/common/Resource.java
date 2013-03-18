@@ -22,7 +22,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.ted.xplatform.pojo.base.LogicDeleteEntity;
+import com.ted.xplatform.pojo.base.LogicAuditEntity;
 
 /**
  * 资源的超类,用户权限框架中。
@@ -34,7 +34,7 @@ import com.ted.xplatform.pojo.base.LogicDeleteEntity;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "category", discriminatorType = DiscriminatorType.STRING)
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public abstract class Resource extends LogicDeleteEntity {
+public abstract class Resource extends LogicAuditEntity {
     /**
      * 资源名称,必须唯一,用在权限中user.hasPermission("code:CRUD")
      */

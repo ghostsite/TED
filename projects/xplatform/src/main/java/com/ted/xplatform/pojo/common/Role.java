@@ -16,9 +16,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ted.xplatform.pojo.base.PersistEntity;
 
 /**
  * 角色,用户权限框架中。
@@ -28,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "role")
-public class Role extends AbstractPersistable<Long> {
+public class Role extends PersistEntity {
     //public static final Long ROOT_ROLE_ID = 1L;
 
     /**

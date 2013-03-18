@@ -4,9 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ted.xplatform.pojo.base.PersistEntity;
 
 /**
  * 操作：operation or action.
@@ -14,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "operation")
-public class Operation extends AbstractPersistable<Long> {
+public class Operation extends PersistEntity {
     public enum Type {
         view {
             @SuppressWarnings("all")

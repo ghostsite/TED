@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.ted.common.util.ConfigUtils;
 import com.ted.common.util.ConvertUtils;
-import com.ted.xplatform.pojo.base.LogicDeleteEntity;
+import com.ted.xplatform.pojo.base.LogicAuditEntity;
 
 /**
  * 用户
@@ -41,7 +41,7 @@ import com.ted.xplatform.pojo.base.LogicDeleteEntity;
 // 默认的缓存策略.
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @EntityListeners({ org.springframework.data.jpa.domain.support.AuditingEntityListener.class })
-public class User extends LogicDeleteEntity {
+public class User extends LogicAuditEntity {
     public static final Long     SUPER_USER_ID = ConfigUtils.getConfig().getLong("superuserid");
 
     /**

@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ted.xplatform.pojo.base.LogicDeleteEntity;
+import com.ted.xplatform.pojo.base.LogicAuditEntity;
 
 /**
  * 组织机构
@@ -26,7 +26,7 @@ import com.ted.xplatform.pojo.base.LogicDeleteEntity;
  */
 @Entity
 @Table(name = "organization")
-public class Organization extends LogicDeleteEntity {
+public class Organization extends LogicAuditEntity {
 
     /**
      * 所属组织

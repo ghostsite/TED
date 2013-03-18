@@ -152,9 +152,9 @@ public class UserService {
     public List<User> getUserListByOrgId(Long orgId) {
         //List<User> users = sqlSessionTemplate.selectList("test.getUserList");
         //Organization org = (Organization)hibernateSupport.getSession().load(Organization.class, orgId);
-        //return jpaSupportDao.find("select u from User u join u.organization org where org.id=?0", orgId);//
-        String sql = "select u.id, u.login_name as loginName,u.user_name as userName, u.email, u.mobile,u.sex,u.telephone,u.state,o.name as orgName from users u left join organization o on u.organization_id=o.id and o.id=?";
-        return jdbcTemplateDao.queryForList(sql, User.class, orgId);
+        return jpaSupportDao.find("select u from User u join u.organization org where org.id=?0", orgId);//
+        //String sql = "select u.id, u.login_name as loginName,u.user_name as userName, u.email, u.mobile,u.sex,u.telephone,u.state,o.name as orgName,u.remark from users u inner join organization o on u.organization_id=o.id and o.id=?";
+        //return jdbcTemplateDao.queryForList(sql, User.class, orgId);
     };
 
     /**

@@ -13,9 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.data.jpa.domain.AbstractAuditable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ted.xplatform.pojo.base.AuditEntity;
 
 /**
  * ACL:对资源所有的可以操作的动作集合。
@@ -28,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "acl")
-public class ACL extends AbstractAuditable<User, Long> {
+public class ACL extends AuditEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "acl_resourceid")
     Resource   resource;

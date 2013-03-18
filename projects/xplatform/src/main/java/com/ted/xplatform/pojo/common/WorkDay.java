@@ -3,10 +3,9 @@ package com.ted.xplatform.pojo.common;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.ted.xplatform.pojo.base.PersistEntity;
 
 /**
  * 工作日
@@ -16,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
  */
 @Entity
 @Table(name = "workday")
-public class WorkDay extends AbstractPersistable<Long> {
+public class WorkDay extends PersistEntity {
 
     /**
      * 日期

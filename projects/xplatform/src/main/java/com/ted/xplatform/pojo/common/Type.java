@@ -11,9 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ted.xplatform.pojo.base.PersistEntity;
 
 /**
  * 类型,相当于CommonCode
@@ -24,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "type")
-public class Type extends AbstractPersistable<Long> { //LogicDeleteEntity
+public class Type extends PersistEntity { //LogicDeleteEntity
 
     /**
      * 编码

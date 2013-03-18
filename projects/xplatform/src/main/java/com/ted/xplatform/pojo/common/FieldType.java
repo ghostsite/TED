@@ -5,7 +5,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import com.ted.xplatform.pojo.base.PersistEntity;
 
 
 /**
@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
  */
 @Entity
 @Table(name = "fieldtype")
-public class FieldType extends AbstractPersistable<Long> {
+public class FieldType extends PersistEntity {
 
 	/**
 	 * type为Class时的具体类全名
