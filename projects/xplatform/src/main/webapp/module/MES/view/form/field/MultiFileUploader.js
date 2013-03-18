@@ -1,7 +1,10 @@
 Ext.define('MES.view.form.field.MultiFileUploader',{
 	extend : 'Ext.form.Panel',
 	alias : 'widget.multifileuploader',
-	
+	layout : {
+		type : 'vbox',
+		align : 'stretch'
+	},
 	bodyCls : 'borderTNone borderBNone borderRNone borderLNone',
 	constructor : function(config){
 		var configs = config || {};
@@ -22,18 +25,18 @@ Ext.define('MES.view.form.field.MultiFileUploader',{
 				xtype : 'toolbar',
 				cls : 'borderTNone borderBNone borderRNone borderLNone',
 				dock : 'top',
-				items : ['->',Ext.create('Ext.form.field.File', Ext.apply({
+				items : ['->',Ext.create('Ext.form.field.File',{
 					buttonOnly : true,
-					buttonText:'Upload File',
-					buttonConfig : {
+					buttonText: me.buttonText || 'Upload File',
+					buttonConfig : Ext.apply({
 						cls : 'btnUpload'
-					},
+					},me.buttonConfig||{}),
 					listeners : {
 						change : function(field,value){
 							me.onChangeFile(field,value);
 						}
 					}
-				}, me.fileFileConfig||{}))	]
+				})	]
 			};
 		if(me.title){
 			me.fileField = this.addTool(fileFieldConfig);
@@ -42,10 +45,10 @@ Ext.define('MES.view.form.field.MultiFileUploader',{
 			me.fileField = this.add(fileFieldConfig);
 		}
 		
-		me.fileGrid = this.add(Ext.create('Ext.grid.Panel',{
-			cls : ' marginT5 borderT',
+		me.fileGrid = this.add(Ext.create('Ext.grid.Panel',Ext.apply({
+			cls : 'borderT',
+			autoScroll : true,
 			hideHeaders : true,
-			height : 200,
 			store : me.store,
 			columns : [ {
 				xtype : 'textactioncolumn',
@@ -98,7 +101,7 @@ Ext.define('MES.view.form.field.MultiFileUploader',{
 					tooltip : T('Caption.Task.ToolTip.delete')
 				} ]
 			}]
-		}, me.fileGridConfig||{}));
+		}, me.gridConfig||{})));
 	},
 	exportForm : function(id) {
 		var body = Ext.getBody();
@@ -184,34 +187,3 @@ Ext.define('MES.view.form.field.MultiFileUploader',{
 		}
 	}
 });
-
-
-//{
-//	text : 'Progress',
-//	dataIndex : 'progress',
-//	width : 110,
-//	renderer : function(v, m, r) {
-//		var id = Ext.id();
-//		var s = r.get('status');
-//		var text = 'Uploading...';
-//		if(Ext.isDefined(v) && !s){
-//			setTimeout(function(){
-//				r.set('progress', v+5);
-//			}, 500);
-//		}
-//		else {
-//			v = 100;
-//			text = s;
-//		}
-//		Ext.defer(function() {
-//			Ext.widget('progressbar', {
-//				text : text,
-//				renderTo : id,
-//				value : v / 100,
-//				height : 18,
-//				width : 100
-//			});
-//		}, 50);	
-//		return Ext.String.format('<div id="{0}"></div>', id);
-//	}
-//}

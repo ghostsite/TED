@@ -113,6 +113,9 @@ Ext.define('BAS.view.setup.FavoritesSetup', {
 							grdFavList.getSelectionModel().select(selectRecords);
 						}
 					}
+					if(programId == SF.login.programId){
+						Ext.getStore('CMN.store.FavoriteStore').load();
+					}
 				}
 			}
 		});
@@ -394,10 +397,9 @@ Ext.define('BAS.view.setup.FavoritesSetup', {
 					selModel : Ext.create('Ext.selection.RowModel', {
 						mode : 'MULTI'
 					}),
-					// TODO : 화면갱신 방법 미확정 : list 변경 적용시 바로 즐겨찾기 아이콘 갱신으려 변경함.
-					//2012.11.20 KKH
-					store : Ext.getStore('CMN.store.FavoriteStore'),
-					//store : Ext.create('WIP.store.SecViewFavoritesListOut.list'),
+					store : Ext.create('WIP.store.SecViewFavoritesListOut.list', {
+						pageSize : 25
+					}),
 					columns : [ {
 						xtype : 'rownumberer',
 						width : 50,
@@ -417,13 +419,13 @@ Ext.define('BAS.view.setup.FavoritesSetup', {
 					layout : 'hbox',
 					items : [ {
 						xtype : 'textfield',
+						cls : 'marginR3',
 						itemId : 'txtAlias',
 						fieldLabel : T('Caption.Other.Alias'),
 						flex : 1
 					}, {
 						xtype : 'button',
 						itemId : 'btnAlias',
-						cls : 'marginL5',
 						width : 40,
 						text : T('Caption.Button.OK')
 
@@ -436,23 +438,25 @@ Ext.define('BAS.view.setup.FavoritesSetup', {
 					align : 'stretch'
 				},
 				width : 40,
-				items : [ {
+				items : [  {
+					xtype : 'container',
+					flex : 1
+				},{
 					xtype : 'container',
 					flex : 1,
 					layout : {
 						type : 'vbox',
-						pack : 'end',
 						align : 'center'
 					},
 					items : [ {
 						xtype : 'button',
 						itemId : 'btnAttach',
-						cls : 'btnArrowLeft marginT7',
+						cls : 'btnArrowLeft marginT7 marginB3',
 						width : 24
 					}, {
 						xtype : 'button',
 						itemId : 'btnDetach',
-						cls : 'btnArrowRight marginT5',
+						cls : 'btnArrowRight',
 						width : 24
 					} ]
 				}, {
@@ -460,7 +464,6 @@ Ext.define('BAS.view.setup.FavoritesSetup', {
 					flex : 1,
 					layout : {
 						type : 'vbox',
-						pack : 'end',
 						align : 'center'
 					},
 					items : [ {
@@ -474,9 +477,6 @@ Ext.define('BAS.view.setup.FavoritesSetup', {
 						cls : 'btnArrowDown marginB7',
 						width : 24
 					} ]
-				}, {
-					xtype : 'container',
-					flex : 1
 				} ]
 			}, {
 				xtype : 'container',

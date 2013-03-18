@@ -166,7 +166,7 @@ Ext.define('MES.view.form.BaseForm', {
 			if(this.secControlList[itemId] == ''){
 				disabled = true;
 			}
-			else if(this.useBlickList === 'Y' && this.secControlList[itemId] !== 'Y'){
+			else if(this.useBlackList === 'Y' && this.secControlList[itemId] !== 'Y'){
 				disabled = true;
 			}
 		}

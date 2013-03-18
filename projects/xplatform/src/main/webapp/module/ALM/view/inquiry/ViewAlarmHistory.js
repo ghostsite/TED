@@ -74,10 +74,11 @@ Ext.define('ALM.view.inquiry.ViewAlarmHistory',
 
 				return true;
 			},
-
 			buildForm : function() {
 				var store = Ext.create('WIP.store.AlmViewAlarmHistoryListOut.alarmList', {
-					buffered : true
+					buffered : true,
+					pageSize : 100,
+					leadingBufferZone : 300
 				});
 				return [ {
 					xtype : 'grid',

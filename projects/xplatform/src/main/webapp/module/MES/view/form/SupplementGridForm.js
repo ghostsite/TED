@@ -4,8 +4,7 @@ Ext.define('MES.view.form.SupplementGridForm', {
 	alias : [ 'widget.gridsup', 'widget.mes_view_supplementgridform' ],
 
 	cls : 'nav supplement',
-	bodyCls : 'paddingAll7',
-
+	bodyCls : 'paddingAll5',
 	layout : {
 		type : 'vbox',
 		align : 'stretch'
@@ -17,11 +16,11 @@ Ext.define('MES.view.form.SupplementGridForm', {
 
 	initComponent : function() {
 		/* grid 갱신시 화면 자동 검색 사용유무 */
-		/* 기본값 : true */
-
+		/* 기본값 : false */
+		
 		if(this.grid.autoFormLoad === false || this.grid.autoFormLoad === true){
 			this.autoFormLoad = this.grid.autoFormLoad;
-		}else if(this.autoFormLoad === false){
+		}else if(!this.autoFormLoad){
 			this.autoFormLoad = false;
 		}else{
 			this.autoFormLoad = true;
@@ -37,12 +36,13 @@ Ext.define('MES.view.form.SupplementGridForm', {
 		if (this.grid && this.grid.store){
 			this.store = this.grid.store;
 			this.store.autoLoad = false;
-
 			if(this.grid.itemId){
 				this.grdItemId = this.grid.itemId;
 			}
+			this.store.remoteFilter = this.grid.remoteFilter===false?false:true;
 		} 
-
+		this.remoteFilter = this.store.remoteFilter;
+		
 		this.dockedItems = [ this.zsearchtoolbar(), this.zpagingtoolbar()];
 		this.callParent();
 		
@@ -70,7 +70,6 @@ Ext.define('MES.view.form.SupplementGridForm', {
 			}
 		}
 		this.add(this.zgrid());
-		
 		var pagebar = this.sub('pagebar');
 		pagebar.insert(0,'->');
 		pagebar.remove(10);
@@ -96,10 +95,14 @@ Ext.define('MES.view.form.SupplementGridForm', {
 			self.sub('txtGridCount').setValue(store.totalCount);
 		});
 
-		this.sub('txtSearchField').on('change', function(field, e) {
-			self.refreshGrid(false);
+//		this.sub('txtSearchField').on('change', function(field, e) {
+//			self.refreshGrid(false);
+//		});
+		this.sub('txtSearchField').on('specialkey', function(field, e) {
+			if(e.getKey() == e.ENTER) {
+				self.refreshGrid(false);
+			}
 		});
-
 		this.sub('btnRefresh').on('click', function() {
 			var selects = [];
 			/**
@@ -192,7 +195,7 @@ Ext.define('MES.view.form.SupplementGridForm', {
 	},
 
 	// 리스트내 검색조건 설정
-	getGridLocalFilters : function() {
+	getGridFilters : function() {
 		var filters = [];
 		var value = this.sub('txtSearchField').getValue();
 		var searchField = '';
@@ -201,10 +204,16 @@ Ext.define('MES.view.form.SupplementGridForm', {
 			searchField = this.grid.searchField;
 		else
 			searchField = this.grid.columns[0].dataIndex;
-		filters.push({
-			property : searchField,
-			value : new RegExp(value)
-		});
+		
+		if(value){
+			if(!this.remoteFilter)
+				 value = new RegExp(value);
+			
+			filters.push({
+				property : searchField,
+				value : value
+			});
+		}
 
 		if (this.formFields) {
 			for ( var i in this.formFields) {
@@ -246,24 +255,68 @@ Ext.define('MES.view.form.SupplementGridForm', {
 	getSelectedRec : function(){
 		return this.selectedRec;
 	},
-	
+	selectRec : function(select){
+		var grid = this.sub(this.grdItemId);
+		var record = null;
+		if(!grid.store.getCount())
+			return;
+		this.selectInfo = {};
+		this.selectedRec = '';
+		
+		if(Ext.typeOf(select) == 'number' || Ext.typeOf(select) == 'object' || Ext.typeOf(select) == 'array'){
+			this.selectInfo = select;
+			
+			if (Ext.typeOf(select) == 'number') {
+				record = grid.store.getAt(select);
+			} else if (Ext.typeOf(select) == 'object') {
+				var column = select['column'] || '';
+				var value = select['value'] || '';
+				//params(fieldName , value, startIndex, anyMatch, caseSensitive(대소문자),  exactMatch(완전일치)
+				record = grid.store.findRecord(column, value,0,false,true,true);
+			} else if (Ext.typeOf(select) == 'array') {
+				var findRecord = grid.store.queryBy(function(record, id) {
+					var bMatch = false;
+					Ext.Array.each(select, function(item) {
+						if (record.get(item.column) == item.value) {
+							bMatch = true;
+						} else {
+							bMatch = false;
+							return false;
+						}
+					});
+					return bMatch;
+				});
+
+				if (findRecord.getAt(0)) {
+					record = findRecord.getAt(0);
+				}
+			}
+		}
+		if (record){
+			grid.getSelectionModel().select(record);
+		}
+		else{
+			grid.getSelectionModel().deselectAll();
+		}
+		this.selectedRec = record;
+	},
 	refreshGrid : function(reload,select) {
 
 		var grid = this.sub(this.grdItemId);
 		var store = grid.store;
-		store.clearFilter(true);
-		store.filter(this.getGridLocalFilters());
 		
 		if(Ext.typeOf(select) == 'number' || Ext.typeOf(select) == 'object' || Ext.typeOf(select) == 'array')// || select == 'I' || select == 'U')
 			this.selectInfo = select;
 		else
 			this.selectInfo = {};
 		
-		if (reload) {
-			store.getProxy().extraParams =  this.getGridParams();
-			store.load({
-				//params : this.getGridParams()
-			});
+		store.getProxy().extraParams =  this.getGridParams();
+		
+		store.filters.clear();
+		store.filter(this.getGridFilters());
+		
+		if (reload && !this.remoteFilter) {
+			store.load();
 		}
 	},
 	
@@ -290,6 +343,7 @@ Ext.define('MES.view.form.SupplementGridForm', {
 	zgrid : function() {
 		var grid = {
 				xtype : 'grid',
+				cls : 'borderB',
 				itemId : this.grdItemId,
 				flex : 1,
 				autoScroll : true,

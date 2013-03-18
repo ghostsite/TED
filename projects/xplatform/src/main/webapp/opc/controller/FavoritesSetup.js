@@ -206,7 +206,7 @@ Ext.define('Opc.controller.FavoritesSetup', {
 		});
 
 		Ext.Array.each(sendSelectRecords, function(record) {
-			var seqNum = sendStore.indexOf(record) + 1;
+			var seqNum = sendStore.indexOf(record);
 			var result = procFn.call(self, procstep, record, seqNum);
 			if (result.success) {
 				sendStore.remove(record);
@@ -233,9 +233,8 @@ Ext.define('Opc.controller.FavoritesSetup', {
 		selectRecords.sort(function(record1, record2) {
 			return record1.index - record2.index;
 		});
-
 		Ext.Array.each(selectRecords, function(record) {
-			var seqNum = store.indexOf(record);
+			var seqNum = store.indexOf(record) - 1;
 			if (seqNum > 0) {
 				var result = procFn.call(self, procstep, record, seqNum);
 				if (result.success === false) {
@@ -264,9 +263,8 @@ Ext.define('Opc.controller.FavoritesSetup', {
 		selectRecords.sort(function(record1, record2) {
 			return record2.index - record1.index;
 		});
-
 		Ext.Array.each(selectRecords, function(record) {
-			var seqNum = store.indexOf(record) + 2;
+			var seqNum = store.indexOf(record) + 1;
 			if (seqNum <= store.getCount()) {
 				var result = procFn.call(self, procstep, record, seqNum);
 				if (result.success === false) {

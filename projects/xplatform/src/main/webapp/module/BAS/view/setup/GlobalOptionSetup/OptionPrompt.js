@@ -150,9 +150,6 @@ Ext.define('BAS.view.setup.GlobalOptionSetup.OptionPrompt', {
 	buildSupplement : function() {
 		return {
 			xtype : 'gridsup',
-
-			fields : [],
-
 			grid : {
 				procstep : '1',
 				store : Ext.create('BAS.store.BasViewGlobalOptionPromptListOut.promptList'),

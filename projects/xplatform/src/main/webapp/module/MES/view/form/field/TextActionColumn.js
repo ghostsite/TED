@@ -33,7 +33,7 @@ Ext.define('MES.view.form.field.TextActionColumn', {
        scope = me.origScope || me,
        tooltip;
        var linkStyle = ' linkStyle';
-       if(me.underbarText === false){
+       if(me.underlineText === false){
     	   linkStyle= '';
        }
        // Allow a configured renderer to create initial value (And set the other values in the "metadata" argument!)

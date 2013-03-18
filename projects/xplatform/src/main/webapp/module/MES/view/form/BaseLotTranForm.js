@@ -21,26 +21,48 @@ Ext.define('MES.view.form.BaseLotTranForm', {
 		this.callParent();
 		var self = this;
 
-		this.on('keychange', function(me,keys){
-			self.onKeyChange(me,keys);
+		this.on('keychange', function(me, keys) {
+			self.onKeyChange(me, keys);
 		});
-		
+
+		// 화면 초기화가 정상적으로 처리되지 않아 변경함.(2013-02-20)
 		this.on('afterrender', function() {
+			var supplement = self.getSupplement();
 			// lot info 정보 로드가 완료되면 description 로드
-			self.sub('viewLotInfo').on('loadlotinfo', function(record) {
-				self.sub('txtLotDesc').setValue(record.get('lotDesc'));
-				self.loadResStatus(record.get('resId'));
+			self.sub('viewLotInfo').on('loadlotinfo', function(record, sucess) {
+
+				// general tab 초기화
+				var tabGeneral = self.sub(self.generalItemId);
+				if (tabGeneral && self.autoTabGeneralClear !== false) {
+					SF.cf.clearFormFields(tabGeneral);
+				}
+
+				// cmf tab 초기화
 				var tabTranCmf = self.sub('tabTranCmf');
 				if (tabTranCmf) {
 					SF.cf.clearFormFields(tabTranCmf);
 				}
-				var tabGeneral = self.sub(self.generalItemId);
-				if (tabGeneral && self.autoTabGeneralClear!==false) {
-					SF.cf.clearFormFields(tabGeneral);
-				}
 
-				if (self.afterLoadLotInfo != Ext.emptyFn) {
-					self.afterLoadLotInfo(record);
+				// load lot info 되고 record 값이 있으면 처리..
+				if (sucess === true && record) {
+
+					self.sub('txtLotDesc').setValue(record.get('lotDesc'));
+					self.loadResStatus(record.get('resId'));
+
+					// afterLoadLotInfo가 sucess===true 상태에서만 호출 되도록 개발해서 현재 소스가
+					// 맞추어있어 변경 불가
+					if (self.afterLoadLotInfo != Ext.emptyFn) {
+						self.afterLoadLotInfo(record);
+					}
+				} else {
+					// viewLotInfo 초기화
+					self.clearLotInfo();
+				}
+				if (supplement) {
+					var workStation = supplement.sub('viewWorkStation');
+					if (workStation) {
+						workStation.setWorkStation(record);
+					}
 				}
 			});
 
@@ -54,7 +76,7 @@ Ext.define('MES.view.form.BaseLotTranForm', {
 		this.sub('txtTranLotId').on('keydown', function(t, e) {
 			if (e.keyCode == Ext.EventObject.ENTER) {
 				self.setKeys({
-					lotId : t.getValue()||''
+					lotId : t.getValue() || ''
 				});
 			}
 		});
@@ -62,34 +84,25 @@ Ext.define('MES.view.form.BaseLotTranForm', {
 		this.sub('txtTranLotId').on('change', function(field, newValue) {
 			self.fireEvent('changelotid', field, newValue);
 		});
-		
+
 	},
-	onKeyChange : function(me,keys){
-		if(!keys){
-			if(SF.setting.get('currentLotId')){
+	onKeyChange : function(me, keys) {
+		if (!keys) {
+			if (SF.setting.get('currentLotId')) {
 				this.setKeys({
 					lotId : SF.setting.get('currentLotId')
 				});
 				return;
-			}
-			else
+			} else
 				return;
 		}
-		if(keys.lotId !== this.sub('txtTranLotId').getValue()){
+		if (keys.lotId !== this.sub('txtTranLotId').getValue()) {
 			this.sub('txtTranLotId').setValue(keys.lotId);
 		}
 
-		var supplement = this.getSupplement();
-		if (supplement) {
-			var workStation = supplement.sub('viewWorkStation');
-			if (workStation){
-				workStation.setWorkStation(keys.lotId);
-			}
-		}
-		
 		this.loadLotInfo(keys.lotId);
 	},
-	
+
 	buildForm : function() {
 		this.callParent();
 
@@ -266,7 +279,7 @@ Ext.define('MES.view.form.BaseLotTranForm', {
 	getLotInfo : function() {
 		return this.sub('viewLotInfo').getLotInfo();
 	},
-	clearLotInfo : function(){
+	clearLotInfo : function() {
 		this.sub('viewLotInfo').store.removeAll();
 	},
 	loadResStatus : function(resId) {

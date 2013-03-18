@@ -915,6 +915,35 @@ Ext.define('MES.data.CodeViewRegister', {
 				flex : 1
 			} ]
 		});
+		
+		
+		SmartFactory.codeview.register('RmaResultCode', {
+			type : 'gcm',
+			table : SF_RMA_RESULT_CODE,
+
+			popupConfig : {
+				title : T('Caption.Other.Result Code'),
+				columns : [ {
+					header : T('Caption.Other.Result Code'),
+					dataIndex : 'key1',
+					flex : 1
+				}, {
+					header : T('Caption.Other.Description'),
+					dataIndex : 'data1',
+					flex : 2
+				} ]
+			},
+
+			fields : [ {
+				column : 'key1',
+				enforceMaxLength : true,
+				maxLength : 10,
+				flex : 1
+			} ]
+		});
+		
+		
+		
 
 		SmartFactory.codeview.register('ActionCode', {
 			type : 'gcm',

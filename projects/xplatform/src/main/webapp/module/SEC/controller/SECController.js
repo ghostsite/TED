@@ -46,28 +46,78 @@ Ext.define('SEC.controller.SECController', {
 			});
 		}
 		
-		SF.addSideMenu('Ext.button.Button', {
-			text : SF.login.name + ' @ ' + SF.login.factory,
-			cls : 'iconUser',
-			menu : [ {
+		//user menu
+		var userMenu =  [ {
+			text : T('Caption.Other.Logout'),
+			handler : function() {
+				Ext.MessageBox.confirm('Confirm', 'Are you sure you want to do that?', function(confirm) {
+					if (confirm === 'yes') {
+						document.location.href = typeof(LOGOUT_URL) === 'undefined' ? 'logout?targetUrl=/home' : LOGOUT_URL;;
+					}
+				});
+			}
+		} ];
+		//profile 수정등록
+		var MP_AllowUpdateProfile = SF.option.get('MP_AllowUpdateProfile')||{};
+		//TODO : default 설정 미확정 : 기본은 수정가능상태임
+//		if(MP_AllowUpdateProfile.value1 !== 'Y'){
+		if(MP_AllowUpdateProfile.value1 != 'N'){
+			var MP_AssemblyNameOfProfile = SF.option.get('MP_AssemblyNameOfProfile')||{};
+			
+			Ext.Array.insert(userMenu,0,[{
 				text : T('Caption.Other.Profile'),
 				handler : function() {
 					SF.doMenu({
-						viewModel : 'SEC.view.setup.UserProfile'
+						viewModel : MP_AssemblyNameOfProfile.value1 || 'SEC.view.setup.UserProfile'
 					});
 				}
-			}, {
-				text : T('Caption.Other.Logout'),
-				handler : function() {
-					Ext.MessageBox.confirm('Confirm', 'Are you sure you want to do that?', function(confirm) {
-						if (confirm === 'yes') {
-							document.location.href = typeof(LOGOUT_URL) === 'undefined' ? 'logout?targetUrl=/home' : LOGOUT_URL;;
+			}]);
+		}
+		// 언어설정 메뉴 등록
+		if(window.LANGUAGE_LIST && LANGUAGE_LIST.length> 0){
+			var localeList = [];
+			for(var i in LANGUAGE_LIST){
+				localeList.push({
+					xtype : 'menucheckitem',
+					text : LANGUAGE_LIST[i].text,
+					group : 'locale',
+					inputValue : LANGUAGE_LIST[i].locale,
+					checked : (SF.login.locale==LANGUAGE_LIST[i].locale),
+					checkHandler : function (item, checked){
+						if(checked){
+							var locale = item.inputValue;
+							if(!locale){
+								Ext.Msg.alert('Error', 'Please, select the language.');
+								return;
+							}
+							SF.cf.callService({
+								url : 'service/secChangeLanguage.json',
+								params : {
+									procstep : '1',
+									langCode : locale
+								},
+								callback : function(options, success, response) {
+									if(success)
+										location.reload();
+								}
+							});
 						}
-
-					});
+					}
+				});
+			}
+			Ext.Array.insert(userMenu,1, [{
+				text : T('Caption.Other.Language'),
+				menu : {
+					xtype : 'menu',
+					ignoreParentClicks : true,
+					items : localeList
 				}
-			} ]
+			}]);
+		}
+		SF.addSideMenu('Ext.button.Button', {
+			text : SF.login.name + ' @ ' + SF.login.factory,
+			cls : 'iconUser',
+			menu : userMenu
 		});
-		
 	}
 });

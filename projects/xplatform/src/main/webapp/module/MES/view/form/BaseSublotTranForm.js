@@ -26,6 +26,7 @@ Ext.define('MES.view.form.BaseSublotTranForm', {
 		});
 		
 		this.on('afterrender', function() {
+			var supplement = self.getSupplement();
 			// lot info 정보 로드가 완료되면 description 로드
 			self.sub('viewSublotInfo').on('loadsublotinfo', function(record) {
 				self.sub('txtTranLotId').setValue(record.get('lotId'));
@@ -41,6 +42,12 @@ Ext.define('MES.view.form.BaseSublotTranForm', {
 				}
 				if (self.afterLoadSublotInfo != Ext.emptyFn) {
 					self.afterLoadSublotInfo(record);
+				}
+				if (supplement) {
+					var workStation = supplement.sub('viewWorkStation');
+					if (workStation) {
+						workStation.setWorkStation(record);
+					}
 				}
 			});
 			
@@ -79,14 +86,6 @@ Ext.define('MES.view.form.BaseSublotTranForm', {
 			this.sub('txtTranSublotId').setValue(keys.sublotId);
 		}
 
-		var supplement = this.getSupplement();
-		if (supplement) {
-			var workStation = supplement.sub('viewWorkStation');
-			if (workStation){
-				workStation.setWorkStation(keys.lotId);
-			}
-		}
-		
 		this.loadSublotInfo(keys.sublotId);
 	},
 	buildForm : function(){
@@ -156,8 +155,8 @@ Ext.define('MES.view.form.BaseSublotTranForm', {
 				flex : 3,
 				hidden : infoHidden||false,
 				layout : 'anchor',
-				items : [self.buildResStatus(resStatusHidden), 
-				         self.buildSublotInfo(lotInfoHidden)]
+				items : [self.buildSublotInfo(lotInfoHidden),
+				         self.buildResStatus(resStatusHidden)]
 			});
 			return {
 				xtype : 'container',

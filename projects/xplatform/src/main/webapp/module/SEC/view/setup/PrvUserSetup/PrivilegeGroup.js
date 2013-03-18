@@ -14,11 +14,10 @@ Ext.define('SEC.view.setup.PrvUserSetup.PrivilegeGroup', {
 
 		var self = this;
 
-		this.sub('grdAllUserList').store.load({
-			params : {
-				procstep : '1'
-			}
-		});
+		this.sub('grdAllUserList').store.proxy.extraParams = {
+			procstep : '1'
+		};
+		this.sub('grdAllUserList').store.load();
 
 		var createSelected = [];
 		this.sub('grdAllUserList').on('select', function(rowModel, record, index, opts) {
@@ -64,19 +63,6 @@ Ext.define('SEC.view.setup.PrvUserSetup.PrivilegeGroup', {
 				});
 				self.loadRecord(record);
 			});
-
-			/*
-			 * View가 화면에 표시된 후에 Tools의 버튼을 찾을 수 있음.
-			 */
-			// self.sub('btnGrpUserRefresh').on('click', function(button, event,
-			// opts) {
-			// self.refreshGrid(true, 'grdGrpUserList');
-			// });
-			//
-			// self.sub('btnUserListRefresh').on('click', function(button,
-			// event, opts) {
-			// self.refreshGrid(true, 'grdAllUserList');
-			// });
 		});
 	},
 
@@ -135,18 +121,10 @@ Ext.define('SEC.view.setup.PrvUserSetup.PrivilegeGroup', {
 	},
 
 	buildForm : function(main) {
-		var createSelModel = Ext.create('Ext.selection.RowModel', {
-			mode : 'MULTI'
-		});
-		var deleteSelModel = Ext.create('Ext.selection.RowModel', {
-			mode : 'MULTI'
-		});
-
 		return [ {
 			xtype : 'container',
 			layout : 'anchor',
 			defaults : {
-				labelSeparator : '',
 				anchor : '100%'
 			},
 			items : [ {
@@ -171,33 +149,26 @@ Ext.define('SEC.view.setup.PrvUserSetup.PrivilegeGroup', {
 				align : 'stretch'
 			},
 			flex : 1,
-			items : [ {
-				xtype : 'panel',
-				layout : 'fit',
+			items : [  {
+				xtype : 'grid',
+				itemId : 'grdGrpUserList',
 				title : T('Caption.Other.Privilege Group - User Relation'),
-				// tools : [ {
-				// xtype : 'button',
-				// cls : 'btnRefresh',
-				// itemId : 'btnGrpUserRefresh',
-				// width : 24
-				// } ],
 				flex : 1,
-				items : [ {
-					xtype : 'grid',
-					itemId : 'grdGrpUserList',
-					multiSelect : true,
-					selModel : deleteSelModel,
-					cls : 'navyGrid',
-					store : Ext.create('SEC.store.SecViewPrivilegeGroupUserListOut.List'),
-					columns : [ {
-						header : T('Caption.Other.User ID'),
-						dataIndex : 'userId',
-						flex : 1
-					}, {
-						header : T('Caption.Other.Description'),
-						dataIndex : 'userDesc',
-						flex : 2
-					} ]
+				selModel : {
+					mode : 'MULTI'
+				},
+				cls : 'navyGrid',
+				store : Ext.create('SEC.store.SecViewPrivilegeGroupUserListOut.List', {
+					pageSize : 5000
+				}),
+				columns : [ {
+					header : T('Caption.Other.User ID'),
+					dataIndex : 'userId',
+					flex : 1
+				}, {
+					header : T('Caption.Other.Description'),
+					dataIndex : 'userDesc',
+					flex : 2
 				} ]
 			}, {
 				xtype : 'container',
@@ -210,7 +181,7 @@ Ext.define('SEC.view.setup.PrvUserSetup.PrivilegeGroup', {
 				items : [ {
 					xtype : 'button',
 					itemId : 'btnCreateUser',
-					cls : 'btnArrowLeft marginT5 marginB5',
+					cls : 'btnArrowLeft marginB5',
 					width : 24
 				}, {
 					xtype : 'button',
@@ -219,40 +190,29 @@ Ext.define('SEC.view.setup.PrvUserSetup.PrivilegeGroup', {
 					width : 24
 				} ]
 			}, {
-				xtype : 'panel',
+				xtype : 'grid',
+				itemId : 'grdAllUserList',
 				title : T('Caption.Other.All User List'),
-				// tools : [ {
-				// xtype : 'button',
-				// cls : 'btnRefresh',
-				// itemId : 'btnUserListRefresh',
-				// width : 24
-				// } ],
-				layout : {
-					type : 'vbox',
-					align : 'stretch'
-				},
 				flex : 1,
-				items : [ {
-					xtype : 'grid',
-					itemId : 'grdAllUserList',
-					multiSelect : true,
-					selModel : createSelModel,
-					cls : 'navyGrid',
-					store : Ext.create('SEC.store.SecViewUserListOut.List', {
-						params : {
-							procstep : '1'
-						}
-					}),
-					columns : [ {
-						header : T('Caption.Other.User ID'),
-						dataIndex : 'userId',
-						flex : 1
-					}, {
-						header : T('Caption.Other.Description'),
-						dataIndex : 'userDesc',
-						flex : 2
-					} ],
+				selModel : {
+					mode : 'MULTI'
+				},
+				cls : 'navyGrid',
+				store : Ext.create('SEC.store.SecViewUserListOut.List', {
+					pageSize : 100,
+					buffered : true,
+					selModel : {
+						pruneRemoved : false
+					}
+				}),
+				columns : [ {
+					header : T('Caption.Other.User ID'),
+					dataIndex : 'userId',
 					flex : 1
+				}, {
+					header : T('Caption.Other.Description'),
+					dataIndex : 'userDesc',
+					flex : 2
 				} ]
 			} ]
 		} ];

@@ -367,7 +367,9 @@ Ext.define('SEC.view.setup.FlexibleHeaderSetup', {
 	viewFlexibleHeaderList : function() {
 		var self = this;
 		var supplement = this.getSupplement();
-		var store = Ext.create('SEC.store.SecViewFlexibleHeaderListOut.headerList');
+		var store = Ext.create('SEC.store.SecViewFlexibleHeaderListOut.headerList',{
+			pageSize : 1000
+		});
 
 		var userId = supplement.sub('cdvUserId').getValue(0);
 		var dspId = supplement.sub('cdvDspId').getValue(0);
@@ -559,10 +561,10 @@ Ext.define('SEC.view.setup.FlexibleHeaderSetup', {
 					xtype : 'button',
 					itemId : 'btnLeftCollapse',
 					width : 21,
+					cls : 'marginR5',
 					iconCls : 'treeUnfold'
 				}, {
 					xtype : 'button',
-					cls : 'marginL5',
 					itemId : 'btnLeftExpand',
 					width : 21,
 					iconCls : 'treeFold'
@@ -632,10 +634,10 @@ Ext.define('SEC.view.setup.FlexibleHeaderSetup', {
 					xtype : 'button',
 					itemId : 'btnRightCollapse',
 					width : 21,
+					cls : 'marginR5',
 					iconCls : 'treeUnfold'
 				}, {
 					xtype : 'button',
-					cls : 'marginL5',
 					itemId : 'btnRightExpand',
 					width : 21,
 					iconCls : 'treeFold'

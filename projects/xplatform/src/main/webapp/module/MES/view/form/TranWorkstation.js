@@ -13,153 +13,293 @@ Ext.define('MES.view.form.TranWorkstation', {
 		//TODO 시연용 데이타 코드 입니다. 사용 후 삭제 바랍니다.
 		// A : 미작업
 		// B : 완료
-		// C : 다음작업
+		// C : 다음작업 or 현재.상태.....
 		var data = [];
 		if(record){
-			//var lastTranCode = record.get('lastTranCode');
-			var lastTranCode = '';
-			switch(lastTranCode){
-			case SF_TRAN_CODE_START:
-				data.push({
-					tranName : 'Create Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Start Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Split Lot',
-					tranStatus : 'C'
-				}, {
-					tranName : 'Merge Lot',
-					tranStatus : 'A'
-				}, {
-					tranName : 'End Lot',
-					tranStatus : 'A'
-				} );
-				break;
-			case SF_TRAN_CODE_HOLD:
-				data.push({
-					tranName : 'Create Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Start Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Hold Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Release Lot',
-					tranStatus : 'C'
-				}, {
-					tranName : 'End Lot',
-					tranStatus : 'A'
-				} );
-				break;
-			case SF_TRAN_CODE_RELEASE:
-				data.push({
-					tranName : 'Create Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Start Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Hold Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Release Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'End Lot',
-					tranStatus : 'C'
-				} );
-				break;
-			case SF_TRAN_CODE_REWORK:
-				data.push({
-					tranName : 'Create Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Start Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Rework Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'End Lot',
-					tranStatus : 'C'
-				} );
-				break;
-			case SF_TRAN_CODE_SPLIT:
-				data.push({
-					tranName : 'Create Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Start Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Split Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Merge Lot',
-					tranStatus : 'C'
-				}, {
-					tranName : 'End Lot',
-					tranStatus : 'A'
-				} );
-				break;
-			case SF_TRAN_CODE_MERGE:
-				data.push({
-					tranName : 'Create Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Start Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Split Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Merge Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'End Lot',
-					tranStatus : 'C'
-				} );
-				break;
-			default :
-				data.push({
-					tranName : 'Create Lot',
-					tranStatus : 'B'
-				}, {
-					tranName : 'Start Lot',
-					tranStatus : 'C'
-				}, {
-					tranName : 'Hold Lot',
-					tranStatus : 'A'
-				}, {
-					tranName : 'Release Lot',
-					tranStatus : 'A'
-				}, {
-					tranName : 'End Lot',
-					tranStatus : 'A'
-				} );
-				break;
+			var lastTranCode = record.get('lastTranCode');
+			var lotStatus=record.get('lotStatus');
+
+			if(lotStatus == 'WAIT'){
+				switch(lastTranCode){
+				case SF_TRAN_CODE_HOLD:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Hold Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'Release Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_RELEASE:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Hold Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Release Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_REWORK:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Rework Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'Hold Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'Release Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_SPLIT:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Split Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'Merge Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_MERGE:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Split Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Rework Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Merge Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_END:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Hold Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Release Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'C'
+					} );
+					break;
+				default :
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'Hold Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'Release Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				}
 			}
-		}else{
-			data.push({
-				tranName : 'Create Lot',
-				tranStatus : 'C'
-			}, {
-				tranName : 'Start Lot',
-				tranStatus : 'A'
-			}, {
-				tranName : 'Split Lot',
-				tranStatus : 'C'
-			}, {
-				tranName : 'Merge Lot',
-				tranStatus : 'A'
-			}, {
-				tranName : 'End Lot',
-				tranStatus : 'A'
-			} );
+			else if(lotStatus == 'PROC'){
+				switch(lastTranCode){
+				case SF_TRAN_CODE_START:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'Hold Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'Release Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_HOLD:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Hold Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'Release Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_RELEASE:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Hold Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Release Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_REWORK:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Rework Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_SPLIT:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Split Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'Merge Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_MERGE:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Split Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Merge Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				case SF_TRAN_CODE_END:
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Hold Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Release Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'C'
+					} );
+					break;
+				default :
+					data.push({
+						tranName : 'Create Lot',
+						tranStatus : 'B'
+					}, {
+						tranName : 'Start Lot',
+						tranStatus : 'C'
+					}, {
+						tranName : 'Hold Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'Release Lot',
+						tranStatus : 'A'
+					}, {
+						tranName : 'End Lot',
+						tranStatus : 'A'
+					} );
+					break;
+				}
+			}
 		}
 		
 		store.loadData(data);

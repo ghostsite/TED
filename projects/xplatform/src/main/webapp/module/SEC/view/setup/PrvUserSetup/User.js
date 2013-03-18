@@ -13,12 +13,10 @@ Ext.define('SEC.view.setup.PrvUserSetup.User', {
 		this.callParent();
 
 		var self = this;
-
-		this.sub('grdAllPrvGrpList').store.load({
-			params : {
-				procstep : '1'
-			}
-		});
+		this.sub('grdAllPrvGrpList').store.proxy.extraParams = {
+			procstep : '1'
+		};
+		this.sub('grdAllPrvGrpList').store.load();
 
 		var createSelected = [];
 		this.sub('grdAllPrvGrpList').on('select', function(rowModel, record, index, opts) {
@@ -64,17 +62,6 @@ Ext.define('SEC.view.setup.PrvUserSetup.User', {
 				});
 				self.loadRecord(record);
 			});
-
-			/*
-			 * View가 화면에 표시된 후에 Tools의 버튼을 찾을 수 있음.
-			 */
-//			this.sub('userRelationRefresh').on('click', function(button, event, opts) {
-//				self.refreshGrid(true, 'grdPrvGrpList');
-//			});
-//			this.sub('btnPrvGrpListRefresh').on('click', function(button, event, opts) {
-//				self.refreshGrid(true, 'grdAllPrvGrpList');
-//			});
-
 		});
 	},
 
@@ -136,18 +123,10 @@ Ext.define('SEC.view.setup.PrvUserSetup.User', {
 	},
 
 	buildForm : function(main) {
-		var createSelModel = Ext.create('Ext.selection.RowModel', {
-			mode : 'MULTI'
-		});
-		var deleteSelModel = Ext.create('Ext.selection.RowModel', {
-			mode : 'MULTI'
-		});
-
 		return [ {
 			xtype : 'container',
 			layout : 'anchor',
 			defaults : {
-				labelSeparator : '',
 				anchor : '100%'
 			},
 			items : [ {
@@ -173,36 +152,25 @@ Ext.define('SEC.view.setup.PrvUserSetup.User', {
 			},
 			flex : 1,
 			items : [ {
-				xtype : 'panel',
+				xtype : 'grid',
+				itemId : 'grdPrvGrpList',
 				title : T('Caption.Other.Privilege Group - User Relation'),
-//				tools : [ {
-//					xtype : 'button',
-//					cls : 'btnRefresh',
-//					itemId : 'userRelationRefresh',
-//					width : 24
-//				} ],
-				layout : {
-					type : 'vbox',
-					align : 'stretch'
-				},
 				flex : 1,
-				items : [ {
-					xtype : 'grid',
-					itemId : 'grdPrvGrpList',
-					multiSelect : true,
-					selModel : deleteSelModel,
-					cls : 'navyGrid',
-					store : Ext.create('SEC.store.SecViewPrivilegeGroupUserListOut.List'),
-					columns : [ {
-						header : T('Caption.Other.Privilege Group'),
-						dataIndex : 'prvGrpId',
-						flex : 1
-					}, {
-						header : T('Caption.Other.Description'),
-						dataIndex : 'prvGrpDesc',
-						flex : 2
-					} ],
+				selModel : {
+					mode : 'MULTI'
+				},
+				cls : 'navyGrid',
+				store : Ext.create('SEC.store.SecViewPrivilegeGroupUserListOut.List', {
+					pageSize : 5000
+				}),
+				columns : [ {
+					header : T('Caption.Other.Privilege Group'),
+					dataIndex : 'prvGrpId',
 					flex : 1
+				}, {
+					header : T('Caption.Other.Description'),
+					dataIndex : 'prvGrpDesc',
+					flex : 2
 				} ]
 			}, {
 				xtype : 'container',
@@ -215,7 +183,7 @@ Ext.define('SEC.view.setup.PrvUserSetup.User', {
 				items : [ {
 					xtype : 'button',
 					itemId : 'btnCreatePrvGrp',
-					cls : 'btnArrowLeft marginT5 marginB5',
+					cls : 'btnArrowLeft marginB5',
 					width : 24
 				}, {
 					xtype : 'button',
@@ -224,40 +192,29 @@ Ext.define('SEC.view.setup.PrvUserSetup.User', {
 					width : 24
 				} ]
 			}, {
-				xtype : 'panel',
+				xtype : 'grid',
+				itemId : 'grdAllPrvGrpList',
 				title : T('Caption.Other.All Privilege Group List'),
-//				tools : [ {
-//					xtype : 'button',
-//					cls : 'btnRefresh',
-//					itemId : 'btnPrvGrpListRefresh',
-//					width : 24
-//				} ],
-				layout : {
-					type : 'vbox',
-					align : 'stretch'
-				},
 				flex : 1,
-				items : [ {
-					xtype : 'grid',
-					itemId : 'grdAllPrvGrpList',
-					multiSelect : true,
-					selModel : createSelModel,
-					cls : 'navyGrid',
-					store : Ext.create('SEC.store.SecViewPrivilegeGroupListOut.List', {
-						params : {
-							procstep : '1'
-						}
-					}),
-					columns : [ {
-						header : T('Caption.Other.Privilege Group'),
-						dataIndex : 'prvGrpId',
-						flex : 1
-					}, {
-						header : T('Caption.Other.Description'),
-						dataIndex : 'prvGrpDesc',
-						flex : 2
-					} ],
+				selModel : {
+					mode : 'MULTI'
+				},
+				cls : 'navyGrid',
+				store : Ext.create('SEC.store.SecViewPrivilegeGroupListOut.List', {
+					pageSize : 100,
+					buffered : true,
+					selModel : {
+						pruneRemoved : false
+					}
+				}),
+				columns : [ {
+					header : T('Caption.Other.Privilege Group'),
+					dataIndex : 'prvGrpId',
 					flex : 1
+				}, {
+					header : T('Caption.Other.Description'),
+					dataIndex : 'prvGrpDesc',
+					flex : 2
 				} ]
 			} ]
 		} ];

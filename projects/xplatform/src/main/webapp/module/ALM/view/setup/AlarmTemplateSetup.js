@@ -109,10 +109,7 @@ Ext.define('ALM.view.setup.AlarmTemplateSetup', {
 			xtype : 'gridsup',
 			grid : {
 				searchField : 'templateId',
-				autoFormLoad : false,
-				autoRefresh : true,
 				columnLines : true,
-				// store :
 				store : Ext.create('ALM.store.AlmViewTemplateListOut.list'),
 				columns : [ {
 					header : T('Caption.Other.Template ID'),

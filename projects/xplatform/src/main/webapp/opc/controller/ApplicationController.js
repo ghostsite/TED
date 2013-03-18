@@ -14,6 +14,7 @@ Ext.define('Opc.controller.ApplicationController', {
 	        	'MES.mixin.CodeView',
 	        	'MES.mixin.Constant',
 	        	'MES.mixin.CommonFunction',
+	        	'BAS.mixin.GlobalOption',
 	        	'CMN.data.proxy.PayloadProxy',
 	            'MES.data.CodeViewRegister', 
 	            'MES.view.window.CodeViewPopup',
@@ -39,6 +40,7 @@ Ext.define('Opc.controller.ApplicationController', {
 		SF.mixin('MES.mixin.Constant');
 		SF.mixin('MES.mixin.CodeView');
 		SF.mixin('MES.mixin.CommonFunction');
+		SF.mixin('BAS.mixin.GlobalOption');
 		
 		Ext.create('MES.data.CodeViewRegister');
 		SF.mixin('Opc.mixin.Status');

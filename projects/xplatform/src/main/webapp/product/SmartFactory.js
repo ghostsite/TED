@@ -20,7 +20,8 @@ Ext.define('SmartFactory', {
 	             'mixin.Sound', 
 	             'mixin.Lock', 
 	             'mixin.Ajax', 
-	             'mixin.Exporter'],
+	             'mixin.Exporter',
+	             'mixin.Grid'],
 	mixins : {
 		expire : 'mixin.AutoExpire',
 		msg : 'mixin.Msg',
@@ -37,6 +38,6 @@ Ext.define('SmartFactory', {
 		lock : 'mixin.Lock',
 		ajax : 'mixin.Ajax',
 		exporter : 'mixin.Exporter',
-		helper : 'mixin.Helper'
+		grid : 'mixin.Grid'
 	}
 });

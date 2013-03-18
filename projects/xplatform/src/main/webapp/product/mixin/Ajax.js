@@ -5,8 +5,14 @@ Ext.define('mixin.Ajax', function() {
 	function onComplete(conn, resp, options, eOpts) {
 		var showFailureMsg = true;
 		var showSuccessMsg = false;
+		/* 2013.02.28 KKH responseText 값이 없으면 메세지 설정 처리 필요없음*/ 
+		if(!resp.responseText){
+			return;
+		}
 		var responseObj = Ext.JSON.decode(resp.responseText);
-
+		/* 2013.02.28 KKH Ext.Ajax.request 호출시 decode한 결과를 채워준다. callback에서 중복으로 decode필요없음*/ 
+		resp.responseObj = responseObj;
+		
 		if (options.operation && options.operation.showFailureMsg != undefined) {
 			showFailureMsg = options.operation.showFailureMsg;
 		} else if (options.scope && options.scope.showFailureMsg != undefined) {
@@ -55,8 +61,7 @@ Ext.define('mixin.Ajax', function() {
 			SF.error('SYS-E009');
 			Ext.Msg.confirm(T('Caption.Other.Invalid Session'), T('Message.SYS-E009'), function(btn) {
 				if(btn === 'yes')
-					//document.location.reload();
-					document.location='/xp';
+					document.location.reload();
 			});
 		} else if (resp.status >= 500) {
 			SF.error('SYS-E010');
@@ -71,9 +76,22 @@ Ext.define('mixin.Ajax', function() {
 			}));
 		}
 	}
+	/** 
+	 * 2013.02.28 6.1.1.1이후 변경-KKH
+	 * Ext.Ajax.request 호출시 pageSize 미지정시 모든 list 가져오는 옵션추가함
+	 * pageSize/Index 또는 params에 pageSize/Index추가(params우선적용됨)
+	 */
+	function onBeforeRequest( conn, options, eOpts ){
+		if(options && options.params){
+			options.params = Ext.applyIf(options.params, {
+				pageSize : options.pageSize||1000,
+				pageIndex : options.pageIndex||0
+			});
+		}
+	}
 	Ext.Ajax.on('requestcomplete', onComplete);
 	Ext.Ajax.on('requestexception', onException);
-
+	Ext.Ajax.on('beforerequest', onBeforeRequest);
 	return {
 		ajax : {	
 		}

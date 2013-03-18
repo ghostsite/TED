@@ -25,10 +25,6 @@ Ext.define('MES.view.form.SupplementForm', {
 	},
 	
 	initComponent : function() {
-		/* grid 갱신시 화면 자동 검색 사용유무 */
-		/* 기본값 : true */
-		this.autoFormLoad = this.autoFormLoad === false?false:true;
-		
 		this.buttons = [ this.zbtnview, this.btnreset ];
 		this.callParent();
 

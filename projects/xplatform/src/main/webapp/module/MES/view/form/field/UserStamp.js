@@ -77,13 +77,13 @@ Ext.define('MES.view.form.field.UserStamp', {
 			defaults.flex = 1;
 
 			createId.fieldLabel = T('Caption.Other.Create User/Time');
-			createTime.cls = 'marginL5';
+			createId.cls = 'marginR5';
 			updateId.fieldLabel = T('Caption.Other.Update User/Time');
-			updateTime.cls = 'marginL5';
+			updateId.cls = 'marginR5';
 			deleteId.fieldLabel = T('Caption.Other.Delete User/Time');
-			deleteTime.cls = 'marginL5';
+			deleteId.cls = 'marginR5';
 			releaseId.fieldLabel = T('Caption.Other.Release User/Time');
-			releaseTime.cls = 'marginL5';
+			releaseId.cls = 'marginR5';
 
 			zcreate = {
 				xtype : 'container',

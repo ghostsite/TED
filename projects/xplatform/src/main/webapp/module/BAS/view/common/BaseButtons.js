@@ -5,10 +5,6 @@ Ext.define('BAS.view.common.BaseButtons', {
 
 	dock : 'bottom',
 
-	defaults : {
-		minWidth : 75
-	},
-
 	ui : 'footer',
 
 	items : [ 'Close' ],
@@ -21,16 +17,33 @@ Ext.define('BAS.view.common.BaseButtons', {
 				 */
 				return {
 					text : T('Caption.Button.' + b),
+					minWidth : 75,
 					itemId : 'btn' + b
 				};
 			}
 			return b;
 		});
-
 		this.callParent();
 	},
-
+	
+	getSecControlList : function(){
+		return this.up().secControlList;
+	},
 	getOwner : function() {
 		return this.up();
+	},
+	isControlDisabled : function(itemId){
+		//권한 여부  ture(사용), false(사용금지), null(무시) 
+		var disabled = false;
+		if(itemId && this.secChecked === true){
+			if(this.secControlList[itemId] == ''){
+				disabled = true;
+			}
+			else if(this.useBlackList === 'Y' && this.secControlList[itemId] !== 'Y'){
+				disabled = true;
+			}
+		}
+		
+		return disabled;
 	}
 });

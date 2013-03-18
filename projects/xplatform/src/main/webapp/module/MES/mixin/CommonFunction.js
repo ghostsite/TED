@@ -341,16 +341,21 @@ Ext.define('MES.mixin.CommonFunction', function() {
 		var rtnResponse = false;
 		var scope = config.scope || '';
 		var async = config.async !== false ? true : false;
+		var params = Ext.applyIf(config.params,{
+			pageSize : config.pageSize||-1,
+			pageIndex : 0
+		});
 		Ext.Ajax.request({
 			url : config.url,
 			method : config.method || 'POST',
-			jsonData : config.params,
+			jsonData : params,
 			async : async,
 			scope : config.scope,
 			showSuccessMsg : config.showSuccessMsg,
 			showFailureMsg : config.showFailureMsg,
 			callback : function(options, success, response) {
-				response.result = Ext.JSON.decode(response.responseText) || {};
+				/*mixin/Ajax/ onComplete에서 decode결과를 responseObj로 넘겨줌*/
+				response.result = response.responseObj||Ext.JSON.decode(response.responseText) || {};
 				response.params = config.params;
 				if (response.result.success !== true) {
 					success = false;
@@ -373,16 +378,20 @@ Ext.define('MES.mixin.CommonFunction', function() {
 			return false;
 		var rtnResponse = false;
 		var scope = config.scope || '';
-
+		var params = Ext.applyIf(config.params,{
+			pageSize : config.pageSize||-1,
+			pageIndex : 0
+		});
 		Ext.Ajax.request({
 			url : config.url,
 			method : config.method || 'POST',
-			jsonData : config.params,
+			jsonData : params,
 			showSuccessMsg : config.showSuccessMsg,
 			showFailureMsg : config.showFailureMsg,
 			async : false,
 			callback : function(options, success, response) {
-				response.result = Ext.JSON.decode(response.responseText) || {};
+				/*mixin/Ajax/ onComplete에서 decode결과를 responseObj로 넘겨줌*/
+				response.result = response.responseObj||Ext.JSON.decode(response.responseText) || {};
 				response.params = response.request.options.params;
 				if (response.result.success !== true) {
 					success = false;
@@ -402,35 +411,26 @@ Ext.define('MES.mixin.CommonFunction', function() {
 	function callServiceForm(config) {
 		if (!config || typeof config != 'object')
 			return false;
-		if (!config.form  || !config.url)
+		if (!config.form || !config.params || !config.url)
 			return false;
 
-		var scope = config.scope || '';
-		var params = config.params || {};
-		var form = config.form.isValid? config.form: config.form.getForm();
-		var validResult = true;
-		if(config.checkFormValid){
-			validResult = form.isValid();
-		}
-		if(validResult){
-			form.submit({
-				params : params,
-				url : config.url,
-				scope : scope,
-				showSuccessMsg : config.showSuccessMsg,
-				showFailureMsg : config.showFailureMsg,
-				success : function(form, action) {
-					if (typeof config.callback == 'function') {
-						config.callback.call(scope, action, action.result.success);
-					}
-				},
-				failure : function(form, action) {
-					if (typeof config.callback == 'function') {
-						config.callback.call(scope, action, false);
-					}
+		form.submit({
+			params : params,
+			url : config.url,
+			scope : config.scope,
+			showSuccessMsg : config.showSuccessMsg,
+			showFailureMsg : config.showFailureMsg,
+			success : function(form, action) {
+				if (typeof config.success == 'function') {
+					config.callback.call(scope, action, action.result.success);
 				}
-			});
-		}
+			},
+			failure : function(form, action) {
+				if (typeof config.failure == 'function') {
+					config.callback.call(scope, action, false);
+				}
+			}
+		});
 	}
 	/* date형식을 받아서 shift time을 추가하여 stirng형식으로 반환 */
 	function toShiftDate(date) {
@@ -610,7 +610,7 @@ Ext.define('MES.mixin.CommonFunction', function() {
 						if (SF.cf.checkNumeric(sLSL)) {
 							var v = parseFloat(sTarget) - parseFloat(sLSL);
 							v = Ext.Number.toFixed(v, 3);
-							sSpec += sTarget + " + " + v.toString();
+							sSpec += sTarget + " - " + v.toString();
 						} else {
 							sSpec += sLSL + " ~ " + sTarget;
 						}

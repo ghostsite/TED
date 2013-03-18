@@ -339,32 +339,29 @@ Ext.define('SEC.view.setup.PrivilegeSetup.PrivilegeGroup', {
 			},
 			flex : 1,
 			items : [ {
-				xtype : 'panel',
-				layout : 'fit',
+				xtype : 'grid',
+				itemId : 'grdAssignedItems',
 				title : T('Caption.Other.Assigned Items'),
 				flex : 1,
-				items : [ {
-					xtype : 'grid',
-					itemId : 'grdAssignedItems',
-					columnLines : true,
-					multiSelect : true,
-					selModel : deleteSelModel,
-					cls : 'navyGrid',
-					store : Ext.create('SEC.store.SecViewPrivilegeListOut.List'),
-					columns : [ {
-						header : T('Caption.Other.Privilege Type'),
-						dataIndex : 'prvType',
-						felx : 1
-					}, {
-						header : T('Caption.Other.Item'),
-						dataIndex : 'prvItem1',
-						flex : 1
-					}, {
-						header : T('Caption.Other.Description'),
-						dataIndex : 'prvItemDesc',
-						flex : 2
-					} ],
+				columnLines : true,
+				multiSelect : true,
+				selModel : deleteSelModel,
+				cls : 'navyGrid',
+				store : Ext.create('SEC.store.SecViewPrivilegeListOut.List', {
+					pageSize : 5000
+				}),
+				columns : [ {
+					header : T('Caption.Other.Privilege Type'),
+					dataIndex : 'prvType',
+					felx : 1
+				}, {
+					header : T('Caption.Other.Item'),
+					dataIndex : 'prvItem1',
 					flex : 1
+				}, {
+					header : T('Caption.Other.Description'),
+					dataIndex : 'prvItemDesc',
+					flex : 2
 				} ]
 			}, {
 				xtype : 'container',
@@ -386,34 +383,25 @@ Ext.define('SEC.view.setup.PrivilegeSetup.PrivilegeGroup', {
 					width : 24
 				} ]
 			}, {
-				xtype : 'panel',
+				xtype : 'grid',
+				itemId : 'grdAvaillableItems',
 				title : T('Caption.Other.Availlable Items'),
-				layout : 'fit',
-				// tools : [ {
-				// xtype : 'button',
-				// cls : 'btnRefresh',
-				// itemId : 'btnRightRefresh',
-				// width : 24
-				// } ],
 				flex : 1,
-				items : [ {
-					xtype : 'grid',
-					itemId : 'grdAvaillableItems',
-					columnLines : true,
-					multiSelect : true,
-					selModel : createSelModel,
-					cls : 'navyGrid',
-					store : Ext.create('SEC.store.SecViewPrivilegeGroupUserListOut.List'),
-					columns : [ {
-						header : T('Caption.Other.Item'),
-						dataIndex : 'prvGrpId',
-						flex : 1
-					}, {
-						header : T('Caption.Other.Description'),
-						dataIndex : 'prvGrpDesc',
-						flex : 2
-					} ],
+				columnLines : true,
+				multiSelect : true,
+				selModel : createSelModel,
+				cls : 'navyGrid',
+				store : Ext.create('SEC.store.SecViewPrivilegeGroupUserListOut.List', {
+					pageSize : 5000
+				}),
+				columns : [ {
+					header : T('Caption.Other.Item'),
+					dataIndex : 'prvGrpId',
 					flex : 1
+				}, {
+					header : T('Caption.Other.Description'),
+					dataIndex : 'prvGrpDesc',
+					flex : 2
 				} ]
 			} ]
 		} ];

@@ -275,33 +275,25 @@ Ext.define('SEC.view.setup.PrivilegeSetup.PrivilegeType', {
 			},
 			flex : 1,
 			items : [ {
-				xtype : 'panel',
-				layout : 'fit',
+				xtype : 'grid',
+				itemId : 'grdGroupList',
 				title : T('Caption.Other.Assigned Items'),
-				// tools : [ {
-				// xtype : 'button',
-				// cls : 'btnRefresh',
-				// itemId : 'btnLeftRefresh',
-				// width : 24
-				// } ],
 				flex : 1,
-				items : [ {
-					xtype : 'grid',
-					itemId : 'grdGroupList',
-					columnLines : true,
-					multiSelect : true,
-					selModel : deleteSelModel,
-					cls : 'navyGrid',
-					store : Ext.create('SEC.store.SecViewGroupByTypePrivilegeListOut.list'),
-					columns : [ {
-						header : T('Caption.Other.Group'),
-						dataIndex : 'prvGrpId',
-						flex : 1
-					}, {
-						header : T('Caption.Other.Description'),
-						dataIndex : 'prvGrpDesc',
-						flex : 2
-					} ]
+				columnLines : true,
+				multiSelect : true,
+				selModel : deleteSelModel,
+				cls : 'navyGrid',
+				store : Ext.create('SEC.store.SecViewGroupByTypePrivilegeListOut.list', {
+					pageSize : 5000
+				}),
+				columns : [ {
+					header : T('Caption.Other.Group'),
+					dataIndex : 'prvGrpId',
+					flex : 1
+				}, {
+					header : T('Caption.Other.Description'),
+					dataIndex : 'prvGrpDesc',
+					flex : 2
 				} ]
 			}, {
 				xtype : 'container',
@@ -323,34 +315,25 @@ Ext.define('SEC.view.setup.PrivilegeSetup.PrivilegeType', {
 					width : 24
 				} ]
 			}, {
-				xtype : 'panel',
+				xtype : 'grid',
+				itemId : 'grdAllGrpList',
 				title : T('Caption.Other.Availlable Items'),
-				layout : 'fit',
-				// tools : [ {
-				// xtype : 'button',
-				// cls : 'btnRefresh',
-				// itemId : 'btnRightRefresh',
-				// width : 24
-				// } ],
 				flex : 1,
-				items : [ {
-					xtype : 'grid',
-					itemId : 'grdAllGrpList',
-					columnLines : true,
-					multiSelect : true,
-					selModel : createSelModel,
-					cls : 'navyGrid',
-					store : Ext.create('SEC.store.SecViewPrivilegeGroupListOut.list'),
-					columns : [ {
-						header : T('Caption.Other.Group'),
-						dataIndex : 'prvGrpId',
-						flex : 1
-					}, {
-						header : T('Caption.Other.Description'),
-						dataIndex : 'prvGrpDesc',
-						flex : 2
-					} ],
+				columnLines : true,
+				multiSelect : true,
+				selModel : createSelModel,
+				cls : 'navyGrid',
+				store : Ext.create('SEC.store.SecViewPrivilegeGroupListOut.list', {
+					pageSize : 5000
+				}),
+				columns : [ {
+					header : T('Caption.Other.Group'),
+					dataIndex : 'prvGrpId',
 					flex : 1
+				}, {
+					header : T('Caption.Other.Description'),
+					dataIndex : 'prvGrpDesc',
+					flex : 2
 				} ]
 			} ]
 		} ];

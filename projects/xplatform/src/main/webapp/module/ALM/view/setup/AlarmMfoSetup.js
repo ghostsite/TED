@@ -805,7 +805,10 @@ Ext.define('ALM.view.setup.AlarmMfoSetup', {
 			height : 110,
 			itemId : 'grdMfo',
 			cls : 'navyGrid',
-			store : Ext.create('ALM.store.AlmViewAlarmRelationListOut.alarmList'),
+			store : Ext.create('ALM.store.AlmViewAlarmRelationListOut.alarmList', {
+				//TODO : user list size 미확정...2013.02.28
+				pageSize : 1000
+			}),
 			columns : [ {
 				header : T('Caption.Other.Alarm ID'),
 				dataIndex : 'alarmId',
@@ -839,7 +842,10 @@ Ext.define('ALM.view.setup.AlarmMfoSetup', {
 			hidden : true,
 			itemId : 'grdRes',
 			cls : 'navyGrid',
-			store : Ext.create('ALM.store.AlmViewAlarmRelationListOut.alarmList'),
+			store : Ext.create('ALM.store.AlmViewAlarmRelationListOut.alarmList',{
+				//TODO : user list size 미확정...2013.02.28
+				pageSize : 1000
+			}),
 			columns : [ {
 				header : T('Caption.Other.Alarm ID'),
 				dataIndex : 'alarmId',
@@ -1499,7 +1505,10 @@ Ext.define('ALM.view.setup.AlarmMfoSetup', {
 						itemId : 'grdReceiverList',
 						cls : 'navyGrid',
 						autoScroll : true,
-						store : Ext.create('ALM.store.AlmViewAlarmReceiverListOut.rcvrList'),
+						store : Ext.create('ALM.store.AlmViewAlarmReceiverListOut.rcvrList',{
+							//TODO :  list size 미확정...2013.02.28
+							pageSize : 1000
+						}),
 						columns : [ {
 							header : T('Caption.Other.Receiver'),
 							dataIndex : 'rcvrId',

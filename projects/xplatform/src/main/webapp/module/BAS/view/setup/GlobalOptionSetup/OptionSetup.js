@@ -43,44 +43,7 @@ Ext.define('BAS.view.setup.GlobalOptionSetup.OptionSetup', {
 			var supplement = self.getSupplement();
 
 			supplement.on('supplementSelected', function(record) {
-				self.loadRecord(record);
-				self.bufRecord = record;
-				self.sub('fieldsetOptions').removeAll(true);
-
-				var store = Ext.create('BAS.store.BasViewGlobalOptionPromptOut.promptList');
-
-				store.proxy.on('exception', function(proxy, response, operation, eOpts) {
-					var record = Ext.decode(response.responseText);
-					if (record && record.msgcode == 'BAS-0007') {
-						var optionName = operation.params.optionName;
-						self.buildOption(optionName);
-					}
-
-				});
-
-				store.load({
-					params : {
-						procstep : '1',
-						optionName : record.get('optionName')
-					},
-					callback : function(records, operation, success) {
-						if (success) {
-							self.buildFieldSet(record, records);
-						}
-					}
-				});
-
-				self.sub('fieldsetOptions').on('beforeadd', function(container, component, index, opts) {
-					var tableName = record.get('valueTbl' + (index + 1));
-					if (component.store && tableName) {
-						component.store.load({
-							params : {
-								procstep : '1',
-								tableName : tableName
-							}
-						});
-					}
-				});
+				self.reloadForm(record);
 			});
 
 			self.sub('cdvOptionName').on('select', function(record) {
@@ -90,13 +53,38 @@ Ext.define('BAS.view.setup.GlobalOptionSetup.OptionSetup', {
 						column : 'optionName',
 						value : optionName
 					};
-					supplement.refreshGrid(true, select);
+					supplement.selectRec(select);
 				}
+				self.reloadForm(record);
 			});
-
 		});
 	},
 
+	reloadForm : function(record){
+		var self = this;
+		self.loadRecord(record);
+		self.bufRecord = record;
+		self.sub('fieldsetOptions').removeAll(true);
+		
+		SF.cf.callService({
+			url : 'service/basViewGlobalOptionPrompt.json',
+			params : {
+				procstep : '1',
+				optionName : record.get('optionName')
+			},
+			scope : self,
+			callback : function(response, success){
+				var result = response.result;
+				if (success) {
+					var promptList = result.promptList;
+					self.buildFieldSet(record, promptList);
+				}
+				else if(result.msgcode == 'BAS-0007'){
+					self.buildOption(record.get('optionName'));
+				}
+			}
+		});
+	},
 	onBeforeCreate : function(form, addParams) {
 	},
 
@@ -147,7 +135,9 @@ Ext.define('BAS.view.setup.GlobalOptionSetup.OptionSetup', {
 
 			grid : {
 				procstep : '1',
-				store : Ext.create('BAS.store.BasViewGlobalOptionListOut.optionList'),
+				store : Ext.create('BAS.store.BasViewGlobalOptionListOut.optionList', {
+					pageSize : 5000
+				}),
 				columns : [ {
 					header : T('Caption.Other.Option Name'),
 					dataIndex : 'optionName',
@@ -201,12 +191,12 @@ Ext.define('BAS.view.setup.GlobalOptionSetup.OptionSetup', {
 		});
 	},
 
-	buildFieldSet : function(value, records) {
+	buildFieldSet : function(values, promptList) {
 		var fieldSet = [];
 		for ( var i = 1; i <= 5; i++) {
-			var prompt = records[i - 1].get('valuePmt');
-			var format = records[i - 1].get('valueFmt');
-			var table = records[i - 1].get('valueTbl');
+			var prompt = promptList[i - 1]['valuePmt'];
+			var format = promptList[i - 1]['valueFmt'];
+			var table = promptList[i - 1]['valueTbl'];
 
 			if (prompt)
 				prompt = Ext.String.trim(prompt);
@@ -226,7 +216,7 @@ Ext.define('BAS.view.setup.GlobalOptionSetup.OptionSetup', {
 					cls : 'fontWeightBold',
 					codeviewName : 'GCM',
 					table : table,
-					value : value.get('value' + i),
+					value : values.get('value' + i),
 					readOnly : true
 				});
 			} else {
@@ -235,7 +225,7 @@ Ext.define('BAS.view.setup.GlobalOptionSetup.OptionSetup', {
 					name : 'value' + i,
 					cls : 'fontWeightBold',
 					fieldLabel : prompt,
-					value : value.get('value' + i),
+					value : values.get('value' + i),
 					maxLength : 30,
 					enforceMaxLength : true
 				});

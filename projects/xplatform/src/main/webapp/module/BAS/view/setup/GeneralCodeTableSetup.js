@@ -431,7 +431,10 @@ Ext.define('BAS.view.setup.GeneralCodeTableSetup', {
 		var grid = this.sub('grdSql');
 		grid.reconfigure(null, []);
 
-		var store = Ext.create('BAS.store.BasSqlQueryOut');
+		var store = Ext.create('BAS.store.BasSqlQueryOut', {
+			//TODO 
+			pageSize : 1000
+		});
 		store.load({
 			params : {
 				procstep : '1',
@@ -853,9 +856,10 @@ Ext.define('BAS.view.setup.GeneralCodeTableSetup', {
 				xtype : 'container',
 				title : T('Caption.Other.SQL Query'),
 				cls : 'paddingAll5',
-				autoScroll : true,
-				layout : 'anchor',
-				flex : 1,
+				layout : 'vbox',
+				defaults : {
+					width : '100%'
+				},
 				items : [ {
 					xtype : 'textareafield',
 					itemId : 'txtQuery',
@@ -875,7 +879,6 @@ Ext.define('BAS.view.setup.GeneralCodeTableSetup', {
 					xtype : 'propertygrid',
 					itemId : 'grdSqlParams',
 					height : 150,
-					// autoScroll : true,
 					titleCollapse : true,
 					cls : 'navyGrid',
 					title : T('Caption.Other.SQL Parameter'),
@@ -896,7 +899,7 @@ Ext.define('BAS.view.setup.GeneralCodeTableSetup', {
 					xtype : 'grid',
 					itemId : 'grdSql',
 					cls : 'navyGrid marginB5',
-					minHeight : 150,
+					flex : 1,
 					title : T('Caption.Other.Result'),
 					titleCollapse : true,
 					columnLines : true,

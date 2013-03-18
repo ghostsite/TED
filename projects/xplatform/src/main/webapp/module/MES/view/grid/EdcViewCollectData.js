@@ -13,6 +13,8 @@ Ext.define('MES.view.grid.EdcViewCollectData', {
 	
 	colSetColumns : undefined,
 	
+	disableSelection: true,
+	
 	valueStartCol : 13,
 
 	plugins : Ext.create('Ext.grid.plugin.CellEditing', {
@@ -295,6 +297,7 @@ Ext.define('MES.view.grid.EdcViewCollectData', {
 				var formulaList = derivedInfo.formulaList;
 				var charValues = self.getCurrentValue(store);
 				var formulas = [];
+				var b_calc = true;
 
 				Ext.Array.each(formulaList, function(data) {
 					var formula = Ext.clone(data);
@@ -343,6 +346,12 @@ Ext.define('MES.view.grid.EdcViewCollectData', {
 									}
 								}
 							});
+							
+							//valueCount가 1보다 작으면 종료
+							if(valueCount < 1){
+								b_calc = false;
+								return false;
+							}
 
 							switch (calcType) {
 							case 'AV':
@@ -366,7 +375,11 @@ Ext.define('MES.view.grid.EdcViewCollectData', {
 
 					formulas.push(formula);
 				});
-				self.calculateValue(formulas, record);
+				
+				//계산
+				if(b_calc === true){
+					self.calculateValue(formulas, record);
+				}
 			}
 		});
 	},
@@ -439,6 +452,8 @@ Ext.define('MES.view.grid.EdcViewCollectData', {
 			}
 		});
 		sql += ")) FROM DUAL";
+		
+		console.log('sql', sql);
 
 		var result = this.basSqlQuery(sql);
 		if (result.success) {

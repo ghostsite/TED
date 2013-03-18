@@ -8,23 +8,20 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 		type : 'vbox',
 		align : 'stretch'
 	},
-
+	defaultPageSize : 1000,
 	/*
 	 * 컨포넌트가 생성될때 필요한 설정값을 정의한다.
 	 */
 	constructor : function(config) {
 		var configs = config || {};
-
 		if (!configs.codeviewOpts)
 			throw new Error('codeviewOpts should be configured.');
 		if (configs.codeviewOpts.popupConfig == undefined)
 			throw new Error('codeviewOpts[popupConfig] should be configured.');
-		if (configs.codeviewOpts.type !== 'gcm' && configs.codeviewOpts.type !== 'table'){
-			Ext.Msg.alert('Compnent Error','Codeview type should be "gcm" or "table"');
-			throw new Error('codeview type should be "gcm" or "table"');
-		}
-		if (!configs.codeviewOpts.table)
+		if (!configs.codeviewOpts.table && configs.codeviewOpts.type != 'service' && configs.codeviewOpts.type != 'sqlquery')
 			throw new Error('codeviewOpts[table] should be configured.');
+		if (!configs.codeviewOpts.store && configs.codeviewOpts.type == 'service')
+			throw new Error('codeviewOpts[store] should be configured.');
 		if (configs.codeviewOpts.popupConfig.columns.length <= 0)
 			throw new Error('codeviewOpts[columns] should be configured.');
 		else {
@@ -52,6 +49,8 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 		if (Ext.ieVersion >= 7) {
 			configs.height = 327 + 10;
 		}
+		if(configs.codeviewOpts.pageSize)
+			configs.pageSize = configs.codeviewOpts.pageSize;
 		this.callParent([ configs ]);
 	},
 
@@ -65,36 +64,28 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 		var self = this;
 
 		this.title = this.codeviewOpts.popupConfig.title || T('Caption.Other.CodeView');
-		this.store = this.buildStore();
-		
+
+		if (this.codeviewOpts.store) {
+			this.store = this.buildService();
+		} else {
+			this.store = this.buildStore();
+		}
 
 		this.grid = this.add(this.buildGrid(this.store));
-		this.pagebar = this.add(this.buildPagebar(this.store));
-		this.pagebar.down('#refresh').hide();
-		this.add(this.buildToolbar());
+		this.addDocked(this.buildToolbar());
 		
 		this.store.on('load', function(store, records, success) {
 			if (!success)
 				return;
+			if (self.codeviewOpts.type == 'sqlquery' && records[0].get('columns').length > 0) {
+				self.sqlGridLoadData(records[0].get('columns'), records[0].get('rows'));
+			}
 			// afterLoad 함수는 store의 데이터를 변경을 원할 경우사용된다.
 			if (Ext.typeOf(self.codeviewOpts.afterLoad) == 'function') {
 				if (self.codeviewOpts.scope)
 					self.codeviewOpts.afterLoad.call(self.codeviewOpts.scope, store, self, self.codeviewOpts.afterLoadOpt);
 				else
 					self.codeviewOpts.afterLoad(store, self, self.codeviewOpts.afterLoadOpt);
-			}
-
-			if (store.getCount() < 1) {
-				// TODO popup 강제 종료여부
-			}
-			var totCount = store.totalCount||0;
-			var pageData = self.pagebar.getPageData();
-			var pageCount = pageData.pageCount;
-			if(isNaN(pageCount) || pageCount < 2){
-				self.pagebar.setVisible(false);
-			}
-			else if(totCount>0){
-				self.pagebar.setVisible(true);
 			}
 			self.selectSearchRecord(self);	
 		});
@@ -104,6 +95,41 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 		self.loadStore(true);
 	},
 
+	sqlGridLoadData : function(colList, rows) {
+		if (!colList || !rows)
+			return;
+
+		var grid = this.grid;
+		var data = [];
+		var columns = [];
+		var fields = [];
+
+		for ( var i in colList) {
+			columns.push({
+				header : colList[i].name,
+				dataIndex : colList[i].name,
+				flex : 1
+			});
+
+			fields.push(colList[i].name);
+		}
+
+		var changeStore = Ext.create('Ext.data.Store', {
+			fields : fields
+		});
+
+		grid.reconfigure(changeStore, columns);
+		for ( var i in rows) {
+			var record = {};
+			for ( var j in colList) {
+				if (rows[i].cols[j] && rows[i].cols[j].data)
+					record[colList[j].name] = rows[i].cols[j].data;
+			}
+			data.push(record);
+		}
+
+		grid.store.loadData(data);
+	},
 	
 	/* 화면 갱신 및 조회시 해당 레코드 표시 */
 	selectSearchRecord : function(self) {
@@ -147,28 +173,53 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 	loadStore : function(reload) {
 		if (reload) {
 			this.store.currentPage = 1;
-			
-			var proxy = this.store.getProxy();
+			if (this.codeviewOpts.type == 'service') {
+				this.store.load({
+					callback : function(records, oper, success){
+						if(success == false){
+							this.close();
+						}
+					},
+					scope : this
+				});
 
-			var conditions = Ext.clone(this.codeviewOpts.condition);
-			
-			if (conditions.length > 0)
-				proxy.extraParams.condition = conditions;
-			else
-				delete proxy.extraParams.condition;
-			this.store.load({
-				callback : function(records, oper, success){
-					if(success == false){
-						this.close();
-					}
-				},
-				scope : this
-			});
+			} else {
+				var proxy = this.store.getProxy();
+
+				var conditions = Ext.clone(this.codeviewOpts.condition);
+
+				if (conditions.length > 0)
+					proxy.extraParams.condition = conditions;
+				else
+					delete proxy.extraParams.condition;
+				this.store.load({
+					callback : function(records, oper, success){
+						if(success == false){
+							this.close();
+						}
+					},
+					scope : this
+				});
+			}
 		} else {
 			this.selectSearchRecord(this);
 		}
 	},
 
+	buildService : function() {
+		var store = '';
+		if (Ext.typeOf(this.codeviewOpts.store) == 'string')
+			store = Ext.create(this.codeviewOpts.store, {
+				remoteFilter : true,
+				filterOnLoad : false
+			});
+		else{
+			store = this.codeviewOpts.store;
+		}
+		store.pageSize =  this.pageSize||this.defaultPageSize;
+		store.proxy.extraParams = this.codeviewOpts.params;
+		return store;
+	},
 	/*
 	 * 조회 조건에 맞게 설정 후 store를 생성한다.
 	 */
@@ -201,7 +252,7 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 			// remotePaging : true,
 			filterOnLoad : false,
 			fields : this.codeviewOpts.select,
-			pageSize : 1000, // 기본 1000개
+			pageSize : this.pageSize||this.defaultPageSize, // 기본 1000개
 			proxy : {
 				type : 'payload',
 				api : {
@@ -254,25 +305,16 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 		}
 		return grid;
 	},
-	buildPagebar : function(store){
-		return {
-	        xtype: 'pagingtoolbar',
-	        itemId : 'pagebar',
-	        store: store,   // same store GridPanel is using
-	        displayInfo: true,
-	        dock: 'bottom',
-	        hidden : true,
-	        afterPageText : '/ {0}'
-	    };
-	},
 
 	buildToolbar : function() {
 		var self = this;
 		return {
 	        xtype: 'toolbar',
 	        ui : 'footer',
+	        dock: 'bottom',
 	        items : [ {
 				xtype : 'button',
+				cls : 'marginL5',
 				width : 70,
 				itemId : 'btnInputField',
 				text : T('Caption.Other.Input'),

@@ -104,26 +104,24 @@ Ext.define('MES.view.window.AgentSetup', {
 	items : [ {
 		xtype : 'container',
 		layout : 'anchor',
-		bodyCls : 'paddingAll7',
+		cls : 'paddingAll7',
 		defaults : {
 			anchor : '100%'
 		},
 		items : [ {
-			xtype : 'displayfield',
-			fieldLabel : T('Caption.Other.Local Setting'),
-			value : 'agent-settings'
-		}, {
 			xtype : 'textfield',
 			itemId : 'txtUrl',
 			vtype : 'iPAddress',
-			fieldLabel : T('Caption.Other.URL'),
-			emptyText : '127.0.0.1'
+			fieldLabel : T('Caption.Other.URL')
+			//value : '127.0.0.1'
+			//emptyText : '127.0.0.1'
 		}, {
 			xtype : 'textfield',
 			itemId : 'txtPort',
 			vtype : 'numbers',
-			fieldLabel : T('Caption.Other.Port'),
-			emptyText : '8080'
+			fieldLabel : T('Caption.Other.Port')
+			//value : '81'
+			//emptyText : '8080'
 		} ]
 	} ]
 });

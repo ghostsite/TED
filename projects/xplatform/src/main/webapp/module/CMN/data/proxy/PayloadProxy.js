@@ -8,16 +8,16 @@ Ext.define('CMN.data.proxy.PayloadProxy', {
 		var paramSort = '';
 		var paramGroup = '';
 		if (operation.params) {
-			if (operation.params.filter) {
-				paramFilter = Ext.clone(operation.params.filter);
+			if (operation.params.extjsFilter) {
+				paramFilter = Ext.clone(operation.params.extjsFilter);
 			}
 
-			if (operation.params.sort) {
-				paramFilter = Ext.clone(operation.params.sort);
+			if (operation.params.extjsSort) {
+				paramSort = Ext.clone(operation.params.extjsSort);
 			}
 
-			if (operation.params.group) {
-				paramFilter = Ext.clone(operation.params.group);
+			if (operation.params.extjsGroup) {
+				paramGroup = Ext.clone(operation.params.extjsGroup);
 			}
 		}
 
@@ -31,7 +31,7 @@ Ext.define('CMN.data.proxy.PayloadProxy', {
 		// 삭제한다.(remoter이면 추가)
 		if (operation.remoteFilter === false) {
 			if (!paramFilter) {
-				Ext.destroyMembers(request.params, 'filter');
+				Ext.destroyMembers(request.params, 'extjsFilter');
 			}
 		}
 
@@ -39,7 +39,7 @@ Ext.define('CMN.data.proxy.PayloadProxy', {
 		// 추가)
 		if (operation.remoteSort === false) {
 			if (!paramSort) {
-				Ext.destroyMembers(request.params, 'sort');
+				Ext.destroyMembers(request.params, 'extjsSort');
 			}
 		}
 
@@ -47,16 +47,23 @@ Ext.define('CMN.data.proxy.PayloadProxy', {
 		// 삭제한다.(remoter이면 추가)
 		if (operation.remoteGroup === false) {
 			if (!paramGroup) {
-				Ext.destroyMembers(request.params, 'group');
+				Ext.destroyMembers(request.params, 'extjsGroup');
 			}
 		}
 
 		// TreeStore에서 임의로 넘어가는 node값 제거
 		Ext.destroyMembers(request.params, 'node');
-
 		var params = request.params;
 		Ext.destroyMembers(request, 'params');
 
+		//  json 형식의 string값으로 변환되어 넘어온값을 object으로 변환함.
+		if(typeof(params.extjsFilter) == 'string')
+			params.extjsFilter = Ext.JSON.decode(params.extjsFilter);
+		if(typeof(params.extjsSort) == 'string')
+			params.extjsSort = Ext.JSON.decode(params.extjsSort);
+		if(typeof(params.extjsGroup) == 'string')
+			params.extjsGroup = Ext.JSON.decode(params.extjsGroup);
+				
 		// params -> jsonData 형식으로 전송(rRequest-Payload 방식을 사용하여 request 하기위해
 		// 변경한다.)
 		Ext.apply(request, {
@@ -65,11 +72,10 @@ Ext.define('CMN.data.proxy.PayloadProxy', {
 			scope : this,
 			callback : this.createRequestCallback(request, operation, callback, scope),
 			method : this.getMethod(request),
-			disableCaching : false, // explicitly set it to false, ServerProxy handles caching
+			disableCaching : false, //explicitly set it to false, ServerProxy handles caching
 			jsonData : params // rRequest-Payload 형식의 parameter 추가
-		
 		});
-
+		
 		Ext.Ajax.request(request);
 
 		return request;

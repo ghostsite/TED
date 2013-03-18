@@ -121,7 +121,9 @@ Ext.define('ALM.view.transaction.ClearAlarm', {
 	buildForm : function() {
 		var selModel = Ext.create('Ext.selection.CheckboxModel');
 		var store = Ext.create('WIP.store.AlmViewAlarmHistoryListOut.alarmList', {
-			buffered : true
+			buffered : true,
+			pageSize : 100,
+			leadingBufferZone : 0
 		});
 		return [ {
 			xtype : 'grid',

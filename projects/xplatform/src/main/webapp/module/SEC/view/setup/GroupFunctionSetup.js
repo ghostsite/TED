@@ -33,6 +33,10 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 		baseTabs.setActiveTab(0);
 
 		baseTabs.on('tabchange', function(tabpanel, newCard) {
+			var secGrp = self.sub('txtSecGrp').getValue() || '';
+			var pgmId = self.sub('txtPgmId').getValue() || '';
+			if(!secGrp || !pgmId)
+				return;
 			if (newCard.itemId == 'ctnAttachFunc') {
 				self.viewFunctionList();
 			} else if (newCard.itemId == 'ctnControls') {
@@ -47,24 +51,32 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 			var programId = SF.login.programId;
 			supplement.sub('cdvPgmId').setValue(programId);
 
-			supplement.sub('cdvSecGrp').on('select', function(me) {
+			supplement.sub('cdvSecGrp').on('select', function(record) {
+				//view checkCondition
+				if(self.viewCheckCondition() === false){
+					return;
+				}
+				
+				//메뉴 TAB / 버튼권한 TAB 구분
 				if (baseTabs.getActiveTab().itemId == 'ctnAttachFunc') {
 					self.viewFunctionTree();
 				} else if (baseTabs.getActiveTab().itemId == 'ctnControls') {
 					self.viewGrpFunctionList();
 				}
-				var secGrp = supplement.sub('cdvSecGrp').getValue();
-				self.sub('txtSecGrp').setValue(secGrp);
 			});
 
-			supplement.sub('cdvPgmId').on('change', function(me, newValue, oldValue, eOpts) {
+			supplement.sub('cdvPgmId').on('select', function(record) {
+				//view checkCondition
+				if(self.viewCheckCondition() === false){
+					return;
+				}
+				
+				//메뉴 TAB / 버튼권한 TAB 구분
 				if (baseTabs.getActiveTab().itemId == 'ctnAttachFunc') {
 					self.viewFunctionTree();
 				} else if (baseTabs.getActiveTab().itemId == 'ctnControls') {
 					self.viewGrpFunctionList();
 				}
-				var pgmId = supplement.sub('cdvPgmId').getValue();
-				self.sub('txtPgmId').setValue(pgmId);
 			});
 			var pgmId = supplement.sub('cdvPgmId').getValue();
 			self.sub('txtPgmId').setValue(pgmId);
@@ -93,8 +105,7 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 			nodes.cascadeBy(function(node) {
 				// record text 변경
 				var text = node.get('funcName') + " : " +T('Caption.Menu.'+node.get('funcDesc'));
-				//TODO : funcDesc 국제화적용 예정 2013.02.01 KKH
-
+				
 				if (!node.isRoot() && node.get('text') != 'Attach New Menu...') {
 					node.set('text', text);
 				}
@@ -241,9 +252,7 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 						var nodes = self.searchFuncTree(row.get('funcName'));
 						if (nodes.length == 0) {
 							// node option 설정
-							//TODO 국제화적용예정
-							row.set('text', row.get('funcName') + " : " + T('Catpion.Menu.'+row.get('funcDesc')));
-							//TODO 국제화적용예정
+							row.set('text', row.get('funcName') + " : " + T('Caption.Menu.'+row.get('funcDesc')));
 							row.set('leaf', true);
 							row.set('checked', null);
 
@@ -303,9 +312,7 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 						if (nodes.length == 0) {
 							var parentNode = node.parentNode;
 							// node option 설정
-							//TODO 국제화적용예정
 							row.set('text', row.get('funcName') + " : " + T('Caption.Menu.'+row.get('funcDesc')));
-							//TODO 국제화적용예정
 							row.set('leaf', true);
 							row.set('checked', null);
 
@@ -458,15 +465,40 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 			}
 		});
 	},
+	
+	viewCheckCondition : function(){
+		var supplement = this.getSupplement();
+		var secGrp = supplement.sub('cdvSecGrp').getValue() || '';
+		var pgmId = supplement.sub('cdvPgmId').getValue() || '';
+
+		if(Ext.isEmpty(secGrp) === true ){
+			Ext.Msg.alert('Error', T('Message.ValidInput', {
+				field1 : T('Caption.Other.Security Group')
+			}));
+			return false;
+		}
+		
+		if(Ext.isEmpty(pgmId) === true ){
+			Ext.Msg.alert('Error', T('Message.ValidInput', {
+				field1 : T('Caption.Other.Program ID')
+			}));
+			return false;
+		}
+		
+		return true;
+	},
 
 	viewFunctionTree : function() {
-		var self = this.getSupplement();
+		var supplement = this.getSupplement();
 		var funcListStore = this.getFuncTree().store;
+		
+		var programId = supplement.sub('cdvPgmId').getValue(0);
+		var secGrpId = supplement.sub('cdvSecGrp').getValue(0);
 
 		funcListStore.proxy.extraParams = {
 			procstep : '1',
-			programId : self.sub('cdvPgmId').getValue(0),
-			secGrpId : self.sub('cdvSecGrp').getValue(0)
+			programId : programId,
+			secGrpId : secGrpId 
 		};
 
 		// tree 초기화(load 방식이라 초기화 주석)
@@ -474,14 +506,9 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 			text : SmartFactory.login.factory,
 			expanded : true
 		});
-
-		// funcListStore.load({
-		// params : {
-		// procstep : '1',
-		// programId : self.sub('cdvPgmId').getValue(0),
-		// secGrpId : self.sub('cdvSecGrp').getValue(0)
-		// }
-		// });
+		
+		this.sub('txtSecGrp').setValue(secGrpId);
+		this.sub('txtPgmId').setValue(programId);
 	},
 
 	viewFunctionList : function() {
@@ -509,18 +536,26 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 	viewGrpFunctionList : function() {
 		var self = this;
 		var grpFuncListStore = this.sub('grdControls').store;
+		var programId = self.getSupplement().sub('cdvPgmId').getValue(0);
+		var secGrpId = self.getSupplement().sub('cdvSecGrp').getValue(0);
 
+		if(!programId || !secGrpId)
+			return; 
+		
 		grpFuncListStore.load({
 			params : {
 				procstep : '1',
-				programId : self.getSupplement().sub('cdvPgmId').getValue(0),
-				secGrpId : self.getSupplement().sub('cdvSecGrp').getValue(0)
+				programId : programId,
+				secGrpId : secGrpId
 			},
 			callback : function(records, operation, success) {
 				if (success) {
 					Ext.Array.each(records, function(record) {
 						record.commit();
 					});
+					
+					self.sub('txtSecGrp').setValue(secGrpId);
+					self.sub('txtPgmId').setValue(programId);
 				}
 			}
 		});
@@ -905,7 +940,7 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 					selModel : Ext.create('Ext.selection.RowModel', {
 						mode : 'MULTI'
 					}),
-					store : Ext.create('WIP.store.SecViewFunctionListOut.list'),
+					store : Ext.create('WIP.store.SecViewFunctionListOut.list'), //모든 목록 표시
 					columns : [ {
 						header : T('Caption.Other.Available Function'),
 						dataIndex : 'funcName',
@@ -913,10 +948,9 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 					}, {
 						header : T('Caption.Other.Description'),
 						dataIndex : 'funcDesc',
-						//TODO : 국제화 적용예정
 						renderer : function(v){
 							if(v)
-								v = T('Caption.Menu.'+v);
+								v = T('Caption.Menu.'+ v);
 							return v;
 						},
 						flex : 2
@@ -962,7 +996,9 @@ Ext.define('SEC.view.setup.GroupFunctionSetup', {
 				}) ],
 				columnLines : true,
 				cls : 'navyGrid',
-				store : Ext.create('SEC.store.SecViewGrpfuncListOut.list'),
+				store : Ext.create('SEC.store.SecViewGrpfuncListOut.list', {
+					pageSize : 5000
+				}),
 				columns : [ {
 					dataIndex : 'funcName',
 					width : 100,

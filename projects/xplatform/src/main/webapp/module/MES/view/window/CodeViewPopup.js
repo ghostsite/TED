@@ -18,13 +18,12 @@ Ext.define('MES.view.window.CodeViewPopup', {
 		type : 'vbox',
 		align : 'stretch'
 	},
-
+	defaultPageSize : 1000,
 	/*
 	 * 컨포넌트가 생성될때 필요한 설정값을 정의한다.
 	 */
 	constructor : function(config) {
 		var configs = config || {};
-
 		if (!configs.codeviewOpts)
 			throw new Error('codeviewOpts should be configured.');
 		if (configs.codeviewOpts.popupConfig == undefined)
@@ -60,6 +59,8 @@ Ext.define('MES.view.window.CodeViewPopup', {
 		if (Ext.ieVersion >= 7) {
 			configs.height = 327 + 10;
 		}
+		if(configs.codeviewOpts.pageSize)
+			configs.pageSize = configs.codeviewOpts.pageSize;
 		this.callParent([ configs ]);
 	},
 
@@ -69,15 +70,11 @@ Ext.define('MES.view.window.CodeViewPopup', {
 	 * 추가하여 설정 - loadStore : 조회 결과를 읽어와 화면 grid를 갱신한다.
 	 */
 	initComponent : function() {
-		// this.items = [this.buildGrid(), this.buildSearch()];
-
 		this.callParent();
-
 		var self = this;
 
 		this.title = this.codeviewOpts.popupConfig.title || T('Caption.Other.CodeView');
-		// var name = navigator.appName;
-		// Ext.log(name);
+		
 		if (this.codeviewOpts.store) {
 			this.store = this.buildService();
 		} else {
@@ -249,7 +246,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 		if(findIndex === -1 && beforeIndex !== -1) {
 			findIndex = grid.store.findBy(findBy);
 		}
-	//	console.log(findIndex);
+
 		if (findIndex > -1) {
 			// 검색 조건에 맞는 row select
 			selModel.select(findIndex);
@@ -312,7 +309,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 		else{
 			store = this.codeviewOpts.store;
 		}
-
+		store.pageSize =  this.pageSize||this.defaultPageSize;
 		store.proxy.extraParams = this.codeviewOpts.params;
 		return store;
 	},
@@ -321,7 +318,6 @@ Ext.define('MES.view.window.CodeViewPopup', {
 	 * 조회 조건에 맞게 설정 후 store를 생성한다.
 	 */
 	buildStore : function() {
-
 		var url = this.codeviewOpts.url || 'service/basViewCodeList.json';
 		var params = this.codeviewOpts.params || {
 			procstep : '1',
@@ -350,7 +346,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 			// remotePaging : true,
 			filterOnLoad : false,
 			fields : this.codeviewOpts.select,
-			pageSize : 1000, // 기본 1000개
+			pageSize : this.pageSize||this.defaultPageSize, // 기본 1000개
 			proxy : {
 				type : 'payload',
 				api : {

@@ -32,5 +32,19 @@ Ext.define('Opc.view.BaseButtons', {
 
 	getOwner : function() {
 		return this.up();
+	},
+	isControlDisabled : function(name){
+		//권한 여부  ture(사용), false(사용금지), null(무시) 
+		var disabled = false;
+		if(name && this.secChecked === true){
+			if(this.secControlList[name] == ''){
+				disabled = true;
+			}
+			else if(this.useBlackList === 'Y' && this.secControlList[name] !== 'Y'){
+				disabled = true;
+			}
+		}
+		
+		return disabled;
 	}
 });

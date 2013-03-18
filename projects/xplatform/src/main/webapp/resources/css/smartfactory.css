@@ -449,8 +449,10 @@ textarea.x-form-field{margin-bottom:7px;line-height:1.5;padding:3px 5px }
 .navyGrid .x-mask{top:25px;background:#aac4e6;opacity:0.2}
 .navyGrid .x-panel-header+.x-mask{top:49px;background:#aac4e6;opacity:0.2}
 .x-grid-editor .x-form-trigger-wrap td:last-child{width:17px !important}
-.x-hbox-form-item + .marginL5{border-left:10px solid transparent;margin-left:0 !important}
-.x-hbox-form-item + .marginL10{border-left:15px solid transparent;margin-left:0 !important}
+.marginL5 input,.marginL5 .x-form-trigger{margin-left:-5px !important}
+.marginL10 input,.marginL10 .x-form-trigger{margin-left:-10px !important}
+.codeView input{margin-left:0 !important}
+.codeView.marginL5{margin-left:0 !important;border-left:5px solid transparent}
 
 
 /* x progress bar style*/
@@ -843,6 +845,34 @@ table.x-datepicker-inner .x-datepicker-today a{color:#cc3300}
 .opinionList div .status{margin:0 5px;display:inline-block;}
 
 
+/*custom logic style*/
+.logicStepItem{background:url('../image/approveStepNormal.png') no-repeat;}
+.logicStepItem .x-box-layout-ct{background:#f8f8f8;padding:10px;border-left:2px solid #e0e0e0}
+.Processors span{background:url('../image/customLogic/bgProcessors.png') no-repeat;width:67px;height:20px;display:inline-block;margin-right:4px;font-size:10px;color:#fff;line-height:1.8;text-align:center;font-weight:normal}
+.iconInput{background:url('../image/customLogic/iconInOut.png') 0 2px no-repeat;}
+.iconOutput{background:url('../image/customLogic/iconInOut.png') 0 -28px no-repeat;}
+.iconProcessor{background:url('../image/customLogic/iconInOut.png') 0 -58px no-repeat;}
+.inOut-list{background:#f8f8f8;padding:7px 10px 7px 10px;border-left:2px solid #e0e0e0}
+.inOut-list div{margin-top:3px;padding:3px;cursor:pointer;border:none;border-bottom:1px dotted #A3BAE9;text-indent:18px}
+.inOut-item{background:url('../image/iconOperation16.png') 2px 0px no-repeat;}
+.inOut-item-hover{background-color:#eee;}
+.taskStepItem:first-child .inOut-list{border:none}
+.btnEditLogic{background:url('../image/customLogic/btnEditLogicRight.png') 100% 0 no-repeat;padding:0;border:none;height:38px;}
+.btnEditLogic .x-btn-inner{font-size:16px;height:20px;line-height:1.3}
+.btnEditLogic button{background:url('../image/customLogic/btnEditLogic.png') no-repeat;margin-right:5;width:98% !important}
+.logicStepItem .x-box-layout-ct .inOut-list{background:url('../image/bgGrayGradient.gif') 0 100% repeat-x #fcfcfc;padding:5px 7px;border:1px solid #cfcfcf}
+.arrowDown{background:url('../image/arrowDownGray.png') 50% 100% no-repeat;height:11px !important}
+.arrowUpDown{background:url('../image/arrowUpDownGray.png') 50% 100% no-repeat;height:11px !important}
+.statusType1{background:url('../image/customLogic/start.png') no-repeat;width:16px;height:16px}
+.statusType2{background:url('../image/customLogic/startModify.png') no-repeat;width:16px;height:16px}
+.statusType3{background:url('../image/customLogic/startModifyPrivate.png') no-repeat;width:16px;height:16px}
+.statusType4{background:url('../image/customLogic/startPrivate.png') no-repeat;width:16px;height:16px}
+.statusType5{background:url('../image/customLogic/stop.png') no-repeat;width:16px;height:16px}
+.statusType6{background:url('../image/customLogic/stopModify.png') no-repeat;width:16px;height:16px}
+.statusType7{background:url('../image/customLogic/stopModifyPrivate.png') no-repeat;width:16px;height:16px}
+.statusType8{background:url('../image/customLogic/stopPrivate.png') no-repeat;width:16px;height:16px}
+
+
 /*emi style*/
 .emiDashboard{background:url('../image/emiBgDashboard.png') 0 -26px repeat-x}
 .gagueValue{position:absolute;background:url('../image/emiGaugeBottomShadow.png') 50% 100% no-repeat;background-size:100% 11px;padding-bottom:5px;width:100%;bottom:20px;text-align:center;color:#ff6000;font-size:32px}
@@ -892,7 +922,7 @@ table.x-datepicker-inner .x-datepicker-today a{color:#cc3300}
 
 /* ie8,9 style */
 .x-nbr .x-tab-bar-default-top .x-tab-bar-body-default-top .x-box-inner .x-tab-default{border-bottom:0 !important}
-.x-ie8 .x-form-trigger{top:-1px\9}
+.x-ie8 .x-form-trigger{top:-1px}
 .x-ie8 .codeView .x-btn,.x-ie9 .codeView .x-btn{top:0 !important}
 .x-ie8 #content-body .x-panel .x-grid-body,.x-ie9 #content-body .x-panel .x-grid-body{border-top-width:1px}
 .x-ie8 .x-panel-header-horizontal{padding-right:0}

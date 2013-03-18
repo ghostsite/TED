@@ -181,6 +181,7 @@ Ext.define('ALM.view.inquiry.ViewPublishMessage', {
 			items: [{
 				xtype : 'grid',
 				flex : 1,
+				cls : 'navyGrid',
 				store : Ext.getStore('ALM.store.AlarmStore'),
 				autoScroll : true,
 				itemId : 'grdAlarmList',

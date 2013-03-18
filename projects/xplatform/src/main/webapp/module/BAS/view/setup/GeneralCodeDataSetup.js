@@ -311,7 +311,10 @@ Ext.define('BAS.view.setup.GeneralCodeDataSetup', {
 		var grid = this.sub('grdSql');
 		grid.reconfigure(null, []);
 
-		var store = Ext.create('BAS.store.BasSqlQueryOut');
+		var store = Ext.create('BAS.store.BasSqlQueryOut', {
+			//TODO : 
+			pageSize : 1000
+		});
 		store.load({
 			params : {
 				procstep : '1',
@@ -577,7 +580,10 @@ Ext.define('BAS.view.setup.GeneralCodeDataSetup', {
 				columnLines : true,
 				selModel : selModel,
 				cls : 'navyGrid',
-				store : Ext.create('BAS.store.BasViewDataListOut.DataList'),
+				store : Ext.create('BAS.store.BasViewDataListOut.DataList', {
+					//TODO
+					pageSize : 1000
+				}),
 				columns : [ {
 					xtype : 'rownumberer',
 					width : 40

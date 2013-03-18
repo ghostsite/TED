@@ -131,6 +131,7 @@ Ext.define('MES.view.form.field.MultiCodeViewField', {
 			this.add(this.buildTxtfield());
 			this.add(this.buildSerach());
 		}
+		
 		this.addEvents(
 				/**
 				 * EVENT : 'clickicon' 
@@ -208,7 +209,6 @@ Ext.define('MES.view.form.field.MultiCodeViewField', {
 			self.sub('btnCodeView').setDisabled(state);
 		});
 		this.on('disabledfield',function(state,index){
-			self.getField(index);
 			var field = self.getField(index);
 			if(field)
 				field.setDisabled(state);
@@ -269,6 +269,7 @@ Ext.define('MES.view.form.field.MultiCodeViewField', {
 		var fields = Ext.clone(this.fields||codeviewOpts.fields || []);
 		
 		var field = Ext.clone(fields[0]||{});
+		
 		var name = [], value = [];
 		
 		if(this.name != undefined){
@@ -302,6 +303,7 @@ Ext.define('MES.view.form.field.MultiCodeViewField', {
 		}
 		var items = [];
 		var index = 0;
+		field.vtype = '';
 		Ext.applyIf(field,{
 			xtype : 'textfield',
 			listeners : {
@@ -323,6 +325,7 @@ Ext.define('MES.view.form.field.MultiCodeViewField', {
 			},
 			flex : 1
 		});
+
 		for(var i =0 ; i < fieldCount; i++){
 			if(alignIcon == i){
 				index++;
@@ -398,11 +401,14 @@ Ext.define('MES.view.form.field.MultiCodeViewField', {
 		fieldset.fireEvent('select', records);
 	},
 	
-	getField : function(){
-		var fieldId = this.itemId+'_0';
+	getField : function(index){
+		var i = index||0;
+		
+		var fieldId = this.itemId+'_'+i;
 		var field = this.getComponent(fieldId);
 		return field;
 	},
+	
 	setValue : function(newVal) {
 		var fieldId = this.itemId+'_0';
 		var field = this.getComponent(fieldId);
@@ -430,5 +436,4 @@ Ext.define('MES.view.form.field.MultiCodeViewField', {
 		return field.isValid();
 	}
 });
-
 

@@ -9,6 +9,14 @@ Ext.define('mixin.ExtOverride', function() {
 		}
 	});
 	
+	//2013.03.11 KKH 
+	// filter, sort, group를 사용시 네이밍 충돌이 발생하여 server 와 param명칭을 정의함.
+	Ext.override(Ext.data.proxy.Server, {
+		sortParam : 'extjsSort',
+		filterParam : 'extjsFilter',
+		groupParam : 'extjsGroup'
+	});
+	
 	//TODO  : 2013.02.05  mixin.Ajax onComplete에서 매번  json decode이 되므로 비효율적임
 	// exception시에만 error message를 decode함. 단, success시 공용 팝업이 표시되지 않아 방법 모색 후 적용예정.
 //	Ext.override(Ext.data.proxy.Server, {

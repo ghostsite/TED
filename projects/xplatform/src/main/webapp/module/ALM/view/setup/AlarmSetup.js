@@ -57,40 +57,9 @@ Ext.define('ALM.view.setup.AlarmSetup', {
 				supplement.refreshGrid(true);
 			});
 
-			// TODO : Tran code 콤보박스 변경시 (cmf 재정의 수정중...)
-			self.sub('cmbTranCode').on('change', function(me, newValue, oldValue) {
-				self.sub('fdcHold').setVisible(false);
-				self.sub('fdcFuture').setVisible(false);
-				self.sub('fdcRework').setVisible(false);
-
-				if (newValue == 'HOLD') {
-					self.sub('fdcHold').setVisible(true);
-//					self.sub('tabCmfsetup').reloadForm({
-//						cmfItemName : SF_CMF_TRN_HOLD,
-//						cmfFieldNamePrefix : 'cmf',
-//						cmfMaxCnt : 20
-//					});
-				} else if (newValue == 'FHLD') {
-					self.sub('fdcFuture').setVisible(true);
-//					self.sub('tabCmfsetup').reloadForm({
-//						cmfItemName : SF_CMF_TRN_HOLD,
-//						cmfFieldNamePrefix : 'cmf',
-//						cmfMaxCnt : 20
-//					});
-				} else if (newValue == 'REWORK') {
-					self.sub('fdcRework').setVisible(true);
-//					self.sub('tabCmfsetup').reloadForm({
-//						cmfItemName : SF_CMF_TRN_REWORK,
-//						cmfFieldNamePrefix : 'cmf',
-//						cmfMaxCnt : 20
-//					});
-				} else {
-//					self.sub('tabCmfsetup').reloadForm({
-//						cmfItemName : 'nothing',
-//						cmfFieldNamePrefix : 'nothing',
-//						cmfMaxCnt : 'nothing'
-//					});
-				}
+			//tran code에 따라 cmf tab이 변경됨
+			self.sub('cmbTranCode').on('select', function(me) {
+				self.setCmfItem(me.getValue());
 			});
 
 			supplement.on('supplementSelected', function(record) {
@@ -212,6 +181,33 @@ Ext.define('ALM.view.setup.AlarmSetup', {
 				self.checkCondition('cdvFutureFlow');
 			});
 		});
+	},
+	
+	//tranCode에 따른 cmf와 화면 컨트롤을 수정한다.
+	setCmfItem : function(tranCode){
+		var cmfTab = this.sub('tabCmfsetup');
+		
+		this.sub('fdcHold').setVisible(false);
+		this.sub('fdcFuture').setVisible(false);
+		this.sub('fdcRework').setVisible(false);
+		
+		//트랜잭션 코드에 따른 컨트롤, CMF 상태변경
+		if (tranCode == 'HOLD') {
+			this.sub('fdcHold').setVisible(true);
+			//CMF tab 변경
+			cmfTab.setCmfItem(SF_CMF_TRN_HOLD);
+		} else if (tranCode == 'FHLD') {
+			this.sub('fdcFuture').setVisible(true);
+			//CMF tab 변경
+			cmfTab.setCmfItem(SF_CMF_TRN_HOLD);
+		} else if (tranCode == 'REWORK') {
+			this.sub('fdcRework').setVisible(true);
+			//CMF tab 변경
+			cmfTab.setCmfItem(SF_CMF_TRN_REWORK);
+		} else if (Ext.isEmpty(tranCode) || tranCode == ' '){
+			//CMF tab 변경
+			cmfTab.setCmfItem(SF_CMF_ALARM);
+		}
 	},
 
 	checkCondition : function(step, form, addParams) {
@@ -693,59 +689,83 @@ Ext.define('ALM.view.setup.AlarmSetup', {
 	},
 
 	reloadForm : function(self, alarmId) {
-		this.getForm().load({
+		//cmf 컨트롤을 설정하는 부분이 있어 서비스를 두번 호출하였다.
+		//form load 한번으로 cmf 컨트롤이 변경되면서 값이 초기화되는 문제가 발생한다.
+		Ext.Ajax.request({
 			url : 'service/AlmViewAlarmMsg.json',
 			params : {
 				procstep : '1',
 				alarmId : alarmId
 			},
-			success : function(form, action) {
-				// lot action에서 hold와 f hold일때 holdCode, holdPassword 컬럼을 같이쓴다
-				// 이를 방지하기위해.. holdCode와 holdPassword를 hidden으로 놓고 사용
-				if (action.result.data.alarmLotAction == 'HOLD') {
-					self.sub('cdvHoldCode').setValue(action.result.data.holdCode);
-					self.sub('txtHoldPsw').setValue(action.result.data.holdPassword);
-				} else if (action.result.data.alarmLotAction == 'FHLD') {
-					self.sub('cdvFutureHoldCode').setValue(action.result.data.holdCode);
-					self.sub('txtFutureHoldPsw').setValue(action.result.data.holdPassword);
-				}
-
-				self.vewEvent(self, action.result.data.eventId, action.result.data);
-
-				// alarm type이 R일경우 tab에 container 활성화
-				if (action.result.data.alarmType == 'R') {
-					self.sub('fdcCdv').setDisabled(false);
-					self.sub('fdcClearEvenList').setDisabled(false);
-					self.sub('txtClearComment').setDisabled(false);
-					self.vewClearEvent(self, action.result.data.clearEventId, action.result.data);
-				} else {
-					self.sub('fdcCdv').setDisabled(true);
-					self.sub('fdcClearEvenList').setDisabled(true);
-					self.sub('txtClearComment').setDisabled(true);
-				}
-
-				// 파일 관련
-				if (action.result.data.fileinfo[0] != undefined) {
-					var fileName = action.result.data.fileinfo[0].fileName;
-					var fileId = action.result.data.fileinfo[0].fileId;
-					self.sub('txtFileName').setValue(fileName);
-					self.sub('filehidden').setValue(fileName);
+			success : function(response) {
+				var result = Ext.JSON.decode(response.responseText);
+				if (result.success) {
+					//Alaram 정보를 로드 하기저에 cmf 설정을 한다.
+					self.setCmfItem(result.alarmLotAction);
 					
-					var src = 'service/bas_download_file/' + fileId + '.do';
-					self.sub('img').setSrc(src);
-					
-				} else {
-					self.sub('txtFileName').setValue('');
-					self.sub('filehidden').setValue('');
+					self.formLoadLock.ready(function() {
+						var record = Ext.create('ALM.model.AlmViewAlarmMsgOut',result);
+						self.getForm().setValues(record.data);
+						
+						// lot action에서 hold와 f hold일때 holdCode, holdPassword 컬럼을 같이쓴다
+						// 이를 방지하기위해.. holdCode와 holdPassword를 hidden으로 놓고 사용
+						if (record.data.alarmLotAction == 'HOLD') {
+							self.sub('cdvHoldCode').setValue(record.data.holdCode);
+							self.sub('txtHoldPsw').setValue(record.data.holdPassword);
+						} else if (record.data.alarmLotAction == 'FHLD') {
+							self.sub('cdvFutureHoldCode').setValue(record.data.holdCode);
+							self.sub('txtFutureHoldPsw').setValue(record.data.holdPassword);
+						}
+
+						self.vewEvent(self, record.data.eventId, record.data);
+
+						// alarm type이 R일경우 tab에 container 활성화
+						if (record.data.alarmType == 'R') {
+							self.sub('fdcCdv').setDisabled(false);
+							self.sub('fdcClearEvenList').setDisabled(false);
+							self.sub('txtClearComment').setDisabled(false);
+							self.vewClearEvent(self, record.data.clearEventId, record.data);
+						} else {
+							self.sub('fdcCdv').setDisabled(true);
+							self.sub('fdcClearEvenList').setDisabled(true);
+							self.sub('txtClearComment').setDisabled(true);
+						}
+
+						// 파일 관련
+						if (record.data.fileinfo[0] != undefined) {
+							var fileName = record.data.fileinfo[0].fileName;
+							var fileId = record.data.fileinfo[0].fileId;
+							self.sub('txtFileName').setValue(fileName);
+							self.sub('filehidden').setValue(fileName);
+							
+							var src = 'service/bas_download_file/' + fileId + '.do';
+							self.sub('img').setSrc(src);
+							
+						} else {
+							self.sub('txtFileName').setValue('');
+							self.sub('filehidden').setValue('');
+						}
+					});
 				}
-			},
-			failure : function(form, action) {
-				// form data clear
-				self.getForm().getFields().each(function(f) {
-					f.setValue(null);
-				});
 			}
 		});
+		
+//		this.getForm().load({
+//			url : 'service/AlmViewAlarmMsg.json',
+//			params : {
+//				procstep : '1',
+//				alarmId : alarmId
+//			},
+//			success : function(form, action) {
+//				
+//			},
+//			failure : function(form, action) {
+//				// form data clear
+//				self.getForm().getFields().each(function(f) {
+//					f.setValue(null);
+//				});
+//			}
+//		});
 	},
 
 	getOperParams : function(me, codeview) {
@@ -1238,7 +1258,10 @@ Ext.define('ALM.view.setup.AlarmSetup', {
 						selModel : Ext.create('Ext.selection.RowModel', {
 							mode : 'MULTI'
 						}),
-						store : Ext.create('ALM.store.AlmViewAlarmReceiverListOut.rcvrList'),
+						store : Ext.create('ALM.store.AlmViewAlarmReceiverListOut.rcvrList', {
+							//TODO : user list size 미확정...2013.02.28
+							pageSize : 1000
+						}),
 						columns : [ {
 							header : T('Caption.Other.Receiver'),
 							dataIndex : 'rcvrId',
@@ -1378,6 +1401,8 @@ Ext.define('ALM.view.setup.AlarmSetup', {
 								flex : 2
 							} ],
 							store : Ext.create('SEC.store.SecViewUserListOut.List', {
+								//TODO :  list size 미확정...2013.02.28
+								pageSize : 1000,
 								params : {
 									procstep : '1'
 								}
@@ -1666,9 +1691,10 @@ Ext.define('ALM.view.setup.AlarmSetup', {
 			xtype : 'wip_view_groupsetup',
 			title : T('Caption.Other.Customized Field'),
 			itemId : 'tabCmfsetup',
-			itemName : 'nothing',
-			fieldNamePrefix : 'nothing',
-			cmfMaxCnt : 'nothing'
+			fieldNamePrefix : 'cmf',
+			itemName : SF_CMF_ALARM,
+			cmfMaxCnt : 10,
+			formLoadLock : this.getFormLoadLock()
 		};
 	},
 

@@ -2,13 +2,13 @@ Ext.define('mixin.User', function() {
 	var names = {};
 	var myNames = {};
 
-	if(myAssemblyNameList && myAssemblyNameList.success){
+	if(window.myAssemblyNameList && myAssemblyNameList.success){
 		Ext.Array.each(myAssemblyNameList.list, function(name) {
 			setMyAssemblyName(name);
 		});		
 	}
 	
-	if(assemblyNameList && assemblyNameList.success){
+	if(window.assemblyNameList && assemblyNameList.success){
 		Ext.Array.each(assemblyNameList.list, function(name) {
 			setAssemblyName(name);
 		});		
