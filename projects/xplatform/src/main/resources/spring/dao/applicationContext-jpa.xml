@@ -27,6 +27,8 @@
 				<prop key="hibernate.ejb.resource_scanner">org.hibernate.ejb.packaging.NativeScanner</prop><!--ghostzhang add 20130305-->
 				<prop key="hibernate.show_sql">true</prop><!--ghostzhang add 20130305-->
 				<prop key="hibernate.enable_lazy_load_no_trans">true</prop><!--ghostzhang add 20130305,be careful with this is setted to true https://hibernate.onjira.com/browse/HHH-7457-->
+				<prop key="jadira.usertype.autoRegisterUserTypes">true</prop><!--ghostzhang added 20130319 for jodatime-->
+				<prop key="jadira.usertype.databaseZone">jvm</prop><!--ghostzhang added 20130319 for jodatime-->
 			</props>
 		</property>
 	</bean>

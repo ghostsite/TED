@@ -31,8 +31,6 @@ public class SaltQueryDatabaseAuthenticationHandler extends AbstractJdbcUsername
     protected final boolean authenticateUsernamePasswordInternal(final UsernamePasswordCredentials credentials) throws AuthenticationException {
         final String username = getPrincipalNameTransformer().transform(credentials.getUsername());
         String password = credentials.getPassword();
-        System.out.println("sql=" + sql);
-        System.out.println("username=" + username + ", and password=" + password);
         Map<String, Object> bitrixPassword = getJdbcTemplate().queryForMap(this.getSql(), username);
         if (bitrixPassword != null && !bitrixPassword.isEmpty()) {
             String encryptedPassword = PasswordUtils.encryptPassword(password, (String) bitrixPassword.get("passwordKey"));

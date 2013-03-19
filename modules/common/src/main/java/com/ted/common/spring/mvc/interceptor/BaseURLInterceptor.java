@@ -9,15 +9,14 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.ted.common.util.NetworkUtils;
 
 public class BaseURLInterceptor extends HandlerInterceptorAdapter {
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		if(null != modelAndView){
-		    modelAndView.getModel().put("baseURL", NetworkUtils.getBasePath(request));
-		}
-	}
-	
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-	        throws Exception {
-	    System.out.println("preHandler...........................................");
-	        return true;
-	    }
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if (null != modelAndView) {
+            modelAndView.getModel().put("baseURL", NetworkUtils.getBasePath(request));
+        }
+    }
+
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("preHandler...........................................");
+        return true;
+    }
 }

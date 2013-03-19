@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Pointcut;
 //@Aspect
 //@Service
 public class LoggingAspect {
-    @Pointcut("execution(* com.goshen..*Service.*(..)) || execution(* com.goshen..*Service.*(..))")
+    @Pointcut("execution(* com.ted..*Service.*(..)) || execution(* com.ted..*Service.*(..))")
     public void serviceMethod() {
     }
 

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -47,7 +48,7 @@ public class WorkDayController {
      */
     @RequestMapping(value = "/generate")
     public @ResponseBody
-    String generate(@RequestParam @DateTimeFormat(iso = ISO.DATE) Date from, @RequestParam @DateTimeFormat(iso = ISO.DATE) Date to) {
+    String generate(@RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDateTime from, @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDateTime to) {
         workDayService.generate(from, to);
         //return Constants.SUCCESS_JSON;
         return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
@@ -58,7 +59,7 @@ public class WorkDayController {
      */
     @RequestMapping(value = "/query")
     public @ResponseBody
-    JsonPage<WorkDay> query(@RequestParam @DateTimeFormat(iso = ISO.DATE) Date from, @RequestParam @DateTimeFormat(iso = ISO.DATE) Date to, Boolean workDay, int start, int limit) {
+    JsonPage<WorkDay> query(@RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDateTime from, @RequestParam @DateTimeFormat(iso = ISO.DATE) LocalDateTime to, Boolean workDay, int start, int limit) {
         return workDayService.query(from, to, workDay, start, limit);
     };
 

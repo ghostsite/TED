@@ -2,15 +2,19 @@ package com.ted.xplatform.pojo.common;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springside.modules.persistence.Hibernates;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.ted.common.support.datetime.deser.DefaultDateTimeDeserializer;
+import com.ted.common.support.datetime.deser.DefaultLocalDateTimeDeserializer;
+import com.ted.common.support.datetime.ser.DefaultDateTimeSerializer;
 import com.ted.common.support.datetime.ser.DefaultLocalDateTimeSerializer;
 import com.ted.xplatform.pojo.base.PersistEntity;
 
@@ -29,13 +33,16 @@ public class WorkDay extends PersistEntity {
      */
     //@Column(name="updated", nullable = false)
     @Type(type=Hibernates.LOCAL_DATETIME_TYPE)
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dayDate;
     //private java.util.Date dayDate;
 
     /**
      * 终止日期
      */
-    private java.util.Date endDate;
+    @Type(type=Hibernates.DATETIME_TYPE)
+    @Temporal(TemporalType.TIMESTAMP)
+    private DateTime endDate;
 
     /**
      * 工作日序列
@@ -69,6 +76,7 @@ public class WorkDay extends PersistEntity {
     /**
      * @param dayDate the dayDate to set
      */
+    @JsonDeserialize(using = DefaultLocalDateTimeDeserializer.class)
     public void setDayDate(LocalDateTime dayDate) {
         this.dayDate = dayDate;
     }
@@ -76,15 +84,17 @@ public class WorkDay extends PersistEntity {
     /**
      * @return the endDate
      */
-    @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    public java.util.Date getEndDate() {
+    //@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonSerialize(using = DefaultDateTimeSerializer.class) //this is for Joda Time
+    public DateTime getEndDate() {
         return endDate;
     }
 
     /**
      * @param endDate the endDate to set
      */
-    public void setEndDate(java.util.Date endDate) {
+    @JsonDeserialize(using = DefaultDateTimeDeserializer.class) //this is for Joda Time
+    public void setEndDate(DateTime endDate) {
         this.endDate = endDate;
     }
 

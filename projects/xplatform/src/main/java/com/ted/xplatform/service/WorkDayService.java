@@ -63,18 +63,15 @@ public class WorkDayService {
      * @return
      */
     @Transactional
-    public void generate(Date from, Date to) {
-        LocalDateTime fromDateTime = new LocalDateTime(from);
-        LocalDateTime toDateTime = new LocalDateTime(to);
-
+    public void generate(LocalDateTime from, LocalDateTime to) {
         //删除
         Map<String, Object> params = CollectionUtils.newMap("from", from, "to", to);
         jpaTemplateDao.executeJPQLUpdate("admin-jpql-deleteWorkDay", params);
 
         //插入
-        while (fromDateTime.isBefore(toDateTime)) {
-            generateDay(fromDateTime);
-            fromDateTime = fromDateTime.plusDays(1);
+        while (from.isBefore(to)) {
+            generateDay(from);
+            from = from.plusDays(1);
         }
     };
 
@@ -98,7 +95,7 @@ public class WorkDayService {
      * 查询from to 
      */
     @Transactional(readOnly = true)
-    public JsonPage<WorkDay> query(Date from, Date to, Boolean workDay, int start, int limit) {
+    public JsonPage<WorkDay> query(LocalDateTime from, LocalDateTime to, Boolean workDay, int start, int limit) {
         Map<String, Object> params = Maps.newHashMap();
         params.put("from", from);
         params.put("to", to);

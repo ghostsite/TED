@@ -20,8 +20,8 @@ import com.ted.common.util.JsonUtils;
 public class ExceptionTransfer {
     public static final Logger logger = LoggerFactory.getLogger(ExceptionTransfer.class);
     
-    @Pointcut("execution(* com.goshen..*Service.*(..)) || execution(* com.goshen..*Controller.*(..))")
-    //@Pointcut("execution(* com.goshen..*Controller.*(..))")
+    @Pointcut("execution(* com.ted..*Service.*(..)) || execution(* com.ted..*Controller.*(..))")
+    //@Pointcut("execution(* com.ted..*Controller.*(..))")
     public void serviceMethod() {
     }
 
