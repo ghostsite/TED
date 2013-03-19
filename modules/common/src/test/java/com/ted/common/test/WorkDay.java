@@ -1,18 +1,16 @@
-package com.ted.xplatform.pojo.common;
+package com.ted.common.test;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springside.modules.persistence.Hibernates;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.ted.common.support.datetime.ser.DefaultLocalDateTimeSerializer;
-import com.ted.xplatform.pojo.base.PersistEntity;
 
 /**
  * 工作日
@@ -22,14 +20,14 @@ import com.ted.xplatform.pojo.base.PersistEntity;
  */
 @Entity
 @Table(name = "workday")
-public class WorkDay extends PersistEntity {
+public class WorkDay {
 
     /**
      * 日期
      */
     //@Column(name="updated", nullable = false)
-    @Type(type=Hibernates.LOCAL_DATETIME_TYPE)
-    private LocalDateTime dayDate;
+    @Type(type = Hibernates.LOCAL_DATETIME_TYPE)
+    private LocalDateTime  dayDate;
     //private java.util.Date dayDate;
 
     /**
@@ -60,8 +58,11 @@ public class WorkDay extends PersistEntity {
     /**
      * @return the dayDate
      */
-    //@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00") //this if for java.util.Date
-    @JsonSerialize(using = DefaultLocalDateTimeSerializer.class) //this is for Joda Time
+    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+    //@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonSerialize(using = DefaultLocalDateTimeSerializer.class)
     public LocalDateTime getDayDate() {
         return dayDate;
     }
@@ -76,7 +77,7 @@ public class WorkDay extends PersistEntity {
     /**
      * @return the endDate
      */
-    @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd :: HH:mm:ss")
     public java.util.Date getEndDate() {
         return endDate;
     }

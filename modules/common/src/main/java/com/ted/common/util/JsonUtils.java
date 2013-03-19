@@ -8,7 +8,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -27,7 +30,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.ted.common.Constants;
+import com.ted.common.support.datetime.deser.DefaultDateTimeDeserializer;
+import com.ted.common.support.datetime.deser.DefaultLocalDateTimeDeserializer;
+import com.ted.common.support.datetime.ser.DefaultDateTimeSerializer;
+import com.ted.common.support.datetime.ser.DefaultLocalDateTimeSerializer;
 import com.ted.common.support.page.JsonPage;
 
 /**
@@ -44,12 +52,22 @@ public class JsonUtils {
     private static ObjectMapper objectMapper = new ObjectMapper();
     private static JsonFactory  jsonFactory  = new JsonFactory();
     static {
+        setDefaultConfig(objectMapper, "yyyy-MM-dd HH:mm:ss");
+    }
+    
+    public static final void setDefaultConfig(ObjectMapper objectMapper,String dateFormat){
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat df = new SimpleDateFormat(dateFormat);
         objectMapper.setDateFormat(df);
         //objectMapper.registerModule(new Hibernate4Module());
         SerializationConfig cfg = objectMapper.getSerializationConfig();
+        JodaModule jodaModule = new JodaModule();
+        jodaModule.addDeserializer(DateTime.class, DefaultDateTimeDeserializer.forType(DateTime.class));
+        jodaModule.addDeserializer(LocalDateTime.class, new DefaultLocalDateTimeDeserializer());
+        jodaModule.addSerializer(DateTime.class, new DefaultDateTimeSerializer());
+        jodaModule.addSerializer(LocalDateTime.class, new DefaultLocalDateTimeSerializer());
+        objectMapper.registerModule(jodaModule);//for joda time format
         /**
          * // First, defaults:
          * assertTrue(cfg.isEnabled(SerializationConfig.Feature
@@ -78,7 +96,7 @@ public class JsonUtils {
          */
         // cfg.setDateFormat(dateFormat);
 
-        //df.setTimeZone(TimeZone.getTimeZone("CMT"));
+        df.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
         cfg.with(df); //2.0 
         cfg.without(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }

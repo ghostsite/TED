@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,8 +64,8 @@ public class WorkDayService {
      */
     @Transactional
     public void generate(Date from, Date to) {
-        DateTime fromDateTime = new DateTime(from);
-        DateTime toDateTime = new DateTime(to);
+        LocalDateTime fromDateTime = new LocalDateTime(from);
+        LocalDateTime toDateTime = new LocalDateTime(to);
 
         //删除
         Map<String, Object> params = CollectionUtils.newMap("from", from, "to", to);
@@ -81,9 +82,9 @@ public class WorkDayService {
      * 辅助方法，插入一个数据到workday
      * @param dt
      */
-    private void generateDay(DateTime dt) {
+    private void generateDay(LocalDateTime dt) {
         WorkDay wd = new WorkDay();
-        wd.setDayDate(dt.toDate());
+        wd.setDayDate(dt);
         wd.setWeekDay(dt.getDayOfWeek());//注意：1 表示星期一
         if (dt.getDayOfWeek() == 6 || dt.getDayOfWeek() == 7) {
             wd.setWorkDay(false);

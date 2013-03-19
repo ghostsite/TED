@@ -619,6 +619,11 @@
 			<artifactId>usertype.core</artifactId>
 			<version>3.0.0.GA</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.jodatime</artifactId>
+			<version>2.0.1</version>
+		</dependency>
 		<!-- joda for jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>

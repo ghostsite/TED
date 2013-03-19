@@ -60,10 +60,9 @@
 		<appender-ref ref="STDOUT"/>
 	</logger>
     
-	<logger name="org.springframework.web">
+	<logger name="org.springframework">
 		<level value="WARN"/>
 		<appender-ref ref="STDOUT"/>
-		<appender-ref ref="DB"/>
 	</logger>
     
 	<logger name="com.ckfinder">

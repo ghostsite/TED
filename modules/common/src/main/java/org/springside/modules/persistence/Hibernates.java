@@ -17,6 +17,8 @@ import org.hibernate.dialect.SQLServer2008Dialect;
  */
 public class Hibernates {
 
+    //here is changed 20130319 , be careful
+    public static final String LOCAL_DATETIME_TYPE = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime";
     public static final String DATETIME_TYPE = "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
 
     /**

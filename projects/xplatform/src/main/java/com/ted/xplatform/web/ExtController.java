@@ -1,7 +1,6 @@
 package com.ted.xplatform.web;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
@@ -31,7 +33,6 @@ import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.databind.introspect.BeanPropertyDefinition;
@@ -85,6 +86,9 @@ public class ExtController {
         JSTYPE_BY_JAVACLASS_MAP.put(Character.TYPE, "string");
         JSTYPE_BY_JAVACLASS_MAP.put(Character.class, "string");
         JSTYPE_BY_JAVACLASS_MAP.put(Date.class, "date"); // 这种就默认YYYY-MM-DD, HH24:MM:SS,可以采用json的annotation,good
+        JSTYPE_BY_JAVACLASS_MAP.put(DateTime.class, "date"); // 这种就默认YYYY-MM-DD, HH24:MM:SS,可以采用json的annotation,good
+        JSTYPE_BY_JAVACLASS_MAP.put(LocalDateTime.class, "date"); // 这种就默认YYYY-MM-DD, HH24:MM:SS,可以采用json的annotation,good
+        JSTYPE_BY_JAVACLASS_MAP.put(LocalDate.class, "date"); // 这种就默认YYYY-MM-DD, HH24:MM:SS,可以采用json的annotation,good
         JSTYPE_BY_JAVACLASS_MAP.put(Integer.class, "number");
         JSTYPE_BY_JAVACLASS_MAP.put(int.class, "int");
         JSTYPE_BY_JAVACLASS_MAP.put(Long.class, "number");
