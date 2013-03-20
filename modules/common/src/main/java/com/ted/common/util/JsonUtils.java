@@ -42,9 +42,8 @@ import com.ted.common.support.page.JsonPage;
  * JSON工具里，主要使用Jackson来进行jon化。
  * <p>
  * 对于pojo有一点要求，主要是因为hibernate在生成对象的时候，如果不想序列化，需要增加@JsonIgnore的生命在get方法上
- * 
- *         <p>
- *         Date : 20101116
+ * <p>
+ * @date : 20101116
  */
 public class JsonUtils {
     public static final Logger  logger       = LoggerFactory.getLogger(JsonUtils.class);
@@ -54,8 +53,8 @@ public class JsonUtils {
     static {
         setDefaultConfig(objectMapper, "yyyy-MM-dd HH:mm:ss");
     }
-    
-    public static final void setDefaultConfig(ObjectMapper objectMapper,String dateFormat){
+
+    public static final void setDefaultConfig(ObjectMapper objectMapper, String dateFormat) {
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         DateFormat df = new SimpleDateFormat(dateFormat);
@@ -190,22 +189,22 @@ public class JsonUtils {
      * 反射，来源于ExtController的需求
      * 获得一个Class的所有属性，包括方法和Field
      */
-    public static final List<BeanPropertyDefinition>  getClassPropertyDefinitions(Class<?> clazz){
+    public static final List<BeanPropertyDefinition> getClassPropertyDefinitions(Class<?> clazz) {
         SerializationConfig config = objectMapper.getSerializationConfig();
         JavaType javaType = config.constructType(clazz);
         BeanDescription beanDesc = config.introspect(javaType);
         List<BeanPropertyDefinition> findProperties = beanDesc.findProperties();
         return findProperties;
-//        for (BeanPropertyDefinition bpDef : findProperties) {//to study @Annotation
-//            System.out.println(bpDef.getName() + ":" + bpDef.getGetter().getRawType());
-//            AnnotatedMethod getter = bpDef.getGetter();
-//            Method annotated = bpDef.getGetter().getAnnotated();
-//            Annotation anno = annotated.getAnnotation(JsonProperty.class);
-//            Class z = anno.annotationType();
-//            System.out.println(z);
-//        }
+        //        for (BeanPropertyDefinition bpDef : findProperties) {//to study @Annotation
+        //            System.out.println(bpDef.getName() + ":" + bpDef.getGetter().getRawType());
+        //            AnnotatedMethod getter = bpDef.getGetter();
+        //            Method annotated = bpDef.getGetter().getAnnotated();
+        //            Annotation anno = annotated.getAnnotation(JsonProperty.class);
+        //            Class z = anno.annotationType();
+        //            System.out.println(z);
+        //        }
     }
-    
+
     /**
      * 把单独的对象转为extjs要求的格式。
      * 这块有个多余，一个是给原来用的，一个是给extjs4用的。data
@@ -216,26 +215,24 @@ public class JsonUtils {
     public static final Map<String, Object> getJsonMap(Object o) {
         return CollectionUtils.newMap("success", true, "data", o);
     };
-    
+
     //this is for extjs3,作用跟getJsonMap(Object o)一样，只不过getJsonFromObject更进一步，转为String了
     public static String getJsonFromObject(Object o) {
-        Map<String,Object> jsonMap = CollectionUtils.newMap("success", true, "data", o); //extjs4 默认是data
+        Map<String, Object> jsonMap = CollectionUtils.newMap("success", true, "data", o); //extjs4 默认是data
         return toJson(jsonMap);
     };
-    
-    
+
     /**
      * 把List转为Page对象，for Extjs,这样做是因为ExtjsController.js 的store格式是写死为page的。
      * @date 20130220
      */
-    public static final <T> JsonPage<T> listToPage(List<T> list){
-        if(null == list || list.size() == 0){
+    public static final <T> JsonPage<T> listToPage(List<T> list) {
+        if (null == list || list.size() == 0) {
             return new JsonPage<T>();
-        }else{
+        } else {
             JsonPage<T> jsonPage = new JsonPage<T>(list, null, list.size());
             return jsonPage;
         }
     };
-    
 
 }

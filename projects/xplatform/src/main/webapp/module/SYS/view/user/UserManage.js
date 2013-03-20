@@ -10,6 +10,10 @@ Ext.define('SYS.view.user.UserManage', {
 		confirm : {
 			msg : T('Message.Sure Delete Data?')
 		}
+	}, {
+		itemId : 'btnExport',
+		url : 'user/getUserListByOrgId4Download',
+		targetGrid : 'grdInfo'
 	}],
 
 	layout : 'fit',
@@ -221,21 +225,6 @@ Ext.define('SYS.view.user.UserManage', {
 					},
 					autoLoad : true,
 					nodeParam : 'orgId'
-				}),
-				contextMenu : Ext.create('Ext.menu.Menu', {
-					items : [{
-						text : '新增子组织',
-						iconCls : 'icon-add',
-						action : 'showCreate'
-					}, {
-						text : '修改组织',
-						iconCls : 'icon-modify',
-						action : 'showUpdate'
-					}, '-', {
-						text : '删除组织',
-						iconCls : 'icon-remove',
-						action : 'doDelete'
-					}]
 				})
 			}]
 		};

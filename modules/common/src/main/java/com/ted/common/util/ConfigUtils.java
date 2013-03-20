@@ -34,8 +34,6 @@ public abstract class ConfigUtils {
 
     private static final String  DOZER_BEAN_MAPPINGS = "dozerBeanMappings";
 
-    private static final String  EXTJSVERSION        = "extjsversion";
-    
     private static final String  PRETTY_PRINT        = "prettyPrint"; //json for prettyPrint
     
     private static final String  PACKAGE_SCAN        = "packageScan"; //for ExtModelController pojo and vo
@@ -115,17 +113,7 @@ public abstract class ConfigUtils {
         return stringList;
     }
 
-    //20120926 added for extjs version 区分3 or 4
-    public static final String getExtJsVersion() {
-        return getString(EXTJSVERSION);
-    }
-
-    public static final boolean isExtjs4() {
-        return "4".equals(getExtJsVersion());
-    }
-
     public static void main(String[] args) {
-        System.out.println(isExtjs4());
     }
     
   //prettyPrint

@@ -30,9 +30,6 @@
 	<!--ExtModelController.java scan-->
 	<packageScan>com.ted.xplatform.pojo,com.ted.xplatform.vo</packageScan>
 	
-	<!--extjs version-->
-	<extjsversion>4</extjsversion>
-	
 	<dozerBeanMappings>dozerBeanMapping.xml</dozerBeanMappings>
 	<!--todo:可以存放系统的名称，欢迎信息等-->
 </root>

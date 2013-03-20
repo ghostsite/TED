@@ -1,4 +1,4 @@
-package com.ted.common.util;
+package com.ted.common.dao;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
  * 模板dao的工具类
  * @date 20130307
  */
-public abstract class DaoTemplateUtils {
+public abstract class DaoTemplateHelper {
     //=============以下2个方法是从springside 3拷贝过来的===========
     public static final String removeSelect(String ql) {
         Assert.hasText(ql);

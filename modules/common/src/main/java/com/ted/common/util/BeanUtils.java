@@ -16,9 +16,6 @@ import org.apache.commons.logging.LogFactory;
 public abstract class BeanUtils {
     protected static final Log logger = LogFactory.getLog(BeanUtils.class);
 
-    private BeanUtils() {
-    }
-
     public static final void copyNotNullProperties(Object dest, Object orig) {
         try {
             Map<Object, Object> origmap = org.apache.commons.beanutils.BeanUtils.describe(orig);
@@ -32,11 +29,7 @@ public abstract class BeanUtils {
                     tomap.put(name, v);
             }
             org.apache.commons.beanutils.BeanUtils.populate(dest, tomap);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     };
@@ -60,11 +53,7 @@ public abstract class BeanUtils {
                         tomap.put(name, v);
             }
             org.apache.commons.beanutils.BeanUtils.populate(dest, tomap);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -110,11 +99,7 @@ public abstract class BeanUtils {
                 String property = includeProperties[i];
                 org.apache.commons.beanutils.PropertyUtils.setProperty(dest, property, org.apache.commons.beanutils.PropertyUtils.getProperty(orig, property));
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     };

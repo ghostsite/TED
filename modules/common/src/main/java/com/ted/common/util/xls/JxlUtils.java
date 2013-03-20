@@ -1,5 +1,5 @@
 package com.ted.common.util.xls;
 
-public class JxlUtils {
+public abstract class JxlUtils {
 
 }

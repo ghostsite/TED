@@ -17,14 +17,14 @@ import freemarker.template.Template;
  */
 public class FreeMarkerUtils {
     static final Configuration cfg = new Configuration();
-    
-    static{
+
+    static {
         cfg.setDefaultEncoding("UTF-8");
     }
-    
-    public static void main(String[] args) throws Exception{
+
+    public static void main(String[] args) throws Exception {
         FreeMarkerUtils.buildConfiguration("com");
-        String f = FreeMarkerUtils.rendereString("a${b}c", CollectionUtils.newMap("b","FUCK"));
+        String f = FreeMarkerUtils.rendereString("a${b}c", CollectionUtils.newMap("b", "faint"));
         System.out.println(f);
     }
 
@@ -42,7 +42,7 @@ public class FreeMarkerUtils {
         }
     }
 
-    public static String renderTemplate(String path, String templateId, Map<String,?> paramMap) {
+    public static String renderTemplate(String path, String templateId, Map<String, ?> paramMap) {
         StringWriter writer = new StringWriter();
         try {
             Template template = getTemplate(path, templateId);
@@ -59,7 +59,7 @@ public class FreeMarkerUtils {
         }
         return "free marker template exception occured!";
     };
-    
+
     /**
      * 渲染Template文件.
      */
@@ -72,7 +72,7 @@ public class FreeMarkerUtils {
             throw Exceptions.unchecked(e);
         }
     }
-    
+
     public static Template getTemplate(String path, String templateId) {
         try {
             //cfg.setDirectoryForTemplateLoading(new File(FreeMarkerUtils.class.getClassLoader().getResource(path).getPath()));

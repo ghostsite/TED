@@ -9,12 +9,12 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import com.ted.common.dao.DaoTemplateHelper;
 import com.ted.common.dao.TemplateDaoSupport;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.support.page.PageHelper;
 import com.ted.common.support.page.PageMetaData;
 import com.ted.common.util.ConfigUtils;
-import com.ted.common.util.DaoTemplateUtils;
 import com.ted.common.util.SpringUtils;
 
 @SuppressWarnings("all")
@@ -47,7 +47,7 @@ public class JdbcTemplateDaoAdaptor extends TemplateDaoSupport implements JdbcTe
     @Override
     public <T> JsonPage<T> pagedBySQLBeanQuerySpring(String queryName, Map<String, Object> params, Class<?> clazz, int start, int limit) {
         String sql = getTemplatedQLString(queryName, params);
-        String countSql = "select count(*) from(" + DaoTemplateUtils.removeOrders(sql) + ")t"; //sql server 要求有别名,注意order by 最好写在最后，并且是最后一行。如果要不是最后怎么办？？
+        String countSql = "select count(*) from(" + DaoTemplateHelper.removeOrders(sql) + ")t"; //sql server 要求有别名,注意order by 最好写在最后，并且是最后一行。如果要不是最后怎么办？？
         int totalCount = namedJdbcTemplate.queryForInt(countSql, params);
 
         if (start >= 0 && limit > 0) {
@@ -56,7 +56,7 @@ public class JdbcTemplateDaoAdaptor extends TemplateDaoSupport implements JdbcTe
             } else if (ConfigUtils.isMysql()) {
                 sql = sql + " limit " + start + "," + start + limit;
             } else if (ConfigUtils.isSqlServer()) {
-                sql = DaoTemplateUtils.getLimitString(sql, start, limit);
+                sql = DaoTemplateHelper.getLimitString(sql, start, limit);
             }
         }
 
@@ -79,7 +79,7 @@ public class JdbcTemplateDaoAdaptor extends TemplateDaoSupport implements JdbcTe
     @Override
     public PageMetaData pagedBySQLWithMetaData(String queryName, Map<String, Object> paramMap, int start, int limit) {
         String sql = getTemplatedQLString(queryName, paramMap);
-        String countSql = "select count(*) from(" + DaoTemplateUtils.removeOrders(sql) + ")t";
+        String countSql = "select count(*) from(" + DaoTemplateHelper.removeOrders(sql) + ")t";
         int totalCount = namedJdbcTemplate.queryForInt(countSql, paramMap);
         if (start >= 0 && limit > 0) {
             if (ConfigUtils.isOracle()) {
@@ -87,7 +87,7 @@ public class JdbcTemplateDaoAdaptor extends TemplateDaoSupport implements JdbcTe
             } else if (ConfigUtils.isMysql()) {
                 sql = sql + " limit " + start + "," + start + limit;
             } else if (ConfigUtils.isSqlServer()) {
-                sql = DaoTemplateUtils.getLimitString(sql, start, limit);
+                sql = DaoTemplateHelper.getLimitString(sql, start, limit);
             }
         }
         SqlRowSet sqlRowSet = namedJdbcTemplate.queryForRowSet(sql, paramMap);

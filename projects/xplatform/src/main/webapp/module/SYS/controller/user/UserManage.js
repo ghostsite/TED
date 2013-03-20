@@ -27,7 +27,8 @@ Ext.define('SYS.controller.user.UserManage', {
 				beforeUpdate : this.onBeforeUpdate,
 				afterUpdate : this.onAfterUpdate,
 				beforeDelete : this.onBeforeDelete,
-				afterDelete : this.onAfterDelete
+				afterDelete : this.onAfterDelete,
+				beforeExport : this.onBeforeExport
 			},
 			'admin_user grid' : {
 				itemdblclick : this.showInfo
@@ -254,6 +255,18 @@ Ext.define('SYS.controller.user.UserManage', {
 		// Ext.Msg.alert('信息', '保存成功');
 		SF.clearForm(form);
 	},
+	
+	onBeforeExport : function(form, addParams, url) {
+		alert(11)
+		var store = this.getGrid().getStore();
+		var params = {
+			orgId: store.proxy.extraParams.orgId
+		};
+		
+		Ext.apply(addParams, params);
+		return true;
+	},
+	
 
 	onBtnClose : function(view) {
 		view.close();

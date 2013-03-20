@@ -1,29 +1,42 @@
 package com.ted.xplatform.web;
 
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.collections.KeyValue;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.io.Files;
 import com.ted.common.Constants;
 import com.ted.common.spring.mvc.bind.annotation.RequestJsonParam;
+import com.ted.common.support.download.DownloadHelper;
+import com.ted.common.support.download.xls.DownloadXlsHelper;
+import com.ted.common.support.download.xls.GridInfo;
 import com.ted.common.support.extjs4.JsonOut;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.JsonUtils;
 import com.ted.common.util.PasswordUtils;
 import com.ted.common.util.SpringUtils;
+import com.ted.common.util.xls.ExcelType;
+import com.ted.common.util.xls.PoiXlsUtils;
 import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.service.UserService;
 
@@ -56,6 +69,22 @@ public class UserController {
     JsonPage<User> getUserListByOrgId(Long orgId) {
         List<User> userList = userService.getUserListByOrgId(orgId);
         return JsonUtils.listToPage(userList);
+    };
+
+    @RequestMapping(value = "/getUserListByOrgId4Download")
+    public @ResponseBody
+    void getUserListByOrgId4Download(Long orgId, @RequestJsonParam GridInfo export, HttpServletResponse response) throws Exception {
+        List<User> userList = userService.getUserListByOrgId(orgId);
+        Workbook wb = PoiXlsUtils.createWorkBook(ExcelType.XLS);
+        DownloadXlsHelper.list2Excel(userList, export, wb);
+        
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment;filename=normal.xls");
+        OutputStream os = response.getOutputStream();
+        wb.write(os);
+        os.flush();
+        response.flushBuffer();//不可少
+        //return DownloadHelper.getResponseEntity("normal.xls", PoiXlsUtils.wb2bytes(wb));
     };
 
     /**

@@ -19,16 +19,25 @@ public abstract class PasswordUtils {
         return keyValue;
     }
 
+    /**
+     * 加密
+     */
     public static final String encryptPassword(String plainPassword, String salt) { // salt is Encodes.encodeHex(salt)之后的值
         return encryptPassword(plainPassword, Encodes.decodeHex(salt));
     }
     
-    private static final String encryptPassword(String plainPassword, byte[] salt) {
-        return Encodes.encodeHex(Digests.sha1(plainPassword.getBytes(), salt, HASH_INTERATIONS));
-    }
-
+    /**
+     * 加密
+     */
     public static final KeyValue getDefaultKeyEncrypt() {
         String plainPassword = ConfigUtils.getDefaultPassword();
         return encryptPassword(plainPassword);
     }
+    
+    //加密
+    private static final String encryptPassword(String plainPassword, byte[] salt) {
+        return Encodes.encodeHex(Digests.sha1(plainPassword.getBytes(), salt, HASH_INTERATIONS));
+    }
+
+    
 }

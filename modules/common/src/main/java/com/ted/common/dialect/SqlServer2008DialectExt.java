@@ -4,7 +4,7 @@ import java.sql.Types;
 
 import org.hibernate.dialect.SQLServer2005Dialect;
 
-import com.ted.common.util.DaoTemplateUtils;
+import com.ted.common.dao.DaoTemplateHelper;
 
 public class SqlServer2008DialectExt extends SQLServer2005Dialect {
 
@@ -22,7 +22,7 @@ public class SqlServer2008DialectExt extends SQLServer2005Dialect {
 
     //注意offset不是第几页，是从哪个记录开始。
     public String getLimitString(String querySqlString, int offset, int limit) {
-        return DaoTemplateUtils.getLimitString(querySqlString, offset, limit);
+        return DaoTemplateHelper.getLimitString(querySqlString, offset, limit);
     }
 
 }

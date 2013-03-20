@@ -12,11 +12,11 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.data.domain.PageRequest;
 
+import com.ted.common.dao.DaoTemplateHelper;
 import com.ted.common.dao.TemplateDaoSupport;
 import com.ted.common.dao.jpa.support.JpaHelper;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.support.page.PageHelper;
-import com.ted.common.util.DaoTemplateUtils;
 
 public class JpaTemplateDaoAdaptor extends TemplateDaoSupport implements JpaTemplateDao {
     //@PersistenceContext
@@ -63,7 +63,7 @@ public class JpaTemplateDaoAdaptor extends TemplateDaoSupport implements JpaTemp
     @Override
     public <T> JsonPage<T> pagedByJPQLQuery(String namedQL, Map<String, Object> params, Class<T> resultClass, int start, int limit) {
         TypedQuery<T> typedQuery = findJPQLThenBindParams(namedQL, params, resultClass);
-        String countJpql = "select count(*)" + DaoTemplateUtils.removeSelect(DaoTemplateUtils.removeOrders(JpaHelper.getQueryString(typedQuery)));
+        String countJpql = "select count(*)" + DaoTemplateHelper.removeSelect(DaoTemplateHelper.removeOrders(JpaHelper.getQueryString(typedQuery)));
         Query countQuery = getEntityManager().createQuery(countJpql);
         JpaHelper.setProperties(countQuery, params);
         Number count = (Number) countQuery.getSingleResult();

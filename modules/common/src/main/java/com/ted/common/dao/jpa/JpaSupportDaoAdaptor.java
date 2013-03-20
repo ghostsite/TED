@@ -23,10 +23,10 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import com.ted.common.dao.DaoTemplateHelper;
 import com.ted.common.dao.jpa.support.JpaHelper;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.CommonUtils;
-import com.ted.common.util.DaoTemplateUtils;
 
 /**
  * 
@@ -184,7 +184,7 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
     public JsonPage pagedByNamedJPQLQuery(String namedJPQL, int start, int limit, Map params) {
         Query query = getEntityManager().createNamedQuery(namedJPQL);
         //		String countSql = "select count(1) from (" + query.getQueryString() + ") alias";
-        String countSql = "select count (*) " + DaoTemplateUtils.removeSelect(DaoTemplateUtils.removeOrders(JpaHelper.getQueryString(query)));
+        String countSql = "select count (*) " + DaoTemplateHelper.removeSelect(DaoTemplateHelper.removeOrders(JpaHelper.getQueryString(query)));
         Query countQuery = getEntityManager().createQuery(countSql);
         JpaHelper.setProperties(countQuery, params);
         try {
@@ -202,7 +202,7 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
     @Override
     public JsonPage pagedByNamedJPQLQuery(String namedJPQL, int start, int limit, Object... values) {
         Query query = getEntityManager().createNamedQuery(namedJPQL);
-        String countSql = "select count (*) " + DaoTemplateUtils.removeSelect(DaoTemplateUtils.removeOrders(JpaHelper.getQueryString(query)));
+        String countSql = "select count (*) " + DaoTemplateHelper.removeSelect(DaoTemplateHelper.removeOrders(JpaHelper.getQueryString(query)));
         Query countQuery = getEntityManager().createQuery(countSql);
         for (int i = 0; i < values.length; i++) {
             countQuery.setParameter(i, values[i]);
@@ -224,7 +224,7 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
 
     @Override
     public JsonPage pagedByJPQLQuery(String jpql, int start, int limit, Object... values) {
-        String countQueryString = " select count (*) " + DaoTemplateUtils.removeSelect(DaoTemplateUtils.removeOrders(jpql));
+        String countQueryString = " select count (*) " + DaoTemplateHelper.removeSelect(DaoTemplateHelper.removeOrders(jpql));
         Query queryObject = getEntityManager().createQuery(countQueryString);
         if (values != null) {
             for (int i = 0; i < values.length; i++) {

@@ -12,13 +12,44 @@ import java.io.Serializable;
 public class ColumnInfo implements Serializable {
     private static final long serialVersionUID = 3932428387484717770L;
     private String            header;                                 //显示的中文
-    private String            field;                                  //column key (java 反射获取数据) ==dataIndex
+    private String            dataIndex;                                  //column key (java 反射获取数据) ==dataIndex
     private String            format;                                 //格式化
     private String            xtype;                                  //类型(字符串 or 日期等)默认是字符串 int string date ...
-    private Integer           width;                                  //宽度
-    private String            color;                                  //字体颜色
-    private String            bgcolor;                                //background颜色
+    private Integer           width;                                  //cell宽度
+    private Integer           height;                                 //cell高度
+    private Integer           color;                                  //字体颜色
+    private Integer           bgcolor;                                //background颜色
     private String            font;                                   //字体
+    private Integer           fontSize;                               //字体大小
+    private String            align;                                  //对齐方式
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public Integer getFontSize() {
+        return fontSize;
+    }
+
+    public void setFontSize(Integer fontSize) {
+        this.fontSize = fontSize;
+    }
+
+    public String getAlign() {
+        return align;
+    }
+
+    public void setAlign(String align) {
+        this.align = align;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
     public String getHeader() {
         return header;
@@ -28,12 +59,12 @@ public class ColumnInfo implements Serializable {
         this.header = header;
     }
 
-    public String getField() {
-        return field;
+    public String getDataIndex() {
+        return dataIndex;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setDataIndex(String dataIndex) {
+        this.dataIndex = dataIndex;
     }
 
     public String getFormat() {
@@ -60,19 +91,19 @@ public class ColumnInfo implements Serializable {
         this.width = width;
     }
 
-    public String getColor() {
+    public Integer getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Integer color) {
         this.color = color;
     }
 
-    public String getBgcolor() {
+    public Integer getBgcolor() {
         return bgcolor;
     }
 
-    public void setBgcolor(String bgcolor) {
+    public void setBgcolor(Integer bgcolor) {
         this.bgcolor = bgcolor;
     }
 
