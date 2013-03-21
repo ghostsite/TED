@@ -257,7 +257,6 @@ Ext.define('SYS.controller.user.UserManage', {
 	},
 	
 	onBeforeExport : function(form, addParams, url) {
-		alert(11)
 		var store = this.getGrid().getStore();
 		var params = {
 			orgId: store.proxy.extraParams.orgId

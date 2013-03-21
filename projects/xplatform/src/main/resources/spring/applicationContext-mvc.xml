@@ -100,9 +100,9 @@
 					</property> 
 					<property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"/>
 				</bean>
+				<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
 				<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
 				<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
-				<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
 				<bean class="org.springframework.http.converter.ResourceHttpMessageConverter" />
 			</list>  
 		</property>  

@@ -78,13 +78,8 @@ public class UserController {
         Workbook wb = PoiXlsUtils.createWorkBook(ExcelType.XLS);
         DownloadXlsHelper.list2Excel(userList, export, wb);
         
-        response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment;filename=normal.xls");
-        OutputStream os = response.getOutputStream();
-        wb.write(os);
-        os.flush();
-        response.flushBuffer();//不可少
-        //return DownloadHelper.getResponseEntity("normal.xls", PoiXlsUtils.wb2bytes(wb));
+        //return DownloadHelper.getResponseEntity("normal.xls",PoiXlsUtils.wb2bytes(wb));//这种是乱码,nnd
+        DownloadHelper.doDownload(response,"normal.xls", PoiXlsUtils.wb2bytes(wb));
     };
 
     /**

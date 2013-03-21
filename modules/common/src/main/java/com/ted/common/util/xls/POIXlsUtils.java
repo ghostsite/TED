@@ -76,7 +76,7 @@ public abstract class PoiXlsUtils {
         dataStyle.setBorderLeft((short) 1);
         dataStyle.setBorderRight((short) 1);
         dataStyle.setBorderTop((short) 1);
-        dataStyle.setFillForegroundColor(HSSFColor.LIGHT_GREEN.index);
+        dataStyle.setFillForegroundColor(HSSFColor.WHITE.index);
         dataStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
         dataStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
         return dataStyle;
@@ -89,8 +89,9 @@ public abstract class PoiXlsUtils {
     public static HSSFCellStyle headerStyle(Workbook work) {
         HSSFCellStyle style = (HSSFCellStyle) work.createCellStyle();
         style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-        style.setFillForegroundColor(HSSFColor.LIGHT_CORNFLOWER_BLUE.index);
+        style.setFillForegroundColor(HSSFColor.PALE_BLUE.index);
         style.setBorderLeft((short) 1);
+        style.setBorderTop((short) 1);
         style.setBorderRight((short) 1);
         style.setAlignment(CellStyle.ALIGN_CENTER);
         style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);

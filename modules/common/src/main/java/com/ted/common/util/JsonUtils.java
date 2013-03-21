@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -112,10 +113,12 @@ public class JsonUtils {
         return toJson(pojo, false);
     };
 
+    //
     public static void write(Object pojo, OutputStream os) throws JsonMappingException, JsonGenerationException, IOException {
         objectMapper.writeValue(os, pojo);
     }
 
+    //
     protected static final JsonEncoding getJsonEncoding(MediaType contentType) {
         if (contentType != null && contentType.getCharSet() != null) {
             Charset charset = contentType.getCharSet();
@@ -128,6 +131,9 @@ public class JsonUtils {
         return JsonEncoding.UTF8;
     }
 
+    /**
+     * 
+     */
     public static String toJson(Object pojo, boolean prettyPrint) {
         StringWriter sw = new StringWriter();
         try {
@@ -145,6 +151,9 @@ public class JsonUtils {
         return "";
     }
 
+    /**
+     * 
+     */
     public static String getJsonFromList(List<Object> list) {
         StringBuilder sb = new StringBuilder("{success:true,");
         sb.append(Constants.TOTALCOUNT);
@@ -158,6 +167,7 @@ public class JsonUtils {
         return sb.toString();
     };
 
+    //
     public static String toString(JsonNode node) {
         try {
             JsonFactory jsonFactory = new JsonFactory();
@@ -170,6 +180,7 @@ public class JsonUtils {
         }
     };
 
+    //
     public static void write(JsonNode node, OutputStream out) {
         try {
             JsonFactory jsonFactory = new JsonFactory();
@@ -180,6 +191,7 @@ public class JsonUtils {
         }
     };
 
+    //
     public static final ObjectMapper getMapper() {
         return objectMapper;
     }
@@ -216,7 +228,9 @@ public class JsonUtils {
         return CollectionUtils.newMap("success", true, "data", o);
     };
 
-    //this is for extjs3,作用跟getJsonMap(Object o)一样，只不过getJsonFromObject更进一步，转为String了
+    /**
+     * 作用跟getJsonMap(Object o)一样，只不过getJsonFromObject更进一步，转为String了
+     */
     public static String getJsonFromObject(Object o) {
         Map<String, Object> jsonMap = CollectionUtils.newMap("success", true, "data", o); //extjs4 默认是data
         return toJson(jsonMap);
@@ -235,4 +249,18 @@ public class JsonUtils {
         }
     };
 
+    /**
+     * 为了反射输出bean到excel，需要跟页面的数据格式一样，也保证属性可以从getF方法获得，故采用了这种形式。
+     * 这个方法类似于BeanUtils,不过需要读get方法，需要走bean的jackson annotation信息。注意：返回的都是String值.
+     */
+    public static final Map<String, Object> getBeanValueMap(Object o) {
+        String str = JsonUtils.toJson(o);
+        try {
+            Map<String, Object> map = (Map<String, Object>) JsonUtils.fromJson(str, Map.class);
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new HashMap<String,Object>();
+    };
 }

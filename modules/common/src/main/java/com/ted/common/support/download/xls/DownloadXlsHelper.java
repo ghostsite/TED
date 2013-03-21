@@ -1,6 +1,7 @@
 package com.ted.common.support.download.xls;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -10,9 +11,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.springside.modules.utils.Reflections;
 
-import com.ted.common.util.DateUtils;
+import com.ted.common.util.JsonUtils;
 import com.ted.common.util.xls.PoiXlsUtils;
 
 /**
@@ -24,20 +24,25 @@ public abstract class DownloadXlsHelper {
      */
     public static final void list2Excel(List<?> list, GridInfo gridInfo, Workbook wb) {
         Sheet sheet = wb.createSheet();
-        setColumnWidth(wb, gridInfo);
-       
+        setColumnWidth(sheet, gridInfo);
+
         //test(sheet);
         writeTitle(gridInfo, wb, sheet);
         writeHeader(gridInfo, wb, sheet);
         writeBody(list, wb, sheet, gridInfo);
     }
-    
+
     //设置宽度
-    private static void setColumnWidth(Workbook wb, GridInfo gridInfo) {
+    private static void setColumnWidth(Sheet sheet, GridInfo gridInfo) {
         List<ColumnInfo> colInfos = gridInfo.getColumns();
-        for(int colIndex = 0; colIndex < colInfos.size(); colIndex++){
-            int defaultWidth = 100 * 15;
-            //int width = 
+
+        for (int colIndex = 0; colIndex < colInfos.size(); colIndex++) {
+            ColumnInfo colInfo = colInfos.get(colIndex);
+            int width = 100 * 45;
+            if (colInfo.getWidth() != null && colInfo.getWidth() > 0) {
+                width = colInfo.getWidth().intValue();
+            }
+            sheet.setColumnWidth(colIndex, width);
         }
     }
 
@@ -54,21 +59,24 @@ public abstract class DownloadXlsHelper {
     private static void writeData(Object data, Workbook wb, Sheet sheet, GridInfo gridInfo, int rowIndex) {
         List<ColumnInfo> columnInfos = gridInfo.getColumns();
         Row row = sheet.createRow(rowIndex);
+        
+        Map<String,Object> beanValueMap = JsonUtils.getBeanValueMap(data);
+        
         for (int colIndex = 0; colIndex < columnInfos.size(); colIndex++) {
             ColumnInfo colInfo = columnInfos.get(colIndex);
-            writeData2Cell(data, colInfo, wb, row, colIndex);
+            writeData2Cell(beanValueMap, colInfo, wb, row, colIndex);
         }
     };
 
     //写data 对应的field 数据到excel cell
-    private static void writeData2Cell(Object data, ColumnInfo colInfo, Workbook wb, Row row, int colIndex) {
+    private static void writeData2Cell(Map<String,Object> beanValueMap, ColumnInfo colInfo, Workbook wb, Row row, int colIndex) {
         row.setHeightInPoints(20.0F);
         if (colInfo.getHeight() != null && colInfo.getHeight().intValue() > 0) {
             row.setHeightInPoints(colInfo.getHeight().intValue());
         }
         Cell cell = row.createCell(colIndex);
-        String value = getValue(data, colInfo);
-        System.out.println(row.getRowNum() +","+ colIndex+","+value);
+        String value = getValue(beanValueMap, colInfo);
+        System.out.println(row.getRowNum() + "," + colIndex + "," + value);
         cell.setCellValue(value);
 
         CellStyle style = PoiXlsUtils.dataStyle(wb);
@@ -97,19 +105,31 @@ public abstract class DownloadXlsHelper {
     };
 
     //获得data对应的ColumnInfo值,字符串，日期，数字的格式化需要注意.
-    private static String getValue(Object data, ColumnInfo colInfo) {
-        if(colInfo.getDataIndex() == null){
+    private static String getValue(Map<String,Object> beanValueMap, ColumnInfo colInfo) {
+        if (colInfo.getDataIndex() == null) {
             return "";
         }
-        Object obj = Reflections.getFieldValue(data, colInfo.getDataIndex());
-        if (null == obj) {
+        Object value = beanValueMap.get(colInfo.getDataIndex());
+        if(null == value){
             return "";
+        }else{
+            return StringUtils.trim(value.toString());
         }
-        if (DateUtils.isDate(obj)) {
-            return DateUtils.date2Str(obj, colInfo.getFormat());
-        } else {
-            return obj.toString();
-        }
+        //return JsonUtils.getBeanValueMap(o)
+//        Object obj = null;
+//        if (colInfo.getDataIndex().indexOf('.') > 0) {
+//            obj = SpelUtils.getValue(data, colInfo.getDataIndex());
+//        } else {
+//            obj = Reflections.getFieldValue(data, colInfo.getDataIndex());
+//        }
+//        if (null == obj) {
+//            return "";
+//        }
+//        if (DateUtils.isDate(obj)) {
+//            return DateUtils.date2Str(obj, colInfo.getFormat());
+//        } else {
+//            return obj.toString();
+//        }
     };
 
     //写头by GridInfo
@@ -130,11 +150,11 @@ public abstract class DownloadXlsHelper {
             if (colInfo.getBgcolor() != null && colInfo.getBgcolor() > 0) {
                 style.setFillForegroundColor(colInfo.getBgcolor().shortValue());
             }
-            
+
             Font font = wb.createFont();
             font.setFontName("Arial");
             font.setBoldweight((short) 300);
-            font.setUnderline((byte) 1);
+            //font.setUnderline((byte) 1);
             font.setFontHeightInPoints((short) 15);
 
             if (StringUtils.isNotBlank(colInfo.getFont())) {
@@ -164,7 +184,9 @@ public abstract class DownloadXlsHelper {
             Cell cell = row.createCell(0, 1);
             cell.setCellValue(gridInfo.getTitle());
             if (gridInfo.getColspan() != null && gridInfo.getColspan() > 1) {
-                sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, gridInfo.getColspan() - 1));
+                sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, gridInfo.getColspan() - 1));
+            } else {
+                sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, gridInfo.getColumns().size() - 1));
             }
             CellStyle style = PoiXlsUtils.titleStyle(wb);
             cell.setCellStyle(style);
@@ -175,7 +197,7 @@ public abstract class DownloadXlsHelper {
             Font font = wb.createFont();
             font.setFontName("Arial");
             font.setBoldweight((short) 700);
-            font.setUnderline((byte) 1);
+            //font.setUnderline((byte) 1);
             font.setFontHeightInPoints((short) 15);
 
             if (StringUtils.isNotBlank(gridInfo.getFont())) {
