@@ -1,4 +1,4 @@
-Ext.define('Opc.mixin.Navigation', {
+Ext.define('Opc.mixin.Navigation', {//this file is changed by zhang
 	constructor : function(config) {
 		function createView(view, config){
 			var comp = null;
@@ -6,33 +6,38 @@ Ext.define('Opc.mixin.Navigation', {
 				var secChecked = SF.isAssemblyName(view);
 				config.secChecked = secChecked;
 				var secControlList = {};
-				var result = '';
-				if(secChecked === true){
-					var params = {
-							procstep : '1',
-							programId : SF.login.programId,
-							funcName : view
-					};
-					Ext.Ajax.request({
-						showFailureMsg : false,
-						url : 'service/secViewFunctionDetail.json',
-						method : 'POST',
-						jsonData : params,
-						async : false,
-						success : function(response, opts) {
-							result = Ext.JSON.decode(response.responseText) || {};
-							if (result.success) {
-								for ( var i = 1; i <= 10; i++) {
-									var ctlName = result['ctlName' + i];
-									if (ctlName)
-										secControlList[ctlName] = result['ctlEnFlag' + i] || ''; // 'Y' or other
-								}
-							}
-							else{
-								errMsg = result.msg;
-							}
-						}
-					});
+				//var result = ''; //zhang
+				if(secChecked === true){ //all down recomment
+					// TODO :  OPC화면은 버튼 컨트롤 사용암함.
+//					var params = {
+//							procstep : '1',
+//							programId : SF.login.programId,
+//							funcName : view
+//					};
+//					Ext.Ajax.request({
+//						showFailureMsg : false,
+//						url : 'service/secViewFunctionDetail.json',
+//						method : 'POST',
+//						jsonData : params,
+//						async : false,
+//						failure : function(a,b){
+//							console.log('fjdlsjfsdkljfls');
+//						},
+//						success : function(response, opts) {
+//							result = Ext.JSON.decode(response.responseText) || {};
+//							console.log(view, 'ddddd');
+//							if (result.success) {
+//								for ( var i = 1; i <= 10; i++) {
+//									var ctlName = result['ctlName' + i];
+//									if (ctlName)
+//										secControlList[ctlName] = result['ctlEnFlag' + i] || ''; // 'Y' or other
+//								}
+//							}
+//							else{
+//								errMsg = result.msg;
+//							}
+//						}
+//					});
 				}
 				else if(secChecked === false){
 					SF.error('SEC-0008');

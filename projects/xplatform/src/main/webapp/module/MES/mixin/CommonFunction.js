@@ -1,6 +1,6 @@
 Ext.define('MES.mixin.CommonFunction', function() {
 
-	/* date형식을 받아서 설정한 포멧형식의 stirng으로 반환 */
+	/* date형식을 받아서 설정한 포멧형식의 stirng으로 반환,this file changed by zhang */
 	function toStandardTime(date, format) {
 
 		if (Ext.typeOf(date) != 'date') {
@@ -348,7 +348,7 @@ Ext.define('MES.mixin.CommonFunction', function() {
 		Ext.Ajax.request({
 			url : config.url,
 			method : config.method || 'POST',
-			jsonData : params,
+			jsonData : config.params, //zhang changed
 			async : async,
 			scope : config.scope,
 			showSuccessMsg : config.showSuccessMsg,
@@ -385,7 +385,7 @@ Ext.define('MES.mixin.CommonFunction', function() {
 		Ext.Ajax.request({
 			url : config.url,
 			method : config.method || 'POST',
-			jsonData : params,
+			jsonData : config.params,
 			showSuccessMsg : config.showSuccessMsg,
 			showFailureMsg : config.showFailureMsg,
 			async : false,
@@ -408,30 +408,40 @@ Ext.define('MES.mixin.CommonFunction', function() {
 		return rtnResponse;
 	}
 
-	function callServiceForm(config) {
+	function callServiceForm(config) {//zhang changed
 		if (!config || typeof config != 'object')
 			return false;
-		if (!config.form || !config.params || !config.url)
-			return false;
+		if (!config.form  || !config.url)
+			return false; //zhang changed
 
-		form.submit({
-			params : params,
-			url : config.url,
-			scope : config.scope,
-			showSuccessMsg : config.showSuccessMsg,
-			showFailureMsg : config.showFailureMsg,
-			success : function(form, action) {
-				if (typeof config.success == 'function') {
-					config.callback.call(scope, action, action.result.success);
+		var scope = config.scope || '';
+		var params = config.params || {};
+		var form = config.form.isValid? config.form: config.form.getForm();
+		var validResult = true;
+		if(config.checkFormValid){
+			validResult = form.isValid();
+		}
+		if(validResult){
+			form.submit({
+				params : params,
+				url : config.url,
+				scope : scope,
+				showSuccessMsg : config.showSuccessMsg,
+				showFailureMsg : config.showFailureMsg,
+				success : function(form, action) {
+					if (typeof config.callback == 'function') {
+						config.callback.call(scope, action, action.result.success);
+					}
+				},
+				failure : function(form, action) {
+					if (typeof config.callback == 'function') {
+						config.callback.call(scope, action, false);
+					}
 				}
-			},
-			failure : function(form, action) {
-				if (typeof config.failure == 'function') {
-					config.callback.call(scope, action, false);
-				}
-			}
-		});
+			});
+		}
 	}
+	
 	/* date형식을 받아서 shift time을 추가하여 stirng형식으로 반환 */
 	function toShiftDate(date) {
 		var sDate = '';

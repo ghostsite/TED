@@ -1,6 +1,6 @@
 Ext.Loader.setPath('mixin', 'product/mixin');
 
-Ext.define('SmartFactory', {
+Ext.define('SmartFactory', { //this file is changed by zhang
 	
 	alternateClassName : ['SF'],
 	
@@ -38,6 +38,7 @@ Ext.define('SmartFactory', {
 		lock : 'mixin.Lock',
 		ajax : 'mixin.Ajax',
 		exporter : 'mixin.Exporter',
+		helper : 'mixin.Helper', //zhang changed 
 		grid : 'mixin.Grid'
 	}
 });

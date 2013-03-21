@@ -1,4 +1,4 @@
-Ext.define('mixin.Ajax', function() {
+Ext.define('mixin.Ajax', function() { //this file is changed by zhang
 	//TODO  : 2013.02.05  mixin.Ajax onComplete에서 매번  json decode이 되므로 비효율적임
 	//Ext.override(Ext.data.proxy.Server,{}) : exception시에만 error message를 decode함. 
 	//단, success시 공용 팝업이 표시되지 않아 방법 모색 후 적용예정.
@@ -61,7 +61,8 @@ Ext.define('mixin.Ajax', function() {
 			SF.error('SYS-E009');
 			Ext.Msg.confirm(T('Caption.Other.Invalid Session'), T('Message.SYS-E009'), function(btn) {
 				if(btn === 'yes')
-					document.location.reload();
+					//document.location.reload(); //zhang
+					document.location='/xp';
 			});
 		} else if (resp.status >= 500) {
 			SF.error('SYS-E010');
