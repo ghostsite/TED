@@ -141,6 +141,7 @@
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>${c3p0.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<!--dependency-不兼容logger4jdbc> <groupId>com.alibaba</groupId> <artifactId>druid</artifactId> 
 			<version>0.2.9</version> </dependency -->
@@ -879,6 +880,7 @@
 			<groupId>org.jasig.cas</groupId>
 			<artifactId>cas-server-support-jdbc</artifactId>
 			<version>3.5.2</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -1132,4 +1134,7 @@
 			</build>
 		</profile>
 	</profiles>
+	<modules>
+		<module>../common</module>
+	</modules>
 </project>

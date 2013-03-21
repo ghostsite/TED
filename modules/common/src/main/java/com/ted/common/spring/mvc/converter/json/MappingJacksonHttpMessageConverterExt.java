@@ -38,13 +38,13 @@ public class MappingJacksonHttpMessageConverterExt extends MappingJackson2HttpMe
     }
 
     public void printJson(Object object) throws IOException, HttpMessageNotWritableException {
-        //.. if (logger.isDebugEnabled()) {
-        OutputStream os = new ByteArrayOutputStream();
-        Writer writer = new OutputStreamWriter(os);
-        JsonGenerator jsonGenerator = getObjectMapper().getFactory().createJsonGenerator(writer);
-        getObjectMapper().writeValue(jsonGenerator, object);
-        logger.debug(os.toString());
-        // }
+        if (logger.isDebugEnabled()) {
+            OutputStream os = new ByteArrayOutputStream();
+            Writer writer = new OutputStreamWriter(os);
+            JsonGenerator jsonGenerator = getObjectMapper().getFactory().createJsonGenerator(writer);
+            getObjectMapper().writeValue(jsonGenerator, object);
+            logger.debug(os.toString());
+        }
     }
 
     public String getDateFormat() {
