@@ -80,8 +80,8 @@ public class OrganizationService {
      * @return Organization
      */
     @Transactional
-    public Organization save(Organization org) {
-        if (org.getParent() == null || org.getParent().getId() == null) {
+    public Organization save(Organization org) {//TODO to parent isNew()?
+        if (org.getParentId() == null) {
             org.setParent(null);
         } else {
             Organization parentOrg = jpaSupportDao.getEntityManager().find(Organization.class, org.getParent().getId());

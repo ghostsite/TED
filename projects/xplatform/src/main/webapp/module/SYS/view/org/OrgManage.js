@@ -38,7 +38,7 @@ Ext.define('SYS.view.org.OrgManage', {
 			items : [{
 				xtype : 'hidden',
 				fieldLabel : '父机构Id',
-				name : 'parent.id'
+				name : 'parentId' //原来是parent.id，但是MenuResource.java的getParent配置为JsonIgnore了。so use getParentId()
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '父机构名称',

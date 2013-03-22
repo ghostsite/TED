@@ -145,7 +145,10 @@ public class RoleController {
         Role newRole = new Role();
         //newRole.setId(-1L); //this is hack ,否则页面显示不出来。
         newRole.setParent(role);
-        newRole.setParentName(role.getName());
+        if(role != null){
+            newRole.setParentId(role.getId());
+            newRole.setParentName(role.getName());
+        }
         return JsonUtils.getJsonMap(newRole);
     };
 

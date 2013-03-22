@@ -22,10 +22,10 @@ import com.ted.xplatform.service.AttachmentService;
 import com.ted.xplatform.util.AttachmentUtils;
 
 @Controller
-@RequestMapping(value = "/attachment/*")
+@RequestMapping(value = "/defaultattachment/*")
 @SuppressWarnings("all")
-public class AttachmentController {
-    final Logger              logger = LoggerFactory.getLogger(AttachmentController.class);
+public class DefaultAttachmentController {
+    final Logger              logger = LoggerFactory.getLogger(DefaultAttachmentController.class);
 
     @Inject
     private AttachmentService attachmentService;
@@ -46,9 +46,9 @@ public class AttachmentController {
         return Constants.SUCCESS_JSON;
     };
 
-    @RequestMapping(value = "/showPic", method = RequestMethod.GET)
-    public void showPic(Long attachmentId, HttpServletResponse response) {
-        this.attachmentService.showPic(attachmentId, response);
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public void download(Long attachmentId, HttpServletResponse response) {
+        this.attachmentService.download(attachmentId, response);
     }
 
 }

@@ -258,10 +258,11 @@ public class RoleService {
      */
     @Transactional
     public Role save(Role role) {
-        Role parentRole = jpaSupportDao.getEntityManager().find(Role.class, role.getParent().getId());
+        Role parentRole = jpaSupportDao.getEntityManager().find(Role.class, role.getParentId());
         if (null == parentRole) {
             role.setParent(null);
         }
+        role.setParent(parentRole);
         jpaSupportDao.getEntityManager().merge(role);
         return role;
     }

@@ -39,8 +39,8 @@
 
 		<script type="text/javascript">
 	    var login = {
-			username : '登录名123',
-			factory : '工厂123',
+			username : '曹操',
+			factory : '',
 			locale : '${user.language}',
 			group : 'groupId123',
 			programId : 'WEBClient'

@@ -148,8 +148,11 @@ public class MenuResourceController {
         MenuResource menuResource = menuResourceService.getMenuResourceById(resourceId);
         MenuResource newMenu = new MenuResource();
         //newMenu.setId(-1L); //this is hack ,否则页面显示不出来。
-        //newMenu.setParentId(menuResource.getId());
-        newMenu.setParentName(menuResource.getName());
+        newMenu.setParent(menuResource);
+        if(null !=menuResource){
+            newMenu.setParentId(menuResource.getId());
+            newMenu.setParentName(menuResource.getName());
+        }
         return JsonUtils.getJsonMap(newMenu);
     };
 

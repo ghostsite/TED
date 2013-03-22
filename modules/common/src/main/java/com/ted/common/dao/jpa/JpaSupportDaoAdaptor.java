@@ -18,6 +18,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.collections.MapUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.transaction.annotation.Transactional;
@@ -478,6 +479,25 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
             criteria.setMaxResults(maxResults);
         }
         return criteria.list();
+    }
+
+    @Override
+    public <T> List<T> getAll(Class<T> clazz) {
+        EntityManager em = this.getEntityManager();
+        CriteriaQuery<T> cq = em.getCriteriaBuilder().createQuery(clazz);
+        cq.select(cq.from(clazz));
+        List<T> list = em.createQuery(cq).getResultList();
+        return list;
+    }
+
+    @Override
+    public <T> JsonPage<T> pagedAll(Class<T> clazz, int start, int limit) {
+        EntityManager em = this.getEntityManager();
+        CriteriaQuery<T> cq = em.getCriteriaBuilder().createQuery(clazz);
+        cq.select(cq.from(clazz));
+        int totalCount = JpaHelper.count(em, cq).intValue();
+        List<T> list = em.createQuery(cq).setFirstResult(start).setMaxResults(limit).getResultList();
+        return new JsonPage(list, null, totalCount);
     }
 
 }

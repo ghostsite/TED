@@ -1,5 +1,6 @@
 package com.ted.xplatform.pojo.common;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -62,7 +63,8 @@ public class Type extends PersistEntity { //LogicDeleteEntity
     /**
      * 父亲机构的主键
      */
-    //private Serializable parentId;
+    @Transient
+    private Long parentId;
 
     /**
      * 父亲机构的名字，注意是：Transient，不是给持久化用的，是给页面显示用的。
@@ -101,20 +103,16 @@ public class Type extends PersistEntity { //LogicDeleteEntity
     @Transient
     public Long getParentId() {
         if (getParent() == null) {
-            return null;
+            return parentId;
         } else {
             return getParent().getId();
         }
     }
-
-    //    @Column(name = "parent_id")
-    //    public Serializable getParentId() {
-    //        return parentId;
-    //    }
-    //
-    //    public void setParentId(Serializable parentId) {
-    //        this.parentId = parentId;
-    //    }
+    
+    //这个跟getParent不是1:1对应的，这个是给临时变量parentId赋值，getParentId()是通过parent对象获得parentId的。
+    public void setParentId(Long parentId){
+        this.parentId = parentId;
+    }
 
     /**
      * @return the code

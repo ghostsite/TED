@@ -111,9 +111,10 @@ public class TypeController {
         Type type = typeService.getTypeById(typeId);
         Type newType = new Type();
         //newType.setId(-1L); //this is hack ,否则页面显示不出来。
+        newType.setParent(type);
         if (null != type) {
-            newType.setParent(type);
             newType.setParentName(type.getName());
+            newType.setParentId(type.getId());
         }
         return JsonUtils.getJsonMap(newType);
     };

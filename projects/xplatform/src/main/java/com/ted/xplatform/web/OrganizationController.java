@@ -35,10 +35,10 @@ public class OrganizationController {
 
     @Inject
     OrganizationService organizationService;
-    
+
     @Inject
-    MessageSource     messageSource;
-    
+    MessageSource       messageSource;
+
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
@@ -79,7 +79,10 @@ public class OrganizationController {
         Organization newOrg = new Organization();
         //newOrg.setId(-1L); //this is hack ,否则页面显示不出来。
         newOrg.setParent(org);
-        newOrg.setParentName(org.getName());
+        if (null != org) {
+            newOrg.setParentId(org.getId());
+            newOrg.setParentName(org.getName());
+        }
         return JsonUtils.getJsonMap(newOrg);
     };
 

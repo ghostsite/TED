@@ -16,7 +16,7 @@
 			<#if (state?? && state?length > 0)>
 				and state =:state
 			</#if>
-			order by createTime desc
+			order by createdDate desc
 	]]>
 	</query>
 	
@@ -55,15 +55,15 @@
 		 from Log4jLog
 			where 1=1
 			<#if (from??)>
-				and createTime > :from
+				and createdDate > :from
 			</#if>
 			<#if (to?? )>
-				and createTime <= :to
+				and createdDate <= :to
 			</#if>
 			<#if (type??  )>
 				and type = :type 
 			</#if>
-			order by createTime desc
+			order by createdDate desc
 	]]>
 	</query>
 	

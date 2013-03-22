@@ -38,7 +38,7 @@ Ext.define('SYS.view.type.TypeManage', {
 			items : [{
 				xtype : 'hidden',
 				fieldLabel : '父基础类型Id',
-				name : 'parent.id'
+				name : 'parentId'
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '父基础类型名称',

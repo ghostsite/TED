@@ -55,6 +55,17 @@ public class WorkDay {
      */
     private Boolean        workDay;
 
+    private String         orgName;
+
+    public String getOrgName() {
+        System.out.println("ddd");
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
     /**
      * @return the dayDate
      */
@@ -121,7 +132,8 @@ public class WorkDay {
      * @return the weekDay
      */
     public int getWeekDay() {
-        return weekDay;
+        System.out.println("ffffffff");
+        return 13;
     }
 
     /**
@@ -135,6 +147,7 @@ public class WorkDay {
      * @return the workDay
      */
     public Boolean getWorkDay() {
+        System.out.println("abccc");
         return workDay;
     }
 

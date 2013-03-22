@@ -83,7 +83,7 @@ public class TypeService {
     @Transactional
     public Type save(Type type) {
         //判断父亲
-        if(null == type.getParent() || null == type.getParent().getId()){
+        if(null == type.getParentId()){
             type.setParent(null);
         }else{
             Type parentType = jpaSupportDao.getEntityManager().find(Type.class, type.getParent().getId());

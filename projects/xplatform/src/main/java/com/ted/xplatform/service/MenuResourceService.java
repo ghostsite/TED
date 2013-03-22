@@ -319,11 +319,13 @@ public class MenuResourceService {
     public MenuResource save(MenuResource menuResource) {
         //判断是add还是update
         if (menuResource.isNew()) {//add
-            if (null != menuResource.getParent() && null != menuResource.getParent().getId()) {
-                MenuResource parentMenuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, menuResource.getParent().getId());
+            //if (null != menuResource.getParent() && null != menuResource.getParent().getId()) {
+            if (null != menuResource.getParentId()) {
+                MenuResource parentMenuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, menuResource.getParentId());
                 if (null != parentMenuResource) {
                     menuResource.setLeaf(false);
                 }
+                menuResource.setParent(parentMenuResource);
             }
             addOperationProperties2Operations(menuResource);
             jpaSupportDao.getEntityManager().persist(menuResource);

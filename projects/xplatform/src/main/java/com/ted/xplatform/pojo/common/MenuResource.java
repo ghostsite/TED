@@ -97,10 +97,12 @@ public class MenuResource extends Resource {
 	 */
 	public boolean leaf;
 
-//	/**
-//	 * 父亲Id,当初为啥要写一个呢？因为已经有了啊
-//	 */
-//	private Serializable parentId;
+	/**
+	 * 父亲Id,当初为啥要写一个呢？因为已经有了啊,这个是给新增的时候用的，要load然后把Menursource传过去，不过要到parentId，然后填写，把parentId保留。
+	 * 为保存所setParent()用。不过要先通过parentId load 出parent对象。
+	 */
+	@Transient
+	private Long parentId;
 
 	/**
 	 * 父亲菜单Name，注意是：Transient，不是给持久化用的，是给页面显示用的。
@@ -331,12 +333,17 @@ public class MenuResource extends Resource {
 	}
 
 //	@Column(name = "parent_id")
-	public Serializable getParentId() {
+	public Long getParentId() {
 	    if (getParent() == null) {
-            return null;
+            return parentId;
         } else {
             return getParent().getId();
         }
+	}
+	
+	//这个跟getParent不是1:1对应的，这个是给临时变量parentId赋值，getParentId()是通过parent对象获得parentId的。
+	public void setParentId(Long parentId){
+	    this.parentId = parentId;
 	}
 //
 //	public void setParentId(Serializable parentId) {

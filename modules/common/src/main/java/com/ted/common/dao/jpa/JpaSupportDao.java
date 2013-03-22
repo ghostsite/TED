@@ -40,6 +40,10 @@ public interface JpaSupportDao {
     
     public <T> T findByPropertyWithDepth(Class<T> type, String property, Object value, String... fetchRelations);
 
+    public <T> List<T> getAll(Class<T> clazz);
+    
+    public <T> JsonPage<T> pagedAll(Class<T> clazz, int start, int limit);
+    
     //======================查询without page==========================//
     Query createQuery(String jpql, Object... values);
 
