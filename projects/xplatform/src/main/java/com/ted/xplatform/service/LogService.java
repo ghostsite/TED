@@ -15,15 +15,15 @@ import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
 import com.ted.common.dao.jpa.JpaTemplateDao;
 import com.ted.common.support.page.JsonPage;
-import com.ted.xplatform.pojo.common.Log4jLog;
+import com.ted.xplatform.pojo.common.Log;
 
 /**
  * 日志类Service
  * @date 20130218
  */
 @Transactional
-@Service("log4jLogService")
-public class Log4jLogService {
+@Service("logService")
+public class LogService {
     @Inject
     JdbcTemplateDao jdbcTemplateDao;
 
@@ -56,15 +56,15 @@ public class Log4jLogService {
 
     /**
      * 查询from to 
-     * Integer type:Log4jLog type
+     * Integer type:Log type
      */
     @Transactional(readOnly = true)
-    public JsonPage<Log4jLog> query(Date from, Date to, Integer type, int start, int limit) {
+    public JsonPage<Log> query(Date from, Date to, Integer type, int start, int limit) {
         Map<String, Object> params = Maps.newHashMap();
         params.put("from", from);
         params.put("to", to);
         params.put("type", type);
-        JsonPage<Log4jLog> page = jpaTemplateDao.pagedByJPQLQuery("admin-jpql-queryLog4jLog", params, Log4jLog.class, start, limit);
+        JsonPage<Log> page = jpaTemplateDao.pagedByJPQLQuery("admin-jpql-queryLog", params, Log.class, start, limit);
         return page;
     };
 
@@ -73,8 +73,8 @@ public class Log4jLogService {
      * @param ids
      */
     @Transactional
-    public void deleteLog4jLog(Collection<Long> ids) {
-        jpaSupportDao.bulkUpdate("delete Log4jLog where id in (:ids)", ids);
+    public void deleteLog(Collection<Long> ids) {
+        jpaSupportDao.bulkUpdate("delete Log where id in (:ids)", ids);
     }
 
 }

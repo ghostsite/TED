@@ -50,20 +50,20 @@
 	]]>
 	</query>
 	
-	<query name="admin-jpql-queryLog4jLog">
+	<query name="admin-jpql-queryLog">
 	<![CDATA[
-		 from Log4jLog
+		 from Log
 			where 1=1
 			<#if (from??)>
-				and createdDate > :from
+				and createTime > :from
 			</#if>
 			<#if (to?? )>
-				and createdDate <= :to
+				and createTime <= :to
 			</#if>
 			<#if (type??  )>
 				and type = :type 
 			</#if>
-			order by createdDate desc
+			order by createTime desc
 	]]>
 	</query>
 	

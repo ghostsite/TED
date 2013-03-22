@@ -1,10 +1,10 @@
 // 右边的GridPanel
-Ext.define('SYS.view.log.Log4jLogManage', {
+Ext.define('SYS.view.log.LogManage', {
 	extend : 'MES.view.form.BaseForm',
-	xtype : 'admin_log4jlog',
-	requires : ['SYS.model.Log4jLog', 'Ext.ux.ProgressBarPager', 'Ext.ux.grid.RowExpander'],
+	xtype : 'admin_log',
+	requires : ['SYS.model.Log', 'Ext.ux.ProgressBarPager', 'Ext.ux.grid.RowExpander'],
 
-	title : T('Caption.Menu.SYS.view.log.Log4jLogManage'),
+	title : T('Caption.Menu.SYS.view.log.LogManage'),
 	// layout : 'fit',
 	layout : {
 		type : 'vbox',
@@ -14,7 +14,7 @@ Ext.define('SYS.view.log.Log4jLogManage', {
 	buttonsOpt : [{
 		itemId : 'btnDelete',
 		disabled : true,
-		url : 'log4jlog/deleteLog4jLog',
+		url : 'log/deleteLog',
 		confirm : {
 			msg : T('Message.Sure Delete Data?')
 		}
@@ -74,8 +74,8 @@ Ext.define('SYS.view.log.Log4jLogManage', {
 	},
 
 	buildForm : function(me) {
-		var store = Ext.create('SYS.store.Log4jLog');
-		store.getProxy().url = 'log4jlog/query';
+		var store = Ext.create('SYS.store.Log');
+		store.getProxy().url = 'log/query';
 		return {
 			xtype : 'grid',
 			cls : 'navyGrid',

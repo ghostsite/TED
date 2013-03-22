@@ -6,8 +6,9 @@ import javax.persistence.Table;
 import com.ted.xplatform.pojo.base.PersistEntity;
 
 @Entity
-@Table(name = "log4jlog")
-public class Log4jLog extends PersistEntity {
+@Table(name = "logs")
+public class Log extends PersistEntity {
+    private static final long serialVersionUID = -644218746005564167L;
     public static final int LOG4J     = 1; //for type column
     public static final int BUSINESS  = 2;
     public static final int EXCEPTION = 3;

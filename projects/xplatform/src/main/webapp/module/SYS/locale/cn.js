@@ -40,7 +40,7 @@ T({
 						"WorkDayManage":"工作日管理"
 					},
 					log:{
-						"Log4jLogManage":"日志管理"
+						"LogManage":"日志管理"
 					}
 				}
 			},

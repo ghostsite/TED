@@ -40,7 +40,7 @@ T({
 						"WorkDayManage":"WorkDayManage"
 					},
 					log:{
-						"Log4jLogManage":"LogManage"
+						"LogManage":"LogManage"
 					}
 				}
 			},

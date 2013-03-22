@@ -1,26 +1,26 @@
-Ext.define('SYS.controller.log.Log4jLogManage', {
+Ext.define('SYS.controller.log.LogManage', {
 	extend : 'Ext.app.Controller',
 
 	refs : [{
-		selector : 'admin_log4jlog grid',
+		selector : 'admin_log grid',
 		ref : 'grid'
 	}, {
-		selector : 'admin_log4jlog #btnDelete',
+		selector : 'admin_log #btnDelete',
 		ref : 'btnDelete'
 	}, {
-		selector : 'admin_log4jlog',
+		selector : 'admin_log',
 		ref : 'baseForm'
 	}],
 
 	init : function() {
 		this.control({
-			'admin_log4jlog' : {
+			'admin_log' : {
 				btnClose : this.onBtnClose,
 				sup_btnReset : this.onSupBtnReset,
 				sup_btnView : this.onSupBtnView,
 				gridselectionchange : this.onSelectionchange
 			},
-			'admin_log4jlog basebuttons' : {
+			'admin_log basebuttons' : {
 				beforeDelete : this.onBeforeDelete,
 				afterDelete : this.onAfterDelete
 			}

@@ -19,20 +19,20 @@ import com.ted.common.spring.mvc.bind.annotation.RequestJsonParam;
 import com.ted.common.support.extjs4.JsonOut;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.SpringUtils;
-import com.ted.xplatform.pojo.common.Log4jLog;
-import com.ted.xplatform.service.Log4jLogService;
+import com.ted.xplatform.pojo.common.Log;
+import com.ted.xplatform.service.LogService;
 
 /**
  * Log管理等的Controller
  * @date 20130218
  */
 @Controller
-@RequestMapping(value = "/log4jlog/*")
-public class Log4jLogController {
-    final Logger   logger = LoggerFactory.getLogger(Log4jLogController.class);
+@RequestMapping(value = "/log/*")
+public class LogController {
+    final Logger   logger = LoggerFactory.getLogger(LogController.class);
 
     @Inject
-    Log4jLogService log4jLogService;
+    LogService logService;
 
     @Inject
     MessageSource  messageSource;
@@ -46,14 +46,14 @@ public class Log4jLogController {
      */
     @RequestMapping(value = "/query")
     public @ResponseBody
-    JsonPage<Log4jLog> query(@RequestParam @DateTimeFormat(iso = ISO.DATE) Date from, @RequestParam @DateTimeFormat(iso = ISO.DATE) Date to, Integer type, int start, int limit) {
-        return log4jLogService.query(from, to, type, start, limit);
+    JsonPage<Log> query(@RequestParam @DateTimeFormat(iso = ISO.DATE) Date from, @RequestParam @DateTimeFormat(iso = ISO.DATE) Date to, Integer type, int start, int limit) {
+        return logService.query(from, to, type, start, limit);
     };
 
-    @RequestMapping(value = "/deleteLog4jLog")
+    @RequestMapping(value = "/deleteLog")
     public @ResponseBody
-    String deleteLog4jLog(@RequestJsonParam Collection<Long> ids) {
-        log4jLogService.deleteLog4jLog(ids);
+    String deleteLog(@RequestJsonParam Collection<Long> ids) {
+        logService.deleteLog(ids);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };
 }
