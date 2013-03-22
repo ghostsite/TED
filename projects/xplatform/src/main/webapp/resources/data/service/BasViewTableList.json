@@ -1,0 +1,994 @@
+{
+	"success" : true,
+	"statusvalue" : "0",
+	"msgcate" : "S",
+	"msgcode" : "CMN-0000",
+	"msg" : "CMN-0000 : This service is successful.",
+	"tableList" : [ {
+		"tableName" : "AAAA",
+		"tableDesc" : "Action Table"
+	}, {
+		"tableName" : "ACTION_CODE",
+		"tableDesc" : "Action Table"
+	}, {
+		"tableName" : "ACTION_CODE_2",
+		"tableDesc" : "Action Table"
+	}, {
+		"tableName" : "ARCHIVE_DB_LINK",
+		"tableDesc" : "Archive DB Link Table"
+	}, {
+		"tableName" : "AREA",
+		"tableDesc" : "Area Code Table"
+	}, {
+		"tableName" : "ATTRIBUTE_TYPE",
+		"tableDesc" : "Attribute Types"
+	}, {
+		"tableName" : "A_TEST",
+		"tableDesc" : "TEST TABLE"
+	}, {
+		"tableName" : "BARCODE_FONT",
+		"tableDesc" : "Barcode Font"
+	}, {
+		"tableName" : "BATCH_TYPE",
+		"tableDesc" : "Batch Type Table"
+	}, {
+		"tableName" : "BBS_MAIN_MENU",
+		"tableDesc" : "Main menu for Bulletin Board System"
+	}, {
+		"tableName" : "BBS_MSG_TYPE",
+		"tableDesc" : "Message type for Bulletin Board System"
+	}, {
+		"tableName" : "BBS_SUB_MENU",
+		"tableDesc" : "Sub menu for Bulletin Board System"
+	}, {
+		"tableName" : "BOM_GRP_1",
+		"tableDesc" : "BOM Group"
+	}, {
+		"tableName" : "BOM_GRP_10",
+		"tableDesc" : "BOM Group"
+	}, {
+		"tableName" : "BOM_GRP_2",
+		"tableDesc" : "BOM Group"
+	}, {
+		"tableName" : "BOM_GRP_3",
+		"tableDesc" : "BOM Group"
+	}, {
+		"tableName" : "BOM_GRP_4",
+		"tableDesc" : "BOM Group"
+	}, {
+		"tableName" : "BOM_GRP_5",
+		"tableDesc" : "BOM Group"
+	}, {
+		"tableName" : "BOM_GRP_6",
+		"tableDesc" : "BOM Group"
+	}, {
+		"tableName" : "BOM_GRP_7",
+		"tableDesc" : "BOM Group"
+	}, {
+		"tableName" : "BOM_GRP_8",
+		"tableDesc" : "BOM Group"
+	}, {
+		"tableName" : "BOM_GRP_9",
+		"tableDesc" : "BOM Group"
+	}, {
+		"tableName" : "BONUS_CODE",
+		"tableDesc" : "Bonus Code"
+	}, {
+		"tableName" : "B_TEST",
+		"tableDesc" : "TEST TABLE"
+	}, {
+		"tableName" : "B_TEST2",
+		"tableDesc" : "TEST TABLE 22"
+	}, {
+		"tableName" : "CHAMBER_GROUP",
+		"tableDesc" : "Chamber Group"
+	}, {
+		"tableName" : "CHAR_GRP_1",
+		"tableDesc" : "Character Group"
+	}, {
+		"tableName" : "CHAR_GRP_10",
+		"tableDesc" : "Character Group"
+	}, {
+		"tableName" : "CHAR_GRP_2",
+		"tableDesc" : "Character Group"
+	}, {
+		"tableName" : "CHAR_GRP_3",
+		"tableDesc" : "Character Group"
+	}, {
+		"tableName" : "CHAR_GRP_4",
+		"tableDesc" : "Character Group"
+	}, {
+		"tableName" : "CHAR_GRP_5",
+		"tableDesc" : "Character Group"
+	}, {
+		"tableName" : "CHAR_GRP_6",
+		"tableDesc" : "Character Group"
+	}, {
+		"tableName" : "CHAR_GRP_7",
+		"tableDesc" : "Character Group"
+	}, {
+		"tableName" : "CHAR_GRP_8",
+		"tableDesc" : "Character Group"
+	}, {
+		"tableName" : "CHAR_GRP_9",
+		"tableDesc" : "Character Group"
+	}, {
+		"tableName" : "CMF_ITEM_NAME",
+		"tableDesc" : "Factory Customizing Item Name Setup"
+	}, {
+		"tableName" : "COL_GRP_1",
+		"tableDesc" : "Collection Set  Group"
+	}, {
+		"tableName" : "COL_GRP_10",
+		"tableDesc" : "Collection Set  Group"
+	}, {
+		"tableName" : "COL_GRP_2",
+		"tableDesc" : "Collection Set  Group"
+	}, {
+		"tableName" : "COL_GRP_3",
+		"tableDesc" : "Collection Set  Group"
+	}, {
+		"tableName" : "COL_GRP_4",
+		"tableDesc" : "Collection Set  Group"
+	}, {
+		"tableName" : "COL_GRP_5",
+		"tableDesc" : "Collection Set  Group"
+	}, {
+		"tableName" : "COL_GRP_6",
+		"tableDesc" : "Collection Set  Group"
+	}, {
+		"tableName" : "COL_GRP_7",
+		"tableDesc" : "Collection Set  Group"
+	}, {
+		"tableName" : "COL_GRP_8",
+		"tableDesc" : "Collection Set  Group"
+	}, {
+		"tableName" : "COL_GRP_9",
+		"tableDesc" : "Collection Set  Group"
+	}, {
+		"tableName" : "CREATE_CODE",
+		"tableDesc" : "Create Code Table"
+	}, {
+		"tableName" : "CRR_TYPE1",
+		"tableDesc" : "Carrier Type1"
+	}, {
+		"tableName" : "CRR_TYPE2",
+		"tableDesc" : "Carrier Type2"
+	}, {
+		"tableName" : "CRR_TYPE3",
+		"tableDesc" : "Carrier Type3"
+	}, {
+		"tableName" : "CV_CODE",
+		"tableDesc" : "Count Variance Code Table"
+	}, {
+		"tableName" : "EDC_UNIT",
+		"tableDesc" : "EDC Unit Code"
+	}, {
+		"tableName" : "EMS_COMP",
+		"tableDesc" : "EMS Company for HUAWEI"
+	}, {
+		"tableName" : "ERCP_GRP_1",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "ERCP_GRP_10",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "ERCP_GRP_2",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "ERCP_GRP_3",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "ERCP_GRP_4",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "ERCP_GRP_5",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "ERCP_GRP_6",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "ERCP_GRP_7",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "ERCP_GRP_8",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "ERCP_GRP_9",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "EVN_GRP_1",
+		"tableDesc" : "Event Group"
+	}, {
+		"tableName" : "EVN_GRP_10",
+		"tableDesc" : "Event Group"
+	}, {
+		"tableName" : "EVN_GRP_2",
+		"tableDesc" : "Event Group"
+	}, {
+		"tableName" : "EVN_GRP_3",
+		"tableDesc" : "Event Group"
+	}, {
+		"tableName" : "EVN_GRP_4",
+		"tableDesc" : "Event Group"
+	}, {
+		"tableName" : "EVN_GRP_5",
+		"tableDesc" : "Event Group"
+	}, {
+		"tableName" : "EVN_GRP_6",
+		"tableDesc" : "Event Group"
+	}, {
+		"tableName" : "EVN_GRP_7",
+		"tableDesc" : "Event Group"
+	}, {
+		"tableName" : "EVN_GRP_8",
+		"tableDesc" : "Event Group"
+	}, {
+		"tableName" : "EVN_GRP_9",
+		"tableDesc" : "Event Group"
+	}, {
+		"tableName" : "FAC_OA_SERVICES",
+		"tableDesc" : "Future action Oper At services"
+	}, {
+		"tableName" : "FIELD_TBL"
+	}, {
+		"tableName" : "FLOW_GRP_1",
+		"tableDesc" : "Flow Group"
+	}, {
+		"tableName" : "FLOW_GRP_10",
+		"tableDesc" : "Flow Group"
+	}, {
+		"tableName" : "FLOW_GRP_2",
+		"tableDesc" : "Flow Group"
+	}, {
+		"tableName" : "FLOW_GRP_3",
+		"tableDesc" : "Flow Group"
+	}, {
+		"tableName" : "FLOW_GRP_4",
+		"tableDesc" : "Flow Group"
+	}, {
+		"tableName" : "FLOW_GRP_5",
+		"tableDesc" : "Flow Group"
+	}, {
+		"tableName" : "FLOW_GRP_6",
+		"tableDesc" : "Flow Group"
+	}, {
+		"tableName" : "FLOW_GRP_7",
+		"tableDesc" : "Flow Group"
+	}, {
+		"tableName" : "FLOW_GRP_8",
+		"tableDesc" : "Flow Group"
+	}, {
+		"tableName" : "FLOW_GRP_9",
+		"tableDesc" : "Flow Group"
+	}, {
+		"tableName" : "FMB_HOST_INFO",
+		"tableDesc" : "FMB Host Information"
+	}, {
+		"tableName" : "FOREIGNPHONE"
+	}, {
+		"tableName" : "FT_TABLE"
+	}, {
+		"tableName" : "FT_TABLE_124",
+		"tableDesc" : "Hold Code"
+	}, {
+		"tableName" : "FUNC_KEY_TYPE",
+		"tableDesc" : "Shared Library Key Type Table"
+	}, {
+		"tableName" : "GROUP_ITEM_NAME",
+		"tableDesc" : "Factory Group Item Name Setup"
+	}, {
+		"tableName" : "HOLD_CODE",
+		"tableDesc" : "Hold Code"
+	}, {
+		"tableName" : "HUA_FORMAT_TYPE",
+		"tableDesc" : "HUAWEI ZHISHI: CDMA,UMTS ..."
+	}, {
+		"tableName" : "HUA_MAT_TYPE",
+		"tableDesc" : "Material Type (Half Product / Finished Product)"
+	}, {
+		"tableName" : "HUA_TYPE",
+		"tableDesc" : "Mat Type for Huawei"
+	}, {
+		"tableName" : "ID_GEN_TRAN_CODE",
+		"tableDesc" : "ID Generator Transaction Code"
+	}, {
+		"tableName" : "ID_GEN_TYPE",
+		"tableDesc" : "ID Generator Table"
+	}, {
+		"tableName" : "INQUIRY_GROUP",
+		"tableDesc" : "Inquiry group"
+	}, {
+		"tableName" : "INSP_METHOD",
+		"tableDesc" : "Inspection Method"
+	}, {
+		"tableName" : "INSP_SET_GRP_1",
+		"tableDesc" : "Inspection Set Group"
+	}, {
+		"tableName" : "INSP_SET_GRP_10",
+		"tableDesc" : "Inspection Set Group"
+	}, {
+		"tableName" : "INSP_SET_GRP_2",
+		"tableDesc" : "Inspection Set Group"
+	}, {
+		"tableName" : "INSP_SET_GRP_3",
+		"tableDesc" : "Inspection Set Group"
+	}, {
+		"tableName" : "INSP_SET_GRP_4",
+		"tableDesc" : "Inspection Set Group"
+	}, {
+		"tableName" : "INSP_SET_GRP_5",
+		"tableDesc" : "Inspection Set Group"
+	}, {
+		"tableName" : "INSP_SET_GRP_6",
+		"tableDesc" : "Inspection Set Group"
+	}, {
+		"tableName" : "INSP_SET_GRP_7",
+		"tableDesc" : "Inspection Set Group"
+	}, {
+		"tableName" : "INSP_SET_GRP_8",
+		"tableDesc" : "Inspection Set Group"
+	}, {
+		"tableName" : "INSP_SET_GRP_9",
+		"tableDesc" : "Inspection Set Group"
+	}, {
+		"tableName" : "INV_STORE_SECTION",
+		"tableDesc" : "Store section"
+	}, {
+		"tableName" : "INV_STORE_SECTION_CB",
+		"tableDesc" : "Store section"
+	}, {
+		"tableName" : "LABEL_PRINTER",
+		"tableDesc" : "Setup Label Printer"
+	}, {
+		"tableName" : "LOSS_CODE",
+		"tableDesc" : "Loss Code"
+	}, {
+		"tableName" : "LOSS_TBL1",
+		"tableDesc" : "Loss Code Table"
+	}, {
+		"tableName" : "LOSS_TBL2",
+		"tableDesc" : "Loss Code Table"
+	}, {
+		"tableName" : "LOT_CONDITION",
+		"tableDesc" : "Flexible Condition For Lot"
+	}, {
+		"tableName" : "LOT_DEFECT_CODE",
+		"tableDesc" : "Lot Defect Code Table"
+	}, {
+		"tableName" : "LOT_ID_DIGIT",
+		"tableDesc" : "LOT ID VALIDATION TABLE"
+	}, {
+		"tableName" : "LOT_TYPE",
+		"tableDesc" : "Lot Type Table"
+	}, {
+		"tableName" : "MATERIAL_GRP_1",
+		"tableDesc" : "Material Group"
+	}, {
+		"tableName" : "MATERIAL_GRP_10",
+		"tableDesc" : "Material Group"
+	}, {
+		"tableName" : "MATERIAL_GRP_2",
+		"tableDesc" : "Material Group"
+	}, {
+		"tableName" : "MATERIAL_GRP_3",
+		"tableDesc" : "Material Group"
+	}, {
+		"tableName" : "MATERIAL_GRP_4",
+		"tableDesc" : "Material Group"
+	}, {
+		"tableName" : "MATERIAL_GRP_5",
+		"tableDesc" : "Material Group"
+	}, {
+		"tableName" : "MATERIAL_GRP_6",
+		"tableDesc" : "Material Group"
+	}, {
+		"tableName" : "MATERIAL_GRP_7",
+		"tableDesc" : "Material Group"
+	}, {
+		"tableName" : "MATERIAL_GRP_8",
+		"tableDesc" : "Material Group"
+	}, {
+		"tableName" : "MATERIAL_GRP_9",
+		"tableDesc" : "Material Group"
+	}, {
+		"tableName" : "MATERIAL_PACK_TYPE",
+		"tableDesc" : "Material Pack Type"
+	}, {
+		"tableName" : "MATERIAL_TYPE",
+		"tableDesc" : "Material Type"
+	}, {
+		"tableName" : "MAT_COM_NOTES",
+		"tableDesc" : "common notes"
+	}, {
+		"tableName" : "MAT_CUSTOMER_DATA",
+		"tableDesc" : "Material Custom Data"
+	}, {
+		"tableName" : "MAT_CUSTOM_SOFTWARE",
+		"tableDesc" : "Material Customize Test Software Type - By LJC"
+	}, {
+		"tableName" : "MAT_DATA_COLLECT",
+		"tableDesc" : "Material Data Collect"
+	}, {
+		"tableName" : "MAT_FAMILY",
+		"tableDesc" : "Material Family for huawei"
+	}, {
+		"tableName" : "MAT_MAIN_PHYSICAL",
+		"tableDesc" : "Main Physical"
+	}, {
+		"tableName" : "MAT_PACK_OPERATION",
+		"tableDesc" : "Packing Operation"
+	}, {
+		"tableName" : "MAT_RESERVE_PHYSICAL",
+		"tableDesc" : "Material Reserve Physical"
+	}, {
+		"tableName" : "MAT_SOFTWARE",
+		"tableDesc" : "Material Software - By LJC"
+	}, {
+		"tableName" : "MAT_SPECIAL_CODE",
+		"tableDesc" : "Material Special Code"
+	}, {
+		"tableName" : "MAT_SUB_PHYSICAL",
+		"tableDesc" : "Sub Physical"
+	}, {
+		"tableName" : "MAT_TEST_PROGRAM",
+		"tableDesc" : "Test Program"
+	}, {
+		"tableName" : "MAT_USER_FIELD",
+		"tableDesc" : "User Field"
+	}, {
+		"tableName" : "MAT_WO_SW_CODE",
+		"tableDesc" : "Work Order Software Code"
+	}, {
+		"tableName" : "MRCP_GRP_1",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "MRCP_GRP_10",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "MRCP_GRP_2",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "MRCP_GRP_3",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "MRCP_GRP_4",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "MRCP_GRP_5",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "MRCP_GRP_6",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "MRCP_GRP_7",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "MRCP_GRP_8",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "MRCP_GRP_9",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "MST_ABNORMAL_REASON",
+		"tableDesc" : "Abnormal Reason"
+	}, {
+		"tableName" : "MST_CITY",
+		"tableDesc" : "City"
+	}, {
+		"tableName" : "MST_COM_NOTES",
+		"tableDesc" : "Common Instruction Note"
+	}, {
+		"tableName" : "MST_COUNTRY",
+		"tableDesc" : "Country"
+	}, {
+		"tableName" : "MST_DEFECT",
+		"tableDesc" : "Defect"
+	}, {
+		"tableName" : "MST_DEFECT_REASON",
+		"tableDesc" : "Defect Reason"
+	}, {
+		"tableName" : "MST_DEFECT_REA_TYP",
+		"tableDesc" : "Defect Reason Type"
+	}, {
+		"tableName" : "MST_DEFECT_SUBTYPE",
+		"tableDesc" : "Defect Type"
+	}, {
+		"tableName" : "MST_DEFECT_TYPE",
+		"tableDesc" : "Defect Proudction Process"
+	}, {
+		"tableName" : "MST_FIELD",
+		"tableDesc" : "Field"
+	}, {
+		"tableName" : "MST_MAT_GRP_REL",
+		"tableDesc" : "Material Group Relation"
+	}, {
+		"tableName" : "MST_MAT_TYPE",
+		"tableDesc" : "Material Type"
+	}, {
+		"tableName" : "MST_OPER_TYPE",
+		"tableDesc" : "Operation Type"
+	}, {
+		"tableName" : "MST_OTHERS_ABNORMAL",
+		"tableDesc" : "Abnormal"
+	}, {
+		"tableName" : "MST_OTHERS_JOBTYPE",
+		"tableDesc" : "Job Type"
+	}, {
+		"tableName" : "MST_PROVINCE",
+		"tableDesc" : "Province"
+	}, {
+		"tableName" : "MST_REPAIR",
+		"tableDesc" : "repair"
+	}, {
+		"tableName" : "MST_REPAIR_TYPE",
+		"tableDesc" : "Repair Type"
+	}, {
+		"tableName" : "MST_SERVER_MATTYPE",
+		"tableDesc" : "Server Material Type Information"
+	}, {
+		"tableName" : "MST_TELECOM",
+		"tableDesc" : "Telecommunication Company"
+	}, {
+		"tableName" : "MST_TEST_PROGRAM",
+		"tableDesc" : "Test Program for ATE"
+	}, {
+		"tableName" : "MST_VENDOR",
+		"tableDesc" : "Vendor"
+	}, {
+		"tableName" : "MST_VENDOR_SERVER",
+		"tableDesc" : "Vendor Server Information"
+	}, {
+		"tableName" : "NUMBER_TEST",
+		"tableDesc" : "Number value"
+	}, {
+		"tableName" : "OPER_GRP_1",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "OPER_GRP_10",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "OPER_GRP_2",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "OPER_GRP_3",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "OPER_GRP_4",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "OPER_GRP_5",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "OPER_GRP_6",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "OPER_GRP_7",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "OPER_GRP_8",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "OPER_GRP_9",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "ORDER_STATUS",
+		"tableDesc" : "Order Status"
+	}, {
+		"tableName" : "OWNER_CODE",
+		"tableDesc" : "Owner Code Table"
+	}, {
+		"tableName" : "PLN_ORD_MAT_TYPE",
+		"tableDesc" : "WorkOrder  Material Type Code"
+	}, {
+		"tableName" : "PLN_ORD_PRODUCT",
+		"tableDesc" : "WorkOrder Product Code"
+	}, {
+		"tableName" : "PLN_ORD_SG_DEPART",
+		"tableDesc" : "WorkOrder  Material Type Code"
+	}, {
+		"tableName" : "PLN_ORD_STATUS",
+		"tableDesc" : "WorkOrder Product Status Code"
+	}, {
+		"tableName" : "PLN_ORD_TYPE",
+		"tableDesc" : "WorkOrder type code"
+	}, {
+		"tableName" : "PM_EVENT",
+		"tableDesc" : "PM Event"
+	}, {
+		"tableName" : "PM_PERIOD",
+		"tableDesc" : "PM Period"
+	}, {
+		"tableName" : "PORT_STATE",
+		"tableDesc" : "Port status code"
+	}, {
+		"tableName" : "PRINTER_TYPE",
+		"tableDesc" : "Label Printer Type"
+	}, {
+		"tableName" : "PRINT_VARIABLE",
+		"tableDesc" : "Label Printer Variable"
+	}, {
+		"tableName" : "QCM_CUSTOMER",
+		"tableDesc" : "QCM Customer"
+	}, {
+		"tableName" : "QCM_DEFECT_GRP",
+		"tableDesc" : "QCM Defect Group"
+	}, {
+		"tableName" : "QCM_INSP_METHOD",
+		"tableDesc" : "Inspection Method"
+	}, {
+		"tableName" : "QCM_INSP_TYPE",
+		"tableDesc" : "Inspection Type"
+	}, {
+		"tableName" : "QCM_SAMPLING_TYPE",
+		"tableDesc" : "Sampling Type"
+	}, {
+		"tableName" : "QCM_VENDOR",
+		"tableDesc" : "QCM Vendor"
+	}, {
+		"tableName" : "QUERY_TYPE",
+		"tableDesc" : "Sheet Query Type"
+	}, {
+		"tableName" : "RAS_SLOT_TYPE",
+		"tableDesc" : "Resource Slot Type"
+	}, {
+		"tableName" : "RECIPE_GRP_1",
+		"tableDesc" : "Recipe Group"
+	}, {
+		"tableName" : "RECIPE_GRP_10",
+		"tableDesc" : "Recipe Group"
+	}, {
+		"tableName" : "RECIPE_GRP_2",
+		"tableDesc" : "Recipe Group"
+	}, {
+		"tableName" : "RECIPE_GRP_3",
+		"tableDesc" : "Recipe Group"
+	}, {
+		"tableName" : "RECIPE_GRP_4",
+		"tableDesc" : "Recipe Group"
+	}, {
+		"tableName" : "RECIPE_GRP_5",
+		"tableDesc" : "Recipe Group"
+	}, {
+		"tableName" : "RECIPE_GRP_6",
+		"tableDesc" : "Recipe Group"
+	}, {
+		"tableName" : "RECIPE_GRP_7",
+		"tableDesc" : "Recipe Group"
+	}, {
+		"tableName" : "RECIPE_GRP_8",
+		"tableDesc" : "Recipe Group"
+	}, {
+		"tableName" : "RECIPE_GRP_9",
+		"tableDesc" : "Recipe Group"
+	}, {
+		"tableName" : "REF_OPER",
+		"tableDesc" : "Reference Operation"
+	}, {
+		"tableName" : "REF_RESOURCE",
+		"tableDesc" : "Reference Resource"
+	}, {
+		"tableName" : "RELEASE_CODE",
+		"tableDesc" : "Release Code"
+	}, {
+		"tableName" : "REPAIR_CODE",
+		"tableDesc" : "Repair Table"
+	}, {
+		"tableName" : "RESOLUTION",
+		"tableDesc" : "Label Printer Resolution"
+	}, {
+		"tableName" : "RESULT_CODE",
+		"tableDesc" : "Result Table"
+	}, {
+		"tableName" : "RES_GRP_1",
+		"tableDesc" : "Resource Group"
+	}, {
+		"tableName" : "RES_GRP_10",
+		"tableDesc" : "Resource Group"
+	}, {
+		"tableName" : "RES_GRP_2",
+		"tableDesc" : "Resource Group"
+	}, {
+		"tableName" : "RES_GRP_3",
+		"tableDesc" : "Resource Group"
+	}, {
+		"tableName" : "RES_GRP_4",
+		"tableDesc" : "Resource Group"
+	}, {
+		"tableName" : "RES_GRP_5",
+		"tableDesc" : "Resource Group"
+	}, {
+		"tableName" : "RES_GRP_6",
+		"tableDesc" : "Resource Group"
+	}, {
+		"tableName" : "RES_GRP_7",
+		"tableDesc" : "Resource Group"
+	}, {
+		"tableName" : "RES_GRP_8",
+		"tableDesc" : "Resource Group"
+	}, {
+		"tableName" : "RES_GRP_9",
+		"tableDesc" : "Resource Group"
+	}, {
+		"tableName" : "RES_QUEUE",
+		"tableDesc" : "Queue in resource"
+	}, {
+		"tableName" : "RES_TYPE",
+		"tableDesc" : "Resource Type"
+	}, {
+		"tableName" : "REWORK_CODE",
+		"tableDesc" : "Rework Code"
+	}, {
+		"tableName" : "RMA_CREATE_CODE",
+		"tableDesc" : "RMA Create Code"
+	}, {
+		"tableName" : "RMA_RESULT_CODE",
+		"tableDesc" : "RMA Result Code"
+	}, {
+		"tableName" : "RMS_DATA_TYPE",
+		"tableDesc" : "RMS Recipe Editor"
+	}, {
+		"tableName" : "RMS_EQ_MAKER",
+		"tableDesc" : "RMS Equipment Maker Table"
+	}, {
+		"tableName" : "RMS_GRP_1",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "RMS_GRP_10",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "RMS_GRP_2",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "RMS_GRP_3",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "RMS_GRP_4",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "RMS_GRP_5",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "RMS_GRP_6",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "RMS_GRP_7",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "RMS_GRP_8",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "RMS_GRP_9",
+		"tableDesc" : "Master Recipe Group"
+	}, {
+		"tableName" : "RMS_HOLD_CODE",
+		"tableDesc" : "RMS Hold Code"
+	}, {
+		"tableName" : "RMS_RECIPE_EDITOR",
+		"tableDesc" : "RMS Recipe Editor"
+	}, {
+		"tableName" : "RMS_UNIT",
+		"tableDesc" : "RMS Unit"
+	}, {
+		"tableName" : "ROTATE",
+		"tableDesc" : "Print Rotate"
+	}, {
+		"tableName" : "RTD_RETURN_TYPE",
+		"tableDesc" : "RTD Return Type"
+	}, {
+		"tableName" : "RTD_RULE_TYPE",
+		"tableDesc" : "RTD Rule Type"
+	}, {
+		"tableName" : "RTD_VALUE_COUNT",
+		"tableDesc" : "RTD Value Count"
+	}, {
+		"tableName" : "SCRAP_CODE",
+		"tableDesc" : "Scrap Code Table"
+	}, {
+		"tableName" : "SCREEN_GROUP",
+		"tableDesc" : "Screen group"
+	}, {
+		"tableName" : "SERVICE_CATEGORY",
+		"tableDesc" : "Service Category"
+	}, {
+		"tableName" : "SERVICE_MODE",
+		"tableDesc" : "Service Mode"
+	}, {
+		"tableName" : "SHEET_DATA_TYPE",
+		"tableDesc" : "Sheet  Result Data Type"
+	}, {
+		"tableName" : "SHEET_EVENT",
+		"tableDesc" : "Event for check list"
+	}, {
+		"tableName" : "SHEET_QUERY_TYPE",
+		"tableDesc" : "Sheet Query Type"
+	}, {
+		"tableName" : "SHEET_SHEET_TYPE",
+		"tableDesc" : "Sheet  Type"
+	}, {
+		"tableName" : "SHIP_CODE",
+		"tableDesc" : "Shipping Code"
+	}, {
+		"tableName" : "SMP_PROC_TYPE",
+		"tableDesc" : "Sampling Procedure Type"
+	}, {
+		"tableName" : "SMT_FEED_PCB_POS",
+		"tableDesc" : "SMT Feed Position on PCB"
+	}, {
+		"tableName" : "SMT_SLOT_LOCATION",
+		"tableDesc" : "SMT Feeder Slot Location."
+	}, {
+		"tableName" : "SPC_ACTION_CODE",
+		"tableDesc" : "Action Table"
+	}, {
+		"tableName" : "SPC_TROUBLE_CODE",
+		"tableDesc" : "Action Table"
+	}, {
+		"tableName" : "STEP_GRP_1",
+		"tableDesc" : "Step Group"
+	}, {
+		"tableName" : "STEP_GRP_10",
+		"tableDesc" : "Step Group"
+	}, {
+		"tableName" : "STEP_GRP_2",
+		"tableDesc" : "Step Group"
+	}, {
+		"tableName" : "STEP_GRP_3",
+		"tableDesc" : "Step Group"
+	}, {
+		"tableName" : "STEP_GRP_4",
+		"tableDesc" : "Step Group"
+	}, {
+		"tableName" : "STEP_GRP_5",
+		"tableDesc" : "Step Group"
+	}, {
+		"tableName" : "STEP_GRP_6",
+		"tableDesc" : "Step Group"
+	}, {
+		"tableName" : "STEP_GRP_7",
+		"tableDesc" : "Step Group"
+	}, {
+		"tableName" : "STEP_GRP_8",
+		"tableDesc" : "Step Group"
+	}, {
+		"tableName" : "STEP_GRP_9",
+		"tableDesc" : "Step Group"
+	}, {
+		"tableName" : "SUBLOT_GRADE",
+		"tableDesc" : "Sublot Grade Code"
+	}, {
+		"tableName" : "SUBLOT_TYPE",
+		"tableDesc" : "SubLot Type Table"
+	}, {
+		"tableName" : "SUBRES_TYPE",
+		"tableDesc" : "Sub Resource Type"
+	}, {
+		"tableName" : "SUB_AREA",
+		"tableDesc" : "Sub Area Code Table"
+	}, {
+		"tableName" : "TERMINATE_CODE",
+		"tableDesc" : "Lot terminate code"
+	}, {
+		"tableName" : "TEST",
+		"tableDesc" : "Vendor"
+	}, {
+		"tableName" : "TEST_1234",
+		"tableDesc" : "TEST TABLE"
+	}, {
+		"tableName" : "TEXT_FONT",
+		"tableDesc" : "Text Font"
+	}, {
+		"tableName" : "TIME_UNIT",
+		"tableDesc" : "Unit of time (Hour and Minute)"
+	}, {
+		"tableName" : "TOOL_DEFECT",
+		"tableDesc" : "Tool Defect Code Table"
+	}, {
+		"tableName" : "TOOL_GRADE",
+		"tableDesc" : "Tool Grade Table"
+	}, {
+		"tableName" : "TOOL_GRP",
+		"tableDesc" : "Tool Group Table"
+	}, {
+		"tableName" : "TOOL_METAL_MASK_SPEC",
+		"tableDesc" : "Metal Mask Spec Info Table."
+	}, {
+		"tableName" : "TOOL_STATUS",
+		"tableDesc" : "Tool Status Table"
+	}, {
+		"tableName" : "TRANS_LABEL",
+		"tableDesc" : "Label in transaction"
+	}, {
+		"tableName" : "TROUBLE_CODE",
+		"tableDesc" : "Action Table"
+	}, {
+		"tableName" : "UNIT",
+		"tableDesc" : "Unit Code"
+	}, {
+		"tableName" : "USER_GRP_1",
+		"tableDesc" : "User Group"
+	}, {
+		"tableName" : "USER_GRP_10",
+		"tableDesc" : "User Group"
+	}, {
+		"tableName" : "USER_GRP_2",
+		"tableDesc" : "User Group"
+	}, {
+		"tableName" : "USER_GRP_3",
+		"tableDesc" : "User Group"
+	}, {
+		"tableName" : "USER_GRP_4",
+		"tableDesc" : "User Group"
+	}, {
+		"tableName" : "USER_GRP_5",
+		"tableDesc" : "User Group"
+	}, {
+		"tableName" : "USER_GRP_6",
+		"tableDesc" : "User Group"
+	}, {
+		"tableName" : "USER_GRP_7",
+		"tableDesc" : "User Group"
+	}, {
+		"tableName" : "USER_GRP_8",
+		"tableDesc" : "User Group"
+	}, {
+		"tableName" : "USER_GRP_9",
+		"tableDesc" : "User Group"
+	}, {
+		"tableName" : "VENDOR_TBL",
+		"tableDesc" : "Vendor Table"
+	}, {
+		"tableName" : "WFM_NODE_TYPE",
+		"tableDesc" : "Work Flow Modeler Node type table"
+	}, {
+		"tableName" : "WIP_CD_FUNCTION",
+		"tableDesc" : "Function of check digit computation"
+	}, {
+		"tableName" : "WIP_DEFECT_CODE"
+	}, {
+		"tableName" : "WIP_MAT_COLOR",
+		"tableDesc" : "Material Color"
+	}, {
+		"tableName" : "WIP_MAT_COMM_METHOD",
+		"tableDesc" : "Material Communication Methold"
+	}, {
+		"tableName" : "WIP_MAT_DOMAIN",
+		"tableDesc" : "Material Domain"
+	}, {
+		"tableName" : "WIP_MAT_FAMILY",
+		"tableDesc" : "Material Family"
+	}, {
+		"tableName" : "WIP_MAT_LINE",
+		"tableDesc" : "Material Line"
+	}, {
+		"tableName" : "WIP_MAT_MODEL",
+		"tableDesc" : "Materia Model"
+	}, {
+		"tableName" : "WIP_MAT_ROHS",
+		"tableDesc" : "Material ROHS"
+	}, {
+		"tableName" : "WIP_OPER_GROUP",
+		"tableDesc" : "Operation Group"
+	}, {
+		"tableName" : "WIP_OPER_USE_ATTR",
+		"tableDesc" : "Operation Attribute"
+	}, {
+		"tableName" : "WIP_ORDER_ROLE",
+		"tableDesc" : "Oder Role(Customized Require Setup)"
+	}, {
+		"tableName" : "WIP_PREPARE_CHK_ITEM",
+		"tableDesc" : "Prepare Check Item for Produce"
+	}, {
+		"tableName" : "WIP_REQUIRE_TYPE",
+		"tableDesc" : "Customized Require Type"
+	}, {
+		"tableName" : "WORK_POSITION",
+		"tableDesc" : "Resource Labor Work Position"
+	}, {
+		"tableName" : "WO_ROUTING_STATUS",
+		"tableDesc" : "Center WorkOrder Oper Routing Status"
+	}, {
+		"tableName" : "YESNO",
+		"tableDesc" : "Yes or No"
+	} ]
+}

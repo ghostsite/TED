@@ -1,0 +1,28 @@
+{
+	"success" : true,
+	"statusvalue" : "0",
+	"msgcate" : "S",
+	"msgcode" : "CMN-0000",
+	"msg" : "CMN-0000 : This service is successful.",
+	"list" : [ {
+		"menuType" : "todo",
+		"inprogressSize" : 0,
+		"totalSize" : 0
+	}, {
+		"menuType" : "done",
+		"inprogressSize" : 0,
+		"totalSize" : 0
+	}, {
+		"menuType" : "submitted",
+		"inprogressSize" : 0,
+		"totalSize" : 0
+	}, {
+		"menuType" : "returned",
+		"inprogressSize" : 0,
+		"totalSize" : 0
+	}, {
+		"menuType" : "editing",
+		"inprogressSize" : 0,
+		"totalSize" : 0
+	} ]
+}

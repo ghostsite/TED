@@ -1,0 +1,454 @@
+{
+	"success" : true,
+	"statusvalue" : "0",
+	"msgcate" : "S",
+	"msgcode" : "CMN-0000",
+	"msg" : "CMN-0000 : This service is successful.",
+	"list" : [ {
+		"funcName" : "HTOP0006",
+		"funcDesc" : "Produce Oper",
+		"funcTypeFlag" : "M",
+		"funcGroup" : "TOP",
+		"dispLevel" : "0",
+		"iconIndex" : 0,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9001",
+		"funcDesc" : "Barcode Print",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.BarcodePrint",
+		"dispLevel" : "0.0",
+		"iconIndex" : 5009,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9002",
+		"funcDesc" : "Barcode Re-Print",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.BarcodeReprint",
+		"dispLevel" : "0.1",
+		"iconIndex" : 5009,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9004",
+		"funcDesc" : "Create Lot PCB",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.CreateLotPcb",
+		"dispLevel" : "0.2",
+		"iconIndex" : 5010,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HINV9101",
+		"funcDesc" : "Solder cream in/out monitor",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HINV",
+		"assemblyName" : "Opc.view.hinv.SolderCreamInOutMonitor",
+		"dispLevel" : "0.3",
+		"iconIndex" : 5017,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HPLN9001",
+		"funcDesc" : "WorkOrder List",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HPLN",
+		"assemblyName" : "Opc.view.hpln.WorkOrderList",
+		"dispLevel" : "0.4",
+		"iconIndex" : 5010,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9003",
+		"funcDesc" : "Create CD Data",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.CreateCdData",
+		"dispLevel" : "0.5",
+		"iconIndex" : 5012,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9005",
+		"funcDesc" : "Data Doc Rule Management",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.DataDocRuleManagement",
+		"dispLevel" : "0.6",
+		"iconIndex" : 5008,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9022",
+		"funcDesc" : "Start Lot PCB",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.StartLotPcb",
+		"dispLevel" : "0.7",
+		"iconIndex" : 5005
+	}, {
+		"funcName" : "HWIP9006",
+		"funcDesc" : "End Lot PCB",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.EndLotPcb",
+		"dispLevel" : "0.8",
+		"iconIndex" : 5005,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9009",
+		"funcDesc" : "Insert Abnormal",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.InsertAbnormal",
+		"dispLevel" : "0.9",
+		"iconIndex" : 5016,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9015",
+		"funcDesc" : "Split Merge Box",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.SplitMergeBox",
+		"dispLevel" : "0.:",
+		"iconIndex" : 5024,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9017",
+		"funcDesc" : "Start Lot",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.StartLot",
+		"dispLevel" : "0.;",
+		"iconIndex" : 5010,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9018",
+		"funcDesc" : "End Lot",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.EndLot",
+		"dispLevel" : "0.<",
+		"iconIndex" : 5010,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9023",
+		"funcDesc" : "Split PCB To PCBA",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.SplitPcbToPcba",
+		"dispLevel" : "0.=",
+		"iconIndex" : 5024
+	}, {
+		"funcName" : "HWIP9027",
+		"funcDesc" : "Input Defect Material",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.InputDefectMaterial",
+		"dispLevel" : "0.>",
+		"iconIndex" : 0
+	}, {
+		"funcName" : "HWIP9024",
+		"funcDesc" : "Create Lot PCBA",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.CreateLotPcba",
+		"dispLevel" : "0.?",
+		"iconIndex" : 5005
+	}, {
+		"funcName" : "HWIP9020",
+		"funcDesc" : "Repair Request",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.RepairRequest",
+		"dispLevel" : "1",
+		"iconIndex" : 5023,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HRAS9003",
+		"funcDesc" : "Resource Reel Mapping",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HRAS",
+		"assemblyName" : "Opc.view.hras.ResourceReelMapping",
+		"dispLevel" : "1.0",
+		"iconIndex" : 5008,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HRAS9004",
+		"funcDesc" : "Metal Mask In/Out Monitor",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HRAS",
+		"assemblyName" : "Opc.view.hras.MetalMaskInOutMonitor",
+		"dispLevel" : "1.1",
+		"iconIndex" : 5018,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HTOP0007",
+		"funcDesc" : "Repair",
+		"funcTypeFlag" : "M",
+		"funcGroup" : "TOP",
+		"dispLevel" : "1.2",
+		"iconIndex" : 0,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HTOP0008",
+		"funcDesc" : "Pack Management",
+		"funcTypeFlag" : "M",
+		"funcGroup" : "TOP",
+		"dispLevel" : "1.3",
+		"iconIndex" : 0,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9010",
+		"funcDesc" : "Pack Color Box",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.PackingColorBox",
+		"dispLevel" : "1.3.0",
+		"iconIndex" : 5016,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9014",
+		"funcDesc" : "Reprint Color Box Label",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.ReprintColorBoxLabel",
+		"dispLevel" : "1.3.1",
+		"iconIndex" : 5009,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9011",
+		"funcDesc" : "Pack Grade Packing",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.PackingLevel",
+		"dispLevel" : "1.3.2",
+		"iconIndex" : 5016,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9016",
+		"funcDesc" : "Measure Weight",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.MeasureWeight",
+		"dispLevel" : "1.3.3",
+		"iconIndex" : 5010,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9013",
+		"funcDesc" : "Print Weight Label",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.PrintWeightLabel",
+		"dispLevel" : "1.3.4",
+		"iconIndex" : 5009,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9012",
+		"funcDesc" : "Print Pallet Label",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.PalletLabelPrint",
+		"dispLevel" : "1.3.5",
+		"iconIndex" : 5009,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9028",
+		"funcDesc" : "Measure Weight Setup",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.SetupMeasureWeight",
+		"dispLevel" : "1.3.6",
+		"iconIndex" : 5010
+	}, {
+		"funcName" : "HTOP0009",
+		"funcDesc" : "Depot Management",
+		"funcTypeFlag" : "M",
+		"funcGroup" : "TOP",
+		"dispLevel" : "1.4",
+		"iconIndex" : 0,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HTOP0010",
+		"funcDesc" : "Ship Management",
+		"funcTypeFlag" : "M",
+		"funcGroup" : "TOP",
+		"dispLevel" : "1.5",
+		"iconIndex" : 0,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9003",
+		"funcDesc" : "Stock In Finished Product(EMS)",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.StockInFp",
+		"dispLevel" : "1.5.0",
+		"iconIndex" : 5002,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9004",
+		"funcDesc" : "Stock Out Finished Product(EMS)",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.StockOutFp",
+		"dispLevel" : "1.5.1",
+		"iconIndex" : 5003,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9005",
+		"funcDesc" : "Stock In Finished Product(Huawei)",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.HwStockInFp",
+		"dispLevel" : "1.5.2",
+		"iconIndex" : 5002,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9006",
+		"funcDesc" : "Stock In(ETC)",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.EtcStock",
+		"dispLevel" : "1.5.3",
+		"iconIndex" : 5002,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9007",
+		"funcDesc" : "Stock In(Return)",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.ReturnStock",
+		"dispLevel" : "1.5.4",
+		"iconIndex" : 5002,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9008",
+		"funcDesc" : "Stock In(Inventory Change)",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.TransStock",
+		"dispLevel" : "1.5.5",
+		"iconIndex" : 5002,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9101",
+		"funcDesc" : "Stock Out(Rework)",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.Shipment",
+		"dispLevel" : "1.5.6",
+		"iconIndex" : 5003,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9102",
+		"funcDesc" : "Ship Finished Product",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.NormalShipment",
+		"dispLevel" : "1.5.7",
+		"iconIndex" : 5003,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9103",
+		"funcDesc" : "Stock Out(ETC)",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.EtcShipment",
+		"dispLevel" : "1.5.8",
+		"iconIndex" : 5003,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9104",
+		"funcDesc" : "Stock Out(Inventory Change)",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.TransShipment",
+		"dispLevel" : "1.5.9",
+		"iconIndex" : 5003,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HDMS9105",
+		"funcDesc" : "Merge Box",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HDMS",
+		"assemblyName" : "Opc.view.hdms.MergeBox",
+		"dispLevel" : "1.5.:",
+		"iconIndex" : 5016
+	}, {
+		"funcName" : "HTOP0011",
+		"funcDesc" : "Inventory Management",
+		"funcTypeFlag" : "M",
+		"funcGroup" : "TOP",
+		"dispLevel" : "1.6",
+		"iconIndex" : 0,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HINV9001",
+		"funcDesc" : "Check Incoming Raw Material",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HINV",
+		"assemblyName" : "Opc.view.hinv.CheckIncomingRawMaterial",
+		"dispLevel" : "1.6.0",
+		"iconIndex" : 5011,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HINV9003",
+		"funcDesc" : "Stock Incoming Raw material",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HINV",
+		"assemblyName" : "Opc.view.hinv.StockInRawMaterial",
+		"dispLevel" : "1.6.1",
+		"iconIndex" : 5002,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HINV9202",
+		"funcDesc" : "WorkOrder Raw Material Mapping",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HINV",
+		"assemblyName" : "Opc.view.hinv.WoRawMaterialMapping",
+		"dispLevel" : "1.6.2",
+		"iconIndex" : 5004,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HINV9201",
+		"funcDesc" : "Input WO Mapping Raw Material",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HINV",
+		"assemblyName" : "Opc.view.hinv.WoRawMaterialInput",
+		"dispLevel" : "1.6.3",
+		"iconIndex" : 5020,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HINV9002",
+		"funcDesc" : "Return Raw material",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HINV",
+		"assemblyName" : "Opc.view.hinv.RawMaterialReturn",
+		"dispLevel" : "1.6.4",
+		"iconIndex" : 5007,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9021",
+		"funcDesc" : "Repair End",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.RepairEnd",
+		"dispLevel" : "1.7",
+		"iconIndex" : 5002,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9019",
+		"funcDesc" : "Stock In PCBA",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.StockInPcba",
+		"dispLevel" : "1.8",
+		"iconIndex" : 5002,
+		"addToolBar" : "N"
+	}, {
+		"funcName" : "HWIP9026",
+		"funcDesc" : "View Repair Lot By Order",
+		"funcTypeFlag" : "F",
+		"funcGroup" : "HWIP",
+		"assemblyName" : "Opc.view.hwip.ViewRepairLotByOrder",
+		"dispLevel" : "1.9",
+		"iconIndex" : 5010
+	} ]
+}

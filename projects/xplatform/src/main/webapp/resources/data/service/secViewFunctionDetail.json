@@ -1,0 +1,21 @@
+{
+	"success" : true,
+	"statusvalue" : "0",
+	"msgcate" : "S",
+	"msgcode" : "CMN-0000",
+	"msg" : "CMN-0000 : This service is successful.",
+	"funcName" : "WSEC1001",
+	"funcDesc" : "User Setup",
+	"funcTypeFlag" : "F",
+	"funcGroup" : "SEC",
+	"assemblyName" : "SEC.view.setup.UserSetup",
+	"iconIndex" : 39,
+	"ctlName1" : "btnCreate",
+	"ctlEnFlag1" : "Y",
+	"ctlName2" : "btnDelete",
+	"ctlEnFlag2" : "Y",
+	"ctlName3" : "btnUpdate",
+	"ctlEnFlag3" : "Y",
+	"fldEnMaskUseFlag" : "Y",
+	"helpUrl" : "MES_UserManual6-4a2.html"
+}

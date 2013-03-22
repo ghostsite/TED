@@ -1,0 +1,92 @@
+{
+	"success" : true,
+	"statusvalue" : "0",
+	"msgcate" : "S",
+	"msgcode" : "CMN-0000",
+	"msg" : "CMN-0000 : This service is successful.",
+	"list" : [ {
+		"funcName" : "HDMS9004",
+		"userFuncDesc" : "FP Stock Out",
+		"assemblyName" : "Opc.view.hdms.StockOutFp",
+		"iconIndex" : 5003,
+		"icon" : "image/menuIcon/5003_32.png"
+	}, {
+		"funcName" : "HDMS9003",
+		"userFuncDesc" : "FP Stock In",
+		"assemblyName" : "Opc.view.hdms.StockInFp",
+		"iconIndex" : 5002,
+		"icon" : "image/menuIcon/5002_32.png"
+	}, {
+		"funcName" : "HWIP9021",
+		"userFuncDesc" : "[Caption.Menu.RepairEnd]",
+		"assemblyName" : "Opc.view.hwip.RepairEnd",
+		"iconIndex" : 5002,
+		"icon" : "image/menuIcon/5002_32.png"
+	}, {
+		"funcName" : "HWIP9002",
+		"userFuncDesc" : "Barcode Re-Print",
+		"assemblyName" : "Opc.view.hwip.BarcodeReprint",
+		"iconIndex" : 5009,
+		"icon" : "image/menuIcon/5009_32.png"
+	}, {
+		"funcName" : "HWIP9004",
+		"userFuncDesc" : "Create Lot PCB",
+		"assemblyName" : "Opc.view.hwip.CreateLotPcb",
+		"iconIndex" : 5010,
+		"icon" : "image/menuIcon/5010_32.png"
+	}, {
+		"funcName" : "HINV9101",
+		"userFuncDesc" : "Solder cream in/out monitor",
+		"assemblyName" : "Opc.view.hinv.SolderCreamInOutMonitor",
+		"iconIndex" : 5017,
+		"icon" : "image/menuIcon/5017_32.png"
+	}, {
+		"funcName" : "HWIP9003",
+		"userFuncDesc" : "Create CD Data",
+		"assemblyName" : "Opc.view.hwip.CreateCdData",
+		"iconIndex" : 5012,
+		"icon" : "image/menuIcon/5012_32.png"
+	}, {
+		"funcName" : "HWIP9005",
+		"userFuncDesc" : "Data Doc Rule Management",
+		"assemblyName" : "Opc.view.hwip.DataDocRuleManagement",
+		"iconIndex" : 5008,
+		"icon" : "image/menuIcon/5008_32.png"
+	}, {
+		"funcName" : "HWIP9022",
+		"userFuncDesc" : "Start Lot PCB",
+		"assemblyName" : "Opc.view.hwip.StartLotPcb",
+		"iconIndex" : 5005,
+		"icon" : "image/menuIcon/5005_32.png"
+	}, {
+		"funcName" : "HWIP9006",
+		"userFuncDesc" : "End Lot PCB",
+		"assemblyName" : "Opc.view.hwip.EndLotPcb",
+		"iconIndex" : 5005,
+		"icon" : "image/menuIcon/5005_32.png"
+	}, {
+		"funcName" : "HWIP9009",
+		"userFuncDesc" : "Insert Abnormal",
+		"assemblyName" : "Opc.view.hwip.InsertAbnormal",
+		"iconIndex" : 5016,
+		"icon" : "image/menuIcon/5016_32.png"
+	}, {
+		"funcName" : "HWIP9015",
+		"userFuncDesc" : "Split Merge Box",
+		"assemblyName" : "Opc.view.hwip.SplitMergeBox",
+		"iconIndex" : 5024,
+		"icon" : "image/menuIcon/5024_32.png"
+	}, {
+		"funcName" : "HWIP9017",
+		"userFuncDesc" : "Start Lot",
+		"assemblyName" : "Opc.view.hwip.StartLot",
+		"iconIndex" : 5010,
+		"icon" : "image/menuIcon/5010_32.png"
+	}, {
+		"funcName" : "HWIP9018",
+		"userFuncDesc" : "End Lot",
+		"assemblyName" : "Opc.view.hwip.EndLot",
+		"iconIndex" : 5010,
+		"icon" : "image/menuIcon/5010_32.png"
+	} ]
+}

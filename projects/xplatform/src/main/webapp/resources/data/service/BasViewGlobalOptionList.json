@@ -1,0 +1,334 @@
+{
+	"success" : true,
+	"statusvalue" : "0",
+	"msgcate" : "S",
+	"msgcode" : "CMN-0000",
+	"msg" : "CMN-0000 : This service is successful.",
+	"optionList" : [ {
+		"optionName" : "MP_AllowDiffBomSetVersion",
+		"optionDesc" : "Whether to apply the latest version when version of BOM Set is increased while processing (Assembly)",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623133135",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20120712151436"
+	}, {
+		"optionName" : "MP_AllowEmptyUserPassword",
+		"optionDesc" : "Whether to Allow empty user password",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623131050"
+	}, {
+		"optionName" : "MP_AllowFutureDateTime",
+		"optionDesc" : "Whether to Allow entering future date time when Transaction occurs",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623131107"
+	}, {
+		"optionName" : "MP_AllowMergeDiffMatID",
+		"optionDesc" : "Whether to Allow Lot Merge between other different Products",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132727"
+	}, {
+		"optionName" : "MP_AllowMergeDiffMatVersion",
+		"optionDesc" : "Whether to Allow Lot Merge between other different product versions",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132733"
+	}, {
+		"optionName" : "MP_AllowMergeDiffOper",
+		"optionDesc" : "Whether to Allow Lot Merge between other different operations",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132739"
+	}, {
+		"optionName" : "MP_AllowMergeDiffProcessStatus",
+		"optionDesc" : "Whether to Allow Lot Merge between other different processing status",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20110407150137",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20110408170305"
+	}, {
+		"optionName" : "MP_AllowMultiHold",
+		"optionDesc" : "Whether to Allow Multi Hold",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623141602"
+	}, {
+		"optionName" : "MP_AllowProcessZeroQtyLot",
+		"optionDesc" : "Whether to Allow Lot with 0 quantity to exist and to processing",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132809",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20120626164833"
+	}, {
+		"optionName" : "MP_AllowSplitDiffMatID",
+		"optionDesc" : "Whether to Allow Lot Split to other different products",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132903"
+	}, {
+		"optionName" : "MP_AllowSplitDiffMatVersion",
+		"optionDesc" : "Whether to Allow Lot Split to other different product versions",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132908"
+	}, {
+		"optionName" : "MP_AllowSplitDiffOper",
+		"optionDesc" : "Whether to Allow Lot Split to other different Operations",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132913"
+	}, {
+		"optionName" : "MP_AllowTroubleLotProcess",
+		"optionDesc" : "Whether to Allow Trouble Lot Process",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623133041"
+	}, {
+		"optionName" : "MP_AllowUseAnyResource",
+		"optionDesc" : "Whether to Allow usage of Resource with no relation between Resource-Operation(MFO)",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132944"
+	}, {
+		"optionName" : "MP_AllowUseBackDate",
+		"optionDesc" : "Whether to Allow entering Back date when Transaction occurs",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132955",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20120625114137"
+	}, {
+		"optionName" : "MP_AllowUseSmallLetter",
+		"optionDesc" : "Whether to Allow User ID in small letters",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623133025",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20100623150708"
+	}, {
+		"optionName" : "MP_AllowVariableGroupTable",
+		"optionDesc" : "Whether Item Table change is possible when setting up Group Definition of Factory Setup",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623131329",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20120625145836"
+	}, {
+		"optionName" : "MP_AutoCalDueDate",
+		"optionDesc" : "Whether to calculate Due Date/Time by System automatically when creating Lot or splitting it",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623131851"
+	}, {
+		"optionName" : "MP_CarrierUsageCountPoint",
+		"optionDesc" : "Set up the point that increases numbers of Carrier usage",
+		"mesplusFlag" : "Y",
+		"value1" : "E",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623131009"
+	}, {
+		"optionName" : "MP_CarrierUsageIncreaseCount",
+		"optionDesc" : "Count of increasing numbers of Carrier usage at once",
+		"mesplusFlag" : "Y",
+		"value1" : "1",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623131021"
+	}, {
+		"optionName" : "MP_CheckCarrierUsageLimit",
+		"optionDesc" : "Whether to Check usage limitation count of Carrier",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623141212"
+	}, {
+		"optionName" : "MP_CycleTimeUnit",
+		"optionDesc" : "Cycle Time unit",
+		"mesplusFlag" : "Y",
+		"value1" : "H",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623131033"
+	}, {
+		"optionName" : "MP_DelAttributeHistByLot",
+		"optionDesc" : "Whether to delete Lot Attribute History together when deleting Lot History",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132510"
+	}, {
+		"optionName" : "MP_DelAttributeHistByRes",
+		"optionDesc" : "Whether to delete Resource Attribute History together when deleting resource History",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132537"
+	}, {
+		"optionName" : "MP_DelAttributeHistBySubLot",
+		"optionDesc" : "Whether to delete Sub Lot Attribute History together when deleting SubLot History",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132552"
+	}, {
+		"optionName" : "MP_DisplayColHeadCodeView",
+		"optionDesc" : "Whether to indicate Header of List screen shown when [??] button is clicked",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132034"
+	}, {
+		"optionName" : "MP_InheritAlarmToChild",
+		"optionDesc" : "Whether to inherit Alarm message to Child Lot",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100622142338",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20120625174645"
+	}, {
+		"optionName" : "MP_KeepOperInTimeFlowChgAdapt",
+		"optionDesc" : "Whether to keep operation-in-time when material,flow changes at ADAPT",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20111107173807",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20111108104843"
+	}, {
+		"optionName" : "MP_MakeHistoryCMFChange",
+		"optionDesc" : "Whether to apply Transaction of CMF change Value",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623130952"
+	}, {
+		"optionName" : "MP_MakeSumTempHistory",
+		"optionDesc" : "Whether to save Lot History data into temporary table for Report",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132653"
+	}, {
+		"optionName" : "MP_MaxSubLotSlotCount",
+		"optionDesc" : "Numbers of slots indicated on screen when referencing SubLot of Lot with no Carrier",
+		"mesplusFlag" : "Y",
+		"value1" : "30",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623133058",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20120712151427"
+	}, {
+		"optionName" : "MP_QueueTimeUnit",
+		"optionDesc" : "Queue Time Unit",
+		"mesplusFlag" : "Y",
+		"value1" : "H",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623133109",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20120217150609"
+	}, {
+		"optionName" : "MP_RequireCarrierFilter",
+		"optionDesc" : "Whether to use Filtering function when listing Carrier",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132829"
+	}, {
+		"optionName" : "MP_ReworkByDefinition",
+		"optionDesc" : "Whether rework to flow and operation by definition of Rework Flow Setup",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623131255"
+	}, {
+		"optionName" : "MP_SendToReworkInPullOper",
+		"optionDesc" : "Whether to move Lot to rework flow operation when reworking in PULL operation",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132844"
+	}, {
+		"optionName" : "MP_StoreAllLOTEDCHistory",
+		"optionDesc" : "Whether to Store LOTEDC history by every EDC_Collect_Lot_Data service",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100624112109"
+	}, {
+		"optionName" : "MP_StoreDspEventHistory",
+		"optionDesc" : "Whether to store history of dispatch event",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132923"
+	}, {
+		"optionName" : "MP_StoreDspResultHistory",
+		"optionDesc" : "Whether to store history of dispatch calculation result",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132930"
+	}, {
+		"optionName" : "MP_ToolEventCheckTimeUnit",
+		"optionDesc" : "Check time unit of Tool event",
+		"mesplusFlag" : "Y",
+		"value1" : "M",
+		"createUserId" : "ADMIN",
+		"createTime" : "20120110100936"
+	}, {
+		"optionName" : "MP_ToolInstallResourcePrompt",
+		"optionDesc" : "The tool status prompt for installed resource",
+		"mesplusFlag" : "Y",
+		"value1" : "Equipment",
+		"createUserId" : "ADMIN",
+		"createTime" : "20120110103349"
+	}, {
+		"optionName" : "MP_UseCellGrade",
+		"optionDesc" : "Whether to use cell grade in unit 2 of SubLot",
+		"mesplusFlag" : "Y",
+		"value1" : "N",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623133011",
+		"updateUserId" : "ADMIN",
+		"updateTime" : "20111017131807"
+	}, {
+		"optionName" : "MP_UsePMSheet",
+		"optionDesc" : "Whether to fill out PM sheet when Resource or Tool PM Event occurs",
+		"mesplusFlag" : "Y",
+		"value1" : "Y",
+		"createUserId" : "ADMIN",
+		"createTime" : "20100623132754"
+	}, {
+		"optionName" : "TEST",
+		"optionDesc" : "Whether to fill out PM sheet when Resource or Tool PM Event occurs",
+		"value1" : "123123",
+		"value2" : "123",
+		"value3" : "123",
+		"value4" : "123",
+		"value5" : "123",
+		"createUserId" : "ADMIN",
+		"createTime" : "20120712151339"
+	} ]
+}

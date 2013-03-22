@@ -1,0 +1,7 @@
+{
+	"success" : false,
+	"statusvalue" : "1",
+	"msgcate" : "E",
+	"msgcode" : "CMN-BUG",
+	"msg" : "CMN-BUG: No content to map to Object due to end of input"
+}

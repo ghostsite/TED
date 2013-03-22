@@ -1,5 +1,6 @@
 package com.ted.xplatform.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -93,11 +94,12 @@ public class MenuResourceController {
 
     /**
      * 根据用户的角色，展示应有的菜单 ghostzhang 20121130 for favorite
+     * change from goshen menuresourcecontroller.java
      */
     @RequestMapping(value = "/getCurrentUserFavoriteMenusCascade")
     public @ResponseBody
     List<TreeNode> getCurrentUserFavoriteMenusCascade() {
-        List<MenuResource> menuResourceList = menuResourceService.getSubMenusCascadeByParentIdFilterByCurrentSubject(0L);
+        List<MenuResource> menuResourceList = menuResourceService.getSubMenusCascadeByParentIdFilterByCurrentSubject(null);
         List<MenuResource> favoriteList = PlatformUtils.getFavorite(menuResourceList);//
         List<TreeNode> favoriteMenuList = DozerUtils.mapList(favoriteList, TreeNode.class);
         return favoriteMenuList;
