@@ -1,6 +1,5 @@
 package com.ted.xplatform.pojo.common;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,19 +24,20 @@ import com.ted.xplatform.util.ACLUtils;
 @Entity
 @DiscriminatorValue("menu")
 public class MenuResource extends Resource {
+    private static final long serialVersionUID = -279141209449027079L;
 
-	/**
+    /**
 	 * 所属上级菜单
 	 */
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinColumn(name = "parent_id")
 	private MenuResource parent;
 
 	/**
 	 * 子菜单集合
 	 */
 	@JsonIgnore
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "parent", fetch = FetchType.LAZY)
+	@OneToMany(cascade = { CascadeType.DETACH }, mappedBy = "parent", fetch = FetchType.LAZY)
     // mappedBy="subMenuResources"
     //@Where(clause = "deleted=0")
     // @JoinColumn(name = "parent_id")

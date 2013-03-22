@@ -1,6 +1,5 @@
 package com.ted.xplatform.pojo.common;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,6 +24,7 @@ import com.ted.xplatform.pojo.base.PersistEntity;
 @Entity
 @Table(name = "type")
 public class Type extends PersistEntity { //LogicDeleteEntity
+    private static final long serialVersionUID = 5364395051854848597L;
 
     /**
      * 编码
@@ -35,7 +35,7 @@ public class Type extends PersistEntity { //LogicDeleteEntity
      * 所属类型
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
+    @JoinColumn(name = "parent_id")
     private Type       parent;
 
     /**
@@ -56,7 +56,7 @@ public class Type extends PersistEntity { //LogicDeleteEntity
     /**
      * 子类型
      */
-    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "parent", fetch = FetchType.LAZY)
+    @OneToMany(cascade = { CascadeType.DETACH }, mappedBy = "parent", fetch = FetchType.LAZY)
     //@JoinColumn(name = "parent_id")
     private List<Type> subTypes;
 

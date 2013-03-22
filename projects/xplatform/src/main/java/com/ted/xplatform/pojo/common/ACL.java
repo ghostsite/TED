@@ -28,6 +28,8 @@ import com.ted.xplatform.pojo.base.AuditEntity;
 @Entity
 @Table(name = "acl")
 public class ACL extends AuditEntity {
+    private static final long serialVersionUID = 347155964973604095L;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "acl_resourceid")
     Resource   resource;

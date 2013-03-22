@@ -41,6 +41,9 @@ T({
 					},
 					log:{
 						"LogManage":"LogManage"
+					},
+					attachment:{
+						"AttachmentManage":"AttachmentManage"
 					}
 				}
 			},

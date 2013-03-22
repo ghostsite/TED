@@ -14,6 +14,8 @@ import com.ted.xplatform.pojo.base.PersistEntity;
 @Entity
 @Table(name = "operation")
 public class Operation extends PersistEntity {
+    private static final long serialVersionUID = 7578466140409914843L;
+
     public enum Type {
         view {
             @SuppressWarnings("all")

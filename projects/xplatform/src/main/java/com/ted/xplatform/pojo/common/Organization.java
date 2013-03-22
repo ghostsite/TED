@@ -1,6 +1,5 @@
 package com.ted.xplatform.pojo.common;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,8 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-//import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,13 +24,14 @@ import com.ted.xplatform.pojo.base.LogicAuditEntity;
 @Entity
 @Table(name = "organization")
 public class Organization extends LogicAuditEntity {
+    private static final long serialVersionUID = 1279933350650576625L;
 
     /**
      * 所属组织
      */
     @JsonProperty("parentId")
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
+    @JoinColumn(name = "parent_id")
     private Organization       parent;
 
     /**

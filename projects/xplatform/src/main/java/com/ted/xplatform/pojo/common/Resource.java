@@ -35,6 +35,8 @@ import com.ted.xplatform.pojo.base.LogicAuditEntity;
 @DiscriminatorColumn(name = "category", discriminatorType = DiscriminatorType.STRING)
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public abstract class Resource extends LogicAuditEntity {
+    private static final long serialVersionUID = -7567811003498408234L;
+
     /**
      * 资源名称,必须唯一,用在权限中user.hasPermission("code:CRUD")
      */

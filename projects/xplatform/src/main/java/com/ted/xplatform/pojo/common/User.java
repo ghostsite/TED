@@ -42,6 +42,8 @@ import com.ted.xplatform.pojo.base.LogicAuditEntity;
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @EntityListeners({ org.springframework.data.jpa.domain.support.AuditingEntityListener.class })
 public class User extends LogicAuditEntity {
+    private static final long serialVersionUID = 5397758804160599616L;
+
     public static final Long     SUPER_USER_ID = ConfigUtils.getConfig().getLong("superuserid");
 
     /**

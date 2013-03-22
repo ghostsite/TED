@@ -27,6 +27,7 @@ import com.ted.xplatform.pojo.base.PersistEntity;
 @Entity
 @Table(name = "workday")
 public class WorkDay extends PersistEntity {
+    private static final long serialVersionUID = -2283083939337288898L;
 
     /**
      * 日期

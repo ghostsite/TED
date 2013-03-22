@@ -337,7 +337,7 @@ public class MenuResourceService {
             jpaSupportDao.getEntityManager().merge(dbMenuResource);
         }
         return menuResource;
-    }
+    };
 
     /**
      * 删除，

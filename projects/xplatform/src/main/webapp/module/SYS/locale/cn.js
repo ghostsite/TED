@@ -41,6 +41,9 @@ T({
 					},
 					log:{
 						"LogManage":"日志管理"
+					},
+					attachment:{
+						"AttachmentManage":"附件管理"
 					}
 				}
 			},

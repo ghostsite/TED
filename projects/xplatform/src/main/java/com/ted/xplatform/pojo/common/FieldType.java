@@ -17,8 +17,9 @@ import com.ted.xplatform.pojo.base.PersistEntity;
 @Entity
 @Table(name = "fieldtype")
 public class FieldType extends PersistEntity {
+    private static final long serialVersionUID = 2799391112085932624L;
 
-	/**
+    /**
 	 * type为Class时的具体类全名
 	 */
 	private String className;

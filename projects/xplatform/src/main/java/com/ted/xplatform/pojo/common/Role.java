@@ -1,6 +1,5 @@
 package com.ted.xplatform.pojo.common;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ import com.ted.xplatform.pojo.base.PersistEntity;
 @Entity
 @Table(name = "role")
 public class Role extends PersistEntity {
-    //public static final Long ROOT_ROLE_ID = 1L;
+    private static final long serialVersionUID = 6538222617721177737L;
 
     /**
      * 资源名称,view ,add, update,delete and so on.
@@ -59,7 +58,7 @@ public class Role extends PersistEntity {
      * 父亲角色
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "parent_id", nullable = true, insertable = false, updatable = false)
+    @JoinColumn(name = "parent_id")
     Role                 parent;
 
     /**
@@ -78,7 +77,7 @@ public class Role extends PersistEntity {
     /**
      * 子角色
      */
-    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "parent", fetch = FetchType.LAZY, targetEntity = Role.class)
+    @OneToMany(cascade = { CascadeType.DETACH }, mappedBy = "parent", fetch = FetchType.LAZY, targetEntity = Role.class)
     List<Role>           subRoles = new ArrayList<Role>();
 
     /**
