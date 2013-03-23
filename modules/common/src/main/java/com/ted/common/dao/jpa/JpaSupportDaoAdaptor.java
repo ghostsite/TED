@@ -43,15 +43,7 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
     @Inject
     EntityManager entityManager;
 
-    //@Inject
-    //EntityManagerFactory entityManagerFactory;
-
-    //public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
-    // this.entityManagerFactory = entityManagerFactory;
-    //}
-
     public EntityManager getEntityManager() {
-        //return entityManagerFactory.createEntityManager();
         return entityManager;
     }
 
@@ -456,17 +448,17 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
     }
 
     @Override
-    public <E> List<E> findByExample(Object exampleEntity, int firstResult, int maxResults) throws DataAccessException {
+    public <E> List<E> findByExample(Object exampleEntity, int start, int limit) throws DataAccessException {
         org.hibernate.Session session = (org.hibernate.Session) getEntityManager().getDelegate();
         org.hibernate.criterion.Example customerExample = org.hibernate.criterion.Example.create(exampleEntity).excludeZeroes(); //session.createCriteria(entityName) : session.createCriteria(exampleEntity.getClass()));
         org.hibernate.Criteria criteria = session.createCriteria(exampleEntity.getClass());
         criteria.add(customerExample);
 
-        if (firstResult >= 0) {
-            criteria.setFirstResult(firstResult);
+        if (start >= 0) {
+            criteria.setFirstResult(start);
         }
-        if (maxResults > 0) {
-            criteria.setMaxResults(maxResults);
+        if (limit > 0) {
+            criteria.setMaxResults(limit);
         }
         return criteria.list();
     }

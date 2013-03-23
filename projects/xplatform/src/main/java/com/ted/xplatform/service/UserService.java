@@ -16,14 +16,12 @@ import com.google.common.collect.Maps;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
 import com.ted.common.dao.jpa.JpaTemplateDao;
-import com.ted.common.dao.jpa.support.QueryByExample;
 import com.ted.common.dao.mybatis.spring.ReloadableSqlSessionTemplate;
 import com.ted.common.exception.BusinessException;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.PasswordUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.Organization;
-import com.ted.xplatform.pojo.common.Type;
 import com.ted.xplatform.pojo.common.User;
 
 /**

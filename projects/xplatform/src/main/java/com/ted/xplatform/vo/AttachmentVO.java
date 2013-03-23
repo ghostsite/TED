@@ -6,7 +6,6 @@ public class AttachmentVO {
     InputStream is;
     String      fileName;
     String      middlePath; //这个需要在Service里面定义。
-    Long        creatorId;
     
     public InputStream getInputstream() {
         return is;
@@ -26,12 +25,5 @@ public class AttachmentVO {
     public void setMiddlePath(String middlePath) {
         this.middlePath = middlePath;
     }
-    public Long getCreatorId() {
-        return creatorId;
-    }
-    public void setCreatorId(Long creatorId) {
-        this.creatorId = creatorId;
-    }
-    
     
 }

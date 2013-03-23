@@ -40,16 +40,8 @@ public class BasController {
 		this.messageSource = messageSource;
 	}
 
-	public NamedParameterJdbcTemplate getNamedJdbcTemplate() {
-		return namedJdbcTemplate;
-	}
-
 	public void setNamedJdbcTemplate(NamedParameterJdbcTemplate namedJdbcTemplate) {
 		this.namedJdbcTemplate = namedJdbcTemplate;
-	}
-
-	public MessageSource getMessageSource() {
-		return messageSource;
 	}
 
 	@RequestMapping(value = "/sqlQuery")

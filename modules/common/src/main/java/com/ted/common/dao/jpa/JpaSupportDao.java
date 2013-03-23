@@ -71,7 +71,7 @@ public interface JpaSupportDao {
 
     <E> List<E> findByExample(Object exampleEntity) throws DataAccessException;
 
-    <E> List<E> findByExample(Object exampleEntity, int firstResult, int maxResults) throws DataAccessException;
+    <E> List<E> findByExample(Object exampleEntity, int start, int limit) throws DataAccessException;
 
     //=================================page query================================================//
     /**注意：下面的namedJPQL is based in java file : named@NamedQueries ({

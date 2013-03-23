@@ -3,25 +3,14 @@
  */
 package com.ted.xplatform.pojo.common;
 
-import java.util.Date;
-
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-//import org.hibernate.annotations.GenericGenerator;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.ted.xplatform.pojo.base.LogicAuditEntity;
 
 /**
@@ -35,6 +24,10 @@ import com.ted.xplatform.pojo.base.LogicAuditEntity;
 //@DiscriminatorValue("attachment")
 @EntityListeners({ org.springframework.data.jpa.domain.support.AuditingEntityListener.class })
 public class Attachment extends LogicAuditEntity {
+    public enum Type {//this is for typeCode property
+        defaults, users
+    }
+
     private static final long serialVersionUID = 7857055935114900696L;
 
     @Id
@@ -60,6 +53,30 @@ public class Attachment extends LogicAuditEntity {
 
     @Column(name = "file_type")
     protected String          fileType;                               //种类
+
+    public String getTypeCode() {
+        return typeCode;
+    }
+    
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
+
+    public Long getForeignId() {
+        return foreignId;
+    }
+
+    public void setForeignId(Long foreignId) {
+        this.foreignId = foreignId;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
 
     public Long getAttachId() {
         return attachId;

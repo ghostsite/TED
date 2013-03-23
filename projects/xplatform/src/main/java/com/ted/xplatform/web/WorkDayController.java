@@ -1,7 +1,6 @@
 package com.ted.xplatform.web;
 
 import java.util.Collection;
-import java.util.Date;
 
 import javax.inject.Inject;
 

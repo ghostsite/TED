@@ -12,7 +12,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -28,7 +27,6 @@ import com.ted.xplatform.vo.AttachmentVO;
 
 /**
  * 附件的工具类
- *
  */
 public abstract class AttachmentUtils {
     private static final Logger logger = LoggerFactory.getLogger(AttachmentUtils.class);

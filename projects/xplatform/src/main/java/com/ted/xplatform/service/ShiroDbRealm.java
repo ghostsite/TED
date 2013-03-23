@@ -10,7 +10,6 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cache.Cache;
@@ -19,7 +18,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ted.common.util.PasswordUtils;
 import com.ted.xplatform.pojo.common.ACL;
 import com.ted.xplatform.pojo.common.User;
 
@@ -50,7 +48,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-        Object username = token.getPrincipal();
+        //Object username = token.getPrincipal();
         User user = userService.getUserByUserIdPwd(token.getUsername(), new String(token.getPassword()));
         if (user != null) {
             return new SimpleAuthenticationInfo(user, user.getPassword(), getName());

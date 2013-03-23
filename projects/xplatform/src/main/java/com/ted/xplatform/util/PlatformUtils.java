@@ -23,7 +23,7 @@ import com.ted.xplatform.pojo.common.User;
 
 public abstract class PlatformUtils {
     private static Properties   jdbcProperties;
-    private static final String jdbcPropsFile = "/jdbc.properties"; // 配置文件路径
+    private static final String jdbcPropsFile = "/application.properties"; // 配置文件路径
 
     public static final String getFileSeparator() {
         return System.getProperty("file.separator");

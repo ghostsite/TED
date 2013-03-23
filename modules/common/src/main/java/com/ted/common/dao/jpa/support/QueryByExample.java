@@ -44,6 +44,10 @@ import org.springframework.data.domain.Persistable;
  * JPA 2 Generic DAO with find by example/range/pattern and CRUD support.
  * this file changed by me
  * 这个应该是继承用的，不继承也行。
+ * this is the key class in the package ,
+ * but 这么多类才实现了Example，而Jpa.getDelegate().hibernate 造实现好了。
+ * 还有需要继承这个类才可以。so
+ * 这个类暂时不使用。
  */
 public abstract class QueryByExample<E extends Persistable<PK>, PK extends Serializable> {
 
