@@ -1,4 +1,4 @@
-Ext.define('MES.view.form.field.MultiFileUploader',{
+Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to fit me
 	extend : 'Ext.form.Panel',
 	alias : 'widget.multifileuploader',
 	layout : {

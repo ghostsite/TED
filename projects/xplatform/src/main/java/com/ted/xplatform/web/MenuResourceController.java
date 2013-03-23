@@ -149,7 +149,7 @@ public class MenuResourceController {
         MenuResource newMenu = new MenuResource();
         //newMenu.setId(-1L); //this is hack ,否则页面显示不出来。
         newMenu.setParent(menuResource);
-        if(null !=menuResource){
+        if(null != menuResource){
             newMenu.setParentId(menuResource.getId());
             newMenu.setParentName(menuResource.getName());
         }

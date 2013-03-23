@@ -19,8 +19,7 @@ public class Slf4jFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // TODO Auto-generated method stub
-
+        
     }
 
     @Override
@@ -33,7 +32,6 @@ public class Slf4jFilter implements Filter {
             MDC.put("userId", user.getLoginName());
             MDC.put("userName", user.getUserName());
         }
-        //logger.info("test for MDC.");  
         chain.doFilter(request, response);
     }
 

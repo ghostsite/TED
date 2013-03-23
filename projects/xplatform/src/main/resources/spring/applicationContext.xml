@@ -34,6 +34,8 @@
 	<context:component-scan base-package="com.ted" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component" />
+		<context:include-filter type="annotation" expression="javax.inject.Named" />
 	</context:component-scan>
 	
 	<!-- 另一个事务管理器, Jdbc单数据源事务 -->

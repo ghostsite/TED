@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.dao.DataAccessException;
 
 import com.ted.common.support.page.JsonPage;
@@ -21,7 +20,7 @@ import com.ted.common.support.page.JsonPage;
  */
 public interface JpaSupportDao {
     EntityManager getEntityManager();
-    
+
     void saveAll(Collection<?> entities);
 
     void updateAll(Collection<?> entities);
@@ -29,7 +28,7 @@ public interface JpaSupportDao {
     void deleteAll(Collection<?> entities);
 
     void bulkUpdate(final String queryString, final Object... values);
-    
+
     void bulkUpdate(final String queryString, final Collection<? extends Serializable> values);
 
     public int updateNamedSQLQuery(String queryName, Map<String, Object> params);
@@ -37,13 +36,13 @@ public interface JpaSupportDao {
     public <T> T findSingleByProperty(Class<T> entityClass, String propertyName, Object value);
 
     public <T> T findByIdWithDepth(Class<T> type, Object id, String... fetchRelations);
-    
+
     public <T> T findByPropertyWithDepth(Class<T> type, String property, Object value, String... fetchRelations);
 
     public <T> List<T> getAll(Class<T> clazz);
-    
+
     public <T> JsonPage<T> pagedAll(Class<T> clazz, int start, int limit);
-    
+
     //======================查询without page==========================//
     Query createQuery(String jpql, Object... values);
 
@@ -72,11 +71,7 @@ public interface JpaSupportDao {
 
     <E> List<E> findByExample(Object exampleEntity) throws DataAccessException;
 
-    <E> List<E> findByExample(String entityName, Object exampleEntity) throws DataAccessException;
-
     <E> List<E> findByExample(Object exampleEntity, int firstResult, int maxResults) throws DataAccessException;
-
-    <E> List<E> findByExample(String entityName, Object exampleEntity, int firstResult, int maxResults) throws DataAccessException;
 
     //=================================page query================================================//
     /**注意：下面的namedJPQL is based in java file : named@NamedQueries ({
@@ -88,7 +83,7 @@ public interface JpaSupportDao {
     <T> JsonPage<T> pagedBySQLQuery(String sql, Map<String, Object> params);
 
     <T> JsonPage<T> pagedByNamedSQLQuery(String nameJPQL, Map<String, Object> params);
-    
+
     <T> JsonPage<T> pagedByJPQLQuery(String jpql, int start, int limit, Object... values);
 
     <T> JsonPage<T> pagedByNamedJPQLQuery(String namedJPQL, int start, int limit, Object... values);

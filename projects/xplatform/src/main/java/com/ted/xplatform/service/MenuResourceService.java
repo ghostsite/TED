@@ -292,7 +292,6 @@ public class MenuResourceService {
      */
     @Transactional(readOnly = true)
     public List<MenuResource> getSubMenuResourceListByResourceId(Serializable resourceId) {
-        System.out.println("parentid=="+resourceId);
         Map<String, Object> newMap = CollectionUtils.newMap("resourceId", resourceId);
         List<MenuResource> subMenuResourceList = jpaSupportDao.find(SUBMENUS_JPQL, newMap);
         return subMenuResourceList;

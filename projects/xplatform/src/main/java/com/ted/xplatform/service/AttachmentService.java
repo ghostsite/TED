@@ -30,16 +30,17 @@ public class AttachmentService {
     }
 
     /**
-     * 工具方法:根据当前用户过滤菜单
-     * 注意：这个只能在事务中运行。并且不过滤admin
-     * @param List<MenuResource> menuResourceList
-     * @return List<MenuResource>
+     * 
      */
     @Transactional(readOnly = true)
     public Attachment getAttachmentById(Long attachId) {
         Attachment attachment = jpaSupportDao.getEntityManager().find(Attachment.class, attachId);
         return attachment;
     };
+    
+    /**
+     * 根据codeType
+     */
 
     /**
      * Attachment的删除

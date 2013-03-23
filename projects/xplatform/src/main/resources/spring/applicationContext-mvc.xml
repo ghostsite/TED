@@ -152,8 +152,8 @@
 	<!--org.springframework.web.multipart.commons.CommonsMultipartResolver-->
 	<!--org.springframework.web.multipart.support.StandardServletMultipartResolver, this is based on servlet 3.0-->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="1112"/>
-		<property name="maxInMemorySize" value="4096"/>
+		<property name="maxUploadSize" value="99999999"/>
+		<property name="maxInMemorySize" value="99999"/>
 		<property name="resolveLazily" value="true"/>  
 	</bean>
    

@@ -19,6 +19,8 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.collections.MapUtils;
 import org.apache.poi.ss.formula.functions.T;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Example;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.transaction.annotation.Transactional;
@@ -450,27 +452,15 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
 
     @Override
     public <E> List<E> findByExample(Object exampleEntity) throws DataAccessException {
-        return findByExample(null, exampleEntity, -1, -1);
-    }
-
-    @Override
-    public <E> List<E> findByExample(String entityName, Object exampleEntity) throws DataAccessException {
-        return findByExample(entityName, exampleEntity, -1, -1);
+        return findByExample(exampleEntity, -1, -1);
     }
 
     @Override
     public <E> List<E> findByExample(Object exampleEntity, int firstResult, int maxResults) throws DataAccessException {
-        return findByExample(null, exampleEntity, firstResult, maxResults);
-    }
-
-    @Override
-    public <E> List<E> findByExample(String entityName, Object exampleEntity, int firstResult, int maxResults) throws DataAccessException {
         org.hibernate.Session session = (org.hibernate.Session) getEntityManager().getDelegate();
-        // create an example from our customer, exclude all zero valued numeric properties 
-        org.hibernate.criterion.Example customerExample = org.hibernate.criterion.Example.create(entityName).excludeZeroes(); //session.createCriteria(entityName) : session.createCriteria(exampleEntity.getClass()));
-        // create criteria based on the customer example
-        org.hibernate.Criteria criteria = session.createCriteria(entityName).add(customerExample);
-        // perform the query
+        org.hibernate.criterion.Example customerExample = org.hibernate.criterion.Example.create(exampleEntity).excludeZeroes(); //session.createCriteria(entityName) : session.createCriteria(exampleEntity.getClass()));
+        org.hibernate.Criteria criteria = session.createCriteria(exampleEntity.getClass());
+        criteria.add(customerExample);
 
         if (firstResult >= 0) {
             criteria.setFirstResult(firstResult);

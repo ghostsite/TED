@@ -10,6 +10,9 @@ import com.ted.xplatform.pojo.common.User;
 public class AuditEntity extends AbstractAuditable<User, Long> {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 这个方法之所以要放开为public，是因为有地方要设置。
+     */
     @Override
     public void setId(final Long id) {
         super.setId(id);

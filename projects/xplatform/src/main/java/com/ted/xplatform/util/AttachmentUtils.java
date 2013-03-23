@@ -6,13 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -74,9 +74,7 @@ public abstract class AttachmentUtils {
         T attach = T.newInstance();
         attach.setFileName(attachmentVO.getFileName());
         attach.setFilePath(relativePath);
-        attach.setCreateDt(new Date());
         attach.setFileSize(fileSize);
-        attach.setCreatorId(attachmentVO.getCreatorId());
         return attach;
     }
 

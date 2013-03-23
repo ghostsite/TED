@@ -16,12 +16,14 @@ import com.google.common.collect.Maps;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
 import com.ted.common.dao.jpa.JpaTemplateDao;
+import com.ted.common.dao.jpa.support.QueryByExample;
 import com.ted.common.dao.mybatis.spring.ReloadableSqlSessionTemplate;
 import com.ted.common.exception.BusinessException;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.PasswordUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.Organization;
+import com.ted.xplatform.pojo.common.Type;
 import com.ted.xplatform.pojo.common.User;
 
 /**
@@ -150,11 +152,18 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public List<User> getUserListByOrgId(Long orgId) {
+        //Type type = new Type();
+        //type.setCode("类型1");
+        //List<Type> list = jpaSupportDao.findByExample(type);
+        
         //List<User> users = sqlSessionTemplate.selectList("test.getUserList");
         //Organization org = (Organization)hibernateSupport.getSession().load(Organization.class, orgId);
         return jpaSupportDao.find("select u from User u join u.organization org where org.id=?0", orgId);//
         //String sql = "select u.id, u.login_name as loginName,u.user_name as userName, u.email, u.mobile,u.sex,u.telephone,u.state,o.name as orgName,u.remark from users u inner join organization o on u.organization_id=o.id and o.id=?";
         //return jdbcTemplateDao.queryForList(sql, User.class, orgId);
+        
+        
+        
     };
 
     /**

@@ -10,6 +10,7 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +22,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.ted.xplatform.pojo.base.LogicAuditEntity;
 
 /**
  * @author ghost
@@ -28,32 +30,36 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
  */
 @Entity
 @Table(name = "attachment")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "table_name", discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("attachment")
-public class Attachment {
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "table_name", discriminatorType = DiscriminatorType.STRING)
+//@DiscriminatorValue("attachment")
+@EntityListeners({ org.springframework.data.jpa.domain.support.AuditingEntityListener.class })
+public class Attachment extends LogicAuditEntity {
+    private static final long serialVersionUID = 7857055935114900696L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     //@GenericGenerator(name = "system-uuid", strategy = "native")
     @Column(name = "attach_id", length = 32, nullable = false, updatable = false)
-    protected Long   attachId; //唯一主键
+    protected Long            attachId;                               //唯一主键
+
+    @Column(name = "type_code", length = 32, nullable = false, updatable = false)
+    protected String          typeCode;                               //种类,对应属于谁的附件
+
+    @Column(name = "foreign_id", length = 32, nullable = false, updatable = false)
+    protected Long            foreignId;                              //外键
 
     @Column(name = "file_name", length = 90)
-    protected String fileName; //文件的原名
+    protected String          fileName;                               //文件的原名
 
     @Column(name = "file_path", length = 255)
-    protected String filePath; //实际保存路径
+    protected String          filePath;                               //实际保存路径
 
     @Column(name = "file_size")
-    protected Long   fileSize; //文件大小
+    protected Long            fileSize;                               //文件大小
 
-    @Column(name = "creator_id")
-    protected Long   creatorId; //创建者id
-
-    @Column(name = "create_dt")
-    protected Date   createDt; //创建时间
-
+    @Column(name = "file_type")
+    protected String          fileType;                               //种类
 
     public Long getAttachId() {
         return attachId;
@@ -85,23 +91,6 @@ public class Attachment {
 
     public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
-    }
-
-    public Long getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(Long creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    public Date getCreateDt() {
-        return createDt;
-    }
-
-    public void setCreateDt(Date createDt) {
-        this.createDt = createDt;
     }
 
 }
