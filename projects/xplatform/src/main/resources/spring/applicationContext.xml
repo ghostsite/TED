@@ -68,6 +68,10 @@
 	<!--bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
     	<property name="jndiName" value="ChinaPortalDS"/>
   	</bean-->
+  	
+  	<bean id="fileManager" class="com.ted.common.support.file.DiskFileManager" />
+  	
+  	<!--========================环境配置========================-->
 	<!-- production环境 -->
 	<beans profile="production">
 		<context:property-placeholder ignore-resource-not-found="true"

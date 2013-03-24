@@ -1,4 +1,4 @@
-package com.ted.common.support.download.xls;
+package com.ted.common.web.download.xls;
 
 import java.io.Serializable;
 import java.util.List;

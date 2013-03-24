@@ -1,4 +1,4 @@
-Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to fit me
+Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to fit me,add uploadUrl downloadUrl
 	extend : 'Ext.form.Panel',
 	alias : 'widget.multifileuploader',
 	layout : {
@@ -10,6 +10,8 @@ Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to f
 		var configs = config || {};
 		this.fsTmpFileId = [];
 		this.fsDelFileId = [];
+		//this.uploadUrl = config.uploadUrl;
+		//this.downloadUrl = config.downloadUrl;
 		if(!configs.store){
 			configs.store =  Ext.create('Ext.data.ArrayStore',{
 				fields : ['fileId','groupId', 'paramName', 'fileName', 'fileType', 'fileSize','status', 'progress', 'tmpFlag']
@@ -66,7 +68,7 @@ Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to f
 					if(fileId){
 						Ext.Array.remove(me.fsTmpFileId,fileId);
 						Ext.Ajax.request({
-							url : 'service/bas_download_file/'+fileId+'.do',
+							url : me.downloadUrl,//'service/bas_download_file/'+fileId+'.do',
 							form : me.exportForm('_download'+rowIndex),
 							isUpload : true
 						});		
@@ -149,7 +151,7 @@ Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to f
 		/* form submit */
 		var form = me.getForm();
 		form.submit({
-			url : 'service/bas_upload_file_tmp.json',
+			url : me.uploadUrl,//'service/bas_upload_file_tmp.json',
 			params : {
 				procstep : '1'
 			},

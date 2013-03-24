@@ -1,4 +1,4 @@
-package com.ted.common.support.download;
+package com.ted.common.web.download;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -31,6 +31,10 @@ public abstract class DownloadHelper {
 
     /**
      * 最原始的下载方式
+     *  response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+        response.setContentType("image/gif");
      */
     public static final void doDownload(HttpServletResponse response, String showName, byte[] bytes) throws IOException {
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);

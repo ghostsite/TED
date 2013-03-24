@@ -30,34 +30,44 @@ public class Attachment extends LogicAuditEntity {
 
     private static final long serialVersionUID = 7857055935114900696L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    //@GenericGenerator(name = "system-uuid", strategy = "native")
-    @Column(name = "attach_id", length = 32, nullable = false, updatable = false)
-    protected Long            attachId;                               //唯一主键
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    //@GenericGenerator(name = "system-uuid", strategy = "native")
+//    @Column(name = "attach_id", length = 32, nullable = false, updatable = false)
+//    protected Long            attachId;                               //唯一主键
 
     @Column(name = "type_code", length = 32, nullable = false, updatable = false)
-    protected String          typeCode;                               //种类,对应属于谁的附件
+    protected String          typeCode         = Type.defaults.name();       //种类,对应属于谁的附件
 
-    @Column(name = "foreign_id", length = 32, nullable = false, updatable = false)
+    @Column(name = "foreign_id")
     protected Long            foreignId;                              //外键
 
-    @Column(name = "file_name", length = 90)
-    protected String          fileName;                               //文件的原名
+    @Column(name = "origin_name", length = 90)
+    protected String          originName;                             //文件的原名
 
     @Column(name = "file_path", length = 255)
-    protected String          filePath;                               //实际保存路径
+    protected String          filePath;                               //实际保存路径,相对路径,不带文件名的
+
+    protected String          fileName;                               //保存的文件名,带扩展名
 
     @Column(name = "file_size")
     protected Long            fileSize;                               //文件大小
 
     @Column(name = "file_type")
-    protected String          fileType;                               //种类
+    protected String          fileType;                               //种类,png jpg txt doc xls ....
+
+    public String getOriginName() {
+        return originName;
+    }
+
+    public void setOriginName(String originName) {
+        this.originName = originName;
+    }
 
     public String getTypeCode() {
         return typeCode;
     }
-    
+
     public void setTypeCode(String typeCode) {
         this.typeCode = typeCode;
     }
@@ -76,14 +86,6 @@ public class Attachment extends LogicAuditEntity {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
-    }
-
-    public Long getAttachId() {
-        return attachId;
-    }
-
-    public void setAttachId(Long attachId) {
-        this.attachId = attachId;
     }
 
     public String getFileName() {

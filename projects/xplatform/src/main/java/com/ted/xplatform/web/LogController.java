@@ -29,13 +29,13 @@ import com.ted.xplatform.service.LogService;
 @Controller
 @RequestMapping(value = "/log/*")
 public class LogController {
-    final Logger   logger = LoggerFactory.getLogger(LogController.class);
+    final Logger  logger = LoggerFactory.getLogger(LogController.class);
 
     @Inject
-    LogService logService;
+    LogService    logService;
 
     @Inject
-    MessageSource  messageSource;
+    MessageSource messageSource;
 
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;

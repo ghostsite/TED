@@ -1,21 +1,15 @@
 package com.ted.xplatform.service;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ted.common.dao.jpa.JpaSupportDao;
 import com.ted.common.support.page.JsonPage;
 import com.ted.xplatform.pojo.common.Attachment;
-import com.ted.xplatform.util.AttachmentUtils;
-import com.ted.xplatform.vo.AttachmentVO;
 
 /**
  * 附件的service,关于附件种类：typeCode在每个Service类里面自己定义吧。
@@ -31,6 +25,13 @@ public class AttachmentService {
         this.jpaSupportDao = jpaSupportDao;
     }
 
+    /**
+     * 保存
+     */
+    @Transactional
+    public void save(Attachment attachment) {
+        jpaSupportDao.getEntityManager().persist(attachment);
+    }
     /**
      * 
      */
@@ -69,29 +70,6 @@ public class AttachmentService {
         Attachment attachment = jpaSupportDao.getEntityManager().find(Attachment.class, attachId);
         jpaSupportDao.getEntityManager().remove(attachment);
     }
-
-    public void upload(List<AttachmentVO> attachmentVOList) {
-        
-    }
-
-    /**
-     * @TODO to refactor ,by DownloadHelper.java
-     * @param attachmentId
-     * @param response
-     */
-    @Transactional(readOnly = true)
-    public void download(Long attachmentId, HttpServletResponse response) {
-        Attachment attachment = (Attachment) getAttachmentById(attachmentId);
-        try {
-            if (null != attachment) {
-                String fullPath = AttachmentUtils.getAttachFullPath(attachment.getFilePath());
-                FileSystemResource fileResource = new FileSystemResource(fullPath);
-                IOUtils.copy(fileResource.getInputStream(), response.getOutputStream());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    };
 
     /**
      * 获得所有的附件信息,only from db

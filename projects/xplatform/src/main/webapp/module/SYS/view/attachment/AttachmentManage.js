@@ -19,7 +19,9 @@ Ext.define('SYS.view.attachment.AttachmentManage', {
 
 	buildForm : function(me) {
 		return Ext.create('MES.view.form.field.MultiFileUploader', {
-			title : '附件管理'
+			title : '附件管理',
+			uploadUrl : 'attachment/upload',
+			downloadUrl : 'attachment/download'
 		});
 	}
 });

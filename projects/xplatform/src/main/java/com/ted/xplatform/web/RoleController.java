@@ -42,18 +42,18 @@ import com.ted.xplatform.util.PlatformUtils;
 @RequestMapping(value = "/role/*")
 @SuppressWarnings("all")
 public class RoleController {
-    final Logger                       logger = LoggerFactory.getLogger(RoleController.class);
+    final Logger  logger = LoggerFactory.getLogger(RoleController.class);
 
     @Inject
-    RoleService                        roleService;
+    RoleService   roleService;
 
     @Inject
-    MessageSource     messageSource;
+    MessageSource messageSource;
 
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
-    
+
     @Inject
     private NamedParameterJdbcTemplate namedJdbcTemplate;
 
@@ -130,7 +130,7 @@ public class RoleController {
      */
     @RequestMapping(value = "/getRoleById")
     public @ResponseBody
-    Map<String, Object> getRoleById(@RequestParam(required=true) Long roleId) {
+    Map<String, Object> getRoleById(@RequestParam(required = true) Long roleId) {
         Role role = roleService.getRoleById(roleId);
         return JsonUtils.getJsonMap(role);
     };
@@ -140,12 +140,12 @@ public class RoleController {
      */
     @RequestMapping(value = "/getRoleAsSuperInfoById")
     public @ResponseBody
-    Map<String, Object> getRoleAsSuperInfoById(@RequestParam(required=true) Long roleId) {
+    Map<String, Object> getRoleAsSuperInfoById(@RequestParam(required = true) Long roleId) {
         Role role = roleService.getRoleById(roleId);
         Role newRole = new Role();
         //newRole.setId(-1L); //this is hack ,否则页面显示不出来。
         newRole.setParent(role);
-        if(role != null){
+        if (role != null) {
             newRole.setParentId(role.getId());
             newRole.setParentName(role.getName());
         }
@@ -169,7 +169,7 @@ public class RoleController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public @ResponseBody
-    String delete(@RequestParam(required=true) Long roleId) {
+    String delete(@RequestParam(required = true) Long roleId) {
         roleService.delete(roleId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };
@@ -179,7 +179,7 @@ public class RoleController {
      */
     @RequestMapping(value = "/getUserListByRoleId")
     public @ResponseBody
-    JsonPage<User> getUserListByRoleId(@RequestParam(required=true) Long roleId) {
+    JsonPage<User> getUserListByRoleId(@RequestParam(required = true) Long roleId) {
         List<User> userList = roleService.getUserListByRoleId(roleId);
         return JsonUtils.listToPage(userList);
     };
@@ -189,7 +189,7 @@ public class RoleController {
      */
     @RequestMapping(value = "/saveRoleHasUsers")
     public @ResponseBody
-    String saveRoleHasUsers(@RequestParam Long roleId, @RequestParam(required=false) Collection<Long> userIds) {
+    String saveRoleHasUsers(@RequestParam Long roleId, @RequestParam(required = false) Collection<Long> userIds) {
         roleService.saveRoleHasUsers(roleId, userIds);
         return Constants.SUCCESS_JSON;
     };
@@ -219,7 +219,7 @@ public class RoleController {
      */
     @RequestMapping(value = "/getUserRolesCheckedData", method = RequestMethod.GET)
     public @ResponseBody
-    List<Map<String, Object>> getUserRolesCheckedData(@RequestParam(required=true) Long userId) {
+    List<Map<String, Object>> getUserRolesCheckedData(@RequestParam(required = true) Long userId) {
         Map<String, Object> para = CollectionUtils.newMap("userId", userId);
         String sql = "select r.name,r.id,u.userName, 1 checked from role r inner join user_role ur on r.id=ur.role_id inner join users u on u.id=ur.user_id where u.id=:userId";
         List<Map<String, Object>> list = this.namedJdbcTemplate.queryForList(sql, para);

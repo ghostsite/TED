@@ -21,9 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ted.common.Constants;
 import com.ted.common.spring.mvc.bind.annotation.RequestJsonParam;
-import com.ted.common.support.download.DownloadHelper;
-import com.ted.common.support.download.xls.DownloadXlsHelper;
-import com.ted.common.support.download.xls.GridInfo;
 import com.ted.common.support.extjs4.JsonOut;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.JsonUtils;
@@ -31,6 +28,9 @@ import com.ted.common.util.PasswordUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.common.util.xls.ExcelType;
 import com.ted.common.util.xls.PoiXlsUtils;
+import com.ted.common.web.download.DownloadHelper;
+import com.ted.common.web.download.xls.DownloadXlsHelper;
+import com.ted.common.web.download.xls.GridInfo;
 import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.service.UserService;
 

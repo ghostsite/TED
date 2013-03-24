@@ -26,6 +26,8 @@ public class DateUtils {
 
     public static final String      PATTERN_YYYYMMDD           = "yyyy-MM-dd";
     public static final String      PATTERN_YYYYMMDD2          = "yyyyMMdd";
+    public static final String      PATTERN_YYYYMM             = "yyyy-MM";
+    public static final String      PATTERN_YYYYMM2            = "yyyyMM";
     public static final String      PATTERN_YYYYMMDDHHMM       = "yyyy-MM-dd HH:mm";
     public static final String      PATTERN_YYYYMMDDHHMMSS     = "yyyy-MM-dd HH:mm:ss";
     public static final String      PATTERN_YYYYMMDDHHMMSS2    = "yyyyMMddHHmmss";
