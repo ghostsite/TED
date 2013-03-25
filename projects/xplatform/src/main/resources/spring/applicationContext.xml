@@ -70,6 +70,9 @@
   	</bean-->
   	
   	<bean id="fileManager" class="com.ted.common.support.file.DiskFileManager" />
+  	<!--bean id="fileManager" class="com.ted.common.support.file.FtpFileManager">
+  		<property name="uri" value="ftp://ftpadmin:11@109.52.21.7" />
+  	</bean-->
   	
   	<!--========================环境配置========================-->
 	<!-- production环境 -->

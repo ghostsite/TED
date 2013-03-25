@@ -9,14 +9,15 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.springframework.util.FileCopyUtils;
 
+import com.ted.common.exception.BusinessException;
+
 /**
  * 本地磁盘的文件管理
-
  */
 public class DiskFileManager implements FileManager {
 
     @Override
-    public void save(String dir, String name, byte[] bytes) {
+    public void save(String dir, String name, byte[] bytes) throws BusinessException{
         checkAttachFileDir(dir);
         try {
             if (!dir.endsWith("/")) {
@@ -26,6 +27,7 @@ public class DiskFileManager implements FileManager {
             FileCopyUtils.copy(bytes, fos);
         } catch (Exception e) {
             e.printStackTrace();
+            throw BusinessException.wrap(e);
         }
     };
 
@@ -33,7 +35,7 @@ public class DiskFileManager implements FileManager {
      * 思考一下这种方式是不是会很占内存?
      */
     @Override
-    public byte[] load(String dir, String name) {
+    public byte[] load(String dir, String name) throws BusinessException {
         if (!dir.endsWith("/")) {
             dir = dir + "/";
         }
@@ -42,8 +44,8 @@ public class DiskFileManager implements FileManager {
             return IOUtils.toByteArray(input);
         } catch (IOException e) {
             e.printStackTrace();
+            throw BusinessException.wrap(e);
         }
-        return null;
     };
 
     @Override
