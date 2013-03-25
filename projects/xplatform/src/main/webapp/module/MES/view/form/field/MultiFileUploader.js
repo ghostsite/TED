@@ -68,7 +68,7 @@ Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to f
 					if(fileId){
 						Ext.Array.remove(me.fsTmpFileId,fileId);
 						Ext.Ajax.request({
-							url : me.downloadUrl,//'service/bas_download_file/'+fileId+'.do',
+							url : me.downloadUrl +'/'+ fileId,//'service/bas_download_file/'+fileId+'.do',
 							form : me.exportForm('_download'+rowIndex),
 							isUpload : true
 						});		
@@ -139,7 +139,7 @@ Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to f
 		var name = fileInfo.name;
 		
 		/* grid list */
-		var store = me .store;
+		var store = me.store;
 		var recs = store.add({
 			fileName : name,
 			fileSize : size,

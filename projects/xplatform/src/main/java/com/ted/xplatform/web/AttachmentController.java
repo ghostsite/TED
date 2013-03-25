@@ -3,13 +3,14 @@ package com.ted.xplatform.web;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ted.common.Constants;
 import com.ted.common.support.file.FileManager;
+import com.ted.common.util.CollectionUtils;
 import com.ted.common.util.FileUtils;
 import com.ted.common.web.download.DownloadHelper;
 import com.ted.xplatform.pojo.common.Attachment;
@@ -65,7 +67,7 @@ public class AttachmentController {
      */
     @RequestMapping(value = "/upload")
     public @ResponseBody
-    String upload(MultipartHttpServletRequest multipartRequest) throws Exception {
+    Map<String, Object> upload(MultipartHttpServletRequest multipartRequest) throws Exception {
         MultipartFile multipartFile = AttachmentUtils.getMultipartFile(multipartRequest);
         String middleDir = AttachmentUtils.getMiddleDir();
         String dir = AttachmentUtils.getDir(middleDir);
@@ -78,7 +80,8 @@ public class AttachmentController {
         attachment.setFileSize(new Long(multipartFile.getBytes().length));
         attachment.setFileType(FileUtils.getExtension(multipartFile.getOriginalFilename(), true));
         attachmentService.save(attachment);
-        return Constants.SUCCESS_JSON;
+        //return JsonUtils.getJsonMap(attachment.getId());
+        return CollectionUtils.newMap("success", true, "fileId", attachment.getId());
     };
 
     @RequestMapping(value = "/getAttachmentByTypeCode")
@@ -86,9 +89,9 @@ public class AttachmentController {
         return attachmentService.getAttachmentByTypeCode(typeCode);
     }
 
-    @RequestMapping(value = "/download")
-    public void download(Long attachmentId, HttpServletResponse response) throws IOException {
-        Attachment attachment = (Attachment) attachmentService.getAttachmentById(attachmentId);
+    @RequestMapping(value = "/download/{fileId}")
+    public void download(@PathVariable Long fileId, HttpServletResponse response) throws IOException {
+        Attachment attachment = (Attachment) attachmentService.getAttachmentById(fileId);
         if (null != attachment) {
             String fullPath = AttachmentUtils.getDir(attachment.getFilePath());
             byte[] bytes = fileManager.load(fullPath, attachment.getFileName());
