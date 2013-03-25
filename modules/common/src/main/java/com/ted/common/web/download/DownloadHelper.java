@@ -21,8 +21,15 @@ public abstract class DownloadHelper {
      * @param showName 下载的文件名称
      */
     public static final ResponseEntity<byte[]> getResponseEntity(String showName, byte[] bytes) throws IOException {
+        return getResponseEntity(showName, bytes, MediaType.APPLICATION_OCTET_STREAM);
+    }
+
+    /**
+     * 增加了MediaType
+     */
+    public static final ResponseEntity<byte[]> getResponseEntity(String showName, byte[] bytes, MediaType mediaType) throws IOException {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentType(mediaType);
         headers.setContentDispositionFormData("attachment", URLEncoder.encode(showName, "UTF8"));
         headers.setContentLength(bytes.length);
         headers.setCacheControl("no-cache");
@@ -37,11 +44,19 @@ public abstract class DownloadHelper {
         response.setContentType("image/gif");
      */
     public static final void doDownload(HttpServletResponse response, String showName, byte[] bytes) throws IOException {
-        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        doDownload(response, showName, bytes, MediaType.APPLICATION_OCTET_STREAM_VALUE);
+    };
+
+    /**
+     * 扩展方法
+     */
+    public static final void doDownload(HttpServletResponse response, String showName, byte[] bytes, String contentType) throws IOException {
+        response.setContentType(contentType);
         response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(showName, "UTF8"));
         OutputStream os = response.getOutputStream();
         os.write(bytes);
         os.flush();
         response.flushBuffer();
     };
+
 }
