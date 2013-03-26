@@ -247,6 +247,9 @@ public class RoleService {
      */
     @Transactional(readOnly = true)
     public Role getRoleById(Serializable roleId) {
+        if(null == roleId){
+            return null;
+        }
         Role role = jpaSupportDao.getEntityManager().find(Role.class, roleId);
         role.loadParentName();
         return role;
@@ -258,11 +261,15 @@ public class RoleService {
      */
     @Transactional
     public Role save(Role role) {
-        Role parentRole = jpaSupportDao.getEntityManager().find(Role.class, role.getParentId());
-        if (null == parentRole) {
+        if(role.getParentId() == null){
             role.setParent(null);
+        }else{
+            Role parentRole = jpaSupportDao.getEntityManager().find(Role.class, role.getParentId());
+            if (null == parentRole) {
+                role.setParent(null);
+            }
+            role.setParent(parentRole);
         }
-        role.setParent(parentRole);
         jpaSupportDao.getEntityManager().merge(role);
         return role;
     }

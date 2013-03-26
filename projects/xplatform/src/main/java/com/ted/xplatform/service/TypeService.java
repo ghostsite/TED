@@ -67,6 +67,9 @@ public class TypeService {
      */
     @Transactional(readOnly = true)
     public Type getTypeById(Long typeId) {
+        if(null == typeId){
+            return null;
+        }
         Type type = jpaSupportDao.getEntityManager().find(Type.class, typeId);
         if (null != type) {
             type.loadParentName();
@@ -86,7 +89,7 @@ public class TypeService {
         if(null == type.getParentId()){
             type.setParent(null);
         }else{
-            Type parentType = jpaSupportDao.getEntityManager().find(Type.class, type.getParent().getId());
+            Type parentType = jpaSupportDao.getEntityManager().find(Type.class, type.getParentId());
             if (parentType == null) {
                 type.setParent(null);
             }else{

@@ -292,6 +292,8 @@ public class MenuResourceService {
      */
     @Transactional(readOnly = true)
     public List<MenuResource> getSubMenuResourceListByResourceId(Serializable resourceId) {
+       // List<MenuResource> all = jpaSupportDao.getAll(MenuResource.class);
+        //List<MenuResource> subMenuResources = all.get(0).getSubMenuResources();
         Map<String, Object> newMap = CollectionUtils.newMap("resourceId", resourceId);
         List<MenuResource> subMenuResourceList = jpaSupportDao.find(SUBMENUS_JPQL, newMap);
         return subMenuResourceList;
@@ -304,6 +306,9 @@ public class MenuResourceService {
      */
     @Transactional(readOnly = true)
     public MenuResource getMenuResourceById(Long resourceId) {
+        if(null == resourceId){
+            return null;
+        }
         MenuResource menuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, resourceId);
         menuResource.loadParentName();
         menuResource.loadOperations2Properties();

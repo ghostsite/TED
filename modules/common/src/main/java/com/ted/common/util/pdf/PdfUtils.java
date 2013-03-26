@@ -12,6 +12,7 @@ import com.lowagie.text.Element;
 /**
  * 简单的util
  * 复杂的以后再说
+ * 目前存在2个版本.5.4.0(for pdf) and 2.1.7(for word)
  */
 public abstract class PdfUtils {
 

@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Where;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ted.xplatform.util.ACLUtils;
 
@@ -39,7 +41,7 @@ public class MenuResource extends Resource {
 	@JsonIgnore
 	@OneToMany(cascade = { CascadeType.DETACH }, mappedBy = "parent", fetch = FetchType.LAZY)
     // mappedBy="subMenuResources"
-    //@Where(clause = "deleted=0")
+    @Where(clause = "deleted=0")
     // @JoinColumn(name = "parent_id")
 	private List<MenuResource> subMenuResources;
 

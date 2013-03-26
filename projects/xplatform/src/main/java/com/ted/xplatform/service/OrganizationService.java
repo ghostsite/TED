@@ -84,7 +84,7 @@ public class OrganizationService {
         if (org.getParentId() == null) {
             org.setParent(null);
         } else {
-            Organization parentOrg = jpaSupportDao.getEntityManager().find(Organization.class, org.getParent().getId());
+            Organization parentOrg = jpaSupportDao.getEntityManager().find(Organization.class, org.getParentId());
             if (null == parentOrg) {
                 org.setParent(null);
             } else {
