@@ -1,1 +1,2 @@
-version 4.2.0 beta
+紧随extjs原生
+ext-4.2.0

@@ -4,17 +4,15 @@
 	<head>
 	    <meta http-equiv="X-UA-Compatible" content="chrome=1">
 		<title>Smart Factory</title>
-		<link rel="stylesheet" href="js/extjs/resources/css/ext-smartfactory.css"></link>
-		<link rel="stylesheet" href="css/smartfactory.css"></link>
 		<link rel="stylesheet" href="css/app.css"></link>
-		<link rel="stylesheet" href="js/ux/statusbar/css/statusbar.css"></link>
-		<link rel="stylesheet" href="js/ux/tab/css/TabScrollerMenu.css"></link>
-		<link rel="stylesheet" type="text/css" href="js/ux/grid/css/CheckHeader.css">
-		<link rel="stylesheet" type="text/css" href="js/ux/grid/css/GridFilters.css">
-		<link rel="stylesheet" type="text/css" href="js/ux/grid/css/RangeMenu.css">
-		<link rel="stylesheet" type="text/css" href="js/ux/grid/css/print.css">
+		<link rel="stylesheet" href="js/uux/statusbar/css/statusbar.css"></link>
+		<link rel="stylesheet" href="js/uux/tab/css/TabScrollerMenu.css"></link>
+		<link rel="stylesheet" type="text/css" href="js/uux/grid/css/CheckHeader.css">
+		<link rel="stylesheet" type="text/css" href="js/uux/grid/css/GridFilters.css">
+		<link rel="stylesheet" type="text/css" href="js/uux/grid/css/RangeMenu.css">
+		<link rel="stylesheet" type="text/css" href="js/uux/grid/css/print.css">
 		
-		<link rel="stylesheet" type="text/css" href="js/extjsaddons/app/css/portal.css">
+		<link rel="stylesheet" type="text/css" href="js/uux/portal/css/portal.css">
 		<link rel="shortcut icon" href="image/faviconMESplus.ico">
 		<link rel="icon" href="image/faviconMESplus.ico"> 
 		
@@ -65,14 +63,13 @@
 		</script>
 		<script type="text/javascript" src="product/locale/${user.language}.js"></script>
 
-		<!-- JavaScripts For ExtJS extjs-4.1.0-->
-		<script src="js/extjs/bootstrap.js"></script>
-		
-		<!-- Extjs locale -->
-		<script src="js/extjs/locale/ext-lang-${user.language}.js" charset="UTF-8"></script>
+		<!-ExtJS extjs-4.1.1, if you want to use extjs4.2.0 then only need to change here,4 lines-->
+		<link rel="stylesheet" href="js/extjs-4.1.1/resources/css/ext-smartfactory.css"></link>
+		<link rel="stylesheet" href="css/smartfactory.css"></link>
+		<script src="js/extjs-4.1.1/bootstrap.js"></script>
+		<script src="js/extjs-4.1.1/locale/ext-lang-${user.language}.js" charset="UTF-8"></script>
 
 		<script src="app/application.js"></script>
-		
 		<script type="text/javascript">
 		Ext.module.register('BAS', [ 'BAS.controller.BASController' ], false);
 		Ext.module.register('CMN', [ 'CMN.controller.CMNController' ], false);

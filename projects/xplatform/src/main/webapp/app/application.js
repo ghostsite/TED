@@ -2,8 +2,8 @@ Ext.Loader.setConfig({
 	enabled : true,
 	paths : {
 		'SmartFactory' : 'product/SmartFactory.js',
-		'Ext.ux' : 'js/ux',
-		'Ext.app' : 'js/extjsaddons/app'
+		'Ext.ux' : 'js/extjs/ux',//TODO 如果不能用同一个名字，再说
+		'Ext.ux' : 'js/uux'
 	}
 });
 
