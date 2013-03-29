@@ -1,6 +1,6 @@
 Ext.define('TES.view.ReturnStock', {
 	extend : 'MES.view.form.BaseForm',
-	title : T('Caption.Menu.Return Stock'), // 瓿犼皾 氚橅拡 雿办澊韮�鞛呹碃
+	title : T('Caption.Menu.Return Stock'),
 
 	xtype : 'hdms_return_stock',
 
