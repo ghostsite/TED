@@ -69,6 +69,10 @@
 		<script src="js/extjs-4.1.1/bootstrap.js"></script>
 		<script src="js/extjs-4.1.1/locale/ext-lang-${user.language}.js" charset="UTF-8"></script>
 
+		<!--TES,这个最好在extjs4.2.0下演示，因为smartfactory的css干扰了效果-->
+		<link rel="stylesheet" href="js/uux/window/css/Notification.css"></link>
+		
+
 		<script src="app/application.js"></script>
 		<script type="text/javascript">
 		Ext.module.register('BAS', [ 'BAS.controller.BASController' ], false);
@@ -76,7 +80,7 @@
 		Ext.module.register('MES', [ 'MES.controller.MESController' ], false);
 		Ext.module.register('SEC', [ 'SEC.controller.SECController' ], false);
 		Ext.module.register('SYS', [  ], false);
-		Ext.module.register('TES', [ 'TES.controller.ReturnStock' ], false);
+		Ext.module.register('TES', [  ], false);
 		</script>
 		
 		<script>
