@@ -7,7 +7,6 @@ Ext.define('TES.view.Notification', {
 	layout : 'fit',
 
 	initComponent : function() {
-		this.items = [this.buildForm()];
 		this.callParent();
 	},
 

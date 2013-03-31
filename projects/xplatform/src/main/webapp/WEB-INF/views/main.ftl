@@ -72,6 +72,7 @@
 		<!--TES,这个最好在extjs4.2.0下演示，因为smartfactory的css干扰了效果-->
 		<link rel="stylesheet" href="js/uux/window/css/Notification.css"></link>
 		<link rel="stylesheet" href="js/uux/SecondTitle.css"></link>
+		<link rel="stylesheet" href="js/uux/form/field/BoxSelect.css"></link>
 		<script src="js/uux/form/tinymce/tiny_mce_src.js" charset="UTF-8"></script>
 		
 
