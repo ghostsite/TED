@@ -15,7 +15,8 @@ T({
 		Menu : {
 			TES:{
 				view:{
-					"Notification":"提醒文字"
+					"Notification":"提醒文字",
+					"TinyMce":"编辑器"
 				}
 			},
 			"test":"例子"
