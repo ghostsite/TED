@@ -23,6 +23,11 @@ Ext.define('TES.view.Notification', {
 					layout : 'fit',
 					title : 'Demo 1 - Standard Theme',
 					width : '50%',
+					plugins :  Ext.create('Ext.ux.SecondTitle', {
+						secondTitle : '副标题',
+						sTitleBefore:'[',
+						sTitleAfter :']'
+					}),
 					items : [{
 						xtype : 'panel',
 						border : false,

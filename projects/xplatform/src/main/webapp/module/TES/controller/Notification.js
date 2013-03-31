@@ -3,7 +3,7 @@ Ext.define('TES.controller.Notification', {
 
 	views : [ 'TES.view.Notification' ],
 
-	requires : [ 'Ext.ux.window.Notification' ],
+	requires : [ 'Ext.ux.window.Notification','Ext.ux.SecondTitle' ],
 
 	init : function() {
 		this.control({ 
