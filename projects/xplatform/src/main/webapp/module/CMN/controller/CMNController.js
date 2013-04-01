@@ -10,13 +10,17 @@ Ext.define('CMN.controller.CMNController', {
 	views : [ 'CMN.view.viewport.Center', 'CMN.view.viewport.South', 'CMN.view.viewport.East', 'CMN.view.viewport.North', 'CMN.view.viewport.West',
 			'CMN.view.common.MainMenu', 'CMN.view.common.SideMenu', 'CMN.view.common.AppTool', 'CMN.view.common.NavMainMenu',
 			'CMN.view.common.NavFavorite', 'CMN.view.common.AppSearchField', 'CMN.view.form.DateTimeField', 'CMN.view.form.TimePeriodField',
-			'CMN.view.form.DatePeriodField', 'CMN.view.form.DateTimePeriodField', 'CMN.view.common.RowStatic' ],
+			'CMN.view.form.DatePeriodField', 'CMN.view.form.DateTimePeriodField', 'CMN.view.common.RowStatic','CMN.view.viewport.CenterCard' ],
 
 	init : function() {
 
 		this.control({
 			'viewport' : {
 				afterrender : this.onViewportRendered
+			},
+			'centercard': {
+				render: this.onCenterCardRender,
+				afterrender : this.onCenterCardAfterrender
 			}
 		});
 
@@ -26,6 +30,16 @@ Ext.define('CMN.controller.CMNController', {
 		SF.mixin('CMN.mixin.Vtypes');
 	},
 
+	//zhang add this method
+	onCenterCardRender : function(view){
+		SF.controller.ApplicationController.uniqview = view;
+	},
+	
+	//zhang add this method,no use
+	onCenterCardAfterrender : function(view){
+		SF.history.force();
+	},
+	
 	onViewportRendered : function() {
 		/* Load시에 사용한 로드 프로그레스바를 제거함 */
 		var lp = document.getElementById('_loadprogress');

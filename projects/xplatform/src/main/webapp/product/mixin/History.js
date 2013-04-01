@@ -94,59 +94,10 @@ Ext.define('mixin.History', function() {
 			SF.error('SYS-E002');
 			return;
 		}
-
-		try {
-			var content_area = Ext.getCmp('content');
-			
-			/*
-			 * 모듈 이름이 4자 이상인 경우는 커스터마이즈된 코드로 인식한다.
-			 * 커스터마이즈된 코드는 MVC구조를 사용하므로, 뷰모델을 로드하기 전에, 관련된 컨트롤러를 먼저 동적으로 로드한다.
-			 * 뷰모델과 관련된 컨트롤러는 뷰모델과 동일한 클래스명을 가져야 하며, {모듈명}.controller.{클래스명} 이름 구조를 가져야 한다.
-			 */
-			if(!Ext.ClassManager.get(vm) && vm.indexOf('.') > 1) {
-				var controller = vm.replace('.view.', '.controller.');
-				if(controller) {
-					/*
-					 * Synchronously Loading 경고를 방지하기 위해서 명시적으로 Ext.syncRequire 를 선행적으로 호출함.
-					 */
-					Ext.syncRequire(controller);
-					SF.controller.ApplicationController.unique.getController(controller).init();
-				}
-			}
-			var screen = content_area.getComponent(itemId);
-			if(!screen){
-				var newView = createView(vm, {
-					itemId : itemId,
-					closable : true
-				});
-				 if(newView === false){
-					 return false;
-				 }
-				 screen = content_area.add(newView);
-			}
-			
-			if(screen.setKeys) {
-				/*
-				 * History는 변경하지 말고, Keys 값만을 바꾸라.
-				 * 이미 변경된 History에 의해서 수행되는 부분이므로, History를 변경하지 말 것을 두번째 파라미터로 전달한다.
-				 */
-				screen.setKeys(keys, true);
-			}
-			
-			try {
-				lock();
-
-				content_area.setActiveTab(screen);
-			} finally {
-				unlock();
-			}
-
-			return screen;
-		} catch (e) {
-			SF.error('SYS-E001', {
-				view : vm
-			}, e);
-		}
+		
+		//zhang,原来的都删除了，因为调用的就是doMenu,仿照opc History.js
+		SF.doMenu(anchor);
+		//end 
 	});
 	
 	/*

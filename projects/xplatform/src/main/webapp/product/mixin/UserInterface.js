@@ -196,7 +196,11 @@ Ext.define('mixin.UserInterface', function() {
 			
 			try {
 				SF.history.lock();
-				content_area.setActiveTab(screen);
+				if(content_area.setActiveTab){
+					content_area.setActiveTab(screen);
+				}else{
+					SF.controller.ApplicationController.uniqview.getLayout().setActiveItem(screen);
+				}
 			} finally {
 				SF.history.unlock();
 			}
