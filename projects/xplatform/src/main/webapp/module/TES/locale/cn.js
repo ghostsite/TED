@@ -17,7 +17,9 @@ T({
 				view:{
 					"Notification":"提醒文字",
 					"TinyMce":"编辑器",
-					"BoxSelect":"多选框"
+					"BoxSelect":"多选框",
+					"SegmentedButtons":"分组按钮",
+					"SwitchSegmentedButtons":"Switch按钮"
 				}
 			},
 			"test":"例子"
