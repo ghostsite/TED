@@ -20,13 +20,6 @@ Ext.define('BAS.controller.task.TaskController', {
 
 		var self = this;
 		
-		/* Task Type을 등록한다. */
-		if(typeof(taskTypeConfig) !== 'undefined') {
-			Ext.Object.each(taskTypeConfig, function(key, val) {
-				SF.task.register(key, val);
-			});
-		}
-
 		Ext.each(this.controlSets, function(set) {
 			var controller = self.getController('BAS.controller.task.' + set);
 			controller.init();

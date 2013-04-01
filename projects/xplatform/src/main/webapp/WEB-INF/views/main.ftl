@@ -46,11 +46,7 @@
 
 		var sessionInfo = "";
 		var roleList = undefined;
-		var factoryInfo = "";
 		var globalOptionList = "";
-		var taskTypeConfig = "";
-		var assemblyNameList = "";
-		var myAssemblyNameList = "";
 		
 		initLocalization(this);
 		
@@ -63,16 +59,9 @@
 		</script>
 		<script type="text/javascript" src="product/locale/${user.language}.js"></script>
 
-		<!--smartfactory extjs4.1.1-->
-		<!-ExtJS extjs-4.1.1, if you want to use extjs4.2.0 then only need to change here,4 lines-->
-		<!--link rel="stylesheet" href="js/extjs-4.1.1/resources/css/ext-smartfactory.css"></link>
-		<link rel="stylesheet" href="css/smartfactory.css"></link>
-		<script src="js/extjs-4.1.1/bootstrap.js"></script>
-		<script src="js/extjs-4.1.1/locale/ext-lang-${user.language}.js" charset="UTF-8"></script-->
-		
 		<!--native extjs 4.2.0-->
-		<!-ExtJS extjs-4.1.1, if you want to use extjs4.2.0 then only need to change here,4 lines-->
 		<link rel="stylesheet" href="js/extjs/resources/css/ext-all.css"></link>
+		<link rel="stylesheet" href="css/smartfactory.css"></link>
 		<script src="js/extjs/bootstrap.js"></script>
 		<script src="js/extjs/locale/ext-lang-${user.language}.js" charset="UTF-8"></script>
 

@@ -215,46 +215,5 @@ Ext.define('MES.controller.MESController', {
 		}]);
 	},
 
-	setShiftInfo : function() {
-		/* TODO factoryInfo를 SF API를 통해서 접근하도록 개선할 것 - Shift Mixin으로 개선할 것. */
-		if (SF.gv.gsServerName == 'ADMServer') {
-			SF.gv.gShiftInfor.iShiftCount = 0;
-			SF.gv.gShiftInfor.sShift1StartTime = '000000';
-		} else {
-			var flag = factoryInfo.variableShiftFlag || '';
-			SF.gv.gShiftInfor.bVariableShift = flag == 'Y' ? true : false;
-
-			if (SF.gv.gShiftInfor.bVariableShift == false) {
-				var shiftCount = 0;
-				if (factoryInfo.shift1Start) {
-					SF.gv.gShiftInfor.cShift1DayFlag = factoryInfo.shift1DayFlag;
-					SF.gv.gShiftInfor.sShift1StartTime = factoryInfo.shift1Start + '00';
-					shiftCount++;
-				}
-
-				if (factoryInfo.shift2Start) {
-					SF.gv.gShiftInfor.cShift2DayFlag = factoryInfo.shift2DayFlag;
-					SF.gv.gShiftInfor.sShift2StartTime = factoryInfo.shift2Start + '00';
-					shiftCount++;
-				}
-
-				if (factoryInfo.shift3Start) {
-					SF.gv.gShiftInfor.cShift3DayFlag = factoryInfo.shift3DayFlag;
-					SF.gv.gShiftInfor.sShift3StartTime = factoryInfo.shift3Start + '00';
-					shiftCount++;
-				}
-
-				if (factoryInfo.shift4Start) {
-					SF.gv.gShiftInfor.cShift4DayFlag = factoryInfo.shift4DayFlag;
-					SF.gv.gShiftInfor.sShift4StartTime = factoryInfo.shift4Start + '00';
-					shiftCount++;
-				}
-
-				SF.gv.gShiftInfor.iShiftCount = shiftCount;
-			} else {
-				SF.gv.gShiftInfor.iShiftCount = 0;
-				SF.gv.gShiftInfor.sShift1StartTime = '000000';
-			}
-		}
-	}
+	setShiftInfo : function() {}
 });
