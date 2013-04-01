@@ -31,7 +31,7 @@ public class MenuResource extends Resource {
     /**
 	 * 所属上级菜单
 	 */
-	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.DETACH)
     @JoinColumn(name = "parent_id")
 	private MenuResource parent;
 

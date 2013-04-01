@@ -55,8 +55,8 @@ public abstract class Resource extends LogicAuditEntity {
     /**
      * 资源所拥有的所有的可以操作的ACL,通过ACL获得所有的Operation
      */
-    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "acl_resourceid")
+    @OneToMany(cascade = { CascadeType.DETACH }, fetch = FetchType.LAZY, mappedBy="resource", orphanRemoval = true)
+   // @JoinColumn(name = "acl_resourceid")
     Set<ACL>       acls = Sets.newHashSet();
 
     public String getName() {

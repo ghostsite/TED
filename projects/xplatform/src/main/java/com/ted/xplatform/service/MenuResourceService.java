@@ -327,7 +327,7 @@ public class MenuResourceService {
             if (null != menuResource.getParentId()) {
                 MenuResource parentMenuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, menuResource.getParentId());
                 if (null != parentMenuResource) {
-                    menuResource.setLeaf(false);
+                    parentMenuResource.setLeaf(false);
                 }
                 menuResource.setParent(parentMenuResource);
             }
