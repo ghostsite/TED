@@ -177,7 +177,8 @@ Ext.define('mixin.UserInterface', function() {
 			if(!screen){
 				var newView = createView(menu.viewModel, {
 					itemId : menu.itemId,
-					closable : true
+					closable : true,
+					icon: menu.icon //zhang add icon
 				});
 				 if(newView === false){
 					 return false;

@@ -15,7 +15,8 @@ Ext.define('CMN.view.common.NavMainMenu', {
 			if (record.get('leaf')) {
 				SmartFactory.doMenu({
 					viewModel : record.get('path'),
-					itemId : record.get('code')
+					itemId : record.get('code'),//zhang add icon
+					icon : record.get('icon')
 				});
 			}
 		}
