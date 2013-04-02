@@ -11,6 +11,11 @@ Ext.define('CMN.view.viewport.Center', {
 	alias : 'widget.viewport.center',
 
 	enableTabScroll : true,
+	
+	tabBar: {
+	  xtype:'tabbar',
+	  cls:'centertabbarbg'
+	},
 
 	plugins : [ {
 		ptype : 'tabscrollermenu',
