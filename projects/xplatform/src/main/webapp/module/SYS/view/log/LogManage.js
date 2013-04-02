@@ -2,7 +2,7 @@
 Ext.define('SYS.view.log.LogManage', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'admin_log',
-	requires : ['SYS.model.Log', 'Ext.ux.ProgressBarPager', 'Ext.ux.grid.RowExpander'],
+	requires : ['SYS.model.Log', 'Ext.ux.ProgressBarPager', 'Ext.grid.plugin.RowExpander'],
 
 	title : T('Caption.Menu.SYS.view.log.LogManage'),
 	// layout : 'fit',
@@ -113,6 +113,7 @@ Ext.define('SYS.view.log.LogManage', {
 					}
 				}
 			}, {
+				header : '信息',
 				flex : 1,
 				dataIndex : 'msg',
 				renderer : function(val) {

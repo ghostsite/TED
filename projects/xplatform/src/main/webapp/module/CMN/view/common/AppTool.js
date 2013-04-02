@@ -31,6 +31,7 @@ Ext.define('CMN.view.common.AppTool', {
 				scale : 'large',
 				//tooltip : T('Caption.Menu.' + record.get('userFuncDesc')),
 				tooltip : record.get('qtip'),
+				//tooltip: {xtype:'quicktip',shrinkWrap :1,width:60, autoScroll: false,title: record.get('qtip')},
 				data : record,
 				handler : this.default_handler
 			});

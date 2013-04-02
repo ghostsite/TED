@@ -56,9 +56,6 @@ Ext.define('SYS.controller.log.LogManage', {
 	},
 
 	onSupBtnView : function(sup) {
-		// var queryString = sup.getValues(true);
-		// sup.getSupplementClient().setKeys(Ext.Object.fromQueryString(queryString,
-		// true));
 		var params = {
 			start : 0,
 			limit : SF.page.pageSize
