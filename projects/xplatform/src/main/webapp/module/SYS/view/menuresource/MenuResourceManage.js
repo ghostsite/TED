@@ -39,7 +39,7 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 				xtype : 'hidden',
 				fieldLabel : '父菜单Id',
 				name : 'parentId' // 原来是parent.id，但是MenuResource.java的getParent配置为JsonIgnore了。so
-									// use getParentId()
+				// use getParentId()
 			}, {
 				xtype : 'hidden',
 				fieldLabel : '菜单Id',
@@ -152,29 +152,44 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 				xtype : 'container',
 				layout : 'hbox',
 				cls : 'paddingT7',
+				defaults : {
+					labelWidth : 100
+				},
 				items : [{
-					xtype : 'checkbox',
-					fieldLabel : '权限',
-					boxLabel : '查看',
-					name : 'canView'
+					flex : 1,
+					xtype : 'container',
+					layout : 'hbox',
+					cls : 'marginR10',
+					items : [{
+						xtype : 'checkbox',
+						fieldLabel : '权限',
+						boxLabel : '查看',
+						name : 'canView'
+					}, {
+						xtype : 'checkbox',
+						fieldLabel : '',
+						boxLabel : '新增',
+						cls : 'marginRL10',
+						name : 'canAdd'
+					}, {
+						xtype : 'checkbox',
+						fieldLabel : '',
+						boxLabel : '更新',
+						cls : 'marginRL10',
+						name : 'canUpdate'
+					}, {
+						xtype : 'checkbox',
+						fieldLabel : '',
+						cls : 'marginRL10',
+						boxLabel : '删除',
+						name : 'canDelete'
+					}]
 				}, {
 					xtype : 'checkbox',
-					fieldLabel : '',
-					boxLabel : '新增',
-					cls : 'marginRL10',
-					name : 'canAdd'
-				}, {
-					xtype : 'checkbox',
-					fieldLabel : '',
-					boxLabel : '更新',
-					cls : 'marginRL10',
-					name : 'canUpdate'
-				}, {
-					xtype : 'checkbox',
-					fieldLabel : '',
-					cls : 'marginRL10',
-					boxLabel : '删除',
-					name : 'canDelete'
+					fieldLabel : '快捷方式',
+					boxLabel : '是',
+					name : 'favorite',
+					flex : 1
 				}]
 			}]
 		};
