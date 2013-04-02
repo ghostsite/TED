@@ -12,6 +12,8 @@ Ext.define('CMN.view.viewport.Center', {
 
 	enableTabScroll : true,
 	
+	cls:'marginT3',
+	
 	tabBar: {
 	  xtype:'tabbar',
 	  cls:'centertabbarbg'
