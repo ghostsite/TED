@@ -336,7 +336,7 @@ public class MenuResourceService {
         } else {//update
             MenuResource dbMenuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, menuResource.getId());
             //DozerUtils.copy(menuResource, dbMenuResource);//这个不好用,copy all
-            BeanUtils.copyPropertiesByInclude(dbMenuResource, menuResource, new String[] { "code", "name", "description", "path", "iconCls", "buttonIconCls", "buttonScale", "buttonWidth", "buttonIconAlign", "quicktip", "idx", "leaf", "canView", "canAdd", "canUpdate", "canDelete" });
+            BeanUtils.copyPropertiesByInclude(dbMenuResource, menuResource, new String[] { "code", "name", "description", "path", "iconCls","icon","icon2","icon3", "buttonIconCls", "buttonScale", "buttonWidth", "buttonIconAlign", "quicktip", "idx", "leaf", "canView", "canAdd", "canUpdate", "canDelete" });
             updateOperationProperties2Operations(dbMenuResource);
             jpaSupportDao.getEntityManager().merge(dbMenuResource);
         }

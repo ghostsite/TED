@@ -63,7 +63,9 @@
 		<link rel="stylesheet" href="js/extjs/resources/css/ext-all.css"></link>
 		<link rel="stylesheet" href="css/smartfactory.css"></link>
 		<script src="js/extjs/bootstrap.js"></script>
-		<script src="js/extjs/locale/ext-lang-${user.language}.js" charset="UTF-8"></script>
+		<!--由于zh_CN, cn的不好用，bug，故先用en-->
+		<!--script src="js/extjs/locale/ext-lang-${user.language}.js" charset="UTF-8"></script-->
+		<script src="js/extjs/locale/ext-lang-en.js" charset="UTF-8"></script>
 
 		<!--TES,这个最好在extjs4.2.0下演示，因为smartfactory的css干扰了效果-->
 		<link rel="stylesheet" href="js/uux/window/css/Notification.css"></link>

@@ -38,7 +38,8 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 			items : [{
 				xtype : 'hidden',
 				fieldLabel : '父菜单Id',
-				name : 'parentId' //原来是parent.id，但是MenuResource.java的getParent配置为JsonIgnore了。so use getParentId()
+				name : 'parentId' // 原来是parent.id，但是MenuResource.java的getParent配置为JsonIgnore了。so
+									// use getParentId()
 			}, {
 				xtype : 'hidden',
 				fieldLabel : '菜单Id',
@@ -69,7 +70,6 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 				fieldLabel : '备注',
 				name : 'description'
 			}, {
-
 				xtype : 'container',
 				layout : 'hbox',
 				defaults : {
@@ -85,6 +85,25 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 					xtype : 'textfield',
 					fieldLabel : '图标CSS',
 					name : 'iconCls',
+					flex : 1
+				}]
+			}, {
+				xtype : 'container',
+				layout : 'hbox',
+				cls : 'paddingT7',
+				defaults : {
+					labelWidth : 100
+				},
+				items : [{
+					xtype : 'textfield',
+					fieldLabel : 'ICON',
+					name : 'icon',
+					cls : 'marginR10',
+					flex : 1
+				}, {
+					xtype : 'textfield',
+					fieldLabel : 'ICON2',
+					name : 'icon2',
 					flex : 1
 				}]
 			}, {

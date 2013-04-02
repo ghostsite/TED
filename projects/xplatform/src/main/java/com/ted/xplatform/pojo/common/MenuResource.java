@@ -76,7 +76,7 @@ public class MenuResource extends Resource {
 	private String buttonIconAlign;
 
 	/**
-	 * 修饰icon的cls
+	 * 修饰icon的cls,db中还多了一个冗余:cls,现在改为iconCls
 	 */
 	public String iconCls;
 
