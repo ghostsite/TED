@@ -22,10 +22,12 @@ Ext.define('mixin.History', function() {
 		 */
 		var params = token.match(/([^:]*):{0,1}([\S\s]*)/);
 		params.shift();
-
+		var p = params[1] ? Ext.Object.fromQueryString(params[1], true) : undefined;
+		
 		return {
 			viewModel : params[0],
-			keys : params[1] ? Ext.Object.fromQueryString(params[1], true) : undefined
+			keys : p,
+			icon: p.icon //zhang added 20140402 for F5 refresh , retain icon
 		};
 	}
 
@@ -83,9 +85,8 @@ Ext.define('mixin.History', function() {
 	Ext.util.History.on('change', function(token) {
 		if(!token)
 			return;
-		
+			
 		var anchor = parse(token);
-		
 		var vm = anchor.viewModel;
 		var itemId = anchor.viewModel;
 		var keys = anchor.keys;

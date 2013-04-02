@@ -104,7 +104,8 @@ Ext.define('mixin.UserInterface', function() {
 
 		if (typeof (view) === 'string') {
 			comp = createView(view, {
-				closable : true
+				closable : true,
+				icon: menu.icon //zhang add icon
 			});
 
 			if(!comp){
@@ -175,11 +176,11 @@ Ext.define('mixin.UserInterface', function() {
 			menu.itemId = menu.itemId || menu.viewModel; 
 			var screen = content_area.getComponent(menu.itemId);
 			if(!screen){
-				var newView = createView(menu.viewModel, {
+				 var newView = createView(menu.viewModel, {
 					itemId : menu.itemId,
 					closable : true,
 					icon: menu.icon //zhang add icon
-				});
+				 });
 				 if(newView === false){
 					 return false;
 				 }
@@ -190,7 +191,9 @@ Ext.define('mixin.UserInterface', function() {
 			 * CONFIRM parameter 정보가 없더라도 (menu.keys === undefined) setKeys로 keychange 이벤트를 발생시키도록 변경함.
 			 */
 			if (screen.setKeys) {
-				screen.setKeys(menu.keys);
+				var keys = menu.keys ||{}; //zhang added
+				screen.setKeys(Ext.apply(keys, {icon: menu.icon})); //zhang added
+				//original is screen.setKeys(menu.keys);
 			} else {
 				SF.history.add(screen);
 			}
