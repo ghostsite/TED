@@ -67,6 +67,7 @@ Ext.define('SYS.view.user2role.User2RoleManage', {
 				},
 				items : [{
 					xtype : 'container',
+					cls : 'paddingAll7',
 					layout : {
 						type : 'hbox',
 						align : 'stretch'

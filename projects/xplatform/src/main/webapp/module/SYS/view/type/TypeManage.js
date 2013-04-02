@@ -40,11 +40,6 @@ Ext.define('SYS.view.type.TypeManage', {
 				fieldLabel : '父基础类型Id',
 				name : 'parentId'
 			}, {
-				xtype : 'textfield',
-				fieldLabel : '父基础类型名称',
-				name : 'parentName',
-				readOnly : true
-			}, {
 				xtype : 'hidden',
 				fieldLabel : '基础类型Id',
 				name : 'id'
@@ -52,6 +47,11 @@ Ext.define('SYS.view.type.TypeManage', {
 				xtype : 'hidden',
 				fieldLabel : 'leafId',
 				name : 'leaf'
+			}, {
+				xtype : 'textfield',
+				fieldLabel : '父基础类型名称',
+				name : 'parentName',
+				readOnly : true
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '基础类型code',

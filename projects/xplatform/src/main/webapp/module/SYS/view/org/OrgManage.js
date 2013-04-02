@@ -78,6 +78,7 @@ Ext.define('SYS.view.org.OrgManage', {
 			}, {
 				xtype : 'container',
 				layout : 'hbox',
+				cls : 'paddingT7',
 				defaults : {
 					labelWidth : 100
 				},
@@ -96,6 +97,7 @@ Ext.define('SYS.view.org.OrgManage', {
 			}, {
 				xtype : 'container',
 				layout : 'hbox',
+				cls : 'paddingT7',
 				defaults : {
 					labelWidth : 100
 				},

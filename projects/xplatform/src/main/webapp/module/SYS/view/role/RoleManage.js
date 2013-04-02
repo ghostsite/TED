@@ -40,14 +40,14 @@ Ext.define('SYS.view.role.RoleManage', {
 				fieldLabel : '父菜单Id',
 				name : 'parentId'//原来是parent.id，但是MenuResource.java的getParent配置为JsonIgnore了。so use getParentId()
 			}, {
+				xtype : 'hidden',
+				fieldLabel : '角色Id',
+				name : 'id'
+			}, {
 				xtype : 'textfield',
 				fieldLabel : '父菜单名称',
 				name : 'parentName',
 				readOnly : true
-			}, {
-				xtype : 'hidden',
-				fieldLabel : '角色Id',
-				name : 'id'
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '角色值',

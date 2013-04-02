@@ -40,14 +40,18 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 				fieldLabel : '父菜单Id',
 				name : 'parentId' //原来是parent.id，但是MenuResource.java的getParent配置为JsonIgnore了。so use getParentId()
 			}, {
+				xtype : 'hidden',
+				fieldLabel : '菜单Id',
+				name : 'id'
+			}, {
+				xtype : 'hidden',
+				fieldLabel : 'VersionLock',
+				name : 'versionLock'
+			}, {
 				xtype : 'textfield',
 				fieldLabel : '父菜单名称',
 				name : 'parentName',
 				readOnly : true
-			}, {
-				xtype : 'hidden',
-				fieldLabel : '菜单Id',
-				name : 'id'
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '菜单值',
@@ -56,10 +60,6 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 				xtype : 'textfield',
 				fieldLabel : '菜单名称 ',
 				name : 'name'
-			}, {
-				xtype : 'hidden',
-				fieldLabel : 'VersionLock',
-				name : 'versionLock'
 			}, {
 				xtype : 'textfield',
 				fieldLabel : '菜单路径',
@@ -88,9 +88,9 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 					flex : 1
 				}]
 			}, {
-
 				xtype : 'container',
 				layout : 'hbox',
+				cls : 'paddingT7',
 				defaults : {
 					labelWidth : 100
 				},
@@ -109,9 +109,9 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 					flex : 1
 				}]
 			}, {
-
 				xtype : 'container',
 				layout : 'hbox',
+				cls : 'paddingT7',
 				defaults : {
 					labelWidth : 100
 				},
@@ -132,6 +132,7 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 			}, {
 				xtype : 'container',
 				layout : 'hbox',
+				cls : 'paddingT7',
 				items : [{
 					xtype : 'checkbox',
 					fieldLabel : '权限',

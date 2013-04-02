@@ -59,6 +59,7 @@ Ext.define('SYS.view.attachment.AttachmentManage', {
 					}]
 				}, {
 					xtype : 'box',
+					cls:'paddingL10',
 					id : 'showpic',
 					width : 240,
 					name : 'showpic',
