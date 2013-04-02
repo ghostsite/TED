@@ -1,4 +1,4 @@
-/* common style commented lines: 215,263-264,304-369,402-456,579-585,587-623,639-640,search zhang */
+/* common style commented lines: 215,263-264,304-369,402-456,587-623,639-640,search zhang */
 .paddingT3{padding-top:3px}
 .paddingR3{padding-right:3px}
 .paddingB3{padding-bottom:3px}
@@ -576,13 +576,13 @@ textarea.x-form-field{margin-bottom:7px;line-height:1.5;padding:3px 5px }
 #content-body .noPanelTitle .x-panel-header-default{background-image:none}
 
 
-/*floating panel zhang
+/*floating panel zhang*/
  .x-boundlist-floating{
  	background:url('../image/bgFloatingPanel.gif') repeat-x;background-color:#e6e6e6;
  	-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;
  	border:1px solid #999
 }
-*/
+
 
 /* button style zhang
 .x-btn-default-small,#content-body .x-btn-default-toolbar-small{background:url('../image/bgBtn.gif') repeat-x;padding:1px}
