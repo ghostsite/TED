@@ -90,7 +90,7 @@ public class User extends LogicAuditEntity {
     /**
      * 拥有角色集合,不级联。说用户有的角色，只是一级，不包括角色的角色。
      */
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "users", fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.DETACH, mappedBy = "users", fetch = FetchType.LAZY)
     private java.util.List<Role> roleList      = Lists.newArrayList();
 
     /**

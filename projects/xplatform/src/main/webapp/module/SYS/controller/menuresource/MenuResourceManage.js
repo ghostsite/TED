@@ -115,11 +115,7 @@ Ext.define('SYS.controller.menuresource.MenuResourceManage', {
 	onBtnRefresh : function(btn) {// 注意，这里的this 不是指controller，指的是scope, 36line
 									// this.getBaseForm()
 		var sup = this.getBaseForm().getSupplement();
-		sup.sub('menuResourceTreeId').store.load({
-			params : {
-				resourceId : 1
-			}
-		});
+		sup.sub('menuResourceTreeId').store.load();
 	},
 
 	onBeforeUpdate : function(form, addParams, url) {

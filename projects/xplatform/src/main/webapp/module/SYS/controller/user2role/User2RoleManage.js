@@ -189,7 +189,6 @@ Ext.define('SYS.controller.user2role.User2RoleManage', {
 	},
 
 	onBtnRefresh : function(btn) {
-		alert(22)
 		var sup = this.getSupStuff().store.load({
 			params : {
 				roleId : 1

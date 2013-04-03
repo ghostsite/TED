@@ -42,7 +42,7 @@ public class Role extends PersistEntity {
     /**
      * 角色拥有的用户,many-to-many的关系
      */
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
     List<User>           users    = new ArrayList<User>();
 
