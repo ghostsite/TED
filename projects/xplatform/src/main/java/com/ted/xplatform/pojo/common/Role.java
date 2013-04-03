@@ -76,8 +76,9 @@ public class Role extends PersistEntity {
 
     /**
      * 子角色
+     * @OneToMany(cascade = { CascadeType.DETACH }, mappedBy = "parent", fetch = FetchType.LAZY)
      */
-    @OneToMany(cascade = { CascadeType.DETACH }, mappedBy = "parent", fetch = FetchType.LAZY, targetEntity = Role.class)
+    @OneToMany(cascade = { CascadeType.DETACH }, mappedBy = "parent", fetch = FetchType.LAZY )//, targetEntity = Role.class)
     List<Role>           subRoles = new ArrayList<Role>();
 
     /**

@@ -30,7 +30,7 @@ import com.ted.xplatform.pojo.base.AuditEntity;
 public class ACL extends AuditEntity {
     private static final long serialVersionUID = 347155964973604095L;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST  })
     @JoinColumn(name = "acl_resourceid")
     Resource   resource;
 
@@ -38,7 +38,7 @@ public class ACL extends AuditEntity {
     @JoinColumn(name = "acl_operationid")
     Operation  operation;
 
-    @ManyToMany(cascade = CascadeType.REFRESH, mappedBy = "acls", fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE}, mappedBy = "acls", fetch = FetchType.LAZY)
     List<Role> roles = new ArrayList<Role>();
 
     @Column(name = "acl_resourceid", insertable = false, updatable = false)
