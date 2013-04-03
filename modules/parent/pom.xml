@@ -538,11 +538,17 @@
 		</dependency>
 
 		<!-- log4jdbc -->
-		<dependency>
+		<!--dependency>
 			<groupId>org.lazyluke</groupId>
 			<artifactId>log4jdbc-remix</artifactId>
 			<version>0.2.7</version>
 			<scope>runtime</scope>
+		</dependency-->
+		<!-- jdbcslog ,the same as log4jdbc -->
+		<dependency>
+		    <groupId>com.googlecode.usc</groupId>
+		    <artifactId>jdbcdslog</artifactId>
+		    <version>1.0.6.2</version>
 		</dependency>
 		<!-- LOGGING end -->
 

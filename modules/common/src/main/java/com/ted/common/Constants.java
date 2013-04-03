@@ -5,7 +5,7 @@ public class Constants {
     public static final boolean isDev                 = true;                   //是否是开发环境,不控制webservice的正式、开发与否
 
     public static final String  TOTALCOUNT            = "totalCount";           //给JsonReader用的配置信息的totalCount
-    public static final String  CONTENT                  = "content";              //给JsonReader用的配置信息的root for extjs4
+    public static final String  CONTENT               = "content";              //给JsonReader用的配置信息的root for extjs4,妥协于spring data pageable
     public static final String  START                 = "start";                //ext 翻页都要用到的起始记录数
     public static final String  LIMIT                 = "limit";                //一页返回多少行。
     public static final String  SUCCESS_JSON          = "{success:true}";
