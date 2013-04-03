@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,7 +103,12 @@ public class MenuResourceController {
     List<TreeNode> getCurrentUserFavoriteMenusCascade() {
         List<MenuResource> menuResourceList = menuResourceService.getSubMenusCascadeByParentIdFilterByCurrentSubject(null);
         List<MenuResource> favoriteList = PlatformUtils.getFavorite(menuResourceList);//
+        
+        //升序排序
+        PropertyComparator.sort(favoriteList, new MutableSortDefinition("idx", true, true));
+        
         List<TreeNode> favoriteMenuList = DozerUtils.mapList(favoriteList, TreeNode.class);
+
         return favoriteMenuList;
     };
 
