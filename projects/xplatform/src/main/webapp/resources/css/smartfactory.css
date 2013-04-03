@@ -1,4 +1,4 @@
-/* common style commented lines: 215,263-264,304-369,402-456,587-623,639-640,search zhang */
+/* common style commented lines: 215,263-264,304-369,402-456,587-623,639-661,search zhang */
 .paddingT3{padding-top:3px}
 .paddingR3{padding-right:3px}
 .paddingB3{padding-bottom:3px}
@@ -637,7 +637,7 @@ table.x-datepicker-inner .x-datepicker-today a{color:#cc3300}
 
 /* window style*/
 /*zhang .x-tool-refresh, .x-tool-over .x-tool-refresh,.x-tool img.x-tool-refresh{background:url('../image/modalIcons.gif') 0 0px no-repeat;}
-.x-tool-close, .x-tool-over .x-tool-close,.x-tool img.x-tool-close{background:url('../image/modalIcons.gif') -15px 0px no-repeat;}*/
+.x-tool-close, .x-tool-over .x-tool-close,.x-tool img.x-tool-close{background:url('../image/modalIcons.gif') -15px 0px no-repeat;}
 .x-window-default{background:url('../image/bgDockHeader.png') 100% -8px repeat-x;padding:0;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;}
 .x-window-header-text-default{color:#efefef;line-height:1.5;font-size:15px;padding-left:45px;padding-top:10px}
 .x-window-body{border:2px solid #4a70ab !important;border-width:0 2px !important;z-index:10}
@@ -658,7 +658,7 @@ table.x-datepicker-inner .x-datepicker-today a{color:#cc3300}
 .x-window .x-panel-header-text-default{color:#5371A7}
 .x-window .x-window-body + .x-toolbar-footer-docked-bottom{background-color:#f0f0f0;border:2px solid #4a70ab !important;border-top:1px solid #cfcfcf !important;padding:3px 0;height:28px;height:30px\9}
 .x-window .x-window-body .x-toolbar-footer-docked-bottom,.windowBBorder{border-bottom:2px solid #4a70ab !important;}
-.x-message-box .x-window-body{background-color:#fff}
+.x-message-box .x-window-body{background-color:#fff}*/
 
 
 /* file upload style*/
