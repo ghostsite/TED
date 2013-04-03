@@ -116,11 +116,7 @@ Ext.define('SYS.controller.type.TypeManage', {
 	onBtnRefresh : function(btn) {// 注意，这里的this 不是指controller，指的是scope, 36line
 									// this.getBaseForm()
 		var sup = this.getBaseForm().getSupplement();
-		sup.sub('typeTreeId').store.load({
-			params : {
-				typeId : 0
-			}
-		});
+		sup.sub('typeTreeId').store.load();
 	},
 
 	onBeforeUpdate : function(form, addParams, url) {

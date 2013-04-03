@@ -112,11 +112,7 @@ Ext.define('SYS.controller.role.RoleManage', {
 	onBtnRefresh : function(btn) {// 注意，这里的this 不是指controller，指的是scope, 36line
 									// this.getBaseForm()
 		var sup = this.getBaseForm().getSupplement();
-		sup.sub('roleTreeId').store.load({
-			params : {
-				roleId : 1
-			}
-		});
+		sup.sub('roleTreeId').store.load();
 	},
 
 	onBeforeUpdate : function(form, addParams, url) {

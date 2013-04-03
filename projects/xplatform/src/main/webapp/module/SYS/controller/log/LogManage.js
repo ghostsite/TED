@@ -16,8 +16,8 @@ Ext.define('SYS.controller.log.LogManage', {
 		this.control({
 			'admin_log' : {
 				btnClose : this.onBtnClose,
-				sup_btnReset : this.onSupBtnReset,
-				sup_btnView : this.onSupBtnView,
+				sup_btnResetclick : this.onSupBtnReset,
+				sup_btnViewclick : this.onSupBtnView,
 				gridselectionchange : this.onSelectionchange
 			},
 			'admin_log basebuttons' : {
@@ -51,11 +51,12 @@ Ext.define('SYS.controller.log.LogManage', {
 		view.close();
 	},
 
-	onSupBtnReset : function(sup) {
-		sup.getForm().reset();
+	onSupBtnReset : function() {
+		this.getBaseForm().getSupplement().getForm().reset();
 	},
 
-	onSupBtnView : function(sup) {
+	onSupBtnView : function() {
+		var sup = this.getBaseForm().getSupplement();
 		var params = {
 			start : 0,
 			limit : SF.page.pageSize

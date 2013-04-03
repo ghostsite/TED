@@ -8,7 +8,7 @@ Ext.define('SYS.controller.user2role.User2RoleManage', {
 		selector : 'admin_user2role',
 		ref : 'baseForm'
 	}],
-
+	
 	init : function() {
 		this.control({
 			'admin_user2role' : {
@@ -189,11 +189,7 @@ Ext.define('SYS.controller.user2role.User2RoleManage', {
 	},
 
 	onBtnRefresh : function(btn) {
-		var sup = this.getSupStuff().store.load({
-			params : {
-				roleId : 1
-			}
-		});
+		var sup = this.getSupStuff().store.load();
 	},
 
 	showUserList : function(view, record) {
