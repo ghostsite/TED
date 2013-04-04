@@ -135,19 +135,12 @@
 	
 	<mvc:default-servlet-handler/>
 	<mvc:resources location="/resources/"  mapping="/resources/**" cache-period="3" />
-	<!-- mvc:resources location="/resources/app/" mapping="/app/**" order="1"/-->
 	<mvc:resources location="/resources/css/"  mapping="/css/**" cache-period="3" />
 	<mvc:resources location="/resources/data/service/"  mapping="/service/**" cache-period="3" order="4"/>
 	<mvc:resources location="/resources/image/"  mapping="/image/**" cache-period="3" />
 	<mvc:resources location="/resources/js/ux/"  mapping="/js/ux/**" cache-period="3" />
 	<mvc:resources location="/resources/js/"  mapping="/js/**" cache-period="3" />
-	<!--mvc:resources location="/resources/module/"  mapping="/module/**" cache-period="3" /-->
-	<!-- mvc:resources location="/resources/opc/"  mapping="/opc/**" cache-period="3" /-->
-	<!-- mvc:resources location="/resources/product/"  mapping="/product/**" cache-period="3" /-->
 	<mvc:resources location="/resources/sound/"  mapping="/sound/**" cache-period="3" />
-	<mvc:resources location="/resources/task/"  mapping="/task/**" cache-period="3" />
-	<mvc:resources location="/resources/unity/"  mapping="/unity/**" cache-period="3" />
-	<mvc:resources location="/resources/utils/"  mapping="/utils/**" cache-period="3" />
 	
 	<!--org.springframework.web.multipart.commons.CommonsMultipartResolver-->
 	<!--org.springframework.web.multipart.support.StandardServletMultipartResolver, this is based on servlet 3.0-->

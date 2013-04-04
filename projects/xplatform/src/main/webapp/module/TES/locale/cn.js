@@ -21,7 +21,8 @@ T({
 					"SegmentedButtons":"分组按钮",
 					"SwitchSegmentedButtons":"Switch按钮",
 					"StarRating":"打分数",
-					"ToggleSlide":"仿苹果"
+					"ToggleSlide":"仿苹果",
+					"Exporter":"导出Excel"
 				}
 			},
 			"test":"例子"
