@@ -8,6 +8,7 @@ Ext.define('SYS.view.user2role.RoleContainUsersPopup', {
 	modal : true,
 	layout : 'fit',
 	modal : false,// 是否为模式窗口
+	icon  : 'image/icon/wlorb.png',
 
 	dockedItems : [{
 		xtype : 'bas_base_buttons',

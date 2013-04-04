@@ -289,9 +289,13 @@ public class RoleService {
      */
     @Transactional(readOnly = true)
     public List<User> getUserListByRoleId(Long roleId) {
-        Role role = jpaSupportDao.findByIdWithDepth(Role.class, roleId, "users");
-        List<User> userList = role.getUsers();
-        return userList;
+        if(null == roleId){
+            return null;
+        }else{
+            Role role = jpaSupportDao.findByIdWithDepth(Role.class, roleId, "users");
+            List<User> userList = role.getUsers();
+            return userList;
+        }
     };
 
     /**
@@ -321,6 +325,17 @@ public class RoleService {
     public void saveUserHasRoles(Long userId, Collection<Long> roleIds) {
         User user = jpaSupportDao.getEntityManager().find(User.class, userId);
         List<Role> dbRoleList = user.getRoleList();
+        
+        if(org.apache.commons.collections.CollectionUtils.isEmpty(roleIds)){
+            if(!org.apache.commons.collections.CollectionUtils.isEmpty(dbRoleList)){
+                for (Role role : dbRoleList) {
+                    role.getUsers().remove(user);
+                    jpaSupportDao.getEntityManager().merge(role);
+                }
+            }
+            return;
+        }
+        
         for (Long roleId : roleIds) {
             Role role = jpaSupportDao.getEntityManager().find(Role.class, roleId);
             if (dbRoleList.contains(role)) {

@@ -199,7 +199,7 @@ public class RoleController {
      */
     @RequestMapping(value = "/saveUserHasRoles")
     public @ResponseBody
-    String saveUserHasRoles(@RequestParam Long userId, @RequestParam Collection<Long> roleIds) {
+    String saveUserHasRoles(@RequestParam Long userId, @RequestParam(required=false) Collection<Long> roleIds) {
         roleService.saveUserHasRoles(userId, roleIds);
         return Constants.SUCCESS_JSON;
     };
@@ -221,7 +221,7 @@ public class RoleController {
     public @ResponseBody
     List<Map<String, Object>> getUserRolesCheckedData(@RequestParam(required = true) Long userId) {
         Map<String, Object> para = CollectionUtils.newMap("userId", userId);
-        String sql = "select r.name,r.id,u.userName, 1 checked from role r inner join user_role ur on r.id=ur.role_id inner join users u on u.id=ur.user_id where u.id=:userId";
+        String sql = "select r.name,r.id,u.user_name as userName, 1 checked from role r inner join user_role ur on r.id=ur.role_id inner join users u on u.id=ur.user_id where u.id=:userId";
         List<Map<String, Object>> list = this.namedJdbcTemplate.queryForList(sql, para);
         return list;
     };

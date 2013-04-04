@@ -36,7 +36,7 @@ Ext.define('SYS.controller.user2role.User2RoleManage', {
 
 	showRoleContainUsers : function(button) {
 		var selectedRole = SF.getSelectedRecordFromGrid(this.getSupStuff().tree);
-		if (selectedRole) {
+		if (selectedRole && selectedRole.id) {
 			SF.popup('SYS.view.user2role.RoleContainUsersPopup', {
 				targetControl : this,
 				targetForm : this.getBaseForm(),
@@ -50,10 +50,15 @@ Ext.define('SYS.controller.user2role.User2RoleManage', {
 		}
 	},
 
-	saveRole2User : function(button) {
+	saveRole2User : function(button) {//这个只能选择一个用户，并选择多个角色。
 		var sup = this.getBaseForm().getSupplement();
 		var roleTreePanel = sup.sub('roleTreeId');
-		var params = ["userId=" + roleTreePanel.userId];
+		var userSelected = SF.getSelectedRecordFromGrid(this.getGrid());
+		if(userSelected === false){
+			Ext.Msg.alert('提示','请选择一个人!');
+			return;
+		}
+		var params = ["userId=" + userSelected.id];
 		var selectedRoles = roleTreePanel.getChecked();
 		Ext.each(selectedRoles, function(roleNode) {
 			params.push("roleIds=" + roleNode.raw.id);

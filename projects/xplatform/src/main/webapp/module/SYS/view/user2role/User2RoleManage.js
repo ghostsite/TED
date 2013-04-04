@@ -182,10 +182,10 @@ Ext.define('SYS.view.user2role.User2RoleManage', {
 				xtype : 'treepanel',
 				itemId : 'roleTreeId',
 				flex : 1,
-				rootVisible : true,
+				rootVisible : false,
 				root : {
 					expanded : true,
-					text : '基础类型数据',
+					text : '角色',
 					id : null
 				},
 				store : Ext.create('Ext.data.TreeStore', {

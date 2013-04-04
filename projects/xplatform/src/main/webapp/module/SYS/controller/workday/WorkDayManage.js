@@ -16,9 +16,9 @@ Ext.define('SYS.controller.workday.WorkDayManage', {
 		this.control({
 			'admin_workday' : {
 				btnClose : this.onBtnClose,
-				sup_btnReset : this.onSupBtnReset,
-				sup_btnView : this.onSupBtnView,
-				sup_btnGenerate : this.onSupBtnGenerate,
+				sup_btnResetclick : this.onSupBtnReset,
+				sup_btnViewclick : this.onSupBtnView,
+				sup_btnGenerateclick : this.onSupBtnGenerate,
 				gridselectionchange : this.onSelectionchange
 			},
 			'admin_workday basebuttons' : {
@@ -52,11 +52,13 @@ Ext.define('SYS.controller.workday.WorkDayManage', {
 		view.close();
 	},
 
-	onSupBtnReset : function(sup) {
+	onSupBtnReset : function() {
+		var sup = this.getBaseForm().getSupplement();
 		sup.getForm().reset();
 	},
 
-	onSupBtnView : function(sup) {
+	onSupBtnView : function() {
+		var sup = this.getBaseForm().getSupplement();
 		var params = {
 			start : 0,
 			limit : SF.page.pageSize
