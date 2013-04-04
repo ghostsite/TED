@@ -22,7 +22,8 @@ T({
 					"SwitchSegmentedButtons":"Switch按钮",
 					"StarRating":"打分数",
 					"ToggleSlide":"仿苹果",
-					"Exporter":"导出Excel"
+					"Exporter":"导出Excel",
+					"Printer":"打印机"
 				}
 			},
 			"test":"例子"

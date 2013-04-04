@@ -74,7 +74,11 @@
 }
 
 .upload-icon {
-    background: url('../image/icon/image_add.png') no-repeat 0 0 !important;
+    background: url(../image/icon/image_add.png) no-repeat 0 0 !important;
+}
+
+.icon-print { 
+	background-image: url(../image/icon/printer.png) !important; 
 }
 
 /* zhang added 20130402 center tab bar background image */
