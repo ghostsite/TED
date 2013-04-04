@@ -74,12 +74,11 @@
 		<link rel="stylesheet" href="js/uux/container/ButtonSegment.css"></link>
 		<link rel="stylesheet" href="js/uux/form/field/StarRating/css/style.css"></link>
 		<link rel="stylesheet" href="js/uux/form/field/ToggleSlide/css/toggle-slide.css"></link>
-		<link rel="stylesheet" href="js/uux/panel/lib/TextLayerBuilder.css"></link>
+		<link rel="stylesheet" href="js/uux/util/PDF/TextLayerBuilder.css"></link>
 		<script src="js/uux/form/tinymce/tiny_mce_src.js" charset="UTF-8"></script>
 		<script src="js/uux/exporter/downloadify.min.js" charset="UTF-8"></script>
-		<script src="js/uux/panel/lib/compatibility.js" charset="UTF-8"></script>
-		<script src="js/uux/panel/lib/pdf.js" charset="UTF-8"></script>
-		<script src="js/uux/panel/lib/TextLayerBuilder.js" charset="UTF-8"></script>
+		<script src="js/uux/panel/util/compatibility.js" charset="UTF-8"></script>
+		<script src="js/uux/panel/util/pdf.js" charset="UTF-8"></script>
 		<script src="js/uux/panel/PDF.js" charset="UTF-8"></script>
 		
 
