@@ -72,6 +72,8 @@
 		<link rel="stylesheet" href="js/uux/SecondTitle.css"></link>
 		<link rel="stylesheet" href="js/uux/form/field/BoxSelect.css"></link>
 		<link rel="stylesheet" href="js/uux/container/ButtonSegment.css"></link>
+		<link rel="stylesheet" href="js/uux/form/field/StarRating/css/style.css"></link>
+		<link rel="stylesheet" href="js/uux/form/field/ToggleSlide/css/toggle-slide.css"></link>
 		<script src="js/uux/form/tinymce/tiny_mce_src.js" charset="UTF-8"></script>
 		
 

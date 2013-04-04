@@ -19,7 +19,9 @@ T({
 					"TinyMce":"编辑器",
 					"BoxSelect":"多选框",
 					"SegmentedButtons":"分组按钮",
-					"SwitchSegmentedButtons":"Switch按钮"
+					"SwitchSegmentedButtons":"Switch按钮",
+					"StarRating":"打分数",
+					"ToggleSlide":"仿苹果"
 				}
 			},
 			"test":"例子"
