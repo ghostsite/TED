@@ -23,7 +23,8 @@ T({
 					"StarRating":"打分数",
 					"ToggleSlide":"仿苹果",
 					"Exporter":"导出Excel",
-					"Printer":"打印机"
+					"Printer":"打印机",
+					"Pdf":"显示PDF"
 				}
 			},
 			"test":"例子"
