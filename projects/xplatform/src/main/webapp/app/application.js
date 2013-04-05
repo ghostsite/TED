@@ -3,7 +3,7 @@ Ext.Loader.setConfig({
 	disableCaching: false,
 	paths : {
 		'SmartFactory' : 'product/SmartFactory.js',
-		'Ext.ux' : 'js/extjs/ux',//TODO 如果不能用同一个名字，再说
+		'Ext.ux' : 'js/extjs/ux',//不能同名,so 如果真正使用的时候，只能move uux to ux
 		'Ext.ux' : 'js/uux',
 		GeoExt : 'js/GeoExt'
 	}
