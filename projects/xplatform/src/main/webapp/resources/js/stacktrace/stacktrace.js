@@ -11,12 +11,18 @@
  * @cfg {Error} e The error to create a stacktrace from (optional)
  * @cfg {Boolean} guess If we should try to resolve the names of anonymous functions
  * @return {Array} of Strings with functions, lines, files, and arguments where possible
+ * 
+ * https://github.com/eriwen/javascript-stacktrace/blob/master/stacktrace.js
  */
 function printStackTrace(options) {
     options = options || {guess: true};
     var ex = options.e || null, guess = !!options.guess;
     var p = new printStackTrace.implementation(), result = p.run(ex);
     return (guess) ? p.guessAnonymousFunctions(result) : result;
+}
+
+if (typeof module !== "undefined" && module.exports) {
+    module.exports = printStackTrace;
 }
 
 printStackTrace.implementation = function() {
@@ -56,6 +62,10 @@ printStackTrace.implementation.prototype = {
     mode: function(e) {
         if (e['arguments'] && e.stack) {
             return 'chrome';
+        } else if (e.stack && e.sourceURL) {
+            return 'safari';
+        } else if (e.stack && e.number) {
+            return 'ie';
         } else if (typeof e.message === 'string' && typeof window !== 'undefined' && window.opera) {
             // e.message.indexOf("Backtrace:") > -1 -> opera
             // !e.stacktrace -> opera
@@ -132,20 +142,43 @@ printStackTrace.implementation.prototype = {
     },
 
     /**
+     * Given an Error object, return a formatted Array based on Safari's stack string.
+     *
+     * @param e - Error object to inspect
+     * @return Array<String> of function calls, files and line numbers
+     */
+    safari: function(e) {
+        return e.stack.replace(/\[native code\]\n/m, '')
+            .replace(/^(?=\w+Error\:).*$\n/m, '')
+            .replace(/^@/gm, '{anonymous}()@')
+            .split('\n');
+    },
+
+    /**
+     * Given an Error object, return a formatted Array based on IE's stack string.
+     *
+     * @param e - Error object to inspect
+     * @return Array<String> of function calls, files and line numbers
+     */
+    ie: function(e) {
+        var lineRE = /^.*at (\w+) \(([^\)]+)\)$/gm;
+        return e.stack.replace(/at Anonymous function /gm, '{anonymous}()@')
+            .replace(/^(?=\w+Error\:).*$\n/m, '')
+            .replace(lineRE, '$1@$2')
+            .split('\n');
+    },
+
+    /**
      * Given an Error object, return a formatted Array based on Firefox's stack string.
      *
      * @param e - Error object to inspect
      * @return Array<String> of function calls, files and line numbers
      */
     firefox: function(e) {
-        return e.stack.replace(/(?:\n@:0)?\s+$/m, '').replace(/^\(/gm, '{anonymous}(').split('\n');
+        return e.stack.replace(/(?:\n@:0)?\s+$/m, '').replace(/^[\(@]/gm, '{anonymous}()@').split('\n');
     },
 
     opera11: function(e) {
-        // "Error thrown at line 42, column 12 in <anonymous function>() in file://localhost/G:/js/stacktrace.js:\n"
-        // "Error thrown at line 42, column 12 in <anonymous function: createException>() in file://localhost/G:/js/stacktrace.js:\n"
-        // "called from line 7, column 4 in bar(n) in file://localhost/G:/js/test/functional/testcase1.html:\n"
-        // "called from line 15, column 3 in file://localhost/G:/js/test/functional/testcase1.html:\n"
         var ANON = '{anonymous}', lineRE = /^.*line (\d+), column (\d+)(?: in (.+))? in (\S+):$/;
         var lines = e.stacktrace.split('\n'), result = [];
 
@@ -220,7 +253,7 @@ printStackTrace.implementation.prototype = {
         return result;
     },
 
-    // Safari, IE, and others
+    // Safari 5-, IE 9-, and others
     other: function(curr) {
         var ANON = '{anonymous}', fnRE = /function\s*([\w\-$]+)?\s*\(/i, stack = [], fn, args, maxStackSize = 10;
         while (curr && curr['arguments'] && stack.length < maxStackSize) {
@@ -235,7 +268,7 @@ printStackTrace.implementation.prototype = {
     /**
      * Given arguments array as a String, subsituting type names for non-string types.
      *
-     * @param {Arguments} object
+     * @param {Arguments} args
      * @return {Array} of Strings with stringified arguments
      */
     stringifyArguments: function(args) {
@@ -375,14 +408,13 @@ printStackTrace.implementation.prototype = {
     findFunctionName: function(source, lineNo) {
         // FIXME findFunctionName fails for compressed source
         // (more than one function on the same line)
-        // TODO use captured args
         // function {name}({args}) m[1]=name m[2]=args
         var reFunctionDeclaration = /function\s+([^(]*?)\s*\(([^)]*)\)/;
         // {name} = function ({args}) TODO args capture
         // /['"]?([0-9A-Za-z_]+)['"]?\s*[:=]\s*function(?:[^(]*)/
-        var reFunctionExpression = /['"]?([0-9A-Za-z_]+)['"]?\s*[:=]\s*function\b/;
+        var reFunctionExpression = /['"]?([$_A-Za-z][$_A-Za-z0-9]*)['"]?\s*[:=]\s*function\b/;
         // {name} = eval()
-        var reFunctionEvaluation = /['"]?([0-9A-Za-z_]+)['"]?\s*[:=]\s*(?:eval|new Function)\b/;
+        var reFunctionEvaluation = /['"]?([$_A-Za-z][$_A-Za-z0-9]*)['"]?\s*[:=]\s*(?:eval|new Function)\b/;
         // Walk backwards in the source lines until we find
         // the line which matches one of the patterns above
         var code = "", line, maxLines = Math.min(lineNo, 20), m, commentPos;
