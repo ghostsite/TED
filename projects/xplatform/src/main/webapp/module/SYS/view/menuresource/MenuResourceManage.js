@@ -24,6 +24,7 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 	},
 
 	buildForm : function() {
+
 		return {
 			xtype : 'container',
 			cls : 'paddingAll7',
@@ -95,15 +96,57 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 					labelWidth : 100
 				},
 				items : [{
-					xtype : 'textfield',
+					xtype : 'combobox',
 					fieldLabel : 'ICON',
 					name : 'icon',
 					cls : 'marginR10',
+
+					store : Ext.create('Ext.data.Store', {
+						fields : ['path', 'shortpath'],
+						proxy : {
+							type : 'ajax',
+							url : 'menuresource/getMenuIconList/16',
+							reader : {
+								type : 'json'
+							}
+						},
+						autoLoad : true
+					}),
+					queryMode : 'local',
+					displayField : 'path',
+					valueField : 'path',
+					listConfig : {
+						getInnerTpl : function(displayField) {
+							// return '<img src="{path}" class="icon"/> {' + displayField + '}';
+							return '<img src="{path}" class="icon"/> {shortpath}';
+						}
+					},
 					flex : 1
 				}, {
-					xtype : 'textfield',
+					xtype : 'combobox',
 					fieldLabel : 'ICON2',
 					name : 'icon2',
+					
+					store : Ext.create('Ext.data.Store', {
+						fields : ['path', 'shortpath'],
+						proxy : {
+							type : 'ajax',
+							url : 'menuresource/getMenuIconList/32',
+							reader : {
+								type : 'json'
+							}
+						},
+						autoLoad : true
+					}),
+					queryMode : 'local',
+					displayField : 'path',
+					valueField : 'path',
+					listConfig : {
+						getInnerTpl : function(displayField) {
+							// return '<img src="{path}" class="icon"/> {' + displayField + '}';
+							return '<img src="{path}" class="icon"/> {shortpath}';
+						}
+					},
 					flex : 1
 				}]
 			}, {

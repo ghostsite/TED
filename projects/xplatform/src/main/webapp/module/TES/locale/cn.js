@@ -24,7 +24,8 @@ T({
 					"ToggleSlide":"仿苹果",
 					"Exporter":"导出Excel",
 					"Printer":"打印机",
-					"Pdf":"显示PDF"
+					"Pdf":"显示PDF",
+					"GIS":"显示GIS"
 				}
 			},
 			"test":"例子"
