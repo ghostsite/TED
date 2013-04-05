@@ -2,6 +2,7 @@
  * Plugin for adding a close context menu to tabs. Note that the menu respects
  * the closable configuration on the tab. As such, commands like remove others
  * and remove all will not remove items that are not closable.
+ * zhang change it ,for icon and cn name
  */
 Ext.define('Ext.ux.tab.TabCloseMenu', {
     alias: 'plugin.tabclosemenu',
@@ -15,7 +16,7 @@ Ext.define('Ext.ux.tab.TabCloseMenu', {
      * @cfg {String} closeTabText
      * The text for closing the current tab.
      */
-    closeTabText: 'Close Tab',
+    closeTabText: '关闭当前选项​​卡',
 
     /**
      * @cfg {Boolean} showCloseOthers
@@ -27,7 +28,7 @@ Ext.define('Ext.ux.tab.TabCloseMenu', {
      * @cfg {String} closeOtherTabsText
      * The text for closing all tabs except the current one.
      */
-    closeOthersTabsText: 'Close Other Tabs',
+    closeOthersTabsText: '关闭其他选项​​卡',
 
     /**
      * @cfg {Boolean} showCloseAll
@@ -39,7 +40,7 @@ Ext.define('Ext.ux.tab.TabCloseMenu', {
      * @cfg {String} closeAllTabsText
      * <p>The text for closing all tabs.
      */
-    closeAllTabsText: 'Close All Tabs',
+    closeAllTabsText: '关闭所有选项​​卡',
 
     /**
      * @cfg {Array} extraItemsHead
@@ -132,6 +133,7 @@ Ext.define('Ext.ux.tab.TabCloseMenu', {
             var items = [{
                 text: me.closeTabText,
                 scope: me,
+                icon:'image/icon/remove.png',
                 handler: me.onClose
             }];
 
@@ -143,6 +145,7 @@ Ext.define('Ext.ux.tab.TabCloseMenu', {
                 items.push({
                     text: me.closeOthersTabsText,
                     scope: me,
+                    icon:'image/icon/contacts.png',
                     handler: me.onCloseOthers
                 });
             }
@@ -151,6 +154,7 @@ Ext.define('Ext.ux.tab.TabCloseMenu', {
                 items.push({
                     text: me.closeAllTabsText,
                     scope: me,
+                    icon:'image/icon/tabs.gif',
                     handler: me.onCloseAll
                 });
             }

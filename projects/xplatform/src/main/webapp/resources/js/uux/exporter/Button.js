@@ -18,7 +18,7 @@ Ext.define("Ext.ux.exporter.Button", {
         swfPath: 'js/uux/exporter/downloadify.swf',
         downloadImage: 'js/uux/exporter/download.png',
         width: 62,
-        height: 27,
+        height: 22,
         downloadName: "download"
     },
 

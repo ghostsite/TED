@@ -169,8 +169,8 @@ Ext.define('mixin.UserInterface', function() {
 					 * Synchronously Loading 경고를 방지하기 위해서 명시적으로 Ext.syncRequire 를 선행적으로 호출함.
 					 */
 					Ext.syncRequire(controller);
-					//SF.controller.ApplicationController.unique.getController(controller).init();
-					SF.controller.ApplicationController.unique.getController(controller); //this is a big bug for mesplus, for getController() has called doInit()
+					SF.controller.ApplicationController.unique.getController(controller).init(); //this is for extjs4.1
+					//SF.controller.ApplicationController.unique.getController(controller); //this is for extjs4.2 ,a big bug for mesplus, for getController() has called doInit()
 				}
 			}
 			
@@ -237,8 +237,8 @@ Ext.define('mixin.UserInterface', function() {
 					 * Synchronously Loading 경고를 방지하기 위해서 명시적으로 Ext.syncRequire 를 선행적으로 호출함.
 					 */
 					Ext.syncRequire(controller);
-					//SF.controller.ApplicationController.unique.getController(controller).init();
-					SF.controller.ApplicationController.unique.getController(controller); //getController() has contained calling doInit
+					SF.controller.ApplicationController.unique.getController(controller).init();
+					//SF.controller.ApplicationController.unique.getController(controller); //getController() has contained calling doInit
 				}
 			}
 			

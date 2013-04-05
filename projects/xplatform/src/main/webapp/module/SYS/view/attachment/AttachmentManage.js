@@ -1,7 +1,7 @@
 Ext.define('SYS.view.attachment.AttachmentManage', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'admin_attachment',
-	requires : ['SYS.model.Attachment', 'Ext.ux.ProgressBarPager', 'Ext.grid.plugin.RowExpander'],
+	requires : ['SYS.model.Attachment', 'Ext.ux.ProgressBarPager', 'Ext.ux.grid.RowExpander'],
 
 	title : T('Caption.Menu.SYS.view.attachment.AttachmentManage'),
 	// layout : 'fit',

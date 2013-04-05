@@ -48,20 +48,12 @@ Ext.define('TES.view.Exporter', {
 			}
 		});
 
-		var jumpToRow = function() {
-			var fld = grid.down('#gotoLine');
-			if (fld.isValid()) {
-				grid.view.bufferedRenderer.scrollTo(fld.getValue() - 1, true);
-			}
-		};
-
 		var grid = Ext.create('Ext.grid.Panel', {
 			width : 700,
 			height : 500,
 			title : 'Bufffered Grid of 5,000 random records',
 			store : store,
 			loadMask : true,
-			plugins : 'bufferedrenderer',
 			selModel : {
 				pruneRemoved : false
 			},
@@ -106,26 +98,6 @@ Ext.define('TES.view.Exporter', {
 				sortable : true,
 				dataIndex : 'salary',
 				align : 'right'
-			}],
-			bbar : [{
-				labelWidth : 70,
-				fieldLabel : 'Jump to row',
-				xtype : 'numberfield',
-				minValue : 1,
-				maxValue : store.getTotalCount(),
-				allowDecimals : false,
-				itemId : 'gotoLine',
-				enableKeyEvents : true,
-				listeners : {
-					specialkey : function(field, e) {
-						if (e.getKey() === e.ENTER) {
-							jumpToRow();
-						}
-					}
-				}
-			}, {
-				text : 'Go',
-				handler : jumpToRow
 			}]
 		});
 

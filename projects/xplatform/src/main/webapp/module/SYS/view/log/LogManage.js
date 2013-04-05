@@ -2,7 +2,7 @@
 Ext.define('SYS.view.log.LogManage', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'admin_log',
-	requires : ['SYS.model.Log', 'Ext.ux.ProgressBarPager', 'Ext.grid.plugin.RowExpander','Ext.ux.toolbar.PagingOptions'],
+	requires : ['SYS.model.Log', 'Ext.ux.ProgressBarPager', 'Ext.ux.grid.RowExpander'],
 
 	title : T('Caption.Menu.SYS.view.log.LogManage'),
 	// layout : 'fit',

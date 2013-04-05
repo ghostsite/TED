@@ -8,7 +8,7 @@ Ext.define('SYS.controller.attachment.AttachmentManage', {
 
 	init : function() {
 		this.control({
-			'admin_attachment grid[itemId=gridmap]' : {
+			'admin_attachment #gridmap' : {
 				itemdblclick : this.doDownload,
 				itemclick : this.showPic
 			}
