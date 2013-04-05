@@ -64,7 +64,7 @@ Ext.define('SYS.controller.user.UserPopup', {
 					supStuff.tree.fireEvent('itemclick', null, selNode);
 					this.getForm().close();
 				}else{
-					Ext.Msg.alert('Fail', Ext.decode(action.response.responseText).msg);
+					SF.alertError('错误',Ext.decode(action.response.responseText).msg);
 				}
 			},
 			scope : this

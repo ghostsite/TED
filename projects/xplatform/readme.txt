@@ -3,7 +3,8 @@
 借鉴了mesplus的前台和部分后台。
 数据库用mysql，自己设计。
 
-注意：不再支持extjs3
+注意：不再支持extjs3,extjs4.1
+only extjs 4.2 is supported
 
 ===============
 登陆用户名/密码：manager/123

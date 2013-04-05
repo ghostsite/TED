@@ -59,13 +59,6 @@
 		</script>
 		<script type="text/javascript" src="product/locale/${user.language}.js"></script>
 
-		<!--native extjs 4.1.1,没有这个目录，这个是给GeoExt示例用的，因为GeoExt不兼容extjs4.2-->
-		<!--link rel="stylesheet" href="js/extjs-4.1.1/resources/css/ext-all.css"></link>
-		<link rel="stylesheet" href="css/smartfactory.css"></link>
-		<script src="js/extjs-4.1.1/bootstrap.js"></script>
-		<script src="js/extjs-4.1.1/locale/ext-lang-en.js" charset="UTF-8"></script-->
-		
-		
 		<!--native extjs 4.2.0-->
 		<link rel="stylesheet" href="js/extjs/resources/css/ext-all.css"></link>
 		<link rel="stylesheet" href="css/smartfactory.css"></link>

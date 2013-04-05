@@ -86,7 +86,7 @@ Ext.define('SYS.controller.workday.WorkDayManage', {
 						to : sup.sub('to').getRawValue()
 					},
 					success : function(response, opts) {
-						Ext.Msg.alert(T('Message.Info'), T('Message.WorkDayGenOK'));
+						SF.alertInfo(T('Message.Info'),T('Message.WorkDayGenOK'));
 						self.onSupBtnView(sup);
 					}
 				});

@@ -87,10 +87,10 @@ Ext.define('SYS.controller.user2role.RoleContainUsersPopup', {
 			url : 'role/saveRoleHasUsers',
 			params : params.join('&'),
 			success : function(request) {
-				Ext.Msg.alert("信息", "保存成功!");
+				SF.alertInfo('信息','保存成功!');
 			},
 			failure : function() {
-				Ext.Msg.alert("网络出现错误!");
+				SF.alertError('错误',"网络出现错误!");
 			}
 		});
 	},

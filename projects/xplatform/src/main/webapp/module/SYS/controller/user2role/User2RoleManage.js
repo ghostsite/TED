@@ -46,7 +46,7 @@ Ext.define('SYS.controller.user2role.User2RoleManage', {
 				}
 			});
 		}else{
-			Ext.Msg.alert('信息','请选择一个角色!');
+			SF.alertWarn('警告','请选择一个角色.');
 		}
 	},
 
@@ -55,7 +55,7 @@ Ext.define('SYS.controller.user2role.User2RoleManage', {
 		var roleTreePanel = sup.sub('roleTreeId');
 		var userSelected = SF.getSelectedRecordFromGrid(this.getGrid());
 		if(userSelected === false){
-			Ext.Msg.alert('提示','请选择一个人!');
+			SF.alertWarn('警告','请选择一个人.');
 			return;
 		}
 		var params = ["userId=" + userSelected.id];
@@ -67,10 +67,10 @@ Ext.define('SYS.controller.user2role.User2RoleManage', {
 			url : 'role/saveUserHasRoles',
 			params : params.join('&'),
 			success : function(response, options) {
-				Ext.Msg.alert("信息", "保存成功!");
+				SF.alertInfo('信息','保存成功!');
 			},
 			failure : function() {
-				Ext.Msg.alert("网络出现错误!");
+				SF.alertError('错误',"网络出现错误!");
 			}
 		});
 	},
@@ -151,14 +151,14 @@ Ext.define('SYS.controller.user2role.User2RoleManage', {
 		var self = this;
 		if (e.getKey() == e.ENTER) {
 			if (!t.getValue()) {
-				Ext.Msg.alert('Alarm', '请输入值.');
+				SF.alertWarn('警告','请输入值.');
 				return;
 			}
 
 			var searchType = this.getBaseForm().sub('searchType').getValue();
 			var searchValue = this.getBaseForm().sub('valueId').getValue();
 			if (!searchType) {
-				Ext.Msg.alert('Alarm', '请选择类型.');
+				SF.alertWarn('警告','请选择类型.');
 				return;
 			}
 

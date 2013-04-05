@@ -100,7 +100,7 @@ Ext.define('SYS.view.authority.AuthorityPortlet', {
 						url : 'role/saveRoleToAcls',
 						method : 'POST',
 						success : function(response, options) {
-							Ext.Msg.alert("消息", "保存成功!");
+							SF.alertInfo('信息','保存成功!');
 						},
 						params : params.join('&')
 					});

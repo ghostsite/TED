@@ -72,9 +72,9 @@ Ext.define('SYS.controller.user.UserManage', {
 					showSuccessMsg : true,
 					callback : function(action, success) {
 						if (success) {
-							Ext.Msg.alert("消息", "重置成功!");
+							SF.alertInfo('信息','重置成功!');
 						}else{
-							Ext.Msg.alert('Fail', Ext.decode(action.response.responseText).msg);
+							SF.alertError('错误',Ext.decode(action.response.responseText).msg);
 						}
 					},
 					scope : this
@@ -86,14 +86,14 @@ Ext.define('SYS.controller.user.UserManage', {
 		var self = this;
 		if (e.getKey() == e.ENTER) {
 			if (!t.getValue()) {
-				Ext.Msg.alert('Alarm', '请输入值.');
+				SF.alertWarn('警告','请输入值.');
 				return;
 			}
 
 			var searchType = this.getBaseForm().sub('searchType').getValue();
 			var searchValue = this.getBaseForm().sub('valueId').getValue();
 			if (!searchType) {
-				Ext.Msg.alert('Alarm', '请选择类型.');
+				SF.alertWarn('警告','请选择类型.');
 				return;
 			}
 
@@ -172,11 +172,11 @@ Ext.define('SYS.controller.user.UserManage', {
 	onBtnShowUpdate : function(t, e) {
 		var sm = this.getGrid().getSelectionModel();
 		if (sm.getSelection().length == 0) {
-			Ext.Msg.alert('INFO', '请选择一条记录!');
+			SF.alertWarn('警告','请选择一条记录.');
 			return;
 		}
 		if (sm.getSelection().length > 1) {
-			Ext.Msg.alert('INFO', '只能选择一条记录!');
+			SF.alertWarn('警告','只能选择一条记录.');
 			return;
 		}
 
@@ -248,7 +248,6 @@ Ext.define('SYS.controller.user.UserManage', {
 		} else {
 			SF.refreshTreeNode(nodes[0], supStuff.store, true);
 		}
-		// Ext.Msg.alert('信息', '保存成功');
 		SF.clearForm(form);
 	},
 	

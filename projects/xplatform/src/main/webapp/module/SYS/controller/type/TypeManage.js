@@ -41,7 +41,7 @@ Ext.define('SYS.controller.type.TypeManage', {
 		var menu = button.up('menu');
 		var typeFormPanel = this.getBaseForm();
 		var nodes = this.getSupStuff().selNodes;
-		
+
 		SF.clearForm(typeFormPanel);
 		typeFormPanel.load({
 			url : 'type/getTypeAsSuperInfoById',
@@ -57,7 +57,7 @@ Ext.define('SYS.controller.type.TypeManage', {
 		var menu = button.up('menu');
 		var typeFormPanel = this.getBaseForm();
 		var nodes = this.getSupStuff().selNodes;
-		
+
 		typeFormPanel.load({
 			url : 'type/getTypeById',
 			params : {
@@ -72,8 +72,8 @@ Ext.define('SYS.controller.type.TypeManage', {
 		var typeFormPanel = this.getBaseForm();
 		var supStuff = this.getSupStuff();
 		var nodes = supStuff.selNodes;
-		
-		//var nodes = sm.getSelection();
+
+		// var nodes = sm.getSelection();
 		Ext.Msg.confirm('信息', '确认删除？', function(btn) {
 			if (btn == 'yes') {
 				Ext.Ajax.request({
@@ -83,13 +83,13 @@ Ext.define('SYS.controller.type.TypeManage', {
 						typeId : nodes[0].raw.id
 					},
 					success : function(response, opts) {
-						Ext.Msg.alert("信息", "删除成功!");
+						SF.alertInfo('信息','删除成功!');
 						SF.refreshTreeNode(nodes[0], supStuff.store, true);
 						SF.clearForm(typeFormPanel);
 					},
 					failure : function(response, opts) {
 						var rs = Ext.decode(response.responseText);
-						Ext.Msg.alert("错误", rs.msg);
+						SF.alertError('错误',rs.msg);
 					}
 				});
 			}
@@ -109,12 +109,12 @@ Ext.define('SYS.controller.type.TypeManage', {
 	onTreeContextMenu : function(view, record, node, index, e) {
 		e.stopEvent();
 		this.contextMenu.showAt(e.getXY());// careful : this reference
-											// TreePanel
+		// TreePanel
 		return false;
 	},
 
 	onBtnRefresh : function(btn) {// 注意，这里的this 不是指controller，指的是scope, 36line
-									// this.getBaseForm()
+		// this.getBaseForm()
 		var sup = this.getBaseForm().getSupplement();
 		sup.sub('typeTreeId').store.load();
 	},
@@ -125,7 +125,7 @@ Ext.define('SYS.controller.type.TypeManage', {
 	onAfterUpdate : function(form, action, success, scope) {
 		if (!success)
 			return;
-			
+
 		var supStuff = this.getSupStuff();
 		var nodes = supStuff.selNodes;
 		var id = form.findField('id').getValue();
@@ -135,22 +135,21 @@ Ext.define('SYS.controller.type.TypeManage', {
 		} else {
 			SF.refreshTreeNode(nodes[0], supStuff.store, true);
 		}
-		// Ext.Msg.alert('信息', '保存成功');
 		SF.clearForm(form);
 	},
 
 	onBtnClose : function(view) {
 		view.close();
 	},
-	
-	getSupStuff: function(){ //获得supplement的一些对象
+
+	getSupStuff : function() { // 获得supplement的一些对象
 		var sup = this.getBaseForm().getSupplement();
 		var typeTreePanel = sup.sub('typeTreeId');
 		var store = typeTreePanel.getStore();
 		var sm = typeTreePanel.getSelectionModel();
-		
+
 		return {
-			sup: sup,
+			sup : sup,
 			tree : typeTreePanel,
 			store : store,
 			selModel : sm,

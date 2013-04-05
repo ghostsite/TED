@@ -152,7 +152,7 @@ Ext.define('SYS.view.workday.WorkDayManage', {
 								workDay : false
 							},
 							success : function(response, opts) {
-								Ext.Msg.alert("消息", "更新成功!");
+								SF.alertInfo('信息','更新成功!');
 								grid.getStore().reload();
 							}
 						});
@@ -171,7 +171,7 @@ Ext.define('SYS.view.workday.WorkDayManage', {
 								workDay : true
 							},
 							success : function() {
-								Ext.Msg.alert("消息", "更新成功!");
+								SF.alertInfo('信息','更新成功!');
 								grid.getStore().reload();
 							}
 						});

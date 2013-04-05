@@ -6,13 +6,10 @@ Ext.define('mixin.Helper', function() {
 			name : 'pagesize',
 			triggerAction : 'all',
 			queryMode : 'local',
-			store : Ext.create('Ext.data.ArrayStore',
-					{
-						fields : [ 'value', 'text' ],
-						data : [ [ 10, '10条/页' ], [ 20, '20条/页' ],
-								[ 50, '50条/页' ], [ 100, '100条/页' ],
-								[ 250, '250条/页' ], [ 500, '500条/页' ] ]
-					}),
+			store : Ext.create('Ext.data.ArrayStore', {
+				fields : ['value', 'text'],
+				data : [[10, '10条/页'], [20, '20条/页'], [50, '50条/页'], [100, '100条/页'], [250, '250条/页'], [500, '500条/页']]
+			}),
 			valueField : 'value',
 			displayField : 'text',
 			value : '20',
@@ -40,7 +37,7 @@ Ext.define('mixin.Helper', function() {
 			displayMsg : '显示{0}条到{1}条,共{2}条',
 			plugins : Ext.create('Ext.ux.ProgressBarPager'), // 分页进度条
 			emptyMsg : "没有符合条件的记录",
-			items : [ '-', pagesize_combo ]
+			items : ['-', pagesize_combo]
 		});
 		return bbar;
 	}
@@ -52,16 +49,16 @@ Ext.define('mixin.Helper', function() {
 		if (refreshParent && node.parentNode) {
 			store.load({
 				node : node.parentNode,
-				callback: function(){
+				callback : function() {
 					node.expand();
-    			}
+				}
 			});
 		} else {
 			store.load({
 				node : node,
-				callback: function(){
+				callback : function() {
 					node.expand();
-    			}
+				}
 			});
 		}
 	}
@@ -106,7 +103,7 @@ Ext.define('mixin.Helper', function() {
 		var params = [];
 		var records = grid.getSelectionModel().getSelection();
 		idkey = idkey || 'id';
-		for ( var i = 0; i < records.length; i++) {
+		for (var i = 0; i < records.length; i++) {
 			var record = records[i];
 			var id = record.get(idkey);
 			params.push(id);// 'matterBaseIds=' +
@@ -121,7 +118,7 @@ Ext.define('mixin.Helper', function() {
 		var params = [];
 		var count = grid.getStore().getCount();
 		var data = grid.getStore().data;
-		for ( var i = 0; i < count; i++) {
+		for (var i = 0; i < count; i++) {
 			var id = data.items[i].get('id');
 			params.push(id);
 		}
@@ -162,6 +159,42 @@ Ext.define('mixin.Helper', function() {
 		});
 	}
 
+	var alertInfo = function(title, msg) {
+		Ext.Msg.alert({
+			title : title,
+			icon : Ext.MessageBox.INFO,
+			msg : msg,
+			buttons : Ext.Msg.OK
+		});
+	}
+
+	var alertWarn = function(title, msg) {
+		Ext.Msg.alert({
+			title : title,
+			icon : Ext.MessageBox.WARNING,
+			msg : msg,
+			buttons : Ext.Msg.OK
+		});
+	}
+
+	var alertQuestion = function(title, msg) {
+		Ext.Msg.alert({
+			title : title,
+			icon : Ext.MessageBox.QUESTION,
+			msg : msg,
+			buttons : Ext.Msg.OK
+		});
+	}
+
+	var alertError = function(title, msg) {
+		Ext.Msg.alert({
+			title : title,
+			icon : Ext.MessageBox.ERROR,
+			msg : msg,
+			buttons : Ext.Msg.OK
+		});
+	}
+
 	return {
 		getContextBbar : getContextBbar,
 		getSelectedIdFromTree : getSelectedIdFromTree,
@@ -172,6 +205,10 @@ Ext.define('mixin.Helper', function() {
 		getSelectedRecordFromGrid : getSelectedRecordFromGrid,
 		getSelectedIdFromGrid : getSelectedIdFromGrid,
 		clearForm : clearForm,
-		setCheckedCascade : setCheckedCascade
+		setCheckedCascade : setCheckedCascade,
+		alertInfo : alertInfo,
+		alertWarn : alertWarn,
+		alertQuestion : alertQuestion,
+		alertError : alertError
 	};
 }());

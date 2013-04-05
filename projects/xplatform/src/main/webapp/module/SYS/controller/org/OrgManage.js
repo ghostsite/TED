@@ -83,13 +83,13 @@ Ext.define('SYS.controller.org.OrgManage', {
 						orgId : nodes[0].raw.id
 					},
 					success : function(response, opts) {
-						Ext.Msg.alert("信息", "删除成功!");
+						SF.alertInfo('信息','删除成功!');
 						SF.refreshTreeNode(nodes[0], supStuff.store, true);
 						SF.clearForm(orgFormPanel);
 					},
 					failure : function(response, opts) {
 						var rs = Ext.decode(response.responseText);
-						Ext.Msg.alert("错误", rs.msg);
+						SF.alertError('错误',rs.msg);
 					}
 				});
 			}
@@ -135,7 +135,6 @@ Ext.define('SYS.controller.org.OrgManage', {
 		} else {
 			SF.refreshTreeNode(nodes[0], supStuff.store, true);
 		}
-		// Ext.Msg.alert('信息', '保存成功');
 		SF.clearForm(form);
 	},
 
