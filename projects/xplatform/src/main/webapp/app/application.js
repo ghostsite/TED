@@ -1,9 +1,11 @@
 Ext.Loader.setConfig({
 	enabled : true,
+	disableCaching: false,
 	paths : {
 		'SmartFactory' : 'product/SmartFactory.js',
 		'Ext.ux' : 'js/extjs/ux',//TODO 如果不能用同一个名字，再说
-		'Ext.ux' : 'js/uux'
+		'Ext.ux' : 'js/uux',
+		GeoExt : 'js/GeoExt'
 	}
 });
 

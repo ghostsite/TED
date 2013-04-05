@@ -59,13 +59,20 @@
 		</script>
 		<script type="text/javascript" src="product/locale/${user.language}.js"></script>
 
+		<!--native extjs 4.1.1,没有这个目录，这个是给GeoExt示例用的，因为GeoExt不兼容extjs4.2-->
+		<link rel="stylesheet" href="js/extjs-4.1.1/resources/css/ext-all.css"></link>
+		<link rel="stylesheet" href="css/smartfactory.css"></link>
+		<script src="js/extjs-4.1.1/bootstrap.js"></script>
+		<script src="js/extjs-4.1.1/locale/ext-lang-en.js" charset="UTF-8"></script>
+		
+		
 		<!--native extjs 4.2.0-->
-		<link rel="stylesheet" href="js/extjs/resources/css/ext-all.css"></link>
+		<!--link rel="stylesheet" href="js/extjs/resources/css/ext-all.css"></link>
 		<link rel="stylesheet" href="css/smartfactory.css"></link>
 		<script src="js/extjs/bootstrap.js"></script>
+		<script src="js/extjs/locale/ext-lang-en.js" charset="UTF-8"></script-->
 		<!--由于zh_CN, cn的不好用，bug，故先用en-->
 		<!--script src="js/extjs/locale/ext-lang-${user.language}.js" charset="UTF-8"></script-->
-		<script src="js/extjs/locale/ext-lang-en.js" charset="UTF-8"></script>
 
 		<!--TES,这个最好在extjs4.2.0下演示，因为smartfactory的css干扰了效果-->
 		<link rel="stylesheet" href="js/uux/window/css/Notification.css"></link>
@@ -80,6 +87,7 @@
 		<script src="js/uux/panel/util/compatibility.js" charset="UTF-8"></script>
 		<script src="js/uux/panel/util/pdf.js" charset="UTF-8"></script>
 		<script src="js/uux/panel/PDF.js" charset="UTF-8"></script>
+		<script src="js/openlayers/OpenLayers.js"></script>
 		
 
 		<script src="app/application.js"></script>

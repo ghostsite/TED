@@ -112,8 +112,7 @@ Ext.define('TES.view.Printer', {
 					Ext.ux.grid.Printer.printAutomatically = false;
 					Ext.ux.grid.Printer.print(grid);
 				}
-			}],
-			renderTo : Ext.getBody()
+			}]
 		});
 
 		// //////////////////////////////////////////////////////////////////////////////////////
@@ -154,7 +153,6 @@ Ext.define('TES.view.Printer', {
 			width : '100%',
 			height : 300,
 			title : 'Grid with Numbered Rows',
-			renderTo : Ext.getBody(),
 			tbar : [{
 				text : 'Print',
 				iconCls : 'icon-print',
@@ -203,6 +201,7 @@ Ext.define('TES.view.Printer', {
 
 		var grid3 = Ext.create('Ext.grid.Panel', {
 			cls : 'marginT7',
+			border: true,
 			title : 'Column Template Demo',
 			store : Ext.data.StoreManager.lookup('employeeStore'),
 			columns : [{
@@ -217,7 +216,6 @@ Ext.define('TES.view.Printer', {
 			}],
 			height : 200,
 			width : '100%',
-			renderTo : Ext.getBody(),
 			tbar : [{
 				text : 'Print',
 				iconCls : 'icon-print',

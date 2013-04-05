@@ -2,7 +2,7 @@
 Ext.define('SYS.view.log.LogManage', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'admin_log',
-	requires : ['SYS.model.Log', 'Ext.ux.ProgressBarPager', 'Ext.grid.plugin.RowExpander'],
+	requires : ['SYS.model.Log', 'Ext.ux.ProgressBarPager', 'Ext.grid.plugin.RowExpander','Ext.ux.toolbar.PagingOptions'],
 
 	title : T('Caption.Menu.SYS.view.log.LogManage'),
 	// layout : 'fit',
@@ -124,12 +124,7 @@ Ext.define('SYS.view.log.LogManage', {
 				ptype : 'rowexpander',
 				rowBodyTpl : ['<p><b>详细:</b> {msg}</p>']
 			}],
-			dockedItems : [{
-				xtype : 'pagingtoolbar',
-				store : store,
-				displayInfo : true,
-				dock : 'bottom'
-			}]
+			bbar : SF.getContextBbar(store)
 		}
 	}
 });
