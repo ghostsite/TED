@@ -23,15 +23,53 @@ Ext.define('mixin.Msg', function() {
 
 	/*
 	 * TODO 아래 msgBox와 msgRtn은 MES 모듈의 mixin으로 이동해야 한다.
+	 * zhang changed and removed MessagePopup.js
 	 */
-	function msgBox(title, msg, btnStyle, focus, fn, scope, value) {
-		var box = Ext.create('MES.view.window.MessagePopup');
-		box.showMessage(title, msg, btnStyle, focus, fn, scope, value);
+	function msgBox(title, msg) {
+		SF.alertInfo(title,msg);
 	}
 
 	function msgRtn(title, rtnMsg, btnStyle, focus, fn, scope, value) {
-		var box = Ext.create('MES.view.window.MessagePopup');
-		box.showRtnMessage(title, rtnMsg, btnStyle, focus, fn, scope, value);
+		var icon = Ext.MessageBox.INFO; //zhang added
+		if (!rtnMsg) {
+			title = T('Caption.Other.No response');
+			rtnMsg = T('Message.No response');
+		}
+
+		if (rtnMsg.result != undefined && rtnMsg.result.success === true) {
+			// title = rtnMsg.result.msgcode;
+			msg = rtnMsg.result.msg;
+		} else if (rtnMsg.failureType) {
+			icon = Ext.MessageBox.ERROR; //zhang added
+			switch (rtnMsg.failureType) {
+			case Ext.form.action.Action.CLIENT_INVALID:
+				title = 'Failure';
+				msg = T('Message.CLIENT_INVALID');
+				break;
+			case Ext.form.action.Action.CONNECT_FAILURE:
+				title = 'Failure';
+				msg = T('Message.CONNECT_FAILURE');
+				break;
+			case Ext.form.action.Action.SERVER_INVALID:
+				title = 'Failure';
+				msg = rtnMsg.result.msg;
+				break;
+			default:
+				// title = rtnMsg.result.msgcode;
+				msg = rtnMsg.result.msg;
+				break;
+			}
+		} else if (rtnMsg.msgcode) {
+			on = Ext.MessageBox.ERROR; //zhang added
+			msg = rtnMsg.msg;
+		}
+		
+		Ext.Msg.alert({
+			title : title,
+			icon : icon,
+			msg : msg,
+			buttons : Ext.Msg.OK
+		});
 	}
 
 	return {
