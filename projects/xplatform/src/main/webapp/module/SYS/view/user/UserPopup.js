@@ -7,6 +7,7 @@ Ext.define('SYS.view.user.UserPopup', {
 	height : 400,
 	modal : true,
 	layout : 'fit',
+	iconCls:'user',
 
 	dockedItems : [{
 		xtype : 'bas_base_buttons',
@@ -23,6 +24,8 @@ Ext.define('SYS.view.user.UserPopup', {
 			xtype : 'form',
 			layout : 'anchor',
 			itemId : 'formId',
+			bodyCls : 'paddingAll10',
+			border: false,
 			items : {
 				xtype : 'container',
 				layout : {
@@ -37,7 +40,6 @@ Ext.define('SYS.view.user.UserPopup', {
 					name : 'organization.name',
 					itemId : 'organization.name',
 					fieldLabel : '所属部门',
-					cls : 'marginB7',
 					readOnly : true
 				}, {
 					xtype : 'fieldcontainer',
@@ -52,6 +54,7 @@ Ext.define('SYS.view.user.UserPopup', {
 					items : [{
 						xtype : 'textfield',
 						allowBlank : false,
+						cls : 'marginR7',
 						invalidText : '登录名必填',
 						fieldLabel : '登录名',
 						name : 'loginName'
@@ -72,6 +75,7 @@ Ext.define('SYS.view.user.UserPopup', {
 					},
 					items : [{
 						xtype : 'textfield',
+						cls : 'marginR7',
 						fieldLabel : '移动电话',
 						name : 'mobile'
 					}, {
@@ -92,6 +96,7 @@ Ext.define('SYS.view.user.UserPopup', {
 					items : [{
 						xtype : 'radiogroup',
 						fieldLabel : '性别',
+						cls : 'marginR7',
 						// width : 220,
 						columns : 3,
 						vertical : false,

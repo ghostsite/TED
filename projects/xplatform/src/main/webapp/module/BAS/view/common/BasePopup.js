@@ -3,7 +3,7 @@ Ext.define('BAS.view.common.BasePopup', {
 
 	xtype : 'bas_base_popup',
 	
-	bodyPadding : 20,
+	bodyPadding : 0,
 	
 	autoScroll : false,
 	
