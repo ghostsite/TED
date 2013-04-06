@@ -26,6 +26,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import com.google.common.base.Splitter;
 import com.ted.common.dao.DaoTemplateHelper;
 import com.ted.common.dao.jpa.support.JpaHelper;
 import com.ted.common.support.page.JsonPage;
@@ -84,10 +85,7 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
 
     /**原来我的名字叫：  findEntityAssociate
      * copy from http://jdevelopment.nl/fetching-arbitrary-object-graphs-jpa-2/
-     * @param type
-     * @param id
-     * @param fetchRelations
-     * @return
+     * FUCK 原来有个bug就是relation.split(".")),如果是abc, "abc".split(".")返回的是空，nnd
      */
     @Override
     public <T> T findByIdWithDepth(Class<T> type, Object id, String... fetchRelations) {
@@ -96,9 +94,14 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
         Root<T> root = criteriaQuery.from(type);
         for (String relation : fetchRelations) {
             FetchParent<T, T> fetch = root;
-            for (String pathSegment : relation.split(".")) {
-                fetch = fetch.fetch(pathSegment, JoinType.LEFT);
+            Iterable a = Splitter.on(".").split(relation);
+            Iterator itr = a.iterator();
+            while(itr.hasNext()){
+                fetch = fetch.fetch((String)itr.next(), JoinType.LEFT);
             }
+//            for (String pathSegment : relation.split(".")) {
+//                fetch = fetch.fetch(pathSegment, JoinType.LEFT);
+//            }
         }
         criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
         return getSingleOrNoneResult(getEntityManager().createQuery(criteriaQuery));
@@ -111,9 +114,14 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
         Root<T> root = criteriaQuery.from(type);
         for (String relation : fetchRelations) {
             FetchParent<T, T> fetch = root;
-            for (String pathSegment : relation.split(".")) {
-                fetch = fetch.fetch(pathSegment, JoinType.LEFT);
+            Iterable a = Splitter.on(".").split(relation);
+            Iterator itr = a.iterator();
+            while(itr.hasNext()){
+                fetch = fetch.fetch((String)itr.next(), JoinType.LEFT);
             }
+//            for (String pathSegment : relation.split(".")) {
+//                fetch = fetch.fetch(pathSegment, JoinType.LEFT);
+//            }
         }
         criteriaQuery.where(criteriaBuilder.equal(root.get(property), value));
         return getSingleOrNoneResult(getEntityManager().createQuery(criteriaQuery));

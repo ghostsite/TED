@@ -189,34 +189,27 @@
 	
 	<!-- unit test环境 -->
 	<beans profile="test">
-		<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/application.properties,
-          			  classpath*:/application.test.properties" />	
-		
 		<!-- Simple连接池 -->
-		<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-			<property name="driverClass" value="${jdbc.driver}" />
-			<property name="url" value="${jdbc.url}" />
-			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />	
-		</bean>
-			
-		<!-- Simple连接池 for quartz -->
-		<!--bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-			<property name="driverClass" value="${quartz.jdbc.driver}" />
-			<property name="url" value="${quartz.jdbc.url}" />
-			<property name="username" value="${quartz.jdbc.username}" />
-			<property name="password" value="${quartz.jdbc.password}" />
-		</bean-->
-		
-		<!-- 初始化数据结构与默认数据 -->
-		<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-			<jdbc:script location="classpath:sql/h2/schema.sql" />
-			<jdbc:script location="classpath:data/import-data.sql" encoding="UTF-8" />
-		</jdbc:initialize-database>
+		<context:property-placeholder ignore-resource-not-found="true"
+			location="classpath*:/application.properties" />	
 
-		<!--jdbc:initialize-database data-source="quartzDataSource" ignore-failures="ALL">
-			<jdbc:script location="classpath:sql/h2/quartz.sql" />
-		</jdbc:initialize-database-->
+		<!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+         <property name="driverClass" value="${jdbc.driver}" />
+         <property name="jdbcUrl" value="${jdbc.url}" />  
+         <property name="user" value="${jdbc.username}" />
+         <property name="password" value="${jdbc.password}" />
+          
+         <property name="minPoolSize"><value>5</value></property>
+         <property name="maxPoolSize"><value>30</value></property>
+         <property name="maxIdleTime"><value>1800</value></property>
+         <property name="acquireIncrement"><value>2</value></property>
+         <property name="maxStatements"><value>0</value></property>
+         <property name="initialPoolSize"><value>2</value></property>
+         <property name="idleConnectionTestPeriod"><value>1800</value></property>
+         <property name="acquireRetryAttempts"><value>30</value></property>
+         <property name="breakAfterAcquireFailure"><value>true</value></property>
+         <property name="testConnectionOnCheckout"><value>false</value></property>
+        </bean>
 	</beans>
 </beans>
