@@ -68,7 +68,7 @@ Ext.define('SYS.controller.user.UserManage', {
 					form : self.getBaseForm(),
 					params : params,
 					url : 'user/resetPassword',
-					showErrorMsg : true,
+					showErrorMsg : false,
 					showSuccessMsg : true,
 					callback : function(action, success) {
 						if (success) {
