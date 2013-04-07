@@ -123,10 +123,10 @@ public class XPlatformGlobalExceptionHandler implements InitializingBean {
 
     public String getTrimedStackTraceString(Exception exception) {
         String trace = Exceptions.getStackTraceAsString(exception);
-        if (trace.length() < 1000) {
+        if (trace.length() < 2000) {
             return trace;
         } else {
-            return trace.substring(0, 1000);
+            return trace.substring(0, 2000);
         }
     }
 

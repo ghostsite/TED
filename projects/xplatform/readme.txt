@@ -24,4 +24,5 @@ update to extjs4.2:
 4 change main.ftl from extjs-4.1.1 to extjs
 5 UserInterface , getController().init() to getController().
 6 新建用户，调用save called 2次，导致insert Failed //extjs 4.2才有这个问题，4.1好着呢。到时候升级4.2的时候再debug看看
-7 
+7 extjs4.2.0 下的日期控件都是YYYY //bug for extjs4.2,en的是好的。
+

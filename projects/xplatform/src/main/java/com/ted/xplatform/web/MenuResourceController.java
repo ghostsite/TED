@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.support.MutableSortDefinition;
@@ -26,6 +27,7 @@ import org.springframework.web.context.support.ServletContextResource;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ted.common.Constants;
+import com.ted.common.exception.BusinessException;
 import com.ted.common.support.extjs4.JsonOut;
 import com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren2;
 import com.ted.common.support.extjs4.tree.TreeNode;
@@ -35,6 +37,7 @@ import com.ted.common.util.DozerUtils;
 import com.ted.common.util.JsonUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.MenuResource;
+import com.ted.xplatform.pojo.common.Type;
 import com.ted.xplatform.service.MenuResourceService;
 import com.ted.xplatform.util.PlatformUtils;
 
@@ -222,6 +225,12 @@ public class MenuResourceController implements ServletContextAware {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public @ResponseBody
     String delete(@RequestParam Long resourceId) {
+        //check has sub menus
+        List<MenuResource> subMenuResourceList = menuResourceService.getSubMenuResourceListByResourceId(resourceId);
+        if (CollectionUtils.isNotEmpty(subMenuResourceList)) {
+            throw new BusinessException(SpringUtils.getMessage("message.common.hasSubMenus", messageSource));
+        }
+        
         menuResourceService.delete(resourceId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };

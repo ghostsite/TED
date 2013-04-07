@@ -140,9 +140,9 @@ public class TypeController {
     	//here ,need to check 子信息，比如子类型(Type)
         List<Type> subTypeList = typeService.getSubTypeListByTypeId(typeId);
         if (CollectionUtils.isNotEmpty(subTypeList)) {
-            //return new ExtMsg(false, "还有子类型，请先删除.").toString();
             throw new BusinessException(SpringUtils.getMessage("message.common.hasSubTypes", messageSource));
         }
+        
         typeService.delete(typeId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };

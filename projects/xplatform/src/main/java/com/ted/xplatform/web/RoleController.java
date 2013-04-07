@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ted.common.Constants;
+import com.ted.common.exception.BusinessException;
 import com.ted.common.support.extjs4.JsonOut;
 import com.ted.common.support.extjs4.menu.Item;
 import com.ted.common.support.extjs4.menu.Menu;
@@ -31,6 +32,7 @@ import com.ted.common.util.DozerUtils;
 import com.ted.common.util.JsonUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.ACL;
+import com.ted.xplatform.pojo.common.MenuResource;
 import com.ted.xplatform.pojo.common.Operation;
 import com.ted.xplatform.pojo.common.Role;
 import com.ted.xplatform.pojo.common.User;
@@ -170,6 +172,12 @@ public class RoleController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public @ResponseBody
     String delete(@RequestParam(required = true) Long roleId) {
+        //check has sub menus
+        List<Role> subRoleList = roleService.getSubRoleListByRoleId(roleId);
+        if (org.apache.commons.collections.CollectionUtils.isNotEmpty(subRoleList)) {
+            throw new BusinessException(SpringUtils.getMessage("message.common.hasSubRoles", messageSource));
+        }
+        
         roleService.delete(roleId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };
