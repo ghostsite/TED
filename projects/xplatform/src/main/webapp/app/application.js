@@ -65,6 +65,10 @@ Ext.onReady(function() {
 				.concat(Ext.module.controllers()),
 
 		launch : function() {
+			//zhang added , mesplus是根据.的个数，我觉得用集合OK
+			onlyViewMap = new Ext.util.HashMap(); //没有controller的view, onlyViewMap 前面没有var，表示全局变量.
+			onlyViewMap.add('CMN.view.common.ViewLogInfo', 1);
+			onlyViewMap.add('key2', 1);
 		}
 	});
 });

@@ -12,7 +12,7 @@ Ext.define('CMN.view.common.NavFavorite', {
 		},
 		itemclick : function(view, record, item, index, e, opt) {
 			SmartFactory.doMenu({
-				viewModel : record.get('code'), //here 本来是path，但是现实为中文了，故用code代替，code=path
+				viewModel : record.get('path'), 
 				itemId : record.get('code')
 			});
 		}
@@ -41,7 +41,7 @@ Ext.define('CMN.view.common.NavFavorite', {
 		dataIndex : 'path',
 		width : 200,
 		renderer : function( value, metadata, record){
-			return '<img src="'+record.get('icon2')+'" />'+ value;
+			return '<img src="'+record.get('icon2')+'" />'+ T('Caption.Menu.'+ value);
 		}
 	}, {
 		header : T('Caption.Other.Function'),

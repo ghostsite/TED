@@ -12,11 +12,7 @@ Ext.define('CMN.model.Favorite', { //zhang changed
 		type : 'string'
 	}, {
 		name : 'path',
-		type : 'string',
-		convert : function(value, record) {
-			//return T('Caption.Menu.'+ record.get('userFuncDesc'));
-			return T('Caption.Menu.'+ value);
-		}
+		type : 'string'
 	}, {
 		name : 'icon',
 		type : 'string'
