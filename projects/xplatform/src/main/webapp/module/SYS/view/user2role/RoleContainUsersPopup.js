@@ -61,7 +61,14 @@ Ext.define('SYS.view.user2role.RoleContainUsersPopup', {
 			}, {
 				header : '状态',
 				id : 'state',
-				dataIndex : 'state'
+				dataIndex : 'state',
+				renderer : function(v) {
+					if (v == 0)
+						return '<span style="color:red;">' + '停用' + '</span>';
+					else if (v == 1)
+						return '<span style="color:green;">' + '启用' + '</span>';
+					return v;
+				}
 			}, {
 				header : '所属机构',
 				id : 'orgName',

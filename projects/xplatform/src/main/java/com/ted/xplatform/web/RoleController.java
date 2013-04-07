@@ -179,9 +179,10 @@ public class RoleController {
      */
     @RequestMapping(value = "/getUserListByRoleId")
     public @ResponseBody
-    JsonPage<User> getUserListByRoleId(@RequestParam(required = true) Long roleId) {
+    List<User> getUserListByRoleId(@RequestParam(required = true) Long roleId) {
         List<User> userList = roleService.getUserListByRoleId(roleId);
-        return JsonUtils.listToPage(userList);
+        return userList;
+        //return JsonUtils.listToPage(userList);
     };
 
     /**
