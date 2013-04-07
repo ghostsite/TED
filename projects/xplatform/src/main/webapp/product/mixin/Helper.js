@@ -1,44 +1,17 @@
 Ext.define('mixin.Helper', function() {
-	// todo to implement all below:
-	function getContextBbar(store) {
-		// 每页显示条数下拉选择框
-		var pagesize_combo = Ext.create('Ext.form.field.ComboBox', {
-			name : 'pagesize',
-			triggerAction : 'all',
-			queryMode : 'local',
-			store : Ext.create('Ext.data.ArrayStore', {
-				fields : ['value', 'text'],
-				data : [[10, '10条/页'], [20, '20条/页'], [50, '50条/页'], [100, '100条/页'], [250, '250条/页'], [500, '500条/页']]
-			}),
-			valueField : 'value',
-			displayField : 'text',
-			value : '20',
-			editable : false,
-			width : 85
-		});
-		var number = parseInt(pagesize_combo.getValue());
-		// 改变每页显示条数reload数据
-		pagesize_combo.on("select", function(comboBox) {
-			bbar.pageSize = parseInt(comboBox.getValue());
-			number = parseInt(comboBox.getValue());
-			store.reload({
-				params : {
-					start : 0,
-					limit : bbar.pageSize
-				}
-			});
-		});
-		// 分页工具栏
-		var bbar = Ext.create('Ext.toolbar.Paging', {
+	// 分页工具栏
+	function getContextBbar(store, options) {
+		//plugins : Ext.create('Ext.ux.ProgressBarPager'), // 分页进度条,这个进度条用不了，不知道为啥。
+		var bbar =  Ext.create('Ext.toolbar.Paging',{
 			dock : 'bottom',
-			pageSize : 5,
-			store : store,
-			displayInfo : true,
-			displayMsg : '显示{0}条到{1}条,共{2}条',
-			plugins : Ext.create('Ext.ux.ProgressBarPager'), // 分页进度条
-			emptyMsg : "没有符合条件的记录",
-			items : ['-', pagesize_combo]
-		});
+            pageSize: 20,
+            store: store,
+            displayInfo: true,
+            displayMsg : '显示{0}条到{1}条,共{2}条',
+            emptyMsg : "没有符合条件的记录",
+            plugins : [Ext.create('Ext.ux.PagingToolbarResizer', options)]
+        });
+    
 		return bbar;
 	}
 

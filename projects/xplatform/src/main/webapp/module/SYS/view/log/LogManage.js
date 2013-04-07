@@ -2,7 +2,7 @@
 Ext.define('SYS.view.log.LogManage', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'admin_log',
-	requires : ['SYS.model.Log', 'Ext.ux.ProgressBarPager', 'Ext.ux.grid.RowExpander'],
+	requires : ['SYS.model.Log', 'Ext.ux.grid.RowExpander', 'Ext.ux.PagingToolbarResizer'],
 
 	title : T('Caption.Menu.SYS.view.log.LogManage'),
 	// layout : 'fit',
@@ -79,7 +79,7 @@ Ext.define('SYS.view.log.LogManage', {
 		return {
 			xtype : 'grid',
 			cls : 'navyGrid',
-			stripeRows : true,
+			stripeRows : false,
 			autoScroll : true,
 			itemId : 'gridmap',
 			flex : 1,
@@ -120,7 +120,7 @@ Ext.define('SYS.view.log.LogManage', {
 					return val;
 				}
 			}],
-			plugins : [{
+			plugins : [{ //注意，这个rowexpander最好不要跟previcw插件一起使用
 				ptype : 'rowexpander',
 				rowBodyTpl : ['<p><b>详细:</b> {msg}</p>']
 			}],

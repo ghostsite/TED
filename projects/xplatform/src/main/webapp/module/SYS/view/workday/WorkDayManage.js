@@ -2,7 +2,7 @@
 Ext.define('SYS.view.workday.WorkDayManage', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'admin_workday',
-	requires : ['SYS.model.WorkDay', 'Ext.ux.ProgressBarPager'],
+	requires : ['SYS.model.WorkDay'],
 	title : T('Caption.Menu.SYS.view.workday.WorkDayManage'),
 	// layout : 'fit',
 	layout : {
