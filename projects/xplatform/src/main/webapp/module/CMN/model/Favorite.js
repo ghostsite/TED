@@ -1,31 +1,22 @@
-Ext.define('CMN.model.Favorite', {
+Ext.define('CMN.model.Favorite', { //zhang changed
 	extend : 'Ext.data.Model',
 
 	fields : [ {
-		name : 'seqNum',
+		name : 'idx',
+		type : 'int'
+	}, {
+		name : 'code',
 		type : 'string'
 	}, {
-		name : 'funcName',
-		type : 'string'
-	}, {
-		name : 'userFuncDesc',
-		type : 'string'
-	}, {
-		//국제화 desc추가
-		name : 'funcDesc',
-		type : 'string',
-		convert : function(value, record) {
-			return T('Caption.Menu.'+ record.get('userFuncDesc'));
-		}
-	}, {
-		name : 'assemblyFile',
+		name : 'text',
 		type : 'string'
 	}, {
 		name : 'path',
-		type : 'string'
-	}, {
-		name : 'iconIndex',
-		type : 'int'
+		type : 'string',
+		convert : function(value, record) {
+			//return T('Caption.Menu.'+ record.get('userFuncDesc'));
+			return T('Caption.Menu.'+ value);
+		}
 	}, {
 		name : 'icon',
 		type : 'string'

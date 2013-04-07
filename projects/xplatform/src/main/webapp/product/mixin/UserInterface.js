@@ -18,7 +18,7 @@ Ext.define('mixin.UserInterface', function() {
 				};
 				Ext.Ajax.request({
 					showFailureMsg : false,
-					url : 'service/secViewFunctionDetail.json',
+					url : 'service/secViewFunctionDetail.json', //这个意思是从数据库中取一个页面的配置信息。zhang
 					method : 'POST',
 					jsonData : params,
 					async : false,
