@@ -11,13 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-//import org.hibernate.annotations.Cache;
-//import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
@@ -54,9 +50,9 @@ public abstract class Resource extends LogicAuditEntity {
 
     /**
      * 资源所拥有的所有的可以操作的ACL,通过ACL获得所有的Operation
+     * cascade = { CascadeType.ALL} ,是因为要save的时候，把acl也save到。
      */
-    @OneToMany(cascade = { CascadeType.DETACH }, fetch = FetchType.LAZY, mappedBy="resource", orphanRemoval = true)
-   // @JoinColumn(name = "acl_resourceid")
+    @OneToMany(cascade = { CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy="resource", orphanRemoval = true)
     Set<ACL>       acls = Sets.newHashSet();
 
     public String getName() {

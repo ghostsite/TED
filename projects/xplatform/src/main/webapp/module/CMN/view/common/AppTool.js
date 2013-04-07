@@ -3,6 +3,7 @@ Ext.define('CMN.view.common.AppTool', {
 	
 	alias : 'widget.cmn.apptool',
 	id : 'apptool',
+	cls : 'appTool',
 	
 	listeners : {
 		render : function(comp, obj) {

@@ -28,6 +28,7 @@ import com.ted.xplatform.pojo.common.ACL;
 import com.ted.xplatform.pojo.common.MenuResource;
 import com.ted.xplatform.pojo.common.Operation;
 import com.ted.xplatform.pojo.common.Resource;
+import com.ted.xplatform.pojo.common.Role;
 import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.repository.OperationDao;
 import com.ted.xplatform.util.PlatformUtils;
@@ -283,7 +284,6 @@ public class MenuResourceService {
         return menuResourceList;
     };
 
-    
     ///===========================MenuResource的管理================================//
     /**
      * 根据resourceId(MenuResource 中的ID)得到下面的所有的MenuResource，不级联。
@@ -292,7 +292,7 @@ public class MenuResourceService {
      */
     @Transactional(readOnly = true)
     public List<MenuResource> getSubMenuResourceListByResourceId(Serializable resourceId) {
-       // List<MenuResource> all = jpaSupportDao.getAll(MenuResource.class);
+        // List<MenuResource> all = jpaSupportDao.getAll(MenuResource.class);
         //List<MenuResource> subMenuResources = all.get(0).getSubMenuResources();
         Map<String, Object> newMap = CollectionUtils.newMap("resourceId", resourceId);
         List<MenuResource> subMenuResourceList = jpaSupportDao.find(SUBMENUS_JPQL, newMap);
@@ -306,7 +306,7 @@ public class MenuResourceService {
      */
     @Transactional(readOnly = true)
     public MenuResource getMenuResourceById(Long resourceId) {
-        if(null == resourceId){
+        if (null == resourceId) {
             return null;
         }
         MenuResource menuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, resourceId);
@@ -336,7 +336,7 @@ public class MenuResourceService {
         } else {//update
             MenuResource dbMenuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, menuResource.getId());
             //DozerUtils.copy(menuResource, dbMenuResource);//这个不好用,copy all
-            BeanUtils.copyPropertiesByInclude(dbMenuResource, menuResource, new String[] { "code", "name", "description", "path", "iconCls","icon","icon2","icon3","favorite", "buttonIconCls", "buttonScale", "buttonWidth", "buttonIconAlign", "quicktip", "idx", "leaf", "canView", "canAdd", "canUpdate", "canDelete" });
+            BeanUtils.copyPropertiesByInclude(dbMenuResource, menuResource, new String[] { "code", "name", "description", "path", "iconCls", "icon", "icon2", "icon3", "favorite", "buttonIconCls", "buttonScale", "buttonWidth", "buttonIconAlign", "quicktip", "idx", "leaf", "canView", "canAdd", "canUpdate", "canDelete" });
             updateOperationProperties2Operations(dbMenuResource);
             jpaSupportDao.getEntityManager().merge(dbMenuResource);
         }
@@ -346,10 +346,19 @@ public class MenuResourceService {
     /**
      * 删除，
      * 注意：是否要级联删除: 级联删除下属组织菜单。这个是通过MenuResource的pojo配置来实现的。
+     * 要手工删除角色对应的acl关系，也就是通过控制Role来达到删除role_acl的目的。
      */
     @Transactional
     public void delete(Long resourceId) {
         MenuResource menuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, resourceId);
+        Set<ACL> acls = menuResource.getAcls();
+        for (ACL acl : acls) {//这个地方一定要小心，分清cascade and mappedBy(谁是主控方)
+            List<Role> roles = acl.getRoles();
+            for (Role role : roles) {
+                role.getAcls().remove(acl);
+                jpaSupportDao.getEntityManager().merge(role);
+            }
+        }
         jpaSupportDao.getEntityManager().remove(menuResource);
     }
 
