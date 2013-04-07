@@ -163,7 +163,7 @@ Ext.define('mixin.UserInterface', function() {
 			 * 뷰모델과 관련된 컨트롤러는 뷰모델과 동일한 클래스명을 가져야 하며, {모듈명}.controller.{클래스명} 이름 구조를 가져야 한다.
 			 * onlyViewMap defined in application.js launch()
 			 */
-			if(!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1 && !onlyViewMap.get(menu.viewModel)) {
+			if(!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1 && hasController(menu)) {
 				var controller = menu.viewModel.replace('.view.', '.controller.');
 				if(controller) {
 					/*
@@ -205,7 +205,7 @@ Ext.define('mixin.UserInterface', function() {
 				if(content_area.setActiveTab){
 					content_area.setActiveTab(screen);
 				}else{
-					SF.controller.ApplicationController.uniqview.getLayout().setActiveItem(screen);
+					content_area.getLayout().setActiveItem(screen);
 				}
 			} finally {
 				SF.history.unlock();
@@ -219,6 +219,14 @@ Ext.define('mixin.UserInterface', function() {
 		}
 	}
 
+	function hasController(menu){
+		if(onlyViewMap){
+			return !onlyViewMap.get(menu.viewModel);
+		}else{
+			return true;
+		}
+	}
+	
 	function popup(viewModel, keys) {
 		if (!viewModel) {
 			SF.error('SYS-E002');
@@ -231,7 +239,7 @@ Ext.define('mixin.UserInterface', function() {
 			 * 커스터마이즈된 코드는 MVC구조를 사용하므로, 뷰모델을 로드하기 전에, 관련된 컨트롤러를 먼저 동적으로 로드한다.
 			 * 뷰모델과 관련된 컨트롤러는 뷰모델과 동일한 클래스명을 가져야 하며, {모듈명}.controller.{클래스명} 이름 구조를 가져야 한다.
 			 */
-			if(!Ext.ClassManager.get(viewModel) && viewModel.indexOf('.') > 1 && !onlyViewMap.get(menu.viewModel)) {
+			if(!Ext.ClassManager.get(viewModel) && viewModel.indexOf('.') > 1 && hasController(menu)) {
 				var controller = viewModel.replace('.view.', '.controller.');
 				if(controller) {
 					/*

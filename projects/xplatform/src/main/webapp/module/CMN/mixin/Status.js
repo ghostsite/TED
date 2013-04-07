@@ -128,7 +128,10 @@ Ext.define('CMN.mixin.Status', {
 		// log 갯수 출력
 		function onSaveLog(logStore){
 			var findModels = logStore.query('confirmedFlag', false);
-			Ext.getCmp('log_tray').setText(findModels.length || '0'); 
+			var logTray = Ext.getCmp('log_tray');
+			if(logTray){
+			    logTray.setText(findModels.length || '0');
+			}
 		}
 		
 		SF.logger.on('error', onError);
