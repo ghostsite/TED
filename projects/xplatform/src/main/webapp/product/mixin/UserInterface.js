@@ -92,57 +92,6 @@ Ext.define('mixin.UserInterface', function() {
 		}
 	}
 
-	// TODO : resource List Main에 active 이벤트를 위해서 수정하였음. 문제가 된다면 기존
-	// addContentView로 복원필요,这个方法没查到哪调用了。
-	function addContentView(view) {
-		var comp = null;
-		var bNewComp = false; // 새로 생성된 comp 여부
-		var content_area = Ext.getCmp('content');
-		if (typeof (view) === 'string') {
-			comp = createView(view, {
-				closable : true,
-				icon: menu.icon //zhang add icon
-			});
-
-			if(!comp){
-				return false;
-			}
-		
-			content_area.add(comp);
-			bNewComp = true;
-		} else {
-			if (view.itemId) {
-				comp = content_area.getComponent(view.itemId);
-			}
-
-			if (comp) {
-				// 중복 Tab
-				if (view.opt) {
-					comp.opt = view.opt;
-				}
-			} else {
-				// 새로 생성 Tab
-				view.closable = true;
-				comp = content_area.add(view);
-				bNewComp = true;
-			}
-		}
-
-		if (comp.tab.active) {
-			// tab이 active 상태라면 다시 하번 active 이벤트 발생
-			comp.setActive(true);
-		} else {
-			// tab이 active 상태가 아니라면 active tab으로 지정
-			content_area.setActiveTab(comp);
-			if (bNewComp && content_area.items.length == 1) {
-				// 새로 생성되는 tab라면 active 이벤트 발생
-				comp.setActive(true);
-			}
-		}
-	}
-
-	/* Main Content 영역에 탭을 추가하기 - 히스토리에 연동되며 로드할 데이타의 키정보를 넘길 수 있다. */
-	/* TODO doMenu 메쏘드의 명칭을 수정 ==> showContent 또는 show */
 	function doMenu(menu, history) {
 		if (!menu.viewModel) {
 			SF.error('SYS-E002');
@@ -151,19 +100,10 @@ Ext.define('mixin.UserInterface', function() {
 
 		try {
 			var content_area = Ext.getCmp('content');
-			
-			/*
-			 * 모듈 이름이 4자 이상인 경우는 커스터마이즈된 코드로 인식한다.
-			 * 커스터마이즈된 코드는 MVC구조를 사용하므로, 뷰모델을 로드하기 전에, 관련된 컨트롤러를 먼저 동적으로 로드한다.
-			 * 뷰모델과 관련된 컨트롤러는 뷰모델과 동일한 클래스명을 가져야 하며, {모듈명}.controller.{클래스명} 이름 구조를 가져야 한다.
-			 */
 			if(!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1 && SF.hasController(menu)) {
 				var controller = menu.viewModel.replace('.view.', '.controller.');
 				if(controller) {
-					/*
-					 * Synchronously Loading 경고를 방지하기 위해서 명시적으로 Ext.syncRequire 를 선행적으로 호출함.
-					 */
-					Ext.syncRequire(controller);
+					Ext.syncRequire(controller); //load needed js file controller and view
 					SF.controller.ApplicationController.unique.getController(controller).init(); //this is for extjs4.1
 					//SF.controller.ApplicationController.unique.getController(controller); //this is for extjs4.2 ,a big bug for mesplus, for getController() has called doInit()
 				}
@@ -175,7 +115,7 @@ Ext.define('mixin.UserInterface', function() {
 			if(SF.isFitLayout()){ //zhang
 				var newView = createView(menu.viewModel, {
 					itemId : menu.itemId,
-					closable : true,
+					closable : false,
 					icon: menu.icon //zhang add icon
 				 });
 				 if(newView === false){
@@ -187,10 +127,13 @@ Ext.define('mixin.UserInterface', function() {
 				screen = content_area.getComponent(menu.itemId);
 				if(!screen){
 					var closable = true;
-					if(menu.viewModel === 'SYS.view.Welcome'){
+					//if(menu.viewModel === 'SYS.view.Welcome'){
+						//closable = false;
+					//}
+					if(SF.isCardLayout()){
 						closable = false;
 					}
-					 var newView = createView(menu.viewModel, {
+					var newView = createView(menu.viewModel, {
 						itemId : menu.itemId,
 						closable : closable,
 						icon: menu.icon //zhang add icon
@@ -276,7 +219,7 @@ Ext.define('mixin.UserInterface', function() {
 
 	return {
 		doMenu : doMenu,
-		addContentView : addContentView,
+		//addContentView : addContentView,
 		addNav : addNav,
 		addSideMenu : addSideMenu,
 		popup : popup
