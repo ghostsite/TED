@@ -64,7 +64,6 @@ Ext.define('mixin.UserInterface', function() {
 
 		try {
 			var nav = Ext.getCmp('nav').add(Ext.merge(defaults, config));
-
 			if(SF.search) {
 				SF.search.register({
 					kind : 'nav',
@@ -85,9 +84,7 @@ Ext.define('mixin.UserInterface', function() {
 		try {
 			var sidemenu = Ext.getCmp('sidemenu');
 			var menu = Ext.create(view, config);
-
 			sidemenu.insert(0, menu);
-
 		} catch (e) {
 			SF.error('SYS-E004', {
 				view : view
@@ -96,12 +93,11 @@ Ext.define('mixin.UserInterface', function() {
 	}
 
 	// TODO : resource List Main에 active 이벤트를 위해서 수정하였음. 문제가 된다면 기존
-	// addContentView로 복원필요
+	// addContentView로 복원필요,这个方法没查到哪调用了。
 	function addContentView(view) {
 		var comp = null;
 		var bNewComp = false; // 새로 생성된 comp 여부
 		var content_area = Ext.getCmp('content');
-
 		if (typeof (view) === 'string') {
 			comp = createView(view, {
 				closable : true,
@@ -116,7 +112,6 @@ Ext.define('mixin.UserInterface', function() {
 			bNewComp = true;
 		} else {
 			if (view.itemId) {
-
 				comp = content_area.getComponent(view.itemId);
 			}
 
@@ -161,9 +156,8 @@ Ext.define('mixin.UserInterface', function() {
 			 * 모듈 이름이 4자 이상인 경우는 커스터마이즈된 코드로 인식한다.
 			 * 커스터마이즈된 코드는 MVC구조를 사용하므로, 뷰모델을 로드하기 전에, 관련된 컨트롤러를 먼저 동적으로 로드한다.
 			 * 뷰모델과 관련된 컨트롤러는 뷰모델과 동일한 클래스명을 가져야 하며, {모듈명}.controller.{클래스명} 이름 구조를 가져야 한다.
-			 * onlyViewMap defined in application.js launch()
 			 */
-			if(!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1 && hasController(menu)) {
+			if(!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1 && SF.hasController(menu)) {
 				var controller = menu.viewModel.replace('.view.', '.controller.');
 				if(controller) {
 					/*
@@ -177,9 +171,8 @@ Ext.define('mixin.UserInterface', function() {
 			
 			menu.itemId = menu.itemId || menu.viewModel; 
 			
-			
 			var screen ;
-			if(isFitLayout(content_area)){ //zhang
+			if(SF.isFitLayout()){ //zhang
 				var newView = createView(menu.viewModel, {
 					itemId : menu.itemId,
 					closable : true,
@@ -193,9 +186,13 @@ Ext.define('mixin.UserInterface', function() {
 			}else{
 				screen = content_area.getComponent(menu.itemId);
 				if(!screen){
+					var closable = true;
+					if(menu.viewModel === 'SYS.view.Welcome'){
+						closable = false;
+					}
 					 var newView = createView(menu.viewModel, {
 						itemId : menu.itemId,
-						closable : true,
+						closable : closable,
 						icon: menu.icon //zhang add icon
 					 });
 					 if(newView === false){
@@ -218,9 +215,9 @@ Ext.define('mixin.UserInterface', function() {
 			
 			try {
 				SF.history.lock();
-				if(isTabLayout(content_area)){ //tab panel zhang
+				if(SF.isTabLayout()){ //tab panel zhang
 					content_area.setActiveTab(screen);
-				}else if(isCardLayout(content_area)){ // card layout for panel zhang
+				}else if(SF.isCardLayout()){ // card layout for panel zhang
 					content_area.getLayout().setActiveItem(screen);
 				}
 			} finally {
@@ -234,33 +231,6 @@ Ext.define('mixin.UserInterface', function() {
 			}, e);
 		}
 	}
-
-	
-	//zhang added this methods
-	function isFitLayout(content_area){
-		return 'Ext.layout.container.Fit' === getCenterXType(content_area);
-	}
-	
-	function isCardLayout(content_area){
-		return (!isTabLayout(content_area) && 'Ext.layout.container.Card' === getCenterXType(content_area));
-	}
-	
-	function isTabLayout(content_area){
-		return content_area.setActiveTab;
-	}
-	
-	function getCenterXType(content_area){
-		return Ext.ClassManager.getName(content_area.getLayout());
-	}
-	
-	function hasController(menu){
-		if(onlyViewMap){
-			return !onlyViewMap.get(menu.viewModel);
-		}else{
-			return true;
-		}
-	}
-	//end zhang added this methods
 	
 	function popup(viewModel, keys) {
 		if (!viewModel) {
@@ -274,7 +244,7 @@ Ext.define('mixin.UserInterface', function() {
 			 * 커스터마이즈된 코드는 MVC구조를 사용하므로, 뷰모델을 로드하기 전에, 관련된 컨트롤러를 먼저 동적으로 로드한다.
 			 * 뷰모델과 관련된 컨트롤러는 뷰모델과 동일한 클래스명을 가져야 하며, {모듈명}.controller.{클래스명} 이름 구조를 가져야 한다.
 			 */
-			if(!Ext.ClassManager.get(viewModel) && viewModel.indexOf('.') > 1 && hasController(menu)) {
+			if(!Ext.ClassManager.get(viewModel) && viewModel.indexOf('.') > 1 && SF.hasController(menu)) {
 				var controller = viewModel.replace('.view.', '.controller.');
 				if(controller) {
 					/*

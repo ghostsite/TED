@@ -20,7 +20,7 @@ Ext.define('CMN.view.viewport.CenterOnce', { //一次只展示一个，覆盖
 	 * listener의 'remove' 이벤트는 버블링되는 이벤트를 다 받기 때문이다.
 	 */
 	onRemove: function(item, autoDestroy) {
-		SF.history.back();
+		//SF.history.back(); //zhang commented this for once layout
 		this.callParent(arguments);
 	}
 });

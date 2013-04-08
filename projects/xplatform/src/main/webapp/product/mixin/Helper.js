@@ -167,7 +167,37 @@ Ext.define('mixin.Helper', function() {
 			buttons : Ext.Msg.OK
 		});
 	}
-
+	
+	//zhang added this methods
+	var isFitLayout = function(){
+		var content_area = Ext.getCmp('content');
+		return 'Ext.layout.container.Fit' === getCenterXType(content_area);
+	}
+	
+	var isCardLayout = function(){
+		var content_area = Ext.getCmp('content');
+		return (!isTabLayout(content_area) && 'Ext.layout.container.Card' === getCenterXType(content_area));
+	}
+	
+	var isTabLayout = function(){
+		var content_area = Ext.getCmp('content');
+		return content_area.setActiveTab;
+	}
+	
+	var getCenterXType = function(content_area){
+		return Ext.ClassManager.getName(content_area.getLayout());
+	}
+	
+	var hasController = function(menu){
+		if(menu.viewModel === 'CMN.view.common.ViewLogInfo'){
+			return false;
+		}
+		if(menu.viewModel === 'SYS.view.Welcome'){
+			return false;
+		}
+		return true;
+	}
+	
 	return {
 		getContextBbar : getContextBbar,
 		getSelectedIdFromTree : getSelectedIdFromTree,
@@ -182,6 +212,10 @@ Ext.define('mixin.Helper', function() {
 		alertInfo : alertInfo,
 		alertWarn : alertWarn,
 		alertQuestion : alertQuestion,
-		alertError : alertError
+		alertError : alertError,
+		hasController : hasController,
+		isFitLayout : isFitLayout,
+		isCardLayout: isCardLayout,
+		isTabLayout : isTabLayout
 	};
 }());

@@ -37,8 +37,8 @@ Ext.define('SmartFactory.view.Viewport', {
             id: 'filedownloader',
             hidden : true
         }]
-	}, {
-		xtype : 'viewport.centeronce', //xtype : 'viewport.center', 'viewport.centercard','viewport.centeronce'
+	}, {//添加一个新的center layout需要CMN.controller.CMNController中required一下
+		xtype : 'viewport.centercard', //xtype : 'viewport.center', 'viewport.centercard','viewport.centeronce'
 		region : 'center'
 	} ]
 });
