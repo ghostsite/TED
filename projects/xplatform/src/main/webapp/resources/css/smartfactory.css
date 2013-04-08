@@ -584,7 +584,7 @@ textarea.x-form-field{margin-bottom:7px;line-height:1.5;padding:3px 5px }
 .x-livesearch-match{font-weight:bold;background-color:yellow} /* grid live search style */
 
 
-/* panel style*/
+/* panel style, panel title zhang commented*/
 #content-body .x-panel .x-grid-body{border-width:0;border-bottom:1px solid #ddd}
 #content-body .x-panel-header-default{background:url('../image/dotGreen.gif') 0 55% no-repeat;border:0;padding-left:14px;}
 #content-body .x-panel-header-text-default{color:#333;font-size:12px;font-weight:normal}

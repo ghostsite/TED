@@ -18,7 +18,8 @@ Ext.define('CMN.view.common.AppTool', {
 	default_handler :function(button) {
 		SmartFactory.doMenu({
 			viewModel : button.data.get('path'),
-			itemId : button.data.get('code')
+			itemId : button.data.get('code'),
+			icon: button.data.get('icon')
 		});
 	},	
 		

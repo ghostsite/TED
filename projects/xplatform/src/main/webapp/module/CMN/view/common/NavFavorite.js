@@ -13,7 +13,8 @@ Ext.define('CMN.view.common.NavFavorite', {
 		itemclick : function(view, record, item, index, e, opt) {
 			SmartFactory.doMenu({
 				viewModel : record.get('path'), 
-				itemId : record.get('code')
+				itemId : record.get('code'),
+				icon: record.get('icon')
 			});
 		}
 	},
