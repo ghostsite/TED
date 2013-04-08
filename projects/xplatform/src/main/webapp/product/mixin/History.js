@@ -31,57 +31,6 @@ Ext.define('mixin.History', function() {
 		};
 	}
 
-	function createView(view, config){
-		var comp = null;
-		if (typeof (view) === 'string') {
-			var secChecked = SF.isAssemblyName(view);
-			config.secChecked = secChecked;
-			var secControlList = {};
-			var errMsg = '';
-			var result = '';
-			if(secChecked === true){
-				var params = {
-						procstep : '1',
-						programId : SF.login.programId,
-						funcName : view
-				};
-				Ext.Ajax.request({
-					showFailureMsg : false,
-					url : 'service/secViewFunctionDetail.json',
-					method : 'POST',
-					jsonData : params,
-					async : false,
-					success : function(response, opts) {
-						result = Ext.JSON.decode(response.responseText) || {};
-						if (result.success) {
-							for ( var i = 1; i <= 10; i++) {
-								var ctlName = result['ctlName' + i];
-								if (ctlName)
-									secControlList[ctlName] = result['ctlEnFlag' + i] || ''; // 'Y' or other
-							}
-						}
-						else{
-							errMsg = result.msg;
-						}
-					}
-				});
-			}
-			else if(secChecked === false){
-				errMsg = T('Message.SEC-0008');
-			}
-			if(errMsg){
-				Ext.Msg.alert('Open Error',errMsg);
-				return false;
-			}
-			config.secControlList = secControlList;
-			comp = Ext.create(view, config);
-			return comp;
-		}
-		else{
-			return view;
-		}
-	}
-	
 	Ext.util.History.on('change', function(token) {
 		if(!token)
 			return;

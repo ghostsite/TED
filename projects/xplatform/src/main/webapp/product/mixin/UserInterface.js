@@ -176,9 +176,11 @@ Ext.define('mixin.UserInterface', function() {
 			}
 			
 			menu.itemId = menu.itemId || menu.viewModel; 
-			var screen = content_area.getComponent(menu.itemId);
-			if(!screen){
-				 var newView = createView(menu.viewModel, {
+			
+			
+			var screen ;
+			if(isFitLayout(content_area)){ //zhang
+				var newView = createView(menu.viewModel, {
 					itemId : menu.itemId,
 					closable : true,
 					icon: menu.icon //zhang add icon
@@ -186,7 +188,21 @@ Ext.define('mixin.UserInterface', function() {
 				 if(newView === false){
 					 return false;
 				 }
+				 content_area.removeAll();
 				 screen = content_area.add(newView);
+			}else{
+				screen = content_area.getComponent(menu.itemId);
+				if(!screen){
+					 var newView = createView(menu.viewModel, {
+						itemId : menu.itemId,
+						closable : true,
+						icon: menu.icon //zhang add icon
+					 });
+					 if(newView === false){
+						 return false;
+					 }
+					 screen = content_area.add(newView);
+				}
 			}
 			
 			/*
@@ -202,9 +218,9 @@ Ext.define('mixin.UserInterface', function() {
 			
 			try {
 				SF.history.lock();
-				if(content_area.setActiveTab){
+				if(isTabLayout(content_area)){ //tab panel zhang
 					content_area.setActiveTab(screen);
-				}else{
+				}else if(isCardLayout(content_area)){ // card layout for panel zhang
 					content_area.getLayout().setActiveItem(screen);
 				}
 			} finally {
@@ -219,6 +235,24 @@ Ext.define('mixin.UserInterface', function() {
 		}
 	}
 
+	
+	//zhang added this methods
+	function isFitLayout(content_area){
+		return 'Ext.layout.container.Fit' === getCenterXType(content_area);
+	}
+	
+	function isCardLayout(content_area){
+		return (!isTabLayout(content_area) && 'Ext.layout.container.Card' === getCenterXType(content_area));
+	}
+	
+	function isTabLayout(content_area){
+		return content_area.setActiveTab;
+	}
+	
+	function getCenterXType(content_area){
+		return Ext.ClassManager.getName(content_area.getLayout());
+	}
+	
 	function hasController(menu){
 		if(onlyViewMap){
 			return !onlyViewMap.get(menu.viewModel);
@@ -226,6 +260,7 @@ Ext.define('mixin.UserInterface', function() {
 			return true;
 		}
 	}
+	//end zhang added this methods
 	
 	function popup(viewModel, keys) {
 		if (!viewModel) {

@@ -10,7 +10,7 @@ Ext.define('CMN.controller.CMNController', {
 	views : [ 'CMN.view.viewport.Center', 'CMN.view.viewport.South', 'CMN.view.viewport.East', 'CMN.view.viewport.North', 'CMN.view.viewport.West',
 			'CMN.view.common.MainMenu', 'CMN.view.common.SideMenu', 'CMN.view.common.AppTool', 'CMN.view.common.NavMainMenu',
 			'CMN.view.common.NavFavorite', 'CMN.view.common.AppSearchField', 'CMN.view.form.DateTimeField', 'CMN.view.form.TimePeriodField',
-			'CMN.view.form.DatePeriodField', 'CMN.view.form.DateTimePeriodField', 'CMN.view.common.RowStatic','CMN.view.viewport.CenterCard' ],
+			'CMN.view.form.DatePeriodField', 'CMN.view.form.DateTimePeriodField', 'CMN.view.common.RowStatic','CMN.view.viewport.CenterCard','CMN.view.viewport.CenterOnce' ],
 
 	init : function() {
 

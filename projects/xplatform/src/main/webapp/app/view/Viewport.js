@@ -38,7 +38,7 @@ Ext.define('SmartFactory.view.Viewport', {
             hidden : true
         }]
 	}, {
-		xtype : 'viewport.center',
+		xtype : 'viewport.centeronce', //xtype : 'viewport.center', 'viewport.centercard','viewport.centeronce'
 		region : 'center'
 	} ]
 });
