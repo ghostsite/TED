@@ -113,7 +113,8 @@
 .fontWeightBold,.fontWeightBold *{font-weight:bold !important}
 .fontWeightNormal,.fontWeightNormal *{font-weight:normal}
 
-.introimg{background:url('../image/intro.png') 50% 40% no-repeat;}
+/*zhang modified center background*/
+.introimg{background:url('../image/intro.png') 50% 40% no-repeat;background-color:#ffffff;} 
 
 .cellRed,.cellRed *{background-color:#F7BDBD !important}
 .cellOrange,.cellOrange *{background-color:#F3DC9D !important}
