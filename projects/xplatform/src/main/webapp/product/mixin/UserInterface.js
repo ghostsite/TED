@@ -127,9 +127,6 @@ Ext.define('mixin.UserInterface', function() {
 				screen = content_area.getComponent(menu.itemId);
 				if(!screen){
 					var closable = true;
-					//if(menu.viewModel === 'SYS.view.Welcome'){
-						//closable = false;
-					//}
 					if(SF.isCardLayout()){
 						closable = false;
 					}
@@ -141,7 +138,11 @@ Ext.define('mixin.UserInterface', function() {
 					 if(newView === false){
 						 return false;
 					 }
-					 screen = content_area.add(newView);
+					 if(SF.isCardLayout()){//zhang changed
+					 	screen = content_area.insert(0,newView);
+					 }else{
+					 	screen = content_area.add(newView);
+					 }
 				}
 			}
 			

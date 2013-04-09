@@ -1,4 +1,4 @@
-Ext.define('MES.mixin.CommonFunction', function() {
+Ext.define('MES.mixin.CommonFunction', function() { //this file has been change by zhang
 
 	/* date형식을 받아서 설정한 포멧형식의 stirng으로 반환,this file changed by zhang */
 	function toStandardTime(date, format) {
@@ -330,8 +330,7 @@ Ext.define('MES.mixin.CommonFunction', function() {
 		});
 		SmartFactory.setting.set('alarm', null);
 		SmartFactory.setting.set('alarm', storageData);
-	}
-	;
+	};
 
 	function callService(config) {
 		if (!config || typeof config != 'object')
@@ -342,32 +341,38 @@ Ext.define('MES.mixin.CommonFunction', function() {
 		var scope = config.scope || '';
 		var async = config.async !== false ? true : false;
 		var params = Ext.applyIf(config.params,{
-			pageSize : config.pageSize||-1,
+			pageSize : config.pageSize||1000,
 			pageIndex : 0
 		});
-		Ext.Ajax.request({
-			url : config.url,
-			method : config.method || 'POST',
-			jsonData : config.params, //zhang changed
-			async : async,
-			scope : config.scope,
-			showSuccessMsg : config.showSuccessMsg,
-			showFailureMsg : config.showFailureMsg,
-			callback : function(options, success, response) {
-				/*mixin/Ajax/ onComplete에서 decode결과를 responseObj로 넘겨줌*/
-				response.result = response.responseObj||Ext.JSON.decode(response.responseText) || {};
-				response.params = config.params;
-				if (response.result.success !== true) {
-					success = false;
+		
+		var request = {
+				url : config.url,
+				method : config.method || 'POST',
+				async : async,
+				scope : config.scope,
+				showSuccessMsg : config.showSuccessMsg,
+				showFailureMsg : config.showFailureMsg,
+				callback : function(options, success, response) {
+					/*mixin/Ajax/ onComplete에서 decode결과를 responseObj로 넘겨줌*/
+					response.result = response.responseObj||Ext.JSON.decode(response.responseText) || {};
+					response.params = config.params;
+					if (response.result.success !== true) {
+						success = false;
+					}
+					// 반환할 결과값
+					rtnResponse = response;
+					rtnResponse.success = success;
+					if (typeof config.callback == 'function') {
+						config.callback.call(scope, response, success);
+					}
 				}
-				// 반환할 결과값
-				rtnResponse = response;
-				rtnResponse.success = success;
-				if (typeof config.callback == 'function') {
-					config.callback.call(scope, response, success);
-				}
-			}
-		});
+			};
+		if(request.method == 'POST')
+			request.jsonData = params;
+		else
+			request.params = params;
+		
+		Ext.Ajax.request(request);
 		return rtnResponse;
 	}
 
@@ -379,32 +384,37 @@ Ext.define('MES.mixin.CommonFunction', function() {
 		var rtnResponse = false;
 		var scope = config.scope || '';
 		var params = Ext.applyIf(config.params,{
-			pageSize : config.pageSize||-1,
+			pageSize : config.pageSize||1000,
 			pageIndex : 0
 		});
-		Ext.Ajax.request({
-			url : config.url,
-			method : config.method || 'POST',
-			jsonData : config.params,
-			showSuccessMsg : config.showSuccessMsg,
-			showFailureMsg : config.showFailureMsg,
-			async : false,
-			callback : function(options, success, response) {
-				/*mixin/Ajax/ onComplete에서 decode결과를 responseObj로 넘겨줌*/
-				response.result = response.responseObj||Ext.JSON.decode(response.responseText) || {};
-				response.params = response.request.options.params;
-				if (response.result.success !== true) {
-					success = false;
-				}
-				// 반환할 결과값
-				rtnResponse = response;
-				rtnResponse.success = success;
+		
+		var request = {
+				url : config.url,
+				method : config.method || 'POST',
+				showSuccessMsg : config.showSuccessMsg,
+				showFailureMsg : config.showFailureMsg,
+				async : false,
+				callback : function(options, success, response) {
+					/*mixin/Ajax/ onComplete에서 decode결과를 responseObj로 넘겨줌*/
+					response.result = response.responseObj||Ext.JSON.decode(response.responseText) || {};
+					response.params = response.request.options.params;
+					if (response.result.success !== true) {
+						success = false;
+					}
+					// 반환할 결과값
+					rtnResponse = response;
+					rtnResponse.success = success;
 
-				if (typeof config.callback == 'function') {
-					config.callback.call(scope, response, success);
+					if (typeof config.callback == 'function') {
+						config.callback.call(scope, response, success);
+					}
 				}
-			}
-		});
+			};
+		if(request.method == 'POST')
+			request.jsonData = params;
+		else
+			request.params = params;
+		Ext.Ajax.request(request);
 		return rtnResponse;
 	}
 
@@ -634,23 +644,6 @@ Ext.define('MES.mixin.CommonFunction', function() {
 		return sSpec;
 	}
 
-	// 2012.10.16 KKH
-	function toCamelCase(str, opt) {
-		if (!str)
-			return;
-		opt = opt || '_';
-		var regexp = new RegExp('\\' + opt + 'w*[^' + opt + ']', 'gi');
-		var chgStr = str.toLowerCase();
-
-		while (true) {
-			var $var = regexp.exec(chgStr);
-			if (!$var)
-				break;
-			chgStr = chgStr.replace($var[0], $var[0].charAt(1).toUpperCase());
-		}
-
-		return chgStr;
-	}
 	// 2012.11.02 KKH
 	function isValidTab(form, showMsg, tabFlag) {
 		var fields = form.query('[isFormField]');
@@ -783,6 +776,36 @@ Ext.define('MES.mixin.CommonFunction', function() {
 		return form;
 	}
 	
+	function toObjNameCamelCase(obj,sp){
+		if(!obj && obj == {})
+			return;
+		var newObj = {};
+		for(var n in obj){
+			var n1 = toCamelCase(n,sp);
+			newObj[n1] = obj[n];
+		}
+		return newObj;
+	}
+	
+	// 2012.10.16 KKH
+	function toCamelCase(str, sp) {
+		if (!str)
+			return;
+		opt = opt || '_';
+		var regexp = new RegExp('\\' + opt + 'w*[^' + opt + ']', 'gi');
+		var chgStr = str.toLowerCase();
+
+		while (true) {
+			var $var = regexp.exec(chgStr);
+			if (!$var)
+				break;
+			chgStr = chgStr.replace($var[0], $var[0].charAt(1).toUpperCase());
+		}
+
+		return chgStr;
+	}
+	
+	
 	function toObjNameUnderscoreCase(obj,sp){
 		if(!obj && obj == {})
 			return;
@@ -794,7 +817,7 @@ Ext.define('MES.mixin.CommonFunction', function() {
 		return newObj;
 	}
 	
-	function toUnderscoreCase(src, sp){
+	function toUnderscoreCase(str, sp){
 		if(!src)
 			return '';
 		sp = sp||'_';
@@ -803,6 +826,22 @@ Ext.define('MES.mixin.CommonFunction', function() {
 				return sp+x;
 			return x;
 		}).toUpperCase();
+	}
+	
+	function isControlDisabled(itemId, view){
+		//권한 여부  ture(사용), false(사용금지), null(무시) 
+		var disabled = false;
+		
+		if(itemId && view.secChecked === true){
+			if(view.secControlList[itemId] == ''){
+				disabled = true;
+			}
+			else if(view.useBlackList === 'Y' && view.secControlList[itemId] !== 'Y'){
+				disabled = true;
+			}
+		}
+		
+		return disabled;
 	}
 	
 	return {
@@ -831,7 +870,9 @@ Ext.define('MES.mixin.CommonFunction', function() {
 			formatNumber : formatNumber,
 			getExportForm : getExportForm,
 			toUnderscoreCase : toUnderscoreCase,
-			toObjNameUnderscoreCase : toObjNameUnderscoreCase
+			toObjNameUnderscoreCase : toObjNameUnderscoreCase,
+			toObjNameCamelCase : toObjNameCamelCase,
+			isControlDisabled : isControlDisabled
 		}
 	};
 }());

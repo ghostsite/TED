@@ -133,7 +133,17 @@ Ext.define('Opc.view.Navigator', {
 	 * 안된다. listener의 'remove' 이벤트는 버블링되는 이벤트를 다 받기 때문이다.
 	 */
 	onRemove : function(item, autoDestroy) {
-		SF.history.back();
+		//SF.history.back();
+
+		//this.callParent(arguments); 20130409
+		
+		var view = this.getLayout().getActiveItem();
+		if(view)
+			view.show();
+		
+		Opc.controller.Navigator.unique.getPageTitle().setText(view ? view.title : '');
+		Opc.controller.Navigator.uniqview.fireEvent('checkfavor');
+		SF.history.add(view);		
 
 		this.callParent(arguments);
 	}

@@ -47,31 +47,21 @@ Ext.define('SEC.controller.SECController', {
 		}
 		
 		//user menu
-		var userMenu =  [ {
-			text : T('Caption.Other.Logout'),
-			handler : function() {
-				Ext.MessageBox.confirm('Confirm', 'Are you sure you want to do that?', function(confirm) {
-					if (confirm === 'yes') {
-						document.location.href = typeof(LOGOUT_URL) === 'undefined' ? 'logout?targetUrl=/home' : LOGOUT_URL;;
-					}
-				});
-			}
-		} ];
+		var userMenu =  [ ];
 		//profile 수정등록
 		var MP_AllowUpdateProfile = SF.option.get('MP_AllowUpdateProfile')||{};
-		//TODO : default 설정 미확정 : 기본은 수정가능상태임
-//		if(MP_AllowUpdateProfile.value1 !== 'Y'){
+		
 		if(MP_AllowUpdateProfile.value1 != 'N'){
 			var MP_AssemblyNameOfProfile = SF.option.get('MP_AssemblyNameOfProfile')||{};
 			
-			Ext.Array.insert(userMenu,0,[{
+			userMenu.push({
 				text : T('Caption.Other.Profile'),
 				handler : function() {
 					SF.doMenu({
 						viewModel : MP_AssemblyNameOfProfile.value1 || 'SEC.view.setup.UserProfile'
 					});
 				}
-			}]);
+			});
 		}
 		// 언어설정 메뉴 등록
 		if(window.LANGUAGE_LIST && LANGUAGE_LIST.length> 0){
@@ -105,15 +95,27 @@ Ext.define('SEC.controller.SECController', {
 					}
 				});
 			}
-			Ext.Array.insert(userMenu,1, [{
+			userMenu.push({
 				text : T('Caption.Other.Language'),
 				menu : {
 					xtype : 'menu',
 					ignoreParentClicks : true,
 					items : localeList
 				}
-			}]);
+			});
 		}
+	
+		userMenu.push({
+			text : T('Caption.Other.Logout'),
+			handler : function() {
+				Ext.MessageBox.confirm('Confirm', 'Are you sure you want to do that?', function(confirm) {
+					if (confirm === 'yes') {
+						document.location.href = typeof(LOGOUT_URL) === 'undefined' ? 'logout?targetUrl=/home' : LOGOUT_URL;;
+					}
+				});
+			}
+		});
+		
 		SF.addSideMenu('Ext.button.Button', {
 			text : SF.login.name + ' @ ' + SF.login.factory,
 			cls : 'iconUser',

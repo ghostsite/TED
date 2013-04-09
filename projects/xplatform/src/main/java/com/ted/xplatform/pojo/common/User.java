@@ -216,7 +216,7 @@ public class User extends LogicAuditEntity {
      * @return the loginName
      */
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Size(min = 1, max = 50)
     public String getLoginName() {
         return loginName;
     }

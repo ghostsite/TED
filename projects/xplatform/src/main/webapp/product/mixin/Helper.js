@@ -192,9 +192,6 @@ Ext.define('mixin.Helper', function() {
 		if(menu.viewModel === 'CMN.view.common.ViewLogInfo'){
 			return false;
 		}
-		if(menu.viewModel === 'SYS.view.Welcome'){
-			return false;
-		}
 		return true;
 	}
 	

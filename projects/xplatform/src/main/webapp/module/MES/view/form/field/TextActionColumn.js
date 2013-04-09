@@ -5,7 +5,8 @@ Ext.define('MES.view.form.field.TextActionColumn', {
 	sortable : false,
 	hideable : false,
 	menuDisabled : true,
-
+	actionIdRe: Ext.baseCSSPrefix + 'action-col-text',
+	
 	constructor : function(config) {
 		var me = this,
         cfg = Ext.apply({}, config);
@@ -47,7 +48,7 @@ Ext.define('MES.view.form.field.TextActionColumn', {
             me.stopSelection;
             me.hasActionConfiguration = true;
         }
-	    return '<span class="' + prefix + 'action-col-icon '+ (Ext.isFunction(me.getClass) ? me.getClass.apply(scope, arguments) : (me.iconCls || '')) + linkStyle+'"' +
+	    return '<span class="' + me.actionIdRe +' '+ (Ext.isFunction(me.getClass) ? me.getClass.apply(scope, arguments) : (me.iconCls || '')) + linkStyle+'"' +
 	        (tooltip ? ' data-qtip="' + tooltip + '"' : '') + ' >'+v+'</span>';
     
     },
@@ -61,7 +62,7 @@ Ext.define('MES.view.form.field.TextActionColumn', {
     processEvent : function(type, view, cell, recordIndex, cellIndex, e, record, row){
         var me = this,
             target = e.getTarget(),
-            match,
+            match = target.className.match(me.actionIdRe),
             fn,
             key = type == 'keydown' && e.getKey();
 
@@ -71,7 +72,8 @@ Ext.define('MES.view.form.field.TextActionColumn', {
         if (key && !Ext.fly(target).findParent(view.cellSelector)) {
             target = Ext.fly(cell).down('.' + Ext.baseCSSPrefix + 'action-col-icon', true);
         }
-        if (target) {
+        
+        if (target && match) {
             if (type == 'click' || (key == e.ENTER || key == e.SPACE)) {
                 fn = me.handler;
                 if (fn) {

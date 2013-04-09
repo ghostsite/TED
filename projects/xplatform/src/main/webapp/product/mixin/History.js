@@ -34,11 +34,7 @@ Ext.define('mixin.History', function() {
 	
 	Ext.util.History.on('change', function(token) {
 		if(!token){
-			if(SF.isCardLayout()){
-				token ='SYS.view.Welcome';
-			}else{
-				return;
-			}
+			return;
 		}
 			
 		var anchor = parse(token);

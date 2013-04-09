@@ -24,6 +24,9 @@ Ext.define('MES.view.form.field.BaseButtons', {
 	},
 
 	ui : 'footer',
+	//checkbox 추가 후 사이즈 미지정시 4pix 어긋남
+	
+	height : 27,
 
 	/*
 	 * Init Component 메쏘드를 오버라이드 한다.

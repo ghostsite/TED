@@ -81,7 +81,8 @@ Ext.define('Opc.mixin.Navigation', {//this file is changed by zhang
 							 return false;
 						 }
 						SF.normal('Ready');
-						screen = Opc.controller.Navigator.uniqview.add(newView);
+						//screen = Opc.controller.Navigator.uniqview.add(newView); //20130409
+						screen = Opc.controller.Navigator.uniqview.insert(0, newView);
 					}
 					Opc.controller.Navigator.unique.getPageTitle().setText(screen.title);
 				} catch(e) {

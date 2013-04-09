@@ -20,7 +20,13 @@ Ext.define('CMN.view.viewport.CenterCard', {
 	 * listener의 'remove' 이벤트는 버블링되는 이벤트를 다 받기 때문이다.
 	 */
 	onRemove: function(item, autoDestroy) {
-		SF.history.back();
+		//SF.history.back();
+		var view = this.getLayout().getActiveItem();
+		if(view)
+			view.show();
+		
+		SF.history.add(view);		
+		
 		this.callParent(arguments);
 	}
 });

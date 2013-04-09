@@ -51,7 +51,7 @@ Ext.define('MES.mixin.CodeView', function() {
 					flex : 2
 				}]
 			},
-			fieldSearch : true,
+			//fieldSearch : true,
 			fields : [{
 				column : 'key1',
 				maxLength : 30,
@@ -65,8 +65,8 @@ Ext.define('MES.mixin.CodeView', function() {
 			
 			popupConfig : {
 				title : T('Caption.Other.CodeView')	
-			},
-			fieldSearch : true			
+			}
+			//fieldSearch : true			
 		},
 		'SERVICE' : {
 			name : 'SERVICE',
@@ -74,8 +74,8 @@ Ext.define('MES.mixin.CodeView', function() {
 			
 			popupConfig : {
 				title : T('Caption.Other.CodeView')
-			},
-			fieldSearch : true
+			}
+			//fieldSearch : true
 		},
 		'SQLQUERY' : {
 			name : 'SQLQUERY',
@@ -83,8 +83,8 @@ Ext.define('MES.mixin.CodeView', function() {
 			store : 'BAS.store.BasSqlQueryOut',
 			popupConfig : {
 				title : T('Caption.Other.CodeView')
-			},
-			fieldSearch : true
+			}
+			//fieldSearch : true
 		}
 	});
 
