@@ -1,7 +1,6 @@
 package com.ted.xplatform.service;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,18 +19,12 @@ import com.google.common.collect.Lists;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
 import com.ted.common.dao.jpa.JpaTemplateDao;
-import com.ted.common.exception.BusinessException;
 import com.ted.common.util.BeanUtils;
 import com.ted.common.util.CollectionUtils;
-import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.ACL;
 import com.ted.xplatform.pojo.common.MenuResource;
-import com.ted.xplatform.pojo.common.Operation;
-import com.ted.xplatform.pojo.common.Resource;
 import com.ted.xplatform.pojo.common.Role;
-import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.repository.OperationDao;
-import com.ted.xplatform.util.PlatformUtils;
 
 /**
  * 菜单的Service
@@ -57,6 +50,9 @@ public class MenuResourceService {
 
     @Inject
     MessageSource              messageSource;
+    
+    @Inject
+    ResourceService            resourceService;
 
     public void setJdbcTemplateDao(JdbcTemplateDao jdbcTemplateDao) {
         this.jdbcTemplateDao = jdbcTemplateDao;
@@ -78,6 +74,10 @@ public class MenuResourceService {
         this.operationDao = operationDao;
     }
 
+    public void setResourceService(ResourceService resourceService) {
+        this.resourceService = resourceService;
+    }
+
     //-----------------工具方法-----------------//
     /**
      * 工具方法:根据当前用户过滤菜单
@@ -90,144 +90,12 @@ public class MenuResourceService {
         Subject currentUser = SecurityUtils.getSubject();
         List<MenuResource> filteredMenuList = Lists.newArrayList();
         for (MenuResource menu : menuResourceList) {
-            if (hasViewPermission(currentUser, menu)) {
+            if (resourceService.hasViewPermission(currentUser, menu)) {
                 filteredMenuList.add(menu);
             }
         }
         return filteredMenuList;
     };
-
-    /**
-     * 工具方法:currentSubject是否对MenuResource有view的权限
-     * 注意：这个只能在事务中运行。
-     * 超级用户可以看，也就是不过滤超级用户
-     * @param Subject currentUser, MenuResource menu
-     * @return boolean
-     */
-    @Transactional(readOnly = true)
-    private boolean hasViewPermission(Subject currentUser, MenuResource menu) {
-        User user = PlatformUtils.getCurrentUser();
-        if (user.isSuperUser()) {
-            return true;
-        } else {
-            String permission = menu.getCode() + ":" + Operation.Type.view;
-            return currentUser.isPermitted(permission);
-        }
-    };
-
-    /**
-     * 工具方法，带checkbox的acls
-     * 注意：此方法也是在事务中执行。
-     * @param List<MenuResource> menuResourceList
-     * @return void
-     */
-    @Transactional(readOnly = true)
-    private void loadOperations(List<MenuResource> menuResourceList) {
-        for (MenuResource menu : menuResourceList) {
-            menu.getOperationList();
-        }
-    };
-
-    /**
-     * 把 private boolean            canView;
-        private boolean             canAdd;
-        private boolean             canUpdate;
-        private boolean             canDelete;
-                 转化为acl
-                 工具类辅助方法 ：add MenuResource时需要挑出来operation
-     * @param menuResource
-     */
-    public void addOperationProperties2Operations(MenuResource menuResource) {
-        if (menuResource.isCanView()) {
-            Operation viewOperation = operationDao.getByCode(Operation.Type.view.name());
-            setOperation2Resource(viewOperation, menuResource);
-        }
-        if (menuResource.isCanAdd()) {
-            Operation addOperation = operationDao.getByCode(Operation.Type.add.name());
-            setOperation2Resource(addOperation, menuResource);
-        }
-        if (menuResource.isCanUpdate()) {
-            Operation updateOperation = operationDao.getByCode(Operation.Type.update.name());
-            setOperation2Resource(updateOperation, menuResource);
-        }
-        if (menuResource.isCanDelete()) {
-            Operation deleteOperation = operationDao.getByCode(Operation.Type.delete.name());
-            setOperation2Resource(deleteOperation, menuResource);
-        }
-    }
-
-    /**
-     * 工具方法：看MenuResource含有的ACLList 是否包含add view update delete operation
-     */
-    private static final boolean contain(Set<ACL> aclSet, String operationCode) {
-        for (ACL acl : aclSet) {
-            if (acl.getOperation().getCode().equals(operationCode)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 工具类辅助方法：更新MenuResource时需要挑出来operation，
-     * @param menuResource
-     */
-    public void updateOperationProperties2Operations(MenuResource menuResource) {
-        Set<ACL> aclSet = menuResource.getAcls();
-        Iterator<ACL> iter = aclSet.iterator();
-        while (iter.hasNext()) {
-            ACL acl = iter.next();
-            if (acl.getOperation().isViewOperation() && !menuResource.isCanView()) {
-                if (acl.getRoles().size() > 0) {
-                    throw new BusinessException(SpringUtils.getMessage("message.common.user.needtodeleterole2acl", messageSource));
-                }
-                iter.remove();
-            }
-            if (acl.getOperation().isAddOperation() && !menuResource.isCanAdd()) {
-                if (acl.getRoles().size() > 0) {
-                    throw new BusinessException(SpringUtils.getMessage("message.common.user.needtodeleterole2acl", messageSource));
-                }
-                iter.remove();
-            }
-            if (acl.getOperation().isUpdateOperation() && !menuResource.isCanUpdate()) {
-                if (acl.getRoles().size() > 0) {
-                    throw new BusinessException(SpringUtils.getMessage("message.common.user.needtodeleterole2acl", messageSource));
-                }
-                iter.remove();
-            }
-            if (acl.getOperation().isDeleteOperation() && !menuResource.isCanDelete()) {
-                if (acl.getRoles().size() > 0) {
-                    throw new BusinessException(SpringUtils.getMessage("message.common.user.needtodeleterole2acl", messageSource));
-                }
-                iter.remove();
-            }
-        }
-
-        if (menuResource.isCanView() && !contain(aclSet, Operation.Type.view.name())) {
-            Operation viewOperation = operationDao.getByCode(Operation.Type.view.name());
-            setOperation2Resource(viewOperation, menuResource);
-        }
-
-        if (menuResource.isCanAdd() && !contain(aclSet, Operation.Type.add.name())) {
-            Operation addOperation = operationDao.getByCode(Operation.Type.add.name());
-            setOperation2Resource(addOperation, menuResource);
-        }
-        if (menuResource.isCanUpdate() && !contain(aclSet, Operation.Type.update.name())) {
-            Operation updateOperation = operationDao.getByCode(Operation.Type.update.name());
-            setOperation2Resource(updateOperation, menuResource);
-        }
-        if (menuResource.isCanDelete() && !contain(aclSet, Operation.Type.delete.name())) {
-            Operation deleteOperation = operationDao.getByCode(Operation.Type.delete.name());
-            setOperation2Resource(deleteOperation, menuResource);
-        }
-    }
-
-    public static final void setOperation2Resource(Operation operation, Resource resource) {
-        ACL acl = new ACL();
-        acl.setResource(resource);
-        acl.setOperation(operation);
-        resource.getAcls().add(acl);
-    }
 
     //--------------------业务方法用public,否则用private,但是除了依赖注入方法menuResource的显示,后台管理的级联授权的部分--------------------//
     /**
@@ -249,7 +117,7 @@ public class MenuResourceService {
     @Transactional(readOnly = true)
     public List<MenuResource> getMenusLoadOperationsByParentIdFilterByCurrentSubject(Serializable menuid) {
         List<MenuResource> filteredMenuList = getMenusByParentIdFilterByCurrentSubject(menuid);
-        loadOperations(filteredMenuList);
+        resourceService.loadOperations(filteredMenuList);
         return filteredMenuList;
     };
 
@@ -331,13 +199,13 @@ public class MenuResourceService {
                 }
                 menuResource.setParent(parentMenuResource);
             }
-            addOperationProperties2Operations(menuResource);
+            resourceService.addOperationProperties2Operations(menuResource);
             jpaSupportDao.getEntityManager().persist(menuResource);
         } else {//update
             MenuResource dbMenuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, menuResource.getId());
             //DozerUtils.copy(menuResource, dbMenuResource);//这个不好用,copy all
             BeanUtils.copyPropertiesByInclude(dbMenuResource, menuResource, new String[] { "code", "name", "description", "path", "iconCls", "icon", "icon2", "icon3", "favorite", "buttonIconCls", "buttonScale", "buttonWidth", "buttonIconAlign", "quicktip", "idx", "leaf", "canView", "canAdd", "canUpdate", "canDelete" });
-            updateOperationProperties2Operations(dbMenuResource);
+            resourceService.updateOperationProperties2Operations(dbMenuResource);
             jpaSupportDao.getEntityManager().merge(dbMenuResource);
         }
         return menuResource;

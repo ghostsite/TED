@@ -24,6 +24,7 @@ import com.ted.xplatform.util.ACLUtils;
  * @created 2012-03-01
  */
 @Entity
+//@Table(name = "menu_resource")
 @DiscriminatorValue("menu")
 public class MenuResource extends Resource {
     private static final long serialVersionUID = -279141209449027079L;
@@ -111,18 +112,6 @@ public class MenuResource extends Resource {
 	 */
 	@Transient
 	private String parentName;
-
-	/**
-	 * 为了简化资源关联Operation的模型，暂时定义权限的CRUD属性在这里 注意，不序列化到DB,参照：Operation.Type
-	 */
-	@Transient
-	private boolean canView;
-	@Transient
-	private boolean canAdd;
-	@Transient
-	private boolean canUpdate;
-	@Transient
-	private boolean canDelete;
 
 	
 	
@@ -217,41 +206,7 @@ public class MenuResource extends Resource {
 		this.buttonIconAlign = buttonIconAlign;
 	}
 
-	@Transient
-	public boolean isCanView() {
-		return canView;
-	}
-
-	public void setCanView(boolean canView) {
-		this.canView = canView;
-	}
-
-	@Transient
-	public boolean isCanAdd() {
-		return canAdd;
-	}
-
-	public void setCanAdd(boolean canAdd) {
-		this.canAdd = canAdd;
-	}
-
-	@Transient
-	public boolean isCanUpdate() {
-		return canUpdate;
-	}
-
-	public void setCanUpdate(boolean canUpdate) {
-		this.canUpdate = canUpdate;
-	}
-
-	@Transient
-	public boolean isCanDelete() {
-		return canDelete;
-	}
-
-	public void setCanDelete(boolean canDelete) {
-		this.canDelete = canDelete;
-	}
+	
 
 	@Transient
 	public String getParentName() {

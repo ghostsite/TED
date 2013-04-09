@@ -22,12 +22,14 @@ import com.ted.xplatform.pojo.base.LogicAuditEntity;
 
 /**
  * 资源的超类,用户权限框架中。
- * @version 1.0
+ * 注意：数据库中这个表可以删除了。
+ * 子类包括：MenuResource,FileResource,PageResource,WidgetResource.
  * @created 2012-02-13
  */
 @Entity
 @Table(name = "resource")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name = "category", discriminatorType = DiscriminatorType.STRING)
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public abstract class Resource extends LogicAuditEntity {
@@ -36,24 +38,39 @@ public abstract class Resource extends LogicAuditEntity {
     /**
      * 资源名称,必须唯一,用在权限中user.hasPermission("code:CRUD")
      */
-    String         code;
+    private String            code;
 
     /**
      * 名字,显示给用户看的名字。
      */
-    private String name;                    //等同于Operation的description字段
+    private String            name;                                    //等同于Operation的description字段
 
     /**
      * 描述,备注
      */
-    String         description;             //这个纯粹的注释。
+    private String            description;                             //这个纯粹的注释。
 
+    
+    /**
+     * 为了简化资源关联Operation的模型，暂时定义权限的CRUD属性在这里 注意，不序列化到DB,参照：Operation.Type
+     */
+    @Transient
+    private boolean canView;
+    @Transient
+    private boolean canAdd;
+    @Transient
+    private boolean canUpdate;
+    @Transient
+    private boolean canDelete;
+    @Transient
+    private boolean canReadOnly; //灰色，canView是不变灰色
+    
     /**
      * 资源所拥有的所有的可以操作的ACL,通过ACL获得所有的Operation
      * cascade = { CascadeType.ALL} ,是因为要save的时候，把acl也save到。
      */
-    @OneToMany(cascade = { CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy="resource", orphanRemoval = true)
-    Set<ACL>       acls = Sets.newHashSet();
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "resource", orphanRemoval = true)
+    private Set<ACL>          acls             = Sets.newHashSet();
 
     public String getName() {
         return name;
@@ -99,4 +116,50 @@ public abstract class Resource extends LogicAuditEntity {
         return operationList;
     }
 
+    @Transient
+    public boolean isCanView() {
+        return canView;
+    }
+
+    public void setCanView(boolean canView) {
+        this.canView = canView;
+    }
+
+    @Transient
+    public boolean isCanAdd() {
+        return canAdd;
+    }
+
+    public void setCanAdd(boolean canAdd) {
+        this.canAdd = canAdd;
+    }
+
+    @Transient
+    public boolean isCanUpdate() {
+        return canUpdate;
+    }
+
+    public void setCanUpdate(boolean canUpdate) {
+        this.canUpdate = canUpdate;
+    }
+
+    @Transient
+    public boolean isCanDelete() {
+        return canDelete;
+    }
+
+    public void setCanDelete(boolean canDelete) {
+        this.canDelete = canDelete;
+    }
+    
+    @Transient
+    public boolean isCanReadOnly() {
+        return canReadOnly;
+    }
+
+    public void setCanReadOnly(boolean canReadOnly) {
+        this.canReadOnly = canReadOnly;
+    }
+    
+    
 }

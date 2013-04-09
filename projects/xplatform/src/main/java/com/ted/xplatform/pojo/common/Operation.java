@@ -40,6 +40,12 @@ public class Operation extends PersistEntity {
             public String getText() {
                 return "删除";
             }
+        },
+        readonly {
+            @SuppressWarnings("all")
+            public String getText() {
+                return "只读";
+            }
         }
     }
 
@@ -67,13 +73,19 @@ public class Operation extends PersistEntity {
         return Type.delete.name().equals(this.code);
     }
     
+    @Transient
+    @JsonIgnore
+    public boolean isReadOnlyOperation(){
+        return Type.readonly.name().equals(this.code);
+    }
+    
     /**
-     * 资源名称: add,update,delete,view
+     * 资源名称: add,update,delete,view,readonly
      */
     String code;
 
     /**
-     * 描述,备注: 查看,新增,更新,删除
+     * 描述,备注: 查看,新增,更新,删除,只读
      */
     String name;
     
