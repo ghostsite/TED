@@ -52,6 +52,21 @@
 		<appender-ref ref="STDOUT"/>
 	</logger>
 	
+	<logger name="org.dozer">
+		<level value="ERROR"/>
+		<appender-ref ref="STDOUT"/>
+	</logger>
+	
+	<logger name="com.fasterxml.jackson">
+		<level value="ERROR"/>
+		<appender-ref ref="STDOUT"/>
+	</logger>
+	
+	<logger name="com.ted">
+		<level value="DEBUG"/>
+		<appender-ref ref="STDOUT"/>
+	</logger>
+	
 	<root level="ERROR">
 		<appender-ref ref="STDOUT"/>
 		<appender-ref ref="ROLLING"/>

@@ -28,6 +28,7 @@ import com.ted.xplatform.util.ACLUtils;
 @DiscriminatorValue("menu")
 public class MenuResource extends Resource {
     private static final long serialVersionUID = -279141209449027079L;
+    public static final String TYPE = "menu"; //区别于FileResource, PageResource
 
     /**
 	 * 所属上级菜单
@@ -114,38 +115,6 @@ public class MenuResource extends Resource {
 	private String parentName;
 
 	
-	
-	// ----------Methods------------//
-	/**
-	 * 这个方法是给canView...赋值。注意，要在Hibernate的session中完成此动作。
-	 */
-	@Transient
-	@JsonIgnore
-	public void loadOperations2Properties() {
-		List<Operation> operationList = getOperationList();
-		for (Operation operation : operationList) {
-			if (null == operation) {
-				continue;
-			}
-			boolean canView = ACLUtils.isView(operation);
-			boolean canAdd = ACLUtils.isAdd(operation);
-			boolean canUpdate = ACLUtils.isUpdate(operation);
-			boolean canDelete = ACLUtils.isDelete(operation);
-			if (canView) {
-				setCanView(canView);
-			}
-			if (canAdd) {
-				setCanAdd(canAdd);
-			}
-			if (canUpdate) {
-				setCanUpdate(canUpdate);
-			}
-			if (canDelete) {
-				setCanDelete(canDelete);
-			}
-		}
-	}
-	
 	public String getIcon3() {
 		return icon3;
 	}
@@ -153,8 +122,6 @@ public class MenuResource extends Resource {
 	public void setIcon3(String icon3) {
 		this.icon3 = icon3;
 	}
-
-
 
 	public String getIcon2() {
 		return icon2;
@@ -307,4 +274,7 @@ public class MenuResource extends Resource {
 //		this.parentId = parentId;
 //	}
 
+	public String getType(){
+	    return TYPE;
+	}
 }

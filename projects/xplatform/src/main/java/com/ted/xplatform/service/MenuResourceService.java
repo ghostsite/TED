@@ -24,7 +24,6 @@ import com.ted.common.util.CollectionUtils;
 import com.ted.xplatform.pojo.common.ACL;
 import com.ted.xplatform.pojo.common.MenuResource;
 import com.ted.xplatform.pojo.common.Role;
-import com.ted.xplatform.repository.OperationDao;
 
 /**
  * 菜单的Service
@@ -223,7 +222,7 @@ public class MenuResourceService {
     }
 
     /**
-     * 机构的移动:逻辑是这样的：把sourceMenuResource的所有孩子，都放到sourceMenuResource.parent下。然后把sourceMenuResource放到destMenuResource下。
+     * Menu的移动:逻辑是这样的：把sourceMenuResource的所有孩子，都放到sourceMenuResource.parent下。然后把sourceMenuResource放到destMenuResource下。
      */
     public void move(Long sourceResourceId, Long destResourceId) {
         MenuResource sourceMenu = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, sourceResourceId);

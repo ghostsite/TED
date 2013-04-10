@@ -109,18 +109,54 @@ Ext.define('SYS.view.authority.AuthorityPortlet', {
 			columns : [{
 				xtype : 'rownumberer'
 			}, {
+				header : '类别', //意思是：菜单,文件,页面 对应resource table category
+				dataIndex : 'type',
+				width: 40,
+				renderer : function(val) {
+					if (val === 'menu') {
+						return '<span style="color:green;">' + '菜单' + '</span>';
+					}else if(val === 'file'){
+						return '<span style="color:blue;">' + '文件' + '</span>';
+					}else if(val === 'page'){
+						return '<span style="color:red;">' + '页面' + '</span>';
+					}
+				}
+			}, {
 				header : '资源',
 				dataIndex : 'resourceName'
 			}, {
 				header : '动作',
-				dataIndex : 'operationName'
+				width: 40,
+				dataIndex : 'operationName',
+				renderer : function(val) {
+					if (val === '查看') {
+							return '<span style="color:green;">' + val + '</span>';
+						}else if(val === '只读'){
+							return '<span style="color:blue;">' + val + '</span>';
+						}else if(val === '添加'){
+							return '<span style="color:black;">' + val + '</span>';
+						}else if(val === '删除'){
+							return '<span style="color:red;">' + val + '</span>';
+						}else if(val === '修改'){
+							return '<span style="color:gray;">' + val + '</span>';
+						}
+				}
 			}],
 
 			viewConfig : {
 				listeners : {
 					render : function(panel) {
-						var dropTarget = new Ext.dd.DropTarget(panel.el, {
-							ddGroup : 'tree2GridGroup',
+						var menuDropTarget = new Ext.dd.DropTarget(panel.el, {
+							ddGroup : 'menuTree2GridGroup',
+							notifyDrop : function(dragSource, event, data) {
+								return SYS.view.authority.AuthorityManage.addACL2Grid(data.records[0], panel);
+								//return SYS.view.authority.AuthorityManage.addACL2Grid(data.node, panel);
+							}
+						});
+						
+						
+						var fileDropTarget = new Ext.dd.DropTarget(panel.el, {
+							ddGroup : 'fileTree2GridGroup',
 							notifyDrop : function(dragSource, event, data) {
 								return SYS.view.authority.AuthorityManage.addACL2Grid(data.records[0], panel);
 								//return SYS.view.authority.AuthorityManage.addACL2Grid(data.node, panel);

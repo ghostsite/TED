@@ -56,6 +56,18 @@ public class ACL extends AuditEntity {
     @Column(name = "acl_operationid", insertable = false, updatable = false)
     Long       operationId;
 
+    @Transient
+    String type;//for FileResource MenuResource只是显示用，不save 到db
+    
+    @Transient
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     //for extcontroller 反射出name
     @Transient
     public String getResourceName() {

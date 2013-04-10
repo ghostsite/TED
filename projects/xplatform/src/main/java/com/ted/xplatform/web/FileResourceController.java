@@ -18,9 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ted.common.Constants;
+import com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren2;
+import com.ted.common.support.extjs4.tree.TreeNode;
+import com.ted.common.support.extjs4.tree.TreeNodeUtil;
 import com.ted.common.support.file.FileManager;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.CollectionUtils;
+import com.ted.common.util.DozerUtils;
 import com.ted.common.util.FileUtils;
 import com.ted.common.web.download.DownloadHelper;
 import com.ted.xplatform.pojo.common.FileResource;
@@ -50,6 +54,7 @@ public class FileResourceController {
         this.fileResourceService = fileResourceService;
     }
 
+    //===================以下是给上传、下载用的===============================//
     /**
      * 删除用户:批量删除
      */
@@ -81,6 +86,7 @@ public class FileResourceController {
         fileResource.setFileName(fileName);
         fileResource.setName(multipartFile.getOriginalFilename());//Resource多出来的
         fileResource.setCode(fileName);//Resource多出来的,存的是9123123asasdfasdf.jpg，随机字符串
+        fileResource.setCanView(true);//写死canView权限
         fileResource.setFilePath(middleDir);
         fileResource.setFileSize(new Long(multipartFile.getBytes().length));
         fileResource.setFileType(FileUtils.getExtension(multipartFile.getOriginalFilename(), true));
@@ -151,4 +157,30 @@ public class FileResourceController {
         }
     };
 
+    //===================以下是给分级授权用的===============================//
+    //-------------------后台管理的分级授权的显示--------------------//
+    //分级授权：显示右边的菜单,注意是带角色过滤的.参考MenuResourceController,好像还做不了分页，因为根据权限，有的要不显示，怎么统计总数和每页的数据呢？
+    @RequestMapping(value = "/getFilesByIdFilterByRole")
+    public @ResponseBody
+    List<TreeNode> getFilesByIdFilterByRole() {
+        //List<FileResource> fileResourceList = fileResourceService.getMenusByParentIdFilterByCurrentSubject(resourceId);//TODO 注意带分页
+        List<FileResource> fileResourceList = fileResourceService.getFilesFilterByCurrentSubject();//TODO 注意带分页
+        List<TreeNode> treeNodeList = DozerUtils.mapList(fileResourceList, TreeNode.class);
+        return treeNodeList;
+    };
+
+    //分级授权：显示右边的菜单,注意是带角色过滤的.连带权限的leaf append to fileresource
+    //@RequestMapping(value = "/getSubMenusCascadeFilterByRoleWithACLCheckBox")
+    @RequestMapping(value = "/getFilesFilterByRoleWithACLCheckBox")
+    public @ResponseBody
+    List<CheckTreeNodeWithChildren2> getFilesFilterByRoleWithACLCheckBox(@RequestParam Long resourceId) {//fileid=resourceId is parent_id
+        //List<FileResource> fileResourceList = fileResourceService.getSubMenusCascadeLoadOperationsByParentIdFilterByCurrentSubject(resourceId);
+        List<FileResource> fileResourceList = fileResourceService.getFilesLoadOperationsFilterByCurrentSubject();
+        List<CheckTreeNodeWithChildren2> treeNodeList = DozerUtils.mapList(fileResourceList, CheckTreeNodeWithChildren2.class);
+        TreeNodeUtil.setChildrenNotLeafCascade(treeNodeList);
+        TreeNodeUtil.setChildren2LeafCascade(treeNodeList);
+        TreeNodeUtil.moveChildren2ToChildrenCascade(treeNodeList);
+        return treeNodeList;
+    };
+    
 }

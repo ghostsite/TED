@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.ted.xplatform.pojo.base.LogicAuditEntity;
+import com.ted.xplatform.util.ACLUtils;
 
 /**
  * 资源的超类,用户权限框架中。
@@ -161,5 +162,34 @@ public abstract class Resource extends LogicAuditEntity {
         this.canReadOnly = canReadOnly;
     }
     
-    
+ // ----------Methods------------//
+    /**
+     * 这个方法是给canView...赋值。注意，要在Hibernate的session中完成此动作。
+     */
+    @Transient
+    @JsonIgnore
+    public void loadOperations2Properties() {
+        List<Operation> operationList = getOperationList();
+        for (Operation operation : operationList) {
+            if (null == operation) {
+                continue;
+            }
+            boolean canView = ACLUtils.isView(operation);
+            boolean canAdd = ACLUtils.isAdd(operation);
+            boolean canUpdate = ACLUtils.isUpdate(operation);
+            boolean canDelete = ACLUtils.isDelete(operation);
+            if (canView) {
+                setCanView(canView);
+            }
+            if (canAdd) {
+                setCanAdd(canAdd);
+            }
+            if (canUpdate) {
+                setCanUpdate(canUpdate);
+            }
+            if (canDelete) {
+                setCanDelete(canDelete);
+            }
+        }
+    }
 }

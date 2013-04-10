@@ -102,7 +102,7 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 	},
 
 	buildSupplement : function() {
-		var store = Ext.create('Ext.data.TreeStore', {
+		var menuStore = Ext.create('Ext.data.TreeStore', {
 			autoLoad : true,
 			nodeParam : 'resourceId',
 			proxy : {
@@ -111,6 +111,20 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 			},
 			root : {
 				text : '菜单',
+				id : null,
+				expanded : true
+			}
+		});
+		
+		var fileStore = Ext.create('Ext.data.TreeStore', {
+			autoLoad : true,
+			nodeParam : 'resourceId',
+			proxy : {
+				type : 'ajax',
+				url : 'fileresource/getFilesFilterByRoleWithACLCheckBox'
+			},
+			root : {
+				text : '文件',
 				id : null,
 				expanded : true
 			}
@@ -128,12 +142,12 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 				//iconCls : 'navi',
 				icon:'image/menuIcon/0004_16.png',
 				autoScroll : true,
-				store : store,
+				store : menuStore,
 				rootVisible : false,
 				viewConfig : {
 					plugins : {
 						ptype : 'treeviewdragdrop',
-						dragGroup : 'tree2GridGroup'
+						dragGroup : 'menuTree2GridGroup'
 					}
 				},
 				listeners : {
@@ -144,9 +158,28 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 					}
 				}
 			}, {
-				title : '目录文件',
-				html : '虚位以待',
-				autoScroll : true
+				xtype : 'treepanel',
+				title : '文件',
+				id : 'treAuthorityFileId',
+				itemId : 'treAuthorityFileId',
+				//iconCls : 'navi',
+				icon:'image/menuIcon/0003_16.png',
+				autoScroll : true,
+				store : fileStore,
+				rootVisible : false,
+				viewConfig : {
+					plugins : {
+						ptype : 'treeviewdragdrop',
+						dragGroup : 'fileTree2GridGroup'
+					}
+				},
+				listeners : {
+					'checkchange' : {
+						fn : function(node, checked) {
+							SF.setCheckedCascade(node, checked);
+						}
+					}
+				}
 			}, {
 				title : '页面元素',
 				html : '虚位以待',
@@ -246,7 +279,8 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 				var acl = Ext.create('SYS.model.ACL', {
 					id : node.raw.beanId,
 					resourceName : parentNode.raw.text,
-					operationName : node.raw.text
+					operationName : node.raw.text,
+					type : parentNode.raw.type
 				});
 				panel.getStore().add(acl);
 				return true;

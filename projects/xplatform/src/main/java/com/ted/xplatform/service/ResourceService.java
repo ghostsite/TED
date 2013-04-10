@@ -79,7 +79,7 @@ public class ResourceService {
      * @return boolean
      */
     @Transactional(readOnly = true)
-    protected boolean hasViewPermission(Subject currentUser, MenuResource menu) {
+    protected boolean hasViewPermission(Subject currentUser, Resource menu) {
         User user = PlatformUtils.getCurrentUser();
         if (user.isSuperUser()) {
             return true;

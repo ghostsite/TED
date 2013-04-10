@@ -21,6 +21,8 @@ import javax.persistence.EntityListeners;
 //@DiscriminatorValue("attachment")
 @EntityListeners({ org.springframework.data.jpa.domain.support.AuditingEntityListener.class })
 public class FileResource extends Resource {
+    public static final String TYPE = "file"; //区别于FileResource, PageResource
+    
     public enum Type {//this is for typeCode property
         defaults, users
     }
@@ -109,4 +111,7 @@ public class FileResource extends Resource {
         this.fileSize = fileSize;
     }
 
+    public String getType(){
+        return TYPE;
+    }
 }
