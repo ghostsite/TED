@@ -24,6 +24,9 @@ T({
 					menuresource:{
 						"MenuResourceManage":"菜单管理"
 					},
+					fileresource:{
+						"FileResourceManage":"文件管理"
+					},
 					role:{
 						"RoleManage":"角色管理"
 					},

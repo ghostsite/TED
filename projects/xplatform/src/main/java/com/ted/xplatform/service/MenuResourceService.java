@@ -29,7 +29,6 @@ import com.ted.xplatform.repository.OperationDao;
 /**
  * 菜单的Service
  */
-
 @Transactional
 @Service("menuResourceService")
 public class MenuResourceService {
@@ -44,9 +43,6 @@ public class MenuResourceService {
 
     @Inject
     JpaTemplateDao             jpaTemplateDao;
-
-    @Inject
-    OperationDao               operationDao;
 
     @Inject
     MessageSource              messageSource;
@@ -68,10 +64,6 @@ public class MenuResourceService {
 
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
-    }
-
-    public void setOperationDao(OperationDao operationDao) {
-        this.operationDao = operationDao;
     }
 
     public void setResourceService(ResourceService resourceService) {

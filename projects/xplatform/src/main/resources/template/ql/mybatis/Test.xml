@@ -6,4 +6,8 @@
 	<select id="getUserList" resultType="com.ted.xplatform.pojo.common.User">
 		select loginName froM users
 	</select>
+	
+	<select id="getWorkDayList" resultType="com.ted.xplatform.pojo.common.WorkDay">
+		select sequence froM workday
+	</select>
 </mapper> 

@@ -146,10 +146,16 @@ public class UserService {
     };
 
     /**
-     * 查询一个部门下的所有人员，不分页,然后通过过滤查找人。
+     * 查询一个部门下的所有人员，不分页,然后通过过滤查找人。test transaction
      */
     @Transactional(readOnly = true)
     public List<User> getUserListByOrgId(Long orgId) {
+        com.ted.xplatform.pojo.common.WorkDay wd = new com.ted.xplatform.pojo.common.WorkDay();
+        wd.setSequence(3444);
+        jpaSupportDao.getEntityManager().persist(wd);
+        List<com.ted.xplatform.pojo.common.WorkDay> wds = sqlSessionTemplate.selectList("test.getWorkDayList");
+        //throw new RuntimeException();
+        //System.out.println(wds.size());
         //Type type = new Type();
         //type.setCode("类型1");
         //List<Type> list = jpaSupportDao.findByExample(type);
@@ -159,9 +165,6 @@ public class UserService {
         return jpaSupportDao.find("select u from User u join u.organization org where org.id=?0", orgId);//
         //String sql = "select u.id, u.login_name as loginName,u.user_name as userName, u.email, u.mobile,u.sex,u.telephone,u.state,o.name as orgName,u.remark from users u inner join organization o on u.organization_id=o.id and o.id=?";
         //return jdbcTemplateDao.queryForList(sql, User.class, orgId);
-        
-        
-        
     };
 
     /**

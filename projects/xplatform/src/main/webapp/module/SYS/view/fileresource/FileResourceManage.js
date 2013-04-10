@@ -1,9 +1,9 @@
-Ext.define('SYS.view.attachment.AttachmentManage', {
+Ext.define('SYS.view.fileresource.FileResourceManage', {
 	extend : 'MES.view.form.BaseForm',
-	xtype : 'admin_attachment',
-	requires : ['SYS.model.Attachment', 'Ext.ux.ProgressBarPager', 'Ext.ux.grid.RowExpander'],
+	xtype : 'admin_fileresource',
+	requires : ['SYS.model.FileResource', 'Ext.ux.ProgressBarPager', 'Ext.ux.grid.RowExpander'],
 
-	title : T('Caption.Menu.SYS.view.attachment.AttachmentManage'),
+	title : T('Caption.Menu.SYS.view.fileresource.FileResourceManage'),
 	// layout : 'fit',
 	layout : {
 		type : 'vbox',
@@ -18,9 +18,8 @@ Ext.define('SYS.view.attachment.AttachmentManage', {
 	},
 
 	buildForm : function(me) {
-		var store = Ext.create('SYS.store.Attachment');
-		//store.getProxy().url = 'attachment/getAllAttachment';
-		store.getProxy().url = 'attachment/pagedAllAttachment';
+		var store = Ext.create('SYS.store.FileResource');
+		store.getProxy().url = 'fileresource/pagedAllFileResource';
 		var params = {
 			start : 0,
 			limit : SF.page.pageSize
@@ -56,6 +55,7 @@ Ext.define('SYS.view.attachment.AttachmentManage', {
 							}
 						}
 					}],
+					bbar : SF.getContextBbar(store),
 					columns : [{
 						header : '种类',
 						dataIndex : 'typeCode',
@@ -72,11 +72,10 @@ Ext.define('SYS.view.attachment.AttachmentManage', {
 						header : '后缀',
 						dataIndex : 'fileType',
 						flex : 1
-					}],
-					bbar : SF.getContextBbar(store)
+					}]
 				}, {
 					xtype : 'box',
-					cls:'paddingL10',
+					cls : 'paddingL10',
 					id : 'showpic',
 					width : 240,
 					name : 'showpic',
@@ -90,8 +89,8 @@ Ext.define('SYS.view.attachment.AttachmentManage', {
 				}]
 			}, Ext.create('MES.view.form.field.MultiFileUploader', {
 				title : '附件管理',
-				uploadUrl : 'attachment/upload',
-				downloadUrl : 'attachment/download'
+				uploadUrl : 'fileresource/upload',
+				downloadUrl : 'fileresource/download'
 			})]
 		};
 	}
