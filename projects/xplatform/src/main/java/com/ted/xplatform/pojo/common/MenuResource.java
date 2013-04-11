@@ -15,7 +15,6 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ted.xplatform.util.ACLUtils;
 
 /**
  * 菜单资源

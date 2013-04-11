@@ -36,7 +36,6 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 	// 创建toobar中的menubutton
 	createRoleMenuButton : function() {
 		var self = this;
-
 		var menu = Ext.create('Ext.menu.Menu', {});
 
 		var statics = this.statics();
@@ -62,13 +61,15 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 	createAddAllButton : function() {
 		var statics = this.statics();
 		return {
-			text : '添加所有',
+			text : '添加所有',//对于选中的菜单等(只对当天activeTabPanel,不知针对tabPanel下的所有的panel)权限，添加到所有的portlet中。
 			tooltip : '添加所有',
 			iconCls : 'icon-add',
 			handler : function(button, e) {
 				var checkedNodeList = [];
-				var tree = Ext.getCmp('treAuthorityMenuId');
-				tree.getRootNode().cascadeBy(function(n) {
+				var supTabPanel = Ext.getCmp('authoritySupId');
+				var activeTabTree = supTabPanel.getTabPanel().getActiveTab(); //activeTab is a tree
+				//var tree = Ext.getCmp('treAuthorityMenuId');
+				activeTabTree.getRootNode().cascadeBy(function(n) {
 					if (n.isLeaf() && n.get('checked')) {
 						checkedNodeList.push(n);
 					}
@@ -130,10 +131,11 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 			}
 		});
 
-		return {
+		return { //注意：这个tabPanel是eager load，一次加载3个也Panel页面。so，操作的可以操作3个panel.
 			xtype : 'tabssup',
 			title : '资源',
 			tabPosition : 'bottom',
+			id : 'authoritySupId',
 			tabs : [{
 				xtype : 'treepanel',
 				id : 'treAuthorityMenuId',
@@ -156,7 +158,16 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 							SF.setCheckedCascade(node, checked);
 						}
 					}
-				}
+				},
+				tbar : [{
+					cls : 'navRefreshBtn',
+					tooltip:'展开所有',
+					listeners : {
+						click : function(button) {
+							Ext.getCmp('treAuthorityMenuId').expandAll();
+						}
+					}
+				}]
 			}, {
 				xtype : 'treepanel',
 				title : '文件',
@@ -179,78 +190,22 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 							SF.setCheckedCascade(node, checked);
 						}
 					}
-				}
+				},
+				tbar : [{
+					cls : 'navRefreshBtn',
+					tooltip:'展开所有',
+					listeners : {
+						click : function(button) {
+							Ext.getCmp('treAuthorityFileId').expandAll();
+						}
+					}
+				}]
 			}, {
 				title : '页面元素',
 				html : '虚位以待',
 				autoScroll : true
 			}]
 		};
-	},
-	// 创建toobar中的menubutton
-	createRoleMenuButton : function() {
-		var self = this;
-		var menu = Ext.create('Ext.menu.Menu', {});
-		var statics = this.statics();
-		Ext.Ajax.request({
-			method : 'GET',
-			url : 'role/getRolesCascadeByRoleList',
-			success : function(response) {
-				var roleMenu = Ext.decode(response.responseText);
-				statics.trimMenuCascade(roleMenu);
-				statics.setCheckHandlerCascade(roleMenu);
-				menu.add(roleMenu.items);
-				statics.addCheckItemCheckChangedListenerCascade(menu);
-			}
-		});
-		return Ext.create('Ext.button.Button', {
-			text : '选择角色',
-			iconCls : 'bmenu',
-			menu : menu
-		});
-	},
-
-	// 创建添加所有的button in toolbar
-	createAddAllButton : function() {
-		var statics = this.statics();
-		return {
-			text : '添加所有',
-			tooltip : '添加所有',
-			iconCls : 'icon-add',
-			handler : function(button, e) {
-				var checkedNodeList = [];
-				var tree = Ext.getCmp('treAuthorityMenuId');
-				tree.getRootNode().cascadeBy(function(n) {
-					if (n.isLeaf() && n.get('checked')) {
-						checkedNodeList.push(n);
-					}
-				});
-				statics.addACLListPortal(checkedNodeList, button.ownerCt.ownerCt);
-			}
-		}
-	},
-
-	// 创建保存所有的button in toolbar
-	createSaveAllButton : function() {
-		var statics = this.statics();
-		return {
-			text : '保存所有',
-			tooltip : '保存所有角色拥有的权限',
-			iconCls : 'btn-save',
-			handler : function(button, e) {
-				var portal = button.ownerCt.ownerCt;
-				var gridPanels = statics.getAllGridPanels(portal);
-				Ext.each(gridPanels, function(gridPanel) {
-					var saveButtons = gridPanel.getDockedItems('toolbar')[0].query('button[text=保存]');
-					if (null != saveButtons && saveButtons.length > 0) {
-						var saveButton = saveButtons[0];
-						if (saveButton.handler) {
-							saveButton.handler.call(saveButton.scope || saveButton, saveButton);
-						}
-					}
-				});
-			}
-		}
 	},
 
 	statics : {

@@ -16,10 +16,24 @@ import javax.persistence.OneToMany;
 @DiscriminatorValue("page")
 public class PageResource extends Resource {
     private static final long serialVersionUID = 1L;
- 
+    public static final String TYPE = "page"; //区别于FileResource, PageResource
+    
+    /**
+     * 索引号
+     */
+    private Integer idx;
+    
     //@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "page")
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "page", fetch = FetchType.LAZY , targetEntity = WidgetResource.class)
     private List<WidgetResource> widgets;
+
+    public Integer getIdx() {
+        return idx;
+    }
+
+    public void setIdx(Integer idx) {
+        this.idx = idx;
+    }
 
     public List<WidgetResource> getWidgets() {
         return widgets;
@@ -29,4 +43,7 @@ public class PageResource extends Resource {
         this.widgets = widgets;
     }
     
+    public String getType(){
+        return TYPE;
+    }
 }

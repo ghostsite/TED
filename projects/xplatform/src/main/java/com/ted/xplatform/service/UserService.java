@@ -150,10 +150,10 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public List<User> getUserListByOrgId(Long orgId) {
-        com.ted.xplatform.pojo.common.WorkDay wd = new com.ted.xplatform.pojo.common.WorkDay();
-        wd.setSequence(3444);
-        jpaSupportDao.getEntityManager().persist(wd);
-        List<com.ted.xplatform.pojo.common.WorkDay> wds = sqlSessionTemplate.selectList("test.getWorkDayList");
+        //com.ted.xplatform.pojo.common.WorkDay wd = new com.ted.xplatform.pojo.common.WorkDay();
+        //wd.setSequence(3444);
+        //jpaSupportDao.getEntityManager().persist(wd);
+        //List<com.ted.xplatform.pojo.common.WorkDay> wds = sqlSessionTemplate.selectList("test.getWorkDayList");
         //throw new RuntimeException();
         //System.out.println(wds.size());
         //Type type = new Type();

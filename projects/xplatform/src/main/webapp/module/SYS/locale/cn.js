@@ -27,6 +27,9 @@ T({
 					fileresource:{
 						"FileResourceManage":"文件管理"
 					},
+					pageresource:{
+						"PageResourceManage":"页面管理"
+					},
 					role:{
 						"RoleManage":"角色管理"
 					},

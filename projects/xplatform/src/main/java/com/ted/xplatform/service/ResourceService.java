@@ -19,7 +19,6 @@ import com.ted.common.dao.jpa.JpaTemplateDao;
 import com.ted.common.exception.BusinessException;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.ACL;
-import com.ted.xplatform.pojo.common.MenuResource;
 import com.ted.xplatform.pojo.common.Operation;
 import com.ted.xplatform.pojo.common.Resource;
 import com.ted.xplatform.pojo.common.User;

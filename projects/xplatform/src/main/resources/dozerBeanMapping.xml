@@ -97,6 +97,47 @@
 	</mapping>
 	
 	<mapping>
+		<class-a>com.ted.common.support.extjs4.tree.TreeNode</class-a>
+		<class-b>com.ted.xplatform.pojo.common.PageResource</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>beanId</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>text</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+	</mapping>
+	<mapping>
+		<class-a>com.ted.common.support.extjs4.tree.TreeNode</class-a>
+		<class-b>com.ted.xplatform.pojo.common.WidgetResource</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>beanId</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>text</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+	</mapping>
+	
+	<mapping>
 		<class-a>com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren</class-a>
 		<class-b>com.ted.xplatform.pojo.common.Role</class-b>
 		<field>
@@ -208,6 +249,56 @@
 	</mapping>
 	
 	<mapping>
+		<class-a>com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren2</class-a>
+		<class-b>com.ted.xplatform.pojo.common.PageResource</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>beanId</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>text</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>children2</a>
+			<b>acls</b>
+		</field>
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+	</mapping>
+	
+	<mapping>
+		<class-a>com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren2</class-a>
+		<class-b>com.ted.xplatform.pojo.common.WidgetResource</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>beanId</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>text</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>children2</a>
+			<b>acls</b>
+		</field>
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+	</mapping>
+	
+	<mapping>
 		<class-a>com.ted.common.support.extjs4.tree.TreeNodeWithChildren</class-a>
 		<class-b>com.ted.xplatform.pojo.common.MenuResource</class-b>
 		<field>
@@ -279,6 +370,48 @@
 	<mapping>
 		<class-a>com.ted.common.support.extjs4.tree.TreeNodeWithChildren</class-a>
 		<class-b>com.ted.xplatform.pojo.common.FileResource</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>beanId</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>text</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+	</mapping>
+	
+	<mapping>
+		<class-a>com.ted.common.support.extjs4.tree.TreeNodeWithChildren</class-a>
+		<class-b>com.ted.xplatform.pojo.common.PageResource</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>beanId</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>text</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+	</mapping>
+	
+	<mapping>
+		<class-a>com.ted.common.support.extjs4.tree.TreeNodeWithChildren</class-a>
+		<class-b>com.ted.xplatform.pojo.common.WidgetResource</class-b>
 		<field>
 			<a>id</a>
 			<b>id</b>

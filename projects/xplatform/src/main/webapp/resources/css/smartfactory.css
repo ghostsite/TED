@@ -265,8 +265,8 @@ body{background:url('../image/bgHeader.png') repeat-x;background-color:transpare
 .btnRefresh:hover{background:url('../image/IconRefresh.png') -25px 0 no-repeat !important;}
 .supplement .x-toolbar-default-docked-bottom{background-color:#f0f0f0 !important;}
 .supplement .bottomTextField .x-form-item-body{margin:0 4px 0 0}
-/*zhang .x-form-trigger-wrap .x-form-spinner-up-over{background-position:-17px 0;top:1px\9}*/
-.x-form-trigger-wrap .x-form-spinner-up{margin-top:-6px;margin-top:0px\9;top:1px\9;}
+/*zhang .x-form-trigger-wrap .x-form-spinner-up-over{background-position:-17px 0;top:1px\9}
+.x-form-trigger-wrap .x-form-spinner-up{margin-top:-6px;margin-top:0px\9;top:1px\9;}*/
 .titleColorRed .x-fieldset-header-text{color:#cc3300}
 .defaultSupplementImg{background:url('../image/bgSupplement.gif') 50% 50% no-repeat !important;}
 

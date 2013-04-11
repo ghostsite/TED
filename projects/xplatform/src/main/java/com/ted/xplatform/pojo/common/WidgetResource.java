@@ -19,11 +19,25 @@ import javax.persistence.ManyToOne;
 public class WidgetResource extends Resource {
 
     private static final long serialVersionUID = 1L;
-
+    public static final String TYPE = "widget"; //区别于FileResource, PageResource
+    
+    /**
+     * 索引号
+     */
+    private Integer idx;
+    
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE }, targetEntity = PageResource.class)
     @JoinColumn(name = "page_id")
     private PageResource      page;
 
+    public Integer getIdx() {
+        return idx;
+    }
+
+    public void setIdx(Integer idx) {
+        this.idx = idx;
+    }
+    
     public PageResource getPage() {
         return page;
     }
@@ -32,4 +46,7 @@ public class WidgetResource extends Resource {
         this.page = page;
     }
 
+    public String getType(){
+        return TYPE;
+    }
 }

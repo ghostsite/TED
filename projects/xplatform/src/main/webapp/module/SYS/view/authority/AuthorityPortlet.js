@@ -5,17 +5,31 @@ Ext.define('SYS.view.authority.AuthorityPortlet', {
 	forceFit : true,
 	tools : [{
 		type : 'gear',
-		qtip : '查看此角色拥有的菜单资源',
+		qtip : '查看此角色拥有的资源',
 		handler : function(event, toolEl, panel) {
-			var tree = Ext.getCmp('treAuthorityMenuId');
+			var supTabPanel = Ext.getCmp('authoritySupId');
+			var menuTree = supTabPanel.getTabPanel().items.getAt(0); 
+			var fileTree = supTabPanel.getTabPanel().items.getAt(1); 
+			//var pageTree = supTabPanel.getTabPanel().items.getAt(2); 
+			
+			//var tree = Ext.getCmp('treAuthorityMenuId');
 			var gridPanel = panel.up('panel').items.get(0);
-			tree.getRootNode().cascadeBy(function(n) {
+			menuTree.getRootNode().cascadeBy(function(n) {
 				if (SYS.view.authority.AuthorityPortlet.isNodeInGrid(n, gridPanel)) {
 					n.set('checked', true);
 				} else {
 					n.set('checked', false);
 				}
 			});
+			
+			fileTree.getRootNode().cascadeBy(function(n) {
+				if (SYS.view.authority.AuthorityPortlet.isNodeInGrid(n, gridPanel)) {
+					n.set('checked', true);
+				} else {
+					n.set('checked', false);
+				}
+			});
+			
 		}
 	}, {
 		type : 'refresh',
