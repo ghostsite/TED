@@ -23,6 +23,7 @@ public abstract class ACLUtils {
         map.put("id", acl.getId());
         map.put("resourceName", acl.getResource().getName());
         map.put("operationName", acl.getOperation().getName());
+        map.put("type", acl.getType());
         return map;
     };
 

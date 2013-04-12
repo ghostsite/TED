@@ -26,16 +26,19 @@ import com.ted.common.support.extjs4.menu.Menu;
 import com.ted.common.support.extjs4.menu.MenuUtil;
 import com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren;
 import com.ted.common.support.extjs4.tree.TreeNode;
-import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.CollectionUtils;
 import com.ted.common.util.DozerUtils;
 import com.ted.common.util.JsonUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.ACL;
+import com.ted.xplatform.pojo.common.FileResource;
 import com.ted.xplatform.pojo.common.MenuResource;
 import com.ted.xplatform.pojo.common.Operation;
+import com.ted.xplatform.pojo.common.PageResource;
+import com.ted.xplatform.pojo.common.Resource;
 import com.ted.xplatform.pojo.common.Role;
 import com.ted.xplatform.pojo.common.User;
+import com.ted.xplatform.pojo.common.WidgetResource;
 import com.ted.xplatform.service.RoleService;
 import com.ted.xplatform.util.ACLUtils;
 import com.ted.xplatform.util.PlatformUtils;
@@ -99,6 +102,21 @@ public class RoleController {
     public @ResponseBody
     List<Map<String, Object>> getRoleHasACLList(Long roleId) {
         List<ACL> aclList = roleService.getRoleHasACLList(roleId);
+        
+        //set acl type for 显示
+        for(ACL acl :aclList){
+            Resource res = acl.getResource();
+            if(res instanceof MenuResource){
+                acl.setType(MenuResource.TYPE);
+            }else if(res instanceof FileResource){
+                acl.setType(FileResource.TYPE);
+            }else if(res instanceof PageResource){
+                acl.setType(PageResource.TYPE);
+            }else if(res instanceof WidgetResource){
+                acl.setType(WidgetResource.TYPE);
+            }
+        }
+        
         return ACLUtils.acl2MapList(aclList);
     };
 
