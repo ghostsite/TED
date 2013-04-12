@@ -133,6 +133,10 @@ Ext.define('SYS.view.authority.AuthorityPortlet', {
 						return '<span style="color:blue;">' + '文件' + '</span>';
 					}else if(val === 'page'){
 						return '<span style="color:red;">' + '页面' + '</span>';
+					}else if(val === 'widget'){
+						return '<span style="color:maroon;">' + '控件' + '</span>';
+					}else{
+						return val;
 					}
 				}
 			}, {
@@ -171,6 +175,14 @@ Ext.define('SYS.view.authority.AuthorityPortlet', {
 						
 						var fileDropTarget = new Ext.dd.DropTarget(panel.el, {
 							ddGroup : 'fileTree2GridGroup',
+							notifyDrop : function(dragSource, event, data) {
+								return SYS.view.authority.AuthorityManage.addACL2Grid(data.records[0], panel);
+								//return SYS.view.authority.AuthorityManage.addACL2Grid(data.node, panel);
+							}
+						});
+						
+						var pageDropTarget = new Ext.dd.DropTarget(panel.el, {
+							ddGroup : 'pageTree2GridGroup',
 							notifyDrop : function(dragSource, event, data) {
 								return SYS.view.authority.AuthorityManage.addACL2Grid(data.records[0], panel);
 								//return SYS.view.authority.AuthorityManage.addACL2Grid(data.node, panel);

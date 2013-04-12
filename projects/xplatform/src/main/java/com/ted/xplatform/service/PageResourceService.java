@@ -45,6 +45,14 @@ public class PageResourceService {
 
     @Inject
     ResourceService resourceService;
+    
+    @Inject
+    WidgetResourceService widgetResourceService;
+    
+
+    public void setWidgetResourceService(WidgetResourceService widgetResourceService) {
+        this.widgetResourceService = widgetResourceService;
+    }
 
     public void setJdbcTemplateDao(JdbcTemplateDao jdbcTemplateDao) {
         this.jdbcTemplateDao = jdbcTemplateDao;
@@ -77,7 +85,7 @@ public class PageResourceService {
     private List<PageResource> filterPageResourceByCurrentSubject(List<PageResource> pageResourceList) {
         Subject currentUser = SecurityUtils.getSubject();
         List<PageResource> filteredPageList = Lists.newArrayList();
-        for (PageResource page : filteredPageList) {
+        for (PageResource page : pageResourceList) {
             if (resourceService.hasViewPermission(currentUser, page)) {
                 filteredPageList.add(page);
             }
@@ -88,6 +96,7 @@ public class PageResourceService {
     //--------------------业务方法用public,否则用private,但是除了依赖注入方法menuResource的显示,后台管理的级联授权的部分--------------------//
     /**
      * 根据当前用户，得到所有的孩子,并且过滤掉没有权限的菜单。(注意,PageResource不再有子关联关系，也就是一层，不会有多层的关系)
+     * 但是：有WidgetResource关联，也就是要去除WidgetResource
      * @return List<PageResource>
      */
     @Transactional(readOnly = true)
@@ -104,6 +113,11 @@ public class PageResourceService {
     public List<PageResource> getPagesLoadOperationsFilterByCurrentSubject() {
         List<PageResource> filteredPageList = getPagesFilterByCurrentSubject();
         resourceService.loadOperations(filteredPageList);
+        
+        for(PageResource page: filteredPageList){
+            page.setWidgets(widgetResourceService.getWidgetsLoadOperationsByPageIdFilterByCurrentSubject(page.getId()));    
+        }
+        
         return filteredPageList;
     };
 

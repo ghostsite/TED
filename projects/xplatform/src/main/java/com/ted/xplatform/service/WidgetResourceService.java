@@ -78,7 +78,7 @@ public class WidgetResourceService {
     private List<WidgetResource> filterWidgetResourceByCurrentSubject(List<WidgetResource> widgetResourceList) {
         Subject currentUser = SecurityUtils.getSubject();
         List<WidgetResource> filteredWidgetList = Lists.newArrayList();
-        for (WidgetResource widget : filteredWidgetList) {
+        for (WidgetResource widget : widgetResourceList) {
             if (resourceService.hasViewPermission(currentUser, widget)) {
                 filteredWidgetList.add(widget);
             }

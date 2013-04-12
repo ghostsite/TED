@@ -130,6 +130,20 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 				expanded : true
 			}
 		});
+		
+		var pageStore = Ext.create('Ext.data.TreeStore', {
+			autoLoad : true,
+			nodeParam : 'resourceId',
+			proxy : {
+				type : 'ajax',
+				url : 'pageresource/getPagesFilterByRoleWithACLCheckBox'
+			},
+			root : {
+				text : '页面元素',
+				id : null,
+				expanded : true
+			}
+		});
 
 		return { //注意：这个tabPanel是eager load，一次加载3个也Panel页面。so，操作的可以操作3个panel.
 			xtype : 'tabssup',
@@ -160,14 +174,23 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 					}
 				},
 				tbar : [{
-					cls : 'navRefreshBtn',
+					cls : 'expandAllBtn',
 					tooltip:'展开所有',
 					listeners : {
 						click : function(button) {
 							Ext.getCmp('treAuthorityMenuId').expandAll();
 						}
 					}
-				}]
+				},{
+					cls : 'navRefreshBtn',
+					tooltip:'刷新',
+					listeners : {
+						click : function(button) {
+							Ext.getCmp('treAuthorityMenuId').reload();
+						}
+					}
+				}
+				]
 			}, {
 				xtype : 'treepanel',
 				title : '文件',
@@ -192,18 +215,63 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 					}
 				},
 				tbar : [{
-					cls : 'navRefreshBtn',
+					cls : 'expandAllBtn',
 					tooltip:'展开所有',
 					listeners : {
 						click : function(button) {
 							Ext.getCmp('treAuthorityFileId').expandAll();
 						}
 					}
+				},{
+					cls : 'navRefreshBtn',
+					tooltip:'刷新',
+					listeners : {
+						click : function(button) {
+							Ext.getCmp('treAuthorityFileId').reload();
+						}
+					}
 				}]
 			}, {
+				xtype : 'treepanel',
 				title : '页面元素',
-				html : '虚位以待',
-				autoScroll : true
+				autoScroll : true,
+				id : 'treAuthorityPageId',
+				itemId : 'treAuthorityPageId',
+				//iconCls : 'navi',
+				icon:'image/menuIcon/0002_16.png',
+				store : pageStore,
+				rootVisible : false,
+				viewConfig : {
+					plugins : {
+						ptype : 'treeviewdragdrop',
+						dragGroup : 'pageTree2GridGroup'
+					}
+				},
+				listeners : {
+					'checkchange' : {
+						fn : function(node, checked) {
+							SF.setCheckedCascade(node, checked);
+						}
+					}
+				},
+				tbar : [{
+					cls : 'expandAllBtn',
+					tooltip:'展开所有',
+					listeners : {
+						click : function(button) {
+							Ext.getCmp('treAuthorityPageId').expandAll();
+						}
+					}
+				},{
+					cls : 'navRefreshBtn',
+					tooltip:'刷新',
+					listeners : {
+						click : function(button) {
+							Ext.getCmp('treAuthorityPageId').reload();
+						}
+					}
+				}
+				]
 			}]
 		};
 	},

@@ -264,6 +264,10 @@
 			<b>name</b>
 		</field>
 		<field>
+			<a>children</a>
+			<b>widgets</b>
+		</field>
+		<field>
 			<a>children2</a>
 			<b>acls</b>
 		</field>

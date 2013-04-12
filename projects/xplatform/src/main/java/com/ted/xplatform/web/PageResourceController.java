@@ -79,6 +79,7 @@ public class PageResourceController implements ServletContextAware {
     };
 
     //分级授权：显示左边的菜单,注意是带角色过滤的.连带权限的leaf append to menu
+    //这个是特定的二级目录，也就是page 带widget，这个方法是给分解授权用的。要展示page and widget with operations
     @RequestMapping(value = "/getPagesFilterByRoleWithACLCheckBox")
     public @ResponseBody
     List<CheckTreeNodeWithChildren2> getPagesFilterByRoleWithACLCheckBox() {
