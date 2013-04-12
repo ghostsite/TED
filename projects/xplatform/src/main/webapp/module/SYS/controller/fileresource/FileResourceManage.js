@@ -2,13 +2,13 @@ Ext.define('SYS.controller.fileresource.FileResourceManage', {
 	extend : 'Ext.app.Controller',
 
 	refs : [{
-		selector : 'admin_fileresource #gridmap',
+		selector : 'admin_fileresource #fileresourcegrid',
 		ref : 'grid'
 	}],
 
 	init : function() {
 		this.control({
-			'admin_fileresource #gridmap' : {
+			'admin_fileresource #fileresourcegrid' : {
 				itemdblclick : this.doDownload,
 				itemclick : this.showPic
 			}
@@ -24,6 +24,6 @@ Ext.define('SYS.controller.fileresource.FileResourceManage', {
 
 	showPic : function(view, record) {
 		console.log(record);
-		Ext.getCmp('showpic').getEl().dom.src = 'fileresource/downloadPic/' + record.data.id;// 显示图片
+		Ext.getCmp('showfilepic').getEl().dom.src = 'fileresource/downloadPic/' + record.data.id;// 显示图片
 	}
 });

@@ -2,13 +2,13 @@ Ext.define('SYS.controller.attachment.AttachmentManage', {
 	extend : 'Ext.app.Controller',
 
 	refs : [{
-		selector : 'admin_attachment #gridmap',
+		selector : 'admin_attachment #attachmentgrid',
 		ref : 'grid'
 	}],
 
 	init : function() {
 		this.control({
-			'admin_attachment #gridmap' : {
+			'admin_attachment #attachmentgrid' : {
 				itemdblclick : this.doDownload,
 				itemclick : this.showPic
 			}
@@ -24,6 +24,6 @@ Ext.define('SYS.controller.attachment.AttachmentManage', {
 
 	showPic : function(view, record) {
 		console.log(record);
-		Ext.getCmp('showpic').getEl().dom.src = 'attachment/downloadPic/' + record.data.id;// 显示图片
+		Ext.getCmp('showattachmentpic').getEl().dom.src = 'attachment/downloadPic/' + record.data.id;// 显示图片
 	}
 });

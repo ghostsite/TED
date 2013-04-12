@@ -43,7 +43,7 @@ Ext.define('SYS.view.attachment.AttachmentManage', {
 					cls : 'navyGrid',
 					stripeRows : true,
 					autoScroll : true,
-					itemId : 'gridmap',
+					itemId : 'attachmentgrid',
 					height : 300,
 					forceFit : true,
 					flex : 2,
@@ -77,7 +77,7 @@ Ext.define('SYS.view.attachment.AttachmentManage', {
 				}, {
 					xtype : 'box',
 					cls:'paddingL10',
-					id : 'showpic',
+					id : 'showattachmentpic',
 					width : 240,
 					name : 'showpic',
 					autoEl : {

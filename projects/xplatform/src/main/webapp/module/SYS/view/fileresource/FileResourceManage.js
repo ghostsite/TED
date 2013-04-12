@@ -42,7 +42,7 @@ Ext.define('SYS.view.fileresource.FileResourceManage', {
 					cls : 'navyGrid',
 					stripeRows : true,
 					autoScroll : true,
-					itemId : 'gridmap',
+					itemId : 'fileresourcegrid',
 					height : 300,
 					forceFit : true,
 					flex : 2,
@@ -76,7 +76,7 @@ Ext.define('SYS.view.fileresource.FileResourceManage', {
 				}, {
 					xtype : 'box',
 					cls : 'paddingL10',
-					id : 'showpic',
+					id : 'showfilepic',
 					width : 240,
 					name : 'showpic',
 					autoEl : {
