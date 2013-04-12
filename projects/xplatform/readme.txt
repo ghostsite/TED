@@ -7,7 +7,7 @@
 由于插件的不支持4.2,故先用4.1 
 
 ===============
-登陆用户名/密码：manager/123
+登陆用户名/密码：manager/123(系统管理员)  zwz3/123(领导)
 
 ===============
 关于exjs版本的兼容性问题：
@@ -26,3 +26,8 @@ update to extjs4.2:
 6 新建用户，调用save called 2次，导致insert Failed //extjs 4.2才有这个问题，4.1好着呢。到时候升级4.2的时候再debug看看
 7 extjs4.2.0 下的日期控件都是YYYY //bug for extjs4.2,en的是好的。
 
+==================
+登陆zwz3,总是出现个错误。 //logout 页面到底掉logout方法没。 //登陆、退出、再登陆就有问题。跳转不到main方法。F5就进去了。nnd，总是这个现象。//tomcat 7 出现这个错误，，tomcat 6 出现8192的问题，http://hi.baidu.com/xghrbc1001/item/fa439cce70d81f0ac710b293
+<Connector port="8080" protocol="HTTP/1.1" 
+               connectionTimeout="20000" maxHttpHeaderSize="81920"  
+               redirectPort="8443" />

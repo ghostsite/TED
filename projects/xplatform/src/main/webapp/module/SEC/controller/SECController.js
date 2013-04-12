@@ -110,7 +110,8 @@ Ext.define('SEC.controller.SECController', {
 			handler : function() {
 				Ext.MessageBox.confirm('Confirm', 'Are you sure you want to do that?', function(confirm) {
 					if (confirm === 'yes') {
-						document.location.href = typeof(LOGOUT_URL) === 'undefined' ? 'logout?targetUrl=/home' : LOGOUT_URL;;
+					
+						document.location.href = typeof(LOGOUT_URL) === 'undefined' ? 'logout?targetUrl=/showLogin' : LOGOUT_URL;;
 					}
 				});
 			}

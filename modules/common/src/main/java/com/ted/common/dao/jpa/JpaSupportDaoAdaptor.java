@@ -13,14 +13,13 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.FetchParent;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.collections.MapUtils;
-import org.apache.poi.ss.formula.functions.T;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Example;
+import org.junit.Test;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +30,7 @@ import com.ted.common.dao.DaoTemplateHelper;
 import com.ted.common.dao.jpa.support.JpaHelper;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.CommonUtils;
+
 
 /**
  * 
@@ -483,8 +483,13 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
     @Override
     public <T> JsonPage<T> pagedAll(Class<T> clazz, int start, int limit) {
         EntityManager em = this.getEntityManager();
-        CriteriaQuery<T> cq = em.getCriteriaBuilder().createQuery(clazz);
-        cq.select(cq.from(clazz));
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<T> cq = criteriaBuilder.createQuery(clazz);
+        
+        Root<T> root = cq.from(clazz);
+        Predicate pred = criteriaBuilder.conjunction();
+        cq.where(pred);
+        
         int totalCount = JpaHelper.count(em, cq).intValue();
         List<T> list = em.createQuery(cq).setFirstResult(start).setMaxResults(limit).getResultList();
         return new JsonPage(list, null, totalCount);

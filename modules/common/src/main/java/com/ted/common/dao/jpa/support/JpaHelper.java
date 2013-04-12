@@ -59,6 +59,11 @@ public abstract class JpaHelper {
     };
 
     ///======================copy from package info.joseluismartin.dao.jpa.JpaUtils=====================//
+    /**
+     * copy from package info.joseluismartin.dao.jpa.JpaUtils
+     * http://www.jdal.org/
+     * http://grepcode.com/file/repo1.maven.org/maven2/org.jdal/jdal-core/1.3.1/info/joseluismartin/dao/jpa/JpaUtils.java?av=f
+     */
     public static String         PROPERTY_SEPARATOR   = ".";
     private static String        ALIAS_PATTERN_STRING = "(?<=from)\\s+(?:\\S+)\\s+(?:as\\s+)*(\\w*)";
     private static Pattern       ALIAS_PATTERN        = Pattern.compile(ALIAS_PATTERN_STRING, Pattern.CASE_INSENSITIVE);

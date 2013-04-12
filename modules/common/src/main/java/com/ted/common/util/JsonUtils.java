@@ -248,6 +248,15 @@ public class JsonUtils {
             return jsonPage;
         }
     };
+    
+    public static final <T> JsonPage<T> listToPage(List<T> list, long totalCount) {
+        if (null == list || list.size() == 0) {
+            return new JsonPage<T>();
+        } else {
+            JsonPage<T> jsonPage = new JsonPage<T>(list, null, totalCount);
+            return jsonPage;
+        }
+    };
 
     /**
      * 为了反射输出bean到excel，需要跟页面的数据格式一样，也保证属性可以从getF方法获得，故采用了这种形式。

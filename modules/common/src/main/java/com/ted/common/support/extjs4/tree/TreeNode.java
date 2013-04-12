@@ -26,13 +26,22 @@ public class TreeNode implements Serializable {
     //这个属性存放bean的一些附加信息。Dozer很好的解决了复制copy的问题。extjs 取的时候，node.attributes.beanMap.parentId
     private Map<String, Object> beanMap          = Maps.newHashMap();
 
-    //比如Type 的code,属于node.attributes.value
-    private String              code;
+    //比如Type 的code,属于node.attributes.value, 
+    private String              code; 
     public String               path;                                //代替原来的href
     public String               buttonIconCls;                       //给button menu 用的
     public String               buttonScale;                         //给button menu 用的
     public String               buttonWidth;                         //给button menu 用的
     public String               buttonIconAlign;                     //给button menu 用的
+    public String               type; //如果是MenuResource, code='menu', FileResource, code='file', PageResource ,code ='page',20130410 added this
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getIcon3() {
 		return icon3;
