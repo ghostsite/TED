@@ -6,9 +6,9 @@ T({
 	},
 	Caption : {
 		Other : {
-			'Confirm' : 'Confirm',
-			'Navigation' : 'Navigation',
-			'Supplement' : 'Supplement',
+			'Confirm' : '确认',
+			'Navigation' : '导航',
+			'Supplement' : '辅助页面',
 			'CodeView' : 'CodeView',
 			'Fields Reset' : 'Fields Reset',
 			'Tot Lot' : 'Tot Lot',
