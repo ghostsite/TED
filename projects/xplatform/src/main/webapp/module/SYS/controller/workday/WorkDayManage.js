@@ -74,7 +74,8 @@ Ext.define('SYS.controller.workday.WorkDayManage', {
 		});
 	},
 
-	onSupBtnGenerate : function(sup) {
+	onSupBtnGenerate : function() {
+		var sup = this.getBaseForm().getSupplement();
 		var self = this;
 		Ext.Msg.confirm(T('Message.Info'), T('Message.WorkDayGenerate?'), function(btn) {
 			if (btn == 'yes') {
