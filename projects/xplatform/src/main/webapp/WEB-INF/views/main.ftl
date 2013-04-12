@@ -3,7 +3,7 @@
 <base href="${basePath}">
 	<head>
 	    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-		<title>Smart Factory</title>
+		<title>Smart MIS</title>
 		<link rel="stylesheet" href="css/app.css"></link>
 		<link rel="stylesheet" href="js/uux/statusbar/css/statusbar.css"></link>
 		<link rel="stylesheet" href="js/uux/tab/css/TabScrollerMenu.css"></link>

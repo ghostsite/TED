@@ -123,7 +123,7 @@ Ext.define('Opc.controller.Navigator', {
 	},
 
 	onLogoutClick : function() {
-		Ext.MessageBox.confirm('Confirm', 'Are you sure you want to do that?', function(confirm) {
+		Ext.MessageBox.confirm('确认', '你确认退出系统?', function(confirm) {
 			if (confirm === 'yes') {
 				document.location.href = typeof (LOGOUT_URL) === 'undefined' ? 'logout?targetUrl=/opc' : LOGOUT_URL;
 			}

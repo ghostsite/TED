@@ -1,7 +1,7 @@
 <html lang='en'>
 <head>
 <base href="${basePath}">
-	<title>Smart Factory1</title>
+	<title>Smart MIS</title>
 	<link rel="stylesheet" href="css/login.css"></link>
 	<link rel="shortcut icon" href="image/faviconMESplus.ico">
 	<link rel="icon" href="image/faviconMESplus.ico"> 
@@ -13,12 +13,10 @@
 		var remember = $.cookie('remember');
 
         if(remember) {
-			var factory = $.cookie('factory');
 			var username = $.cookie('username');
 			var language = $.cookie('language') || 'en';
 			var program = $.cookie('program') || 'WEBClient';
 
-            $('#j_factory').val(factory);
             $('#j_username').val(username);
             $('#j_language').val(language);
             var radio = $('input[name=j_program][value=' + program + ']');
@@ -32,15 +30,11 @@
 		
 		$("form").submit(function() {
 			if ($('#remember').is(':checked')) {
-				var factory = $('#j_factory').val();
 				var username = $('#j_username').val();
 				var language = $('#j_language').val();
 				var program = $('input[name=j_program]:checked').val();
 
 				// set cookies to expire in 14 days
-				$.cookie('factory', factory, {
-					expires : 14
-				});
 				$.cookie('username', username, {
 					expires : 14
 				});
@@ -54,7 +48,6 @@
 					expires : 14
 				});
 			} else {
-				$.cookie('factory', null);
 				$.cookie('username', null);
 				$.cookie('remember', null);
 				$.cookie('language', null);
@@ -70,15 +63,12 @@
 </head>
 <body class="welcome">
 	<div class="welcomeMent">
-		<span class="productName">MESplus 6  Enterprise Edition</span> <span>Welcome,</span>
-		Please Log In to Your Account ...
+		<span class="productName">企业版本</span> <span class="welcomeInfo">欢迎使用智能信息管理系统</span>
 	</div>
 
 	<form action="login" method="post" class="loginForm">
-		<label for="j_factory">Factory</label>
-		<input id="j_factory" name="j_factory" maxlength="50" type="text" class="loginInput auto-focus" />
 		<label for="j_username">user name</label>
-		<input id="j_username" name="username" maxlength="50" type="text" class="loginInput" />
+		<input id="j_username" name="username" maxlength="50" type="text" class="loginInput auto-focus"/>
 		<label for="password">Password</label>
 		<input id="j_password" name="password" maxlength="50" type="password" class="loginInput" />
 		<label for="language">Language</label>

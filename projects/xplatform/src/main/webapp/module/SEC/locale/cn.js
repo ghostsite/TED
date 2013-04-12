@@ -1,8 +1,8 @@
 T({
 	Caption : {
 		Other : {
-			Profile : 'Profile',
-			Logout : 'Logout',
+			Profile : '配置',
+			Logout : '退出',
 			"Privilege Group - User Relation" : "特殊权限组用户关联",
 			"All Privilege Group List" : "所有权限组列表",
 			"Item" : "项目",

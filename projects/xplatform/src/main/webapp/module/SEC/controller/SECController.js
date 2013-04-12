@@ -108,9 +108,8 @@ Ext.define('SEC.controller.SECController', {
 		userMenu.push({
 			text : T('Caption.Other.Logout'),
 			handler : function() {
-				Ext.MessageBox.confirm('Confirm', 'Are you sure you want to do that?', function(confirm) {
+				Ext.MessageBox.confirm('提示', '你确认退出系统?', function(confirm) {
 					if (confirm === 'yes') {
-					
 						document.location.href = typeof(LOGOUT_URL) === 'undefined' ? 'logout?targetUrl=/showLogin' : LOGOUT_URL;;
 					}
 				});

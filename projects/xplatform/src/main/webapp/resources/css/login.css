@@ -1,8 +1,9 @@
+/**this file has been changed by zhang*/
 body{font-family:"MSYahei",tahoma,arial,verdana,sans-serif}
 .welcome{background:url('../image/bgWelcomeHeader.gif') repeat-x;background-color:#ececec;margin:0;padding:0;text-align:center}
 .welcomeMent{background:url('../image/iconWelcomeFactory.png') 0 -2px no-repeat;padding:0px 0 0 165px;margin:3px 0 0 15px;height:90px;color:#fff;font-size:24px;text-align:left}
 .welcomeMent span{font-weight:bold}
-.productName{font-size:14px;color:#92c3f5;display:block;margin:5px 0 18px 0}
+.productName{font-size:12px;color:#92c3f5;display:block;margin:5px 0 18px 0} /**zhang changed from 14px to 12px*/
 .welcome form{background:url('../image/loginImg.png') no-repeat;margin:50px auto;padding-left:250px;width:300px;text-align:left;width:550px\9;}
 .welcome label{display:inline-block;width:80px;text-transform:capitalize;font-size:14px;color:#333;margin-bottom:12px\9;}
 .welcome form select{width:200px;margin-bottom:10px\9;}
@@ -40,3 +41,6 @@ body{font-family:"MSYahei",tahoma,arial,verdana,sans-serif}
 .opcMode .manager,.managerMode .opc{display:none !important}
 .managerMode .manager{padding-right:3px}
 .opcMode:hover,.managerMode:hover{color:#fff}
+
+/**zhang add*/
+.welcomeInfo{margin:3px 0 15px 0;width:200px;font-size:27px;margin-bottom:10px\9;}
