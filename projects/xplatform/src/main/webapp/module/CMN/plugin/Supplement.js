@@ -30,10 +30,19 @@ Ext.define('CMN.plugin.Supplement', {
 		}
 
 		function onAdded() {
-			if (this.getSupplement()) {
-				this.setSupplement(this.getSupplement());
-				this.fireEvent('supready', this, this.getSupplement());
-				this.getSupplement().fireEvent('supready', this, this.getSupplement());
+			var sup = this.getSupplement();
+			if (sup) {
+				this.setSupplement(sup);
+				/* Supplement를 다시 받아야 한다. */
+				sup = this.getSupplement();
+				this.fireEvent('supready', this, sup);
+				sup.fireEvent('supready', this, sup);
+
+				if(sup.isPanel && sup.title) {
+					_supplimentContainer.setTitle(sup.title);
+				} else if(client.isPanel){
+					_supplimentContainer.setTitle(client.title);
+				}
 			}
 		}
 
@@ -55,11 +64,14 @@ Ext.define('CMN.plugin.Supplement', {
 
 		function onDestroy() {
 			var sup = this.getSupplement();
-			
 			if (sup && Ext.getClassName(sup)){
 				_supplimentContainer.remove(this.getSupplement());
 			}
 			this.setSupplement(null);
+			var activeItem = _supplimentContainer.getLayout().getActiveItem();
+			if(!activeItem || activeItem.itemId == 'base'){
+				_supplimentContainer.setTitle(activeItem.title);	
+			}
 		}
 
 		client.on('activate', onActivate, client);

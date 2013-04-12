@@ -32,7 +32,7 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 			itemId : 'btnPageCreate'
 		}
 	},
-	
+
 	addBtnPageClear : function() {
 		var me = this;
 		return {
@@ -41,7 +41,7 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 			itemId : 'btnPageClear'
 		}
 	},
-	
+
 	addBtnWidgetDelete : function() {
 		var me = this;
 		return {
@@ -67,21 +67,21 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 		return {
 			xtype : 'button',
 			text : '创建',
+			disabled : true,
 			itemId : 'btnWidgetCreate'
 		}
 	},
-	
-	
+
 	addBtnWidgetClear : function() {
 		var me = this;
 		return {
 			xtype : 'button',
 			text : '清空',
+			disabled : true,
 			itemId : 'btnWidgetClear'
 		}
 	},
-	
-	
+
 	initComponent : function() {
 		this.callParent();
 
@@ -90,49 +90,51 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 		basebuttons.insert(1, this.addBtnWidgetUpdate());
 		basebuttons.insert(1, this.addBtnWidgetCreate());
 		basebuttons.insert(1, this.addBtnWidgetClear());
-		
+
 		basebuttons.insert(0, this.addBtnPageDelete());
 		basebuttons.insert(0, this.addBtnPageUpdate());
 		basebuttons.insert(0, this.addBtnPageCreate());
 		basebuttons.insert(0, this.addBtnPageClear());
-		
 
 		var self = this;
 		this.on('afterrender', function() {
 			var sup = self.getSupplement();
 		});
 	},
-	
+
 	buildForm : function(me) {
-		var store = Ext.create('SYS.store.PageResource');
-		store.getProxy().url = 'pageresource/pagedPageResourceList';
+		var pageStore = Ext.create('SYS.store.PageResource');
+		pageStore.getProxy().url = 'pageresource/pagedPageResourceList';
 		var params = {
 			start : 0,
 			limit : SF.page.pageSize
 		}
 
-		store.load({
+		pageStore.load({
 			params : params
 		});
-		
+
+		var widgetStore = Ext.create('SYS.store.WidgetResource');
+		widgetStore.getProxy().url = 'widgetresource/getWidgetResourceListByPageId';
+
 		return {
-			xtype:'container',
+			xtype : 'container',
 			layout : {
 				type : 'hbox',
 				align : 'stretch'
 			},
 			items : [{
 				xtype : 'container',
-				flex: 1,
+				flex : 1,
 				layout : {
 					type : 'vbox',
 					align : 'stretch',
-					pack  : 'end'
+					pack : 'end'
 				},
 				cls : 'marginR10',
 				items : [{
 					xtype : 'grid',
-					title:'页面',
+					title : '页面',
 					cls : 'navyGrid',
 					stripeRows : true,
 					autoScroll : true,
@@ -140,7 +142,7 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 					forceFit : true,
 					flex : 1,
 					minHeight : 370,
-					store : store,
+					store : pageStore,
 					columns : [{
 						header : '页面代码',
 						dataIndex : 'name',
@@ -150,14 +152,17 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 						dataIndex : 'code',
 						flex : 1
 					}],
-					bbar : SF.getContextBbar(store)
+					bbar : SF.getContextBbar(pageStore)
 				}, {
 					xtype : 'form',
 					border : false,
 					itemId : 'pageFormId',
-					cls: 'marginT7',
-					flex: 1,
+					cls : 'marginT7',
+					flex : 1,
 					items : [{
+						xtype : 'hidden',
+						name : 'id'
+					}, {
 						xtype : 'textfield',
 						fieldLabel : '菜单值',
 						name : 'code'
@@ -210,22 +215,22 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 				}]
 			}, {
 				xtype : 'container',
-				flex: 1,
+				flex : 1,
 				layout : {
 					type : 'vbox',
 					align : 'stretch',
-					pack  : 'end'
+					pack : 'end'
 				},
 				items : [{
 					xtype : 'grid',
-					title:'控件',
+					title : '控件',
 					cls : 'navyGrid',
 					stripeRows : true,
 					autoScroll : true,
 					itemId : 'widgetGridId',
 					forceFit : true,
 					minHeight : 370,
-					store : store,
+					store : widgetStore,
 					columns : [{
 						header : '控件代码',
 						dataIndex : 'name',
@@ -238,10 +243,17 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 				}, {
 					xtype : 'form',
 					border : false,
-					cls: 'marginT7',
+					cls : 'marginT7',
 					itemId : 'widgetFormId',
-					flex: 1,
+					flex : 1,
 					items : [{
+						xtype : 'hidden',
+						name : 'id'
+					}, {
+						xtype : 'hidden',
+						name : 'page.id',
+						itemId : 'page.id'
+					}, {
 						xtype : 'textfield',
 						fieldLabel : '菜单值',
 						name : 'code'

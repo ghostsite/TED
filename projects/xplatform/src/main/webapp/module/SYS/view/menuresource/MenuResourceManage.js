@@ -24,7 +24,6 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 	},
 
 	buildForm : function() {
-
 		return {
 			xtype : 'container',
 			cls : 'paddingAll7',

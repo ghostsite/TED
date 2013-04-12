@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 页面资源,这个super的属性够用了。
  */
@@ -35,6 +37,7 @@ public class PageResource extends Resource {
         this.idx = idx;
     }
 
+    @JsonIgnore
     public List<WidgetResource> getWidgets() {
         return widgets;
     }

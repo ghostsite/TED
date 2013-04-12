@@ -51,7 +51,7 @@ Ext.define('MES.mixin.CodeView', function() {
 					flex : 2
 				}]
 			},
-			//fieldSearch : true,
+			fieldSearch : false,
 			fields : [{
 				column : 'key1',
 				maxLength : 30,
@@ -65,8 +65,8 @@ Ext.define('MES.mixin.CodeView', function() {
 			
 			popupConfig : {
 				title : T('Caption.Other.CodeView')	
-			}
-			//fieldSearch : true			
+			},
+			fieldSearch : false			
 		},
 		'SERVICE' : {
 			name : 'SERVICE',
@@ -74,8 +74,8 @@ Ext.define('MES.mixin.CodeView', function() {
 			
 			popupConfig : {
 				title : T('Caption.Other.CodeView')
-			}
-			//fieldSearch : true
+			},
+			fieldSearch : false
 		},
 		'SQLQUERY' : {
 			name : 'SQLQUERY',
@@ -198,7 +198,7 @@ Ext.define('MES.mixin.CodeView', function() {
 				Ext.applyIf(config,{
 					name : name,
 					type : 'table',
-					fieldSearch : true,
+					fieldSearch : false,
 					factory : SmartFactory.login.factory
 				});
 				registry[name] = config;

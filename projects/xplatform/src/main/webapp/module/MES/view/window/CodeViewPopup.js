@@ -61,6 +61,9 @@ Ext.define('MES.view.window.CodeViewPopup', {
 		}
 		if(configs.codeviewOpts.pageSize)
 			configs.pageSize = configs.codeviewOpts.pageSize;
+		
+		this.defaultPageSize =  window.CODEVIEW_PAGESIZE||this.defaultPageSize;
+			
 		this.callParent([ configs ]);
 	},
 
@@ -74,7 +77,10 @@ Ext.define('MES.view.window.CodeViewPopup', {
 		var self = this;
 
 		this.title = this.codeviewOpts.popupConfig.title || T('Caption.Other.CodeView');
-		
+		this.remoteFilter = true;
+		if(this.codeviewOpts.remoteFilter === false)
+			this.remoteFilter = false;
+
 		if (this.codeviewOpts.store) {
 			this.store = this.buildService();
 		} else {
@@ -101,9 +107,6 @@ Ext.define('MES.view.window.CodeViewPopup', {
 					self.codeviewOpts.afterLoad(store, self, self.codeviewOpts.afterLoadOpt);
 			}
 
-			if (store.getCount() < 1) {
-				// TODO popup 강제 종료여부
-			}
 			var totCount = store.totalCount||0;
 			var pageData = self.pagebar.getPageData();
 			var pageCount = pageData.pageCount;
@@ -161,10 +164,12 @@ Ext.define('MES.view.window.CodeViewPopup', {
 		var filter = [];
 		this.search.items.each(function(searchfield) {
 			var value = searchfield.getValue();
-			filter.push({
-				property : searchfield.getName(),
-				value : new RegExp(value)
-			});
+			if(value){
+				filter.push({
+					property : searchfield.getName(),
+					value : value
+				});				
+			}
 		}, this);
 		return filter;
 	},
@@ -259,27 +264,33 @@ Ext.define('MES.view.window.CodeViewPopup', {
 	 */
 	//TODO store.load 후에 callback로 서비스 실패가 떨어지면 window를 close한다.
 	loadStore : function(reload) {
-		if (reload) {
+			this.store.filters.clear();
 			this.store.currentPage = 1;
+			
 			if (this.codeviewOpts.type == 'service') {
-				// this.store.clearFilter(true);
-				// if(reload)
-				this.store.load({
-					callback : function(records, oper, success){
-						if(success == false){
-							this.close();
-						}
-					},
-					scope : this
-				});
-				// else
-				// this.store.filter(this.getSearchFilters());
+				var filters = this.getSearchFilters()||[];
+				if(reload || filters.length < 1){
+					this.store.load({
+						callback : function(records, oper, success){
+							if(success == false){
+								this.close();
+							}
+						},
+						scope : this
+					});					
+				}
+				else{
+					this.store.filter(filters);
+					if(this.remoteFilter === false){
+						this.store.reload();
+					}
+				}
 
 			} else {
 				var proxy = this.store.getProxy();
 
 				var conditions = Ext.clone(this.codeviewOpts.condition);
-				// conditions = this.getSearchConditions(conditions);
+				conditions = this.getSearchConditions(conditions);
 
 				if (conditions.length > 0)
 					proxy.extraParams.condition = conditions;
@@ -294,21 +305,22 @@ Ext.define('MES.view.window.CodeViewPopup', {
 					scope : this
 				});
 			}
-		} else {
-			this.selectSearchRecord(this);
-		}
+		//} else {
+		//	this.selectSearchRecord(this);
+		//}
 	},
 	
 	buildService : function() {
 		var store = '';
 		if (Ext.typeOf(this.codeviewOpts.store) == 'string')
 			store = Ext.create(this.codeviewOpts.store, {
-				remoteFilter : true,
+				remoteFilter : this.remoteFilter,
 				filterOnLoad : false
 			});
 		else{
 			store = this.codeviewOpts.store;
 		}
+		
 		store.pageSize =  this.pageSize||this.defaultPageSize;
 		store.proxy.extraParams = this.codeviewOpts.params;
 		return store;
@@ -342,8 +354,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 
 		return Ext.create('Ext.data.Store', {
 			autoLoad : false,
-			remoteFilter : true,
-			// remotePaging : true,
+			remoteFilter : this.remoteFilter,
 			filterOnLoad : false,
 			fields : this.codeviewOpts.select,
 			pageSize : this.pageSize||this.defaultPageSize, // 기본 1000개
@@ -467,6 +478,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 				name : column.dataIndex,
 				value : txtValue,
 				hideLabel : true,
+				readOnly : column.disabledSearch||false,
 				emptyText : column.header,
 				flex : column.flex
 			});

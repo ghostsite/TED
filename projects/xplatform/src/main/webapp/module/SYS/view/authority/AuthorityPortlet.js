@@ -144,16 +144,16 @@ Ext.define('SYS.view.authority.AuthorityPortlet', {
 				dataIndex : 'operationName',
 				renderer : function(val) {
 					if (val === '查看') {
-							return '<span style="color:green;">' + val + '</span>';
-						}else if(val === '只读'){
-							return '<span style="color:blue;">' + val + '</span>';
-						}else if(val === '添加'){
-							return '<span style="color:black;">' + val + '</span>';
-						}else if(val === '删除'){
-							return '<span style="color:red;">' + val + '</span>';
-						}else if(val === '修改'){
-							return '<span style="color:gray;">' + val + '</span>';
-						}
+						return '<span style="color:green;">' + val + '</span>';
+					}else if(val === '只读'){
+						return '<span style="color:blue;">' + val + '</span>';
+					}else if(val === '新增'){
+						return '<span style="color:black;">' + val + '</span>';
+					}else if(val === '删除'){
+						return '<span style="color:red;">' + val + '</span>';
+					}else if(val === '修改'){
+						return '<span style="color:gray;">' + val + '</span>';
+					}
 				}
 			}],
 

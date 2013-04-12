@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,16 +59,16 @@ public class WidgetResourceController implements ServletContextAware {
     //分级授权：显示右边的菜单,注意是带角色过滤的.
     @RequestMapping(value = "/getWidgetsFilterByRole")
     public @ResponseBody
-    List<TreeNode> getWidgetsFilterByRole() {
-        List<WidgetResource> widgetResourceList = widgetResourceService.getWidgetsFilterByCurrentSubject();
+    List<TreeNode> getWidgetsFilterByRole(@RequestParam Long resourceId) {
+        List<WidgetResource> widgetResourceList = widgetResourceService.getWidgetsByPageIdFilterByCurrentSubject(resourceId);
         return DozerUtils.mapList(widgetResourceList, TreeNode.class);
     };
 
     //分级授权：显示左边的WidgetResource,注意是带角色过滤的.连带权限的leaf append to menu
     @RequestMapping(value = "/getWidgetsFilterByRoleWithACLCheckBox")
     public @ResponseBody
-    List<CheckTreeNodeWithChildren2> getWidgetsFilterByRoleWithACLCheckBox() {
-        List<WidgetResource> widgetResourceList = widgetResourceService.getWidgetsLoadOperationsFilterByCurrentSubject();
+    List<CheckTreeNodeWithChildren2> getWidgetsFilterByRoleWithACLCheckBox(@RequestParam Long resourceId) {
+        List<WidgetResource> widgetResourceList = widgetResourceService.getWidgetsLoadOperationsByPageIdFilterByCurrentSubject(resourceId);
         List<CheckTreeNodeWithChildren2> treeNodeList = DozerUtils.mapList(widgetResourceList, CheckTreeNodeWithChildren2.class);
         TreeNodeUtil.setChildrenNotLeafCascade(treeNodeList);
         TreeNodeUtil.setChildren2LeafCascade(treeNodeList);
@@ -79,10 +80,10 @@ public class WidgetResourceController implements ServletContextAware {
     /**
      * 根据用户的角色，展示应有的WidgetResource 
      */
-    @RequestMapping(value = "/getCurrentUserWIdgets")
+    @RequestMapping(value = "/getCurrentUserWidgets/{resourceId}")
     public @ResponseBody
-    List<TreeNodeWithChildren> getCurrentUserWidgets() {
-        List<WidgetResource> widgetResourceList = widgetResourceService.getWidgetsFilterByCurrentSubject();
+    List<TreeNodeWithChildren> getCurrentUserWidgets(@PathVariable() Long resourceId) {
+        List<WidgetResource> widgetResourceList = widgetResourceService.getWidgetsByPageIdFilterByCurrentSubject(resourceId);
         List<TreeNodeWithChildren> treeNodeList = DozerUtils.mapList(widgetResourceList, TreeNodeWithChildren.class);
         return treeNodeList;
     };
@@ -91,23 +92,13 @@ public class WidgetResourceController implements ServletContextAware {
     /**
      * 系统管理->页面管理：显示左边的WidgetResource,注意是带角色过滤的.
      */
-    @RequestMapping(value = "/getWidgetResourceList")
+    @RequestMapping(value = "/getWidgetResourceListByPageId")
     public @ResponseBody
-    List<WidgetResource> getWidgetResourceList() {
-        List<WidgetResource> widgetResourceList = widgetResourceService.getWidgetResourceList();
+    List<WidgetResource> getWidgetResourceListByPageId(@RequestParam(required = true) Long resourceId) {
+        List<WidgetResource> widgetResourceList = widgetResourceService.getWidgetResourceListByPageId(resourceId);
         return widgetResourceList;
     };
     
-    /**
-     * 系统管理->页面管理：显示左边的WidgetResource,注意是带角色过滤的.
-     */
-    @RequestMapping(value = "/pagedWidgetResourceList")
-    public @ResponseBody
-    JsonPage<WidgetResource> pagedWidgetResourceList(int start, int limit) {
-        JsonPage<WidgetResource> widgetResourcePage = widgetResourceService.pagedWidgetResourceList(start , limit);
-        return widgetResourcePage;
-    };
-
     /**
      * 系统管理->页面管理：获得一个页面的详细信息，右边的FormPanel
      */

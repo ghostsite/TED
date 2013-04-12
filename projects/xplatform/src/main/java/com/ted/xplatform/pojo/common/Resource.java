@@ -178,6 +178,7 @@ public abstract class Resource extends LogicAuditEntity {
             boolean canAdd = ACLUtils.isAdd(operation);
             boolean canUpdate = ACLUtils.isUpdate(operation);
             boolean canDelete = ACLUtils.isDelete(operation);
+            boolean canReadOnly = ACLUtils.isReadOnly(operation);
             if (canView) {
                 setCanView(canView);
             }
@@ -189,6 +190,9 @@ public abstract class Resource extends LogicAuditEntity {
             }
             if (canDelete) {
                 setCanDelete(canDelete);
+            }
+            if (canReadOnly) {
+                setCanReadOnly(canReadOnly);
             }
         }
     }

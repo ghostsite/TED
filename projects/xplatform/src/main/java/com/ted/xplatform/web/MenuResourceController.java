@@ -145,6 +145,7 @@ public class MenuResourceController implements ServletContextAware {
         return getMenuIcons("_"+size);
     }
 
+    //for combobox in 后台管理页面
     protected List<Map> getMenuIcons(final String filter) throws IOException {
         String path = "resources/image/menuIcon/";
         ServletContextResource contextResource = new ServletContextResource(servletContext, path);

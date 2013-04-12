@@ -17,9 +17,10 @@ import com.google.common.collect.Lists;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
 import com.ted.common.dao.jpa.JpaTemplateDao;
-import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.BeanUtils;
 import com.ted.xplatform.pojo.common.ACL;
+import com.ted.xplatform.pojo.common.Organization;
+import com.ted.xplatform.pojo.common.PageResource;
 import com.ted.xplatform.pojo.common.Role;
 import com.ted.xplatform.pojo.common.WidgetResource;
 
@@ -91,8 +92,8 @@ public class WidgetResourceService {
      * @return List<PageResource>
      */
     @Transactional(readOnly = true)
-    public List<WidgetResource> getWidgetsFilterByCurrentSubject() {
-        List<WidgetResource> widgetResourceList = getWidgetResourceList();
+    public List<WidgetResource> getWidgetsByPageIdFilterByCurrentSubject(Long pageId) {
+        List<WidgetResource> widgetResourceList = getWidgetResourceListByPageId(pageId);
         return filterWidgetResourceByCurrentSubject(widgetResourceList);
     };
 
@@ -101,8 +102,8 @@ public class WidgetResourceService {
      * @return List<WidgetResource>
      */
     @Transactional(readOnly = true)
-    public List<WidgetResource> getWidgetsLoadOperationsFilterByCurrentSubject() {
-        List<WidgetResource> filteredWidgetList = getWidgetsFilterByCurrentSubject();
+    public List<WidgetResource> getWidgetsLoadOperationsByPageIdFilterByCurrentSubject(Long pageId) {
+        List<WidgetResource> filteredWidgetList = getWidgetsByPageIdFilterByCurrentSubject(pageId);
         resourceService.loadOperations(filteredWidgetList);
         return filteredWidgetList;
     };
@@ -113,20 +114,11 @@ public class WidgetResourceService {
      * @return List<WidgetResource>
      */
     @Transactional(readOnly = true)
-    public List<WidgetResource> getWidgetResourceList() {
-        return jpaSupportDao.getAll(WidgetResource.class);
+    public List<WidgetResource> getWidgetResourceListByPageId(Long pageId) {
+        PageResource pageResource = jpaSupportDao.getEntityManager().find(PageResource.class, pageId);
+        return pageResource.getWidgets();
     };
     
-    /**
-     * 根据resourceId(WidgetResource 中的ID)得到下面的所有的WidgetResource，不级联。
-     * @return List<WidgetResource>
-     */
-    @Transactional(readOnly = true)
-    public JsonPage<WidgetResource> pagedWidgetResourceList(int start, int limit) {
-        return jpaSupportDao.pagedAll(WidgetResource.class, start, limit);
-    };
-
-
     /**
      * 根据resourceId得到一个WidgetResource的详细信息
      * @return List<WidgetResource>
@@ -146,6 +138,14 @@ public class WidgetResourceService {
      */
     @Transactional
     public WidgetResource save(WidgetResource widgetResource) {
+        //如果用户属于一个PageResource
+        if (widgetResource.getPage() != null && widgetResource.getPage().getId() != null) {
+            PageResource page = (PageResource) jpaSupportDao.getEntityManager().find(PageResource.class, widgetResource.getPage().getId());
+            widgetResource.setPage(page);
+        } else {//没有机构的用户,不设置为空，则抛错。
+            widgetResource.setPage(null);
+        }
+        
         //判断是add还是update
         if (widgetResource.isNew()) {//add
             //if (null != menuResource.getParent() && null != menuResource.getParent().getId()) {
@@ -154,7 +154,7 @@ public class WidgetResourceService {
         } else {//update
             WidgetResource dbWidgetResource = (WidgetResource) jpaSupportDao.getEntityManager().find(WidgetResource.class, widgetResource.getId());
             //DozerUtils.copy(menuResource, dbMenuResource);//这个不好用,copy all
-            BeanUtils.copyPropertiesByInclude(dbWidgetResource, widgetResource, new String[] { "code", "name", "description", "idx", "leaf", "canReadOnly", "canView", "canAdd", "canUpdate", "canDelete" });
+            BeanUtils.copyPropertiesByInclude(dbWidgetResource, widgetResource, new String[] { "code", "name", "description", "idx", "canReadOnly", "canView", "canAdd", "canUpdate", "canDelete" });
             resourceService.updateOperationProperties2Operations(dbWidgetResource);
             jpaSupportDao.getEntityManager().merge(dbWidgetResource);
         }

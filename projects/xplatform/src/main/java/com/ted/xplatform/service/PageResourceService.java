@@ -153,7 +153,7 @@ public class PageResourceService {
         } else {//update
             PageResource dbPageResource = (PageResource) jpaSupportDao.getEntityManager().find(PageResource.class, pageResource.getId());
             //DozerUtils.copy(menuResource, dbMenuResource);//这个不好用,copy all
-            BeanUtils.copyPropertiesByInclude(dbPageResource, pageResource, new String[] { "code", "name", "description", "idx", "leaf", "canReadOnly", "canView", "canAdd", "canUpdate", "canDelete" });
+            BeanUtils.copyPropertiesByInclude(dbPageResource, pageResource, new String[] { "code", "name", "description", "idx", "canReadOnly", "canView", "canAdd", "canUpdate", "canDelete" });
             resourceService.updateOperationProperties2Operations(dbPageResource);
             jpaSupportDao.getEntityManager().merge(dbPageResource);
         }
