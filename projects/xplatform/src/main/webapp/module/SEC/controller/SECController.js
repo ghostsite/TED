@@ -56,6 +56,7 @@ Ext.define('SEC.controller.SECController', {
 			
 			userMenu.push({
 				text : T('Caption.Other.Profile'),
+				icon : 'image/icon/properties.gif',
 				handler : function() {
 					SF.doMenu({
 						viewModel : MP_AssemblyNameOfProfile.value1 || 'SEC.view.setup.UserProfile'
@@ -107,6 +108,7 @@ Ext.define('SEC.controller.SECController', {
 	
 		userMenu.push({
 			text : T('Caption.Other.Logout'),
+			icon : 'image/icon/logout.png',
 			handler : function() {
 				Ext.MessageBox.confirm('提示', '你确认退出系统?', function(confirm) {
 					if (confirm === 'yes') {
