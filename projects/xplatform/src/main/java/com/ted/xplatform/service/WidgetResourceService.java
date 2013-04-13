@@ -2,6 +2,8 @@ package com.ted.xplatform.service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -9,27 +11,33 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
 import com.ted.common.dao.jpa.JpaTemplateDao;
 import com.ted.common.util.BeanUtils;
 import com.ted.xplatform.pojo.common.ACL;
-import com.ted.xplatform.pojo.common.Organization;
 import com.ted.xplatform.pojo.common.PageResource;
 import com.ted.xplatform.pojo.common.Role;
 import com.ted.xplatform.pojo.common.WidgetResource;
 
 /**
  * WidgetResource的Service
+ * 注意：widgetResource的code是由PageCode|widget's itemId 组合而成，因为itemId容易重复。
+ * 小心：在页面上取widgetResource's itemId的时候要split一下。
+ * singleton
  */
 @Transactional
 @Service("widgetResourceService")
-public class WidgetResourceService {
+public class WidgetResourceService  implements InitializingBean{
     final Logger    logger = LoggerFactory.getLogger(WidgetResourceService.class);
 
     @Inject
@@ -47,6 +55,11 @@ public class WidgetResourceService {
     @Inject
     ResourceService resourceService;
 
+    //key = 'SYS.view.type.TypeManage|itemId,view'   ; result = ture or false  , enable 
+    //key = 'SYS.view.type.TypeManage|itemId,readonly' ; result = ture or false, readonly
+    private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
+
+    
     public void setJdbcTemplateDao(JdbcTemplateDao jdbcTemplateDao) {
         this.jdbcTemplateDao = jdbcTemplateDao;
     }
@@ -67,6 +80,26 @@ public class WidgetResourceService {
         this.resourceService = resourceService;
     }
 
+
+    public static final Boolean hasAuthority(String code) throws ExecutionException{
+        if(null == cachedCurrentUserToResourceHasAuthority){
+            return true;
+        }else{
+            return cachedCurrentUserToResourceHasAuthority.get(code);
+        }
+    }
+    
+    public void afterPropertiesSet() throws Exception {
+        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(10, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
+            @Override
+            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage|itemId,readonly'
+                String[] codeAndOperation = code.split(",");
+                WidgetResource resource = jpaSupportDao.findSingleByProperty(WidgetResource.class, "code", codeAndOperation[0]);
+                Subject currentUser = SecurityUtils.getSubject();
+                return ResourceService.hasAuthority(currentUser, resource, codeAndOperation[1]);
+            }
+        });
+    }
     //-----------------工具方法-----------------//
     /**
      * 工具方法:根据当前用户过滤菜单

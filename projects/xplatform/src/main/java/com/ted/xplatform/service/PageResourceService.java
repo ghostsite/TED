@@ -2,6 +2,8 @@ package com.ted.xplatform.service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -9,10 +11,14 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
@@ -25,31 +31,53 @@ import com.ted.xplatform.pojo.common.Role;
 
 /**
  * 菜单的Service
+ * singleton ,be careful
  */
 @Transactional
 @Service("pageResourceService")
-public class PageResourceService {
-    final Logger    logger = LoggerFactory.getLogger(PageResourceService.class);
+public class PageResourceService implements InitializingBean {
+    final Logger                                 logger              = LoggerFactory.getLogger(PageResourceService.class);
 
     @Inject
-    JdbcTemplateDao jdbcTemplateDao;
+    JdbcTemplateDao                              jdbcTemplateDao;
 
     @Inject
-    JpaSupportDao   jpaSupportDao;
+    JpaSupportDao                                jpaSupportDao;
 
     @Inject
-    JpaTemplateDao  jpaTemplateDao;
+    JpaTemplateDao                               jpaTemplateDao;
 
     @Inject
-    MessageSource   messageSource;
+    MessageSource                                messageSource;
 
     @Inject
-    ResourceService resourceService;
+    ResourceService                              resourceService;
+
+    @Inject
+    WidgetResourceService                        widgetResourceService;
+
+    private static LoadingCache<String, Boolean> cachedHasController = null; //key is code , like 'SYS.view.type.TypeManage'
     
-    @Inject
-    WidgetResourceService widgetResourceService;
-    
+    //key = 'SYS.view.type.TypeManage,view'   ; result = ture or false  , enable 
+    //key = 'SYS.view.type.TypeManage,readonly' ; result = ture or false, readonly
+    private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
 
+    public static final Boolean hasController(String code) throws ExecutionException{
+        if(null == cachedHasController){
+            return true;
+        }else{
+            return cachedHasController.get(code);
+        }
+    }
+    
+    public static final Boolean hasAuthority(String code) throws ExecutionException{
+        if(null == cachedCurrentUserToResourceHasAuthority){
+            return true;
+        }else{
+            return cachedCurrentUserToResourceHasAuthority.get(code);
+        }
+    }
+    
     public void setWidgetResourceService(WidgetResourceService widgetResourceService) {
         this.widgetResourceService = widgetResourceService;
     }
@@ -72,6 +100,31 @@ public class PageResourceService {
 
     public void setResourceService(ResourceService resourceService) {
         this.resourceService = resourceService;
+    }
+
+    public void afterPropertiesSet() throws Exception {
+        cachedHasController = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(10, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
+            @Override
+            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage'
+                PageResource pr = jpaSupportDao.findSingleByProperty(PageResource.class, "code", code);
+                if (pr == null) {
+                    return true;
+                } else {
+                    return pr.isHasController();
+                }
+            }
+        });
+        
+        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(10, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
+            @Override
+            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage,readonly'
+                String[] codeAndOperation = code.split(",");
+                PageResource resource = jpaSupportDao.findSingleByProperty(PageResource.class, "code", codeAndOperation[0]);
+                Subject currentUser = SecurityUtils.getSubject();
+                return ResourceService.hasAuthority(currentUser, resource, codeAndOperation[1]);
+            }
+        });
+        
     }
 
     //-----------------工具方法-----------------//
@@ -113,11 +166,11 @@ public class PageResourceService {
     public List<PageResource> getPagesLoadOperationsFilterByCurrentSubject() {
         List<PageResource> filteredPageList = getPagesFilterByCurrentSubject();
         resourceService.loadOperations(filteredPageList);
-        
-        for(PageResource page: filteredPageList){
-            page.setWidgets(widgetResourceService.getWidgetsLoadOperationsByPageIdFilterByCurrentSubject(page.getId()));    
+
+        for (PageResource page : filteredPageList) {
+            page.setWidgets(widgetResourceService.getWidgetsLoadOperationsByPageIdFilterByCurrentSubject(page.getId()));
         }
-        
+
         return filteredPageList;
     };
 

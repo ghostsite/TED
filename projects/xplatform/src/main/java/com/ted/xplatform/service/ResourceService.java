@@ -78,15 +78,32 @@ public class ResourceService {
      * @return boolean
      */
     @Transactional(readOnly = true)
-    protected boolean hasViewPermission(Subject currentUser, Resource menu) {
+    protected boolean hasViewPermission(Subject currentUser, Resource resource) {
         User user = PlatformUtils.getCurrentUser();
         if (user.isSuperUser()) {
             return true;
         } else {
-            String permission = menu.getCode() + ":" + Operation.Type.view;
-            return currentUser.isPermitted(permission);
+            return hasAuthority(currentUser, resource, Operation.Type.view.name());
+            //String permission = resource.getCode() + ":" + Operation.Type.view;
+            //return currentUser.isPermitted(permission);
         }
     };
+
+    @Transactional(readOnly = true)
+    protected boolean hasReadOnlyPermission(Subject currentUser, Resource resource) {
+        User user = PlatformUtils.getCurrentUser();
+        if (user.isSuperUser()) {
+            return true;
+        } else {
+            return hasAuthority(currentUser, resource, Operation.Type.readonly.name());
+           // String permission = resource.getCode() + ":" + Operation.Type.readonly;
+           // return currentUser.isPermitted(permission);
+        }
+    };
+    
+    public static final boolean hasAuthority(Subject currentUser, Resource resource, String operation){
+        return currentUser.isPermitted(resource.getCode()+":"+ operation);
+    }
 
     /**
      * 工具方法，带checkbox的acls

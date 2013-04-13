@@ -5,6 +5,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -159,5 +160,15 @@ public class PageResourceController implements ServletContextAware {
         pageResourceService.delete(resourceId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };
+    
+    /**
+     * hasController for UserInterface.js , if true then load controller.js for show page
+     * @throws ExecutionException 
+     */
+    @RequestMapping(value="/hasController")
+    @ResponseBody
+    Boolean hasController(@RequestParam String pageCode) throws ExecutionException{ //'SYS.view.admin.UserManage'
+        return PageResourceService.hasController(pageCode);
+    }
 
 }

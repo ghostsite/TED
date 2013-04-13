@@ -1,4 +1,4 @@
-Ext.define('MES.mixin.CommonFunction', function() { //this file has been change by zhang
+Ext.define('MES.mixin.CommonFunction', function() { //this file has been change by zhang ,such as Async to Sync
 
 	/* date형식을 받아서 설정한 포멧형식의 stirng으로 반환,this file changed by zhang */
 	function toStandardTime(date, format) {
@@ -100,7 +100,7 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 	}
 
 	function getSecControl(funcName) {
-		var rtnResponse = callServiceAsync({
+		var rtnResponse = callServiceSync({
 			url : 'service/secViewFunctionDetail.json',
 			params : {
 				procstep : '1',
@@ -242,7 +242,7 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 			lockAlarm.lock();
 
 		form.isAlarmList = false;
-		var rtnResponse = callServiceAsync({
+		var rtnResponse = callServiceSync({
 			url : 'service/almCheckConfirmMessage.json',
 			params : {
 				procstep : '1',
@@ -376,7 +376,7 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 		return rtnResponse;
 	}
 
-	function callServiceAsync(config) {
+	function callServiceSync(config) { //zhang changed this from Async to Sync
 		if (!config || typeof config != 'object')
 			return false;
 		if (!config.params || !config.url)
@@ -856,7 +856,7 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 			checkTranAlarmRelation : checkTranAlarmRelation,
 			checkAlarmCount : checkAlarmCount,
 			callService : callService,
-			callServiceAsync : callServiceAsync,
+			callServiceSync : callServiceSync,
 			callServiceForm : callServiceForm,
 			toShiftDate : toShiftDate,
 			fromShiftDate : fromShiftDate,

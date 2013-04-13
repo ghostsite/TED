@@ -158,7 +158,15 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 					border : false,
 					itemId : 'pageFormId',
 					cls : 'marginT7',
+					layout : {
+						type : 'vbox',
+						align : 'stretch'
+					},
+					bodyCls : 'paddingAll10',
 					flex : 1,
+					defaults : {
+						labelWidth : 100
+					},
 					items : [{
 						xtype : 'hidden',
 						name : 'id'
@@ -171,11 +179,28 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 						fieldLabel : '菜单名称 ',
 						name : 'name'
 					}, {
-						xtype : 'numberfield',
-						fieldLabel : '序号',
-						name : 'idx',
-						minValue : 0,
-						flex : 1
+						xtype : 'container',
+						layout : {
+							type : 'hbox',
+							align : 'stretch'
+						},
+						defaults : {
+							labelWidth : 100
+						},
+						items : [{
+							xtype : 'numberfield',
+							fieldLabel : '序号',
+							name : 'idx',
+							minValue : 0,
+							cls : 'marginR10',
+							flex : 1
+						}, {
+							xtype : 'checkbox',
+							//fieldLabel : 'Controller',
+							boxLabel : '有Controller',
+							name : 'hasController',
+							flex : 1
+						}]
 					}, {
 						flex : 1,
 						xtype : 'container',

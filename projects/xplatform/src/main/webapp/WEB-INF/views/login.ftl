@@ -1,7 +1,8 @@
 <html lang='en'>
 <head>
 <base href="${basePath}">
-	<title>Smart MIS</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>智能信息管理系统</title>
 	<link rel="stylesheet" href="css/login.css"></link>
 	<link rel="shortcut icon" href="image/faviconMESplus.ico">
 	<link rel="icon" href="image/faviconMESplus.ico"> 
@@ -67,11 +68,11 @@
 	</div>
 
 	<form action="login" method="post" class="loginForm">
-		<label for="j_username">user name</label>
-		<input id="j_username" name="username" maxlength="50" type="text" class="loginInput auto-focus"/>
-		<label for="password">Password</label>
-		<input id="j_password" name="password" maxlength="50" type="password" class="loginInput" />
-		<label for="language">Language</label>
+		<label for="j_username">用户名</label>
+		<input name="username" maxlength="50" type="text" class="loginInput auto-focus"/>
+		<label for="password">密码</label>
+		<input name="password" maxlength="50" type="password" class="loginInput" />
+		<label for="language">语言</label>
 		<select id="language" name="language">
 			<option value="cn" selected="selected">中文</option>
 			<option value="en">English</option>
@@ -86,12 +87,8 @@
 		</div>
 	
 		<div class="btnline">
-			<!--
-			<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" value="true" />
-			<label for="_spring_security_remember_me">remember me?</label>
-			-->
 			<input id="remember" type="checkbox" />
-			<span>remember?</span>
+			<span>记住用户?</span>
 			<div>
 				<input type="reset" value="Reset" class="btnWelcomeReset" />
 				<input type="submit" value="Login" class="btnWelcomeLogin" />
@@ -100,6 +97,3 @@
 	</form>
 </body>
 </html>
-
-
-

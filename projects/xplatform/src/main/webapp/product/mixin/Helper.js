@@ -189,10 +189,22 @@ Ext.define('mixin.Helper', function() {
 	}
 	
 	var hasController = function(menu){
-		if(menu.viewModel === 'CMN.view.common.ViewLogInfo'){
-			return false;
-		}
-		return true;
+		//if(menu.viewModel === 'CMN.view.common.ViewLogInfo'){
+			//return false;
+		//}//
+		//return true;
+		var rtnResponse = '';
+		Ext.Ajax.request({
+				url : 'pageresource/hasController',
+				params: {
+					pageCode: menu.viewModel
+				},
+				async : false,
+				callback : function(options, success, response) {
+					rtnResponse = response.responseText;
+				}
+		});
+		return rtnResponse === 'true';
 	}
 	
 	return {

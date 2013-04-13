@@ -2,7 +2,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <base href="${basePath}">
 	<head>
-	    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>智能信息管理系统</title>
 		<link rel="stylesheet" href="css/app.css"></link>
 		<link rel="stylesheet" href="js/uux/statusbar/css/statusbar.css"></link>
