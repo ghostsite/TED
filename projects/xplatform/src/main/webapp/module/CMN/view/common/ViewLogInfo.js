@@ -5,6 +5,8 @@ Ext.define('CMN.view.common.ViewLogInfo', {
 
 	title : T('Caption.Other.Log'),
 	
+	icon:'image/menuIcon/0069_16.png',
+	
 	layout : {
 		type : 'vbox',
 		align : 'stretch'

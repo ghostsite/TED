@@ -5,6 +5,8 @@ Ext.define('SEC.view.setup.UserProfile', {
 
 	title : T('Caption.Other.Profile'),
 
+	icon:'image/icon/properties.gif',
+	
 	formReader : {
 		url : 'service/secViewUserExt.json',
 		model : 'SEC.model.SecViewUserExtOut'

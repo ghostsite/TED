@@ -1,54 +1,51 @@
 /*
- * TODO 이 Mixin은  CMN 모듈로 이동한다.
+ * TODO 이 Mixin은 CMN 모듈로 이동한다.
  */
 Ext.define('mixin.UserInterface', function() {
-	function createView(view, config){
+	function createView(view, config) {
 		var comp = null;
-		if (typeof (view) === 'string') {
+		if (typeof(view) === 'string') {
 			var secChecked = SF.isAssemblyName(view);
 			config.secChecked = secChecked;
 			var secControlList = {};
 			var errMsg = '';
 			var result = '';
-			if(secChecked === true){
+			if (secChecked === true) {
 				var params = {
-						procstep : '1',
-						programId : SF.login.programId,
-						funcName : view
+					procstep : '1',
+					programId : SF.login.programId,
+					funcName : view
 				};
 				Ext.Ajax.request({
 					showFailureMsg : false,
-					url : 'service/secViewFunctionDetail.json', //这个意思是从数据库中取一个页面的配置信息。zhang
+					url : 'service/secViewFunctionDetail.json', // 这个意思是从数据库中取一个页面的配置信息。zhang
 					method : 'POST',
 					jsonData : params,
 					async : false,
 					success : function(response, opts) {
 						result = Ext.JSON.decode(response.responseText) || {};
 						if (result.success) {
-							for ( var i = 1; i <= 10; i++) {
+							for (var i = 1; i <= 10; i++) {
 								var ctlName = result['ctlName' + i];
 								if (ctlName)
 									secControlList[ctlName] = result['ctlEnFlag' + i] || ''; // 'Y' or other
 							}
-						}
-						else{
+						} else {
 							errMsg = result.msg;
 						}
 					}
 				});
+			} else if (secChecked === false) {
+				errMsg = T('Message.SEC-0008');
 			}
-			else if(secChecked === false){
-				errMsg = T('Message.SEC-0008');				
-			}
-			if(errMsg){
-				Ext.Msg.alert('Open Error',errMsg);
+			if (errMsg) {
+				Ext.Msg.alert('Open Error', errMsg);
 				return false;
 			}
 			config.secControlList = secControlList;
 			comp = Ext.create(view, config);
 			return comp;
-		}
-		else{
+		} else {
 			return view;
 		}
 	}
@@ -64,7 +61,7 @@ Ext.define('mixin.UserInterface', function() {
 
 		try {
 			var nav = Ext.getCmp('nav').add(Ext.merge(defaults, config));
-			if(SF.search) {
+			if (SF.search) {
 				SF.search.register({
 					kind : 'nav',
 					key : nav.itemId,
@@ -100,68 +97,81 @@ Ext.define('mixin.UserInterface', function() {
 
 		try {
 			var content_area = Ext.getCmp('content');
-			if(!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1 && SF.hasController(menu)) {
+			if (!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1 && SF.hasController(menu)) {
 				var controller = menu.viewModel.replace('.view.', '.controller.');
-				if(controller) {
-					Ext.syncRequire(controller); //load needed js file controller and view
-					SF.controller.ApplicationController.unique.getController(controller).init(); //this is for extjs4.1
-					//SF.controller.ApplicationController.unique.getController(controller); //this is for extjs4.2 ,a big bug for mesplus, for getController() has called doInit()
+				if (controller) {
+					Ext.syncRequire(controller); // load needed js file
+													// controller and view
+					SF.controller.ApplicationController.unique.getController(controller).init(); // this is for extjs4.1
+					// SF.controller.ApplicationController.unique.getController(controller);
+					// //this is for extjs4.2 ,a big bug for mesplus, for
+					// getController() has called doInit()
 				}
 			}
-			
-			menu.itemId = menu.itemId || menu.viewModel; 
-			
-			var screen ;
-			if(SF.isFitLayout()){ //zhang
-				var newView = createView(menu.viewModel, {
+
+			menu.itemId = menu.itemId || menu.viewModel;
+
+			var screen;
+			if (SF.isFitLayout()) { // zhang
+				var config = {
 					itemId : menu.itemId,
-					closable : false,
-					icon: menu.icon //zhang add icon
-				 });
-				 if(newView === false){
-					 return false;
-				 }
-				 content_area.removeAll();
-				 screen = content_area.add(newView);
-			}else{
+					closable : false
+				};
+				if(menu.icon){
+					Ext.apply(config, {icon: menu.icon});
+				}
+				var newView = createView(menu.viewModel, config);
+				if (newView === false) {
+					return false;
+				}
+				content_area.removeAll();
+				screen = content_area.add(newView);
+			} else {
 				screen = content_area.getComponent(menu.itemId);
-				if(!screen){
+				if (!screen) {
 					var closable = true;
-					if(SF.isCardLayout()){
+					if (SF.isCardLayout()) {
 						closable = false;
 					}
-					var newView = createView(menu.viewModel, {
+					var config = {
 						itemId : menu.itemId,
-						closable : closable,
-						icon: menu.icon //zhang add icon
-					 });
-					 if(newView === false){
-						 return false;
-					 }
-					 if(SF.isCardLayout()){//zhang changed
-					 	screen = content_area.insert(0,newView);
-					 }else{
-					 	screen = content_area.add(newView);
-					 }
+						closable : closable
+					};
+					if(menu.icon){
+						Ext.apply(config, {icon: menu.icon});
+					}
+				
+					var newView = createView(menu.viewModel,config);
+					if (newView === false) {
+						return false;
+					}
+					if (SF.isCardLayout()) {// zhang changed
+						screen = content_area.insert(0, newView);
+					} else {
+						screen = content_area.add(newView);
+					}
 				}
 			}
-			
+
 			/*
-			 * CONFIRM parameter 정보가 없더라도 (menu.keys === undefined) setKeys로 keychange 이벤트를 발생시키도록 변경함.
+			 * CONFIRM parameter 정보가 없더라도 (menu.keys === undefined) setKeys로
+			 * keychange 이벤트를 발생시키도록 변경함.
 			 */
 			if (screen.setKeys) {
-				var keys = menu.keys ||{}; //zhang added
-				screen.setKeys(Ext.apply(keys, {icon: menu.icon})); //zhang added
-				//original is screen.setKeys(menu.keys);
+				var keys = menu.keys || {}; // zhang added
+				screen.setKeys(Ext.apply(keys, {
+					icon : menu.icon
+				})); // zhang added
+				// original is screen.setKeys(menu.keys);
 			} else {
 				SF.history.add(screen);
 			}
-			
+
 			try {
 				SF.history.lock();
-				if(SF.isTabLayout()){ //tab panel zhang
+				if (SF.isTabLayout()) { // tab panel zhang
 					content_area.setActiveTab(screen);
-				}else if(SF.isCardLayout()){ // card layout for panel zhang
+				} else if (SF.isCardLayout()) { // card layout for panel zhang
 					content_area.getLayout().setActiveItem(screen);
 				}
 			} finally {
@@ -175,7 +185,7 @@ Ext.define('mixin.UserInterface', function() {
 			}, e);
 		}
 	}
-	
+
 	function popup(viewModel, keys) {
 		if (!viewModel) {
 			SF.error('SYS-E002');
@@ -184,29 +194,32 @@ Ext.define('mixin.UserInterface', function() {
 
 		try {
 			/*
-			 * 모듈 이름이 4자 이상인 경우는 커스터마이즈된 코드로 인식한다.
-			 * 커스터마이즈된 코드는 MVC구조를 사용하므로, 뷰모델을 로드하기 전에, 관련된 컨트롤러를 먼저 동적으로 로드한다.
-			 * 뷰모델과 관련된 컨트롤러는 뷰모델과 동일한 클래스명을 가져야 하며, {모듈명}.controller.{클래스명} 이름 구조를 가져야 한다.
+			 * 모듈 이름이 4자 이상인 경우는 커스터마이즈된 코드로 인식한다. 커스터마이즈된 코드는 MVC구조를 사용하므로,
+			 * 뷰모델을 로드하기 전에, 관련된 컨트롤러를 먼저 동적으로 로드한다. 뷰모델과 관련된 컨트롤러는 뷰모델과 동일한
+			 * 클래스명을 가져야 하며, {모듈명}.controller.{클래스명} 이름 구조를 가져야 한다.
 			 */
-			if(!Ext.ClassManager.get(viewModel) && viewModel.indexOf('.') > 1 && SF.hasController(viewModel)) {
+			if (!Ext.ClassManager.get(viewModel) && viewModel.indexOf('.') > 1 && SF.hasController(viewModel)) {
 				var controller = viewModel.replace('.view.', '.controller.');
-				if(controller) {
+				if (controller) {
 					/*
-					 * Synchronously Loading 경고를 방지하기 위해서 명시적으로 Ext.syncRequire 를 선행적으로 호출함.
+					 * Synchronously Loading 경고를 방지하기 위해서 명시적으로 Ext.syncRequire
+					 * 를 선행적으로 호출함.
 					 */
 					Ext.syncRequire(controller);
 					SF.controller.ApplicationController.unique.getController(controller).init();
-					//SF.controller.ApplicationController.unique.getController(controller); //getController() has contained calling doInit
+					// SF.controller.ApplicationController.unique.getController(controller);
+					// //getController() has contained calling doInit
 				}
 			}
-			
+
 			var screen = Ext.create(viewModel);
 			screen.show();
 
 			/*
-			 * CONFIRM parameter 정보가 없더라도 (menu.keys === undefined) setKeys로 keychange 이벤트를 발생시키도록 변경함.
+			 * CONFIRM parameter 정보가 없더라도 (menu.keys === undefined) setKeys로
+			 * keychange 이벤트를 발생시키도록 변경함.
 			 */
-			if(screen.setKeys) {
+			if (screen.setKeys) {
 				screen.setKeys(keys);
 			}
 
@@ -220,7 +233,7 @@ Ext.define('mixin.UserInterface', function() {
 
 	return {
 		doMenu : doMenu,
-		//addContentView : addContentView,
+		// addContentView : addContentView,
 		addNav : addNav,
 		addSideMenu : addSideMenu,
 		popup : popup

@@ -103,7 +103,7 @@ public class PageResourceService implements InitializingBean {
     }
 
     public void afterPropertiesSet() throws Exception {
-        cachedHasController = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(10, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
+        cachedHasController = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
             @Override
             public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage'
                 PageResource pr = jpaSupportDao.findSingleByProperty(PageResource.class, "code", code);
@@ -115,7 +115,7 @@ public class PageResourceService implements InitializingBean {
             }
         });
         
-        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(10, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
+        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
             @Override
             public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage,readonly'
                 String[] codeAndOperation = code.split(",");

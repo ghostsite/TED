@@ -144,11 +144,11 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 					minHeight : 370,
 					store : pageStore,
 					columns : [{
-						header : '页面代码',
+						header : '页面名称',
 						dataIndex : 'name',
 						flex : 1
 					}, {
-						header : '页面名称',
+						header : '页面代码',
 						dataIndex : 'code',
 						flex : 1
 					}],
@@ -193,7 +193,7 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 							name : 'idx',
 							minValue : 0,
 							cls : 'marginR10',
-							flex : 1
+							flex : 3
 						}, {
 							xtype : 'checkbox',
 							//fieldLabel : 'Controller',
@@ -257,11 +257,11 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 					minHeight : 370,
 					store : widgetStore,
 					columns : [{
-						header : '控件代码',
+						header : '控件名称',
 						dataIndex : 'name',
 						flex : 1
 					}, {
-						header : '控件名称',
+						header : '控件代码',
 						dataIndex : 'code',
 						flex : 1
 					}]
@@ -269,7 +269,15 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 					xtype : 'form',
 					border : false,
 					cls : 'marginT7',
+					layout : {
+						type : 'vbox',
+						align : 'stretch'
+					},
 					itemId : 'widgetFormId',
+					bodyCls : 'paddingAll10',
+					defaults : {
+						labelWidth : 100
+					},
 					flex : 1,
 					items : [{
 						xtype : 'hidden',

@@ -90,7 +90,7 @@ public class WidgetResourceService  implements InitializingBean{
     }
     
     public void afterPropertiesSet() throws Exception {
-        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(10, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
+        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
             @Override
             public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage|itemId,readonly'
                 String[] codeAndOperation = code.split(",");
