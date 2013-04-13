@@ -101,6 +101,16 @@ public class ResourceService {
         }
     };
     
+    @Transactional(readOnly = true)
+    protected boolean hasDisabledPermission(Subject currentUser, Resource resource) {
+        User user = PlatformUtils.getCurrentUser();
+        if (user.isSuperUser()) {
+            return true;
+        } else {
+            return hasAuthority(currentUser, resource, Operation.Type.disabled.name());
+        }
+    }
+    
     public static final boolean hasAuthority(Subject currentUser, Resource resource, String operation){
         return currentUser.isPermitted(resource.getCode()+":"+ operation);
     }
@@ -201,6 +211,12 @@ public class ResourceService {
                 }
                 iter.remove();
             }
+            if (acl.getOperation().isDisabledOperation() && !resource.isCanReadOnly()) {
+                if (acl.getRoles().size() > 0) {
+                    throw new BusinessException(SpringUtils.getMessage("message.common.user.needtodeleterole2acl", messageSource));
+                }
+                iter.remove();
+            }
         }
 
         if (resource.isCanView() && !contain(aclSet, Operation.Type.view.name())) {
@@ -223,6 +239,10 @@ public class ResourceService {
         if (resource.isCanReadOnly() && !contain(aclSet, Operation.Type.readonly.name())) {
             Operation readonlyOperation = operationDao.getByCode(Operation.Type.readonly.name());
             setOperation2Resource(readonlyOperation, resource);
+        }
+        if (resource.isCanDisabled() && !contain(aclSet, Operation.Type.disabled.name())) {
+            Operation disabledOperation = operationDao.getByCode(Operation.Type.disabled.name());
+            setOperation2Resource(disabledOperation, resource);
         }
     }
 

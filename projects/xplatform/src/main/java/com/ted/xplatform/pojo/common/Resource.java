@@ -65,6 +65,8 @@ public abstract class Resource extends LogicAuditEntity {
     private boolean canDelete;
     @Transient
     private boolean canReadOnly; //灰色，canView是不变灰色
+    @Transient
+    private boolean canDisabled;
     
     /**
      * 资源所拥有的所有的可以操作的ACL,通过ACL获得所有的Operation
@@ -162,6 +164,15 @@ public abstract class Resource extends LogicAuditEntity {
         this.canReadOnly = canReadOnly;
     }
     
+    @Transient
+    public boolean isCanDisabled() {
+        return canDisabled;
+    }
+
+    public void setCanDisabled(boolean canDisabled) {
+        this.canDisabled = canDisabled;
+    }
+    
  // ----------Methods------------//
     /**
      * 这个方法是给canView...赋值。注意，要在Hibernate的session中完成此动作。
@@ -179,6 +190,7 @@ public abstract class Resource extends LogicAuditEntity {
             boolean canUpdate = ACLUtils.isUpdate(operation);
             boolean canDelete = ACLUtils.isDelete(operation);
             boolean canReadOnly = ACLUtils.isReadOnly(operation);
+            boolean canDisabled = ACLUtils.isDisabled(operation);
             if (canView) {
                 setCanView(canView);
             }
@@ -193,6 +205,9 @@ public abstract class Resource extends LogicAuditEntity {
             }
             if (canReadOnly) {
                 setCanReadOnly(canReadOnly);
+            }
+            if (canDisabled) {
+                setCanDisabled(canDisabled);
             }
         }
     }

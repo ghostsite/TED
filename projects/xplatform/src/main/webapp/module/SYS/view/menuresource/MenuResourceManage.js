@@ -207,7 +207,7 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 						fieldLabel : '权限',
 						boxLabel : '查看',
 						name : 'canView'
-					}, {
+					}/**, { 暂时只有查看，因为下面3个还不知道用在什么地方呢。
 						xtype : 'checkbox',
 						fieldLabel : '',
 						boxLabel : '新增',
@@ -225,7 +225,7 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 						cls : 'marginRL10',
 						boxLabel : '删除',
 						name : 'canDelete'
-					}]
+					}*/]
 				}, {
 					xtype : 'checkbox',
 					fieldLabel : '快捷方式',

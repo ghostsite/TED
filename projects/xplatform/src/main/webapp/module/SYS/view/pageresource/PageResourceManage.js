@@ -211,31 +211,13 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 							fieldLabel : '权限',
 							boxLabel : '查看',
 							name : 'canView'
-						}, {
-							xtype : 'checkbox',
-							fieldLabel : '',
-							boxLabel : '新增',
-							cls : 'marginRL10',
-							name : 'canAdd'
-						}, {
-							xtype : 'checkbox',
-							fieldLabel : '',
-							boxLabel : '更新',
-							cls : 'marginRL10',
-							name : 'canUpdate'
-						}, {
+						}/**, {
 							xtype : 'checkbox',
 							fieldLabel : '',
 							cls : 'marginRL10',
-							boxLabel : '删除',
-							name : 'canDelete'
-						}, {
-							xtype : 'checkbox',
-							fieldLabel : '',
-							cls : 'marginRL10',
-							boxLabel : '只读',
-							name : 'canReadOnly'
-						}]
+							boxLabel : '只见',
+							name : 'canDisabled'
+						}*/]
 					}]
 				}]
 			}, {
@@ -313,27 +295,15 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 						}, {
 							xtype : 'checkbox',
 							fieldLabel : '',
-							boxLabel : '新增',
-							cls : 'marginRL10',
-							name : 'canAdd'
-						}, {
-							xtype : 'checkbox',
-							fieldLabel : '',
-							boxLabel : '更新',
-							cls : 'marginRL10',
-							name : 'canUpdate'
-						}, {
-							xtype : 'checkbox',
-							fieldLabel : '',
-							cls : 'marginRL10',
-							boxLabel : '删除',
-							name : 'canDelete'
-						}, {
-							xtype : 'checkbox',
-							fieldLabel : '',
 							cls : 'marginRL10',
 							boxLabel : '只读',
 							name : 'canReadOnly'
+						}, {
+							xtype : 'checkbox',
+							fieldLabel : '',
+							cls : 'marginRL10',
+							boxLabel : '只见',
+							name : 'canDisabled'
 						}]
 					}]
 				}]
