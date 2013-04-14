@@ -111,6 +111,16 @@ public class ResourceService {
         }
     }
     
+    @Transactional(readOnly = true)
+    protected boolean hasDownloadPermission(Subject currentUser, Resource resource) {
+        User user = PlatformUtils.getCurrentUser();
+        if (user.isSuperUser()) {
+            return true;
+        } else {
+            return hasAuthority(currentUser, resource, Operation.Type.download.name());
+        }
+    }
+    
     public static final boolean hasAuthority(Subject currentUser, Resource resource, String operation){
         return currentUser.isPermitted(resource.getCode()+":"+ operation);
     }
@@ -123,8 +133,8 @@ public class ResourceService {
      */
     @Transactional(readOnly = true)
     protected void loadOperations(List<? extends Resource> resourceList) {
-        for (Resource menu : resourceList) {
-            menu.getOperationList();
+        for (Resource resource : resourceList) {
+            resource.getOperationList();
         }
     };
 
@@ -157,6 +167,14 @@ public class ResourceService {
         if (resource.isCanReadOnly()) {
             Operation readonlyOperation = operationDao.getByCode(Operation.Type.readonly.name());
             setOperation2Resource(readonlyOperation, resource);
+        }
+        if (resource.isCanDisabled()) {
+            Operation disabledOperation = operationDao.getByCode(Operation.Type.disabled.name());
+            setOperation2Resource(disabledOperation, resource);
+        }
+        if (resource.isCanDownload()) {
+            Operation downloadOperation = operationDao.getByCode(Operation.Type.download.name());
+            setOperation2Resource(downloadOperation, resource);
         }
     }
 
@@ -211,7 +229,13 @@ public class ResourceService {
                 }
                 iter.remove();
             }
-            if (acl.getOperation().isDisabledOperation() && !resource.isCanReadOnly()) {
+            if (acl.getOperation().isDisabledOperation() && !resource.isCanDisabled()) {
+                if (acl.getRoles().size() > 0) {
+                    throw new BusinessException(SpringUtils.getMessage("message.common.user.needtodeleterole2acl", messageSource));
+                }
+                iter.remove();
+            }
+            if (acl.getOperation().isDownloadOperation() && !resource.isCanDownload()) {
                 if (acl.getRoles().size() > 0) {
                     throw new BusinessException(SpringUtils.getMessage("message.common.user.needtodeleterole2acl", messageSource));
                 }
@@ -243,6 +267,10 @@ public class ResourceService {
         if (resource.isCanDisabled() && !contain(aclSet, Operation.Type.disabled.name())) {
             Operation disabledOperation = operationDao.getByCode(Operation.Type.disabled.name());
             setOperation2Resource(disabledOperation, resource);
+        }
+        if (resource.isCanDownload() && !contain(aclSet, Operation.Type.download.name())) {
+            Operation downloadOperation = operationDao.getByCode(Operation.Type.download.name());
+            setOperation2Resource(downloadOperation, resource);
         }
     }
 

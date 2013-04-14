@@ -87,6 +87,8 @@ public class FileResourceController {
         fileResource.setName(multipartFile.getOriginalFilename());//Resource多出来的
         fileResource.setCode(fileName);//Resource多出来的,存的是9123123asasdfasdf.jpg，随机字符串
         fileResource.setCanView(true);//写死canView权限
+        fileResource.setCanDownload(true);//写死canDownload权限
+        fileResource.setCanDelete(true);//写死canDelete权限
         fileResource.setFilePath(middleDir);
         fileResource.setFileSize(new Long(multipartFile.getBytes().length));
         fileResource.setFileType(FileUtils.getExtension(multipartFile.getOriginalFilename(), true));

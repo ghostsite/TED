@@ -52,6 +52,12 @@ public class Operation extends PersistEntity {
             public String getText() {
                 return "只见";
             }
+        },
+        download {
+            @SuppressWarnings("all")
+            public String getText() {
+                return "下载";
+            }
         }
     }
 
@@ -89,6 +95,12 @@ public class Operation extends PersistEntity {
     @JsonIgnore
     public boolean isDisabledOperation(){
         return Type.disabled.name().equals(this.code);
+    }
+    
+    @Transient
+    @JsonIgnore
+    public boolean isDownloadOperation(){
+        return Type.download.name().equals(this.code);
     }
     
     /**

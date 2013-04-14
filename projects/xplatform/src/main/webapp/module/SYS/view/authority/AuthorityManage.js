@@ -186,7 +186,7 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 					tooltip:'刷新',
 					listeners : {
 						click : function(button) {
-							Ext.getCmp('treAuthorityMenuId').reload();
+							Ext.getCmp('treAuthorityMenuId').getStore().reload();
 						}
 					}
 				}
@@ -227,7 +227,7 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 					tooltip:'刷新',
 					listeners : {
 						click : function(button) {
-							Ext.getCmp('treAuthorityFileId').reload();
+							Ext.getCmp('treAuthorityFileId').getStore().reload();
 						}
 					}
 				}]
@@ -267,7 +267,7 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 					tooltip:'刷新',
 					listeners : {
 						click : function(button) {
-							Ext.getCmp('treAuthorityPageId').reload();
+							Ext.getCmp('treAuthorityPageId').getStore().reload();
 						}
 					}
 				}

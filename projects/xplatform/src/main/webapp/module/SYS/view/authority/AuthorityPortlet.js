@@ -157,6 +157,12 @@ Ext.define('SYS.view.authority.AuthorityPortlet', {
 						return '<span style="color:red;">' + val + '</span>';
 					}else if(val === '修改'){
 						return '<span style="color:gray;">' + val + '</span>';
+					}else if(val === '只见'){
+						return '<span style="color:brown;">' + val + '</span>';
+					}else if(val === '下载'){
+						return '<span style="color:purple;">' + val + '</span>';
+					}else{
+						return val;
 					}
 				}
 			}],
