@@ -152,7 +152,7 @@ Ext.define('SYS.view.user.UserManage', {
 					dataIndex : 'mobile'
 				}, {
 					header : '办公电话',
-					dataIndex : 'telephone'
+					dataIndex : 'phoneWork'
 				}, {
 					header : '性别',
 					renderer : function(val) {

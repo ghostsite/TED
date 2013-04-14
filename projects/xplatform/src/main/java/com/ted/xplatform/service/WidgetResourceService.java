@@ -186,7 +186,7 @@ public class WidgetResourceService /**implements InitializingBean*/ {
         } else {//update
             WidgetResource dbWidgetResource = (WidgetResource) jpaSupportDao.getEntityManager().find(WidgetResource.class, widgetResource.getId());
             //DozerUtils.copy(menuResource, dbMenuResource);//这个不好用,copy all
-            BeanUtils.copyPropertiesByInclude(dbWidgetResource, widgetResource, new String[] { "code", "name", "description", "idx", "canReadOnly", "canView", "canAdd", "canUpdate", "canDelete" });
+            BeanUtils.copyPropertiesByInclude(dbWidgetResource, widgetResource, new String[] { "code", "name", "description", "idx", "canReadOnly", "canView", "canDisabled" });
             resourceService.updateOperationProperties2Operations(dbWidgetResource);
             jpaSupportDao.getEntityManager().merge(dbWidgetResource);
         }

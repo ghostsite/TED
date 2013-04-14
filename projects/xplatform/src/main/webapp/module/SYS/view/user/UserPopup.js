@@ -81,7 +81,7 @@ Ext.define('SYS.view.user.UserPopup', {
 					}, {
 						xtype : 'textfield',
 						fieldLabel : '办公电话',
-						name : 'telephone'
+						name : 'phoneWork'
 					}]
 				}, {
 					xtype : 'fieldcontainer',
