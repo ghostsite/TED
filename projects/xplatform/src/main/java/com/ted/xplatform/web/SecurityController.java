@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ted.common.util.ConfigUtils;
 import com.ted.common.util.PasswordUtils;
@@ -32,7 +33,7 @@ public class SecurityController {
     UserService      userService;
 
     @RequestMapping(value = "/login")
-    public String login(Model model, @RequestParam(value = "username") String loginName, @RequestParam(value = "password") String password, @RequestParam(value = "language",required = false) String language) {
+    public String login(RedirectAttributes model, @RequestParam(value = "username") String loginName, @RequestParam(value = "password") String password, @RequestParam(value = "language",required = false) String language) {
         User user = userService.getUserByLoginNameAssociate(loginName);
         if (null != user) {
             String encrypto = PasswordUtils.encryptPassword(password, user.getPasswordKey());
@@ -40,14 +41,13 @@ public class SecurityController {
                 setLogin(user.getLoginName(), user.getPassword());
                 user.setLanguage(language);
                 PlatformUtils.setCurrentUser(user);
-                model.addAttribute(user);
+                //model.addAttribute(user);
+                model.addFlashAttribute(user);//由于用的是RedirectAttributes， so要用addFlashAttribute，不能用addAttribute
                 return "redirect:main";
-            } else {
-                return "login";//
-            }
-        } else {
-            return "login"; //返回登录页
+            } 
         }
+        model.addFlashAttribute("error", "用户名或密码错误!");
+        return "redirect:/"; //返回登录页
     }
     
     /**
@@ -73,15 +73,7 @@ public class SecurityController {
     public static final void setLogin(String userId, String password) {
         Subject currentUser = SecurityUtils.getSubject();
         if (!currentUser.isAuthenticated()) {
-            // collect user principals and credentials in a gui specific manner
-            // such as username/password html form, X509 certificate, OpenID,
-            // etc.
-            // We'll use the username/password example here since it is the most
-            // common.
-            // (do you know what movie this is from? ;)
             UsernamePasswordToken token = new UsernamePasswordToken(userId, password);
-            // this is all you have to do to support 'remember me' (no config -
-            // built in!):
             token.setRememberMe(true);
             currentUser.login(token);
         }
@@ -109,20 +101,6 @@ public class SecurityController {
             model.addAttribute("pageSize", ConfigUtils.getConfig().getInt("pageSize"));
             model.addAttribute("waitMsg", ConfigUtils.getConfig().getString("waitMsg"));
             return "main";
-        }
-    }
-    
-    @SuppressWarnings("all")
-    @RequestMapping(value = "/opc", method = RequestMethod.GET)
-    public String opc(Model model) {
-        User user = PlatformUtils.getCurrentUser();
-        if (null == user) {
-            return "redirect:showLogin";
-        } else {
-            model.addAttribute(user);
-            model.addAttribute("pageSize", ConfigUtils.getConfig().getInt("pageSize"));
-            model.addAttribute("waitMsg", ConfigUtils.getConfig().getString("waitMsg"));
-            return "opc";
         }
     }
 

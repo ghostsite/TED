@@ -67,6 +67,7 @@
 		<span class="productName">企业版本</span> <span class="welcomeInfo">欢迎使用智能信息管理系统</span>
 	</div>
 
+	<span style="color:red">${error}</span>
 	<form action="login" method="post" class="loginForm">
 		<label for="j_username">用户名</label>
 		<input name="username" maxlength="50" type="text" class="loginInput auto-focus"/>
