@@ -6,11 +6,10 @@ package com.ted.xplatform.pojo.common;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ted.xplatform.pojo.base.LogicAuditEntity;
 
 /**
@@ -30,14 +29,14 @@ public class Attachment extends LogicAuditEntity {
 
     private static final long serialVersionUID = 7857055935114900696L;
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    //@GenericGenerator(name = "system-uuid", strategy = "native")
-//    @Column(name = "attach_id", length = 32, nullable = false, updatable = false)
-//    protected Long            attachId;                               //唯一主键
+    //    @Id
+    //    @GeneratedValue(strategy = GenerationType.AUTO)
+    //    //@GenericGenerator(name = "system-uuid", strategy = "native")
+    //    @Column(name = "attach_id", length = 32, nullable = false, updatable = false)
+    //    protected Long            attachId;                               //唯一主键
 
     @Column(name = "type_code", length = 32, nullable = false, updatable = false)
-    protected String          typeCode         = Type.defaults.name();       //种类,对应属于谁的附件
+    protected String          typeCode         = Type.defaults.name(); //种类,对应属于谁的附件
 
     @Column(name = "foreign_id")
     protected Long            foreignId;                              //外键
@@ -55,6 +54,19 @@ public class Attachment extends LogicAuditEntity {
 
     @Column(name = "file_type")
     protected String          fileType;                               //种类,png jpg txt doc xls ....
+
+    @Transient
+    protected byte[]          bytes;                                  // 临时存放文件的地方
+
+    @Transient
+    @JsonIgnore
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+    }
 
     public String getOriginName() {
         return originName;

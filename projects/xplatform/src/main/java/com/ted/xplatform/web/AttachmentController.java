@@ -36,14 +36,7 @@ import com.ted.xplatform.util.AttachmentUtils;
 public class AttachmentController {
 
     @Inject
-    FileManager               fileManager = null;
-
-    @Inject
     private AttachmentService attachmentService;
-
-    public void setFileManager(FileManager fileManager) {
-        this.fileManager = fileManager;
-    }
 
     public void setAttachmentService(AttachmentService attachmentService) {
         this.attachmentService = attachmentService;
@@ -70,19 +63,7 @@ public class AttachmentController {
     @RequestMapping(value = "/upload")
     public @ResponseBody
     Map<String, Object> upload(MultipartHttpServletRequest multipartRequest) throws Exception {
-        MultipartFile multipartFile = AttachmentUtils.getMultipartFile(multipartRequest);
-        String middleDir = AttachmentUtils.getMiddleDir();
-        String dir = AttachmentUtils.getDir(middleDir);
-        String fileName = AttachmentUtils.getRandomFileName(multipartFile.getOriginalFilename());
-        fileManager.save(dir, fileName, multipartFile.getBytes());
-        Attachment attachment = new Attachment();
-        attachment.setOriginName(multipartFile.getOriginalFilename());
-        attachment.setFileName(fileName);
-        attachment.setFilePath(middleDir);
-        attachment.setFileSize(new Long(multipartFile.getBytes().length));
-        attachment.setFileType(FileUtils.getExtension(multipartFile.getOriginalFilename(), true));
-        attachmentService.save(attachment);
-        //return JsonUtils.getJsonMap(attachment.getId());
+        Attachment attachment = attachmentService.save(multipartRequest);
         return CollectionUtils.newMap("success", true, "fileId", attachment.getId());
     };
 
@@ -106,44 +87,38 @@ public class AttachmentController {
 
     @RequestMapping(value = "/download/{fileId}")
     public void download(@PathVariable Long fileId, HttpServletResponse response) throws IOException {
-        Attachment attachment = (Attachment) attachmentService.getAttachmentById(fileId);
-        if (null != attachment) {
-            String fullPath = AttachmentUtils.getDir(attachment.getFilePath());
-            byte[] bytes = fileManager.load(fullPath, attachment.getFileName());
-            DownloadHelper.doDownload(response, attachment.getOriginName(), bytes);
-        }
+        Attachment attachment = attachmentService.getDownloadAttachment(fileId);
+        DownloadHelper.doDownload(response, attachment.getOriginName(), attachment.getBytes());
     };
-    
+
     /**
      * 下载图片
      */
     @RequestMapping(value = "/downloadPic/{fileId}")
     public void downloadPic(@PathVariable Long fileId, HttpServletResponse response) throws IOException {
-        Attachment attachment = (Attachment) attachmentService.getAttachmentById(fileId);
+        Attachment attachment = attachmentService.getDownloadAttachment(fileId);
         if (null != attachment) {
-            String fullPath = AttachmentUtils.getDir(attachment.getFilePath());
-            byte[] bytes = fileManager.load(fullPath, attachment.getFileName());
             String mediaType = getMediType(attachment);
-            if(null != mediaType){
-                DownloadHelper.doDownload(response, attachment.getOriginName(), bytes, mediaType);
+            if (null != mediaType) {
+                DownloadHelper.doDownload(response, attachment.getOriginName(), attachment.getBytes(), mediaType);
             }
         }
     };
-    
+
     //根据attachment的扩展名，获得MediaType
-    public static final String getMediType(Attachment attachment){
+    public static final String getMediType(Attachment attachment) {
         String type = attachment.getFileType().toLowerCase();
-        if(type.equals(".jpg")){
+        if (type.equals(".jpg")) {
             return MediaType.IMAGE_JPEG_VALUE;
-        }else if(type.equals(".gif")){
+        } else if (type.equals(".gif")) {
             return MediaType.IMAGE_GIF_VALUE;
-        }else if(type.equals(".jpeg")){
+        } else if (type.equals(".jpeg")) {
             return MediaType.IMAGE_JPEG_VALUE;
-        }else if(type.equals(".png")){
+        } else if (type.equals(".png")) {
             return MediaType.IMAGE_PNG_VALUE;
-        }else if(type.equals(".bmp")){
+        } else if (type.equals(".bmp")) {
             return MediaType.IMAGE_JPEG_VALUE;
-        }else{
+        } else {
             return null;
         }
     };

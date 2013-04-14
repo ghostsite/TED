@@ -6,10 +6,15 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ted.common.dao.jpa.JpaSupportDao;
+import com.ted.common.support.file.FileManager;
 import com.ted.common.support.page.JsonPage;
+import com.ted.common.util.FileUtils;
 import com.ted.xplatform.pojo.common.Attachment;
+import com.ted.xplatform.util.AttachmentUtils;
 
 /**
  * 附件的service,关于附件种类：typeCode在每个Service类里面自己定义吧。
@@ -25,13 +30,38 @@ public class AttachmentService {
         this.jpaSupportDao = jpaSupportDao;
     }
 
+    @Inject
+    FileManager fileManager = null;
+
+    public void setFileManager(FileManager fileManager) {
+        this.fileManager = fileManager;
+    }
+
     /**
-     * 保存
+     * 保存，这个只保存对象
      */
     @Transactional
     public void save(Attachment attachment) {
         jpaSupportDao.getEntityManager().persist(attachment);
     }
+
+    @Transactional
+    public Attachment save(MultipartHttpServletRequest multipartRequest) throws Exception {
+        MultipartFile multipartFile = AttachmentUtils.getMultipartFile(multipartRequest);
+        String middleDir = AttachmentUtils.getMiddleDir();
+        String dir = AttachmentUtils.getDir(middleDir);
+        String fileName = AttachmentUtils.getRandomFileName(multipartFile.getOriginalFilename());
+        fileManager.save(dir, fileName, multipartFile.getBytes());
+        Attachment attachment = new Attachment();
+        attachment.setOriginName(multipartFile.getOriginalFilename());
+        attachment.setFileName(fileName);
+        attachment.setFilePath(middleDir);
+        attachment.setFileSize(new Long(multipartFile.getBytes().length));
+        attachment.setFileType(FileUtils.getExtension(multipartFile.getOriginalFilename(), true));
+        save(attachment);
+        return attachment;
+    }
+
     /**
      * 
      */
@@ -86,5 +116,16 @@ public class AttachmentService {
     public JsonPage<Attachment> pagedAllAttachment(int start, int limit) {
         return jpaSupportDao.pagedAll(Attachment.class, start, limit);
     }
+
+    @Transactional(readOnly = true)
+    public Attachment getDownloadAttachment(Long fileId) {
+        Attachment attachment = (Attachment) getAttachmentById(fileId);
+        if (null != attachment) {
+            String fullPath = AttachmentUtils.getDir(attachment.getFilePath());
+            byte[] bytes = fileManager.load(fullPath, attachment.getFileName());
+            attachment.setBytes(bytes);
+        }
+        return attachment;
+    };
 
 }
