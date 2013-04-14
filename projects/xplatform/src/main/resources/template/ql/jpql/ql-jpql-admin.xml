@@ -16,7 +16,7 @@
 			<#if (state?? && state?length > 0)>
 				and state =:state
 			</#if>
-			order by createdDate desc
+			order by created_date desc
 	]]>
 	</query>
 	

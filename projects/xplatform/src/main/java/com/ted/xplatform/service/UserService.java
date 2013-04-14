@@ -159,7 +159,7 @@ public class UserService {
         //Type type = new Type();
         //type.setCode("类型1");
         //List<Type> list = jpaSupportDao.findByExample(type);
-        
+
         //List<User> users = sqlSessionTemplate.selectList("test.getUserList");
         //Organization org = (Organization)hibernateSupport.getSession().load(Organization.class, orgId);
         return jpaSupportDao.find("select u from User u join u.organization org where org.id=?0", orgId);//
@@ -203,6 +203,28 @@ public class UserService {
         //        
         //        List a = jdbcTemplateDao.getNamedJdbcOperation().queryForList("select * from users", new HashMap());
         //        System.out.println(a);
+    }
+
+    /**
+     * 客户端用户更新密码，图片，电话等信息
+     */
+    @Transactional
+    public void updateCurrentUser(User user) {
+        if (user.getOrganization() != null && user.getOrganization().getId() != null) {
+            Organization org = (Organization) jpaSupportDao.getEntityManager().find(Organization.class, user.getOrganization().getId());
+            user.setOrganization(org);
+        } else {//没有机构的用户,不设置为空，则抛错。
+            user.setOrganization(null);
+        }
+        User dbUser = jpaSupportDao.getEntityManager().find(User.class, user.getId());
+        if (user.isNeedToUpdatePwd()) {
+            String newPwd = PasswordUtils.encryptPassword(user.getPassword(), dbUser.getPasswordKey());
+            user.setPassword(newPwd);
+        } else {
+            user.setPassword(dbUser.getPassword());
+        }
+        user.setPasswordKey(dbUser.getPasswordKey());
+        jpaSupportDao.getEntityManager().merge(user);
     }
 
     /**

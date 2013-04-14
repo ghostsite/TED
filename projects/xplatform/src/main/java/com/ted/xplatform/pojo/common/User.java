@@ -1,6 +1,7 @@
 package com.ted.xplatform.pojo.common;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,7 +20,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,19 +45,19 @@ import com.ted.xplatform.pojo.base.LogicPersistEntity;
 //@EntityListeners({ org.springframework.data.jpa.domain.support.AuditingEntityListener.class })
 //public class User extends LogicAuditEntity { //注释掉是因为有自关联，在createBy的时候 or updateBy
 public class User extends LogicPersistEntity {
-    private static final long serialVersionUID = 5397758804160599616L;
+    private static final long    serialVersionUID = 5397758804160599616L;
 
-    public static final Long     SUPER_USER_ID = ConfigUtils.getConfig().getLong("superuserid");
+    public static final Long     SUPER_USER_ID    = ConfigUtils.getConfig().getLong("superuserid");
 
     /**
      * 停用状态
      */
-    public static final Integer  STATE_DISABLE = 0;
+    public static final Integer  STATE_DISABLE    = 0;
 
     /**
      * 启用状态
      */
-    public static final Integer  STATE_ENABLE  = 1;
+    public static final Integer  STATE_ENABLE     = 1;
 
     /**
      * 地址
@@ -73,11 +76,6 @@ public class User extends LogicPersistEntity {
     private String               loginName;
 
     /**
-     * 移动电话（手机）
-     */
-    private String               mobile;
-
-    /**
      * 登录密码
      */
     private String               password;
@@ -90,8 +88,8 @@ public class User extends LogicPersistEntity {
     /**
      * 拥有角色集合,不级联。说用户有的角色，只是一级，不包括角色的角色。
      */
-    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.REFRESH}, mappedBy = "users", fetch = FetchType.LAZY)
-    private java.util.List<Role> roleList      = Lists.newArrayList();
+    @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, mappedBy = "users", fetch = FetchType.LAZY)
+    private java.util.List<Role> roleList         = Lists.newArrayList();
 
     /**
      * 所属组织
@@ -106,9 +104,36 @@ public class User extends LogicPersistEntity {
     private Integer              sex;
 
     /**
-     * 电话
+     * 移动电话（手机）
      */
-    private String               telephone;
+    private String               mobile;
+
+    /**
+     * 工作电话
+     */
+    private String               phoneWork;
+
+    /**
+     * 家庭电话
+     */
+    private String               phoneHome;
+
+    /**
+     * 其他电话
+     */
+    private String               phoneOther;
+
+    /**
+     * 出生日期
+     */
+    @DateTimeFormat(iso = ISO.DATE)
+    private Date                 birthday;
+
+    /**
+     * 入职日期
+     */
+    @DateTimeFormat(iso = ISO.DATE)
+    private Date                 enterDate;
 
     /**
      * 用户名
@@ -123,16 +148,29 @@ public class User extends LogicPersistEntity {
     /**
      * 状态： 0 停用 1 启用
      */
-    private Integer              state         = STATE_ENABLE;
+    private Integer              state            = STATE_ENABLE;
 
     /**
      * 当前登录用户的语言,en, cn, kr. 这个不持久化到数据库。
      */
     @Transient
-    private String               language;
-    
-    @Transient String orgId;
-    @Transient String orgName;
+    String                       language;
+    @Transient
+    String                       orgId;
+    @Transient
+    String                       orgName;
+    @Transient
+    boolean                      needToUpdatePwd;                                                  //是否要更新密码
+
+    @Transient
+    @JsonIgnore
+    public boolean isNeedToUpdatePwd() {
+        return needToUpdatePwd;
+    }
+
+    public void setNeedToUpdatePwd(boolean needToUpdatePwd) {
+        this.needToUpdatePwd = needToUpdatePwd;
+    }
 
     /**
      * 机构Id,注意是：Transient的，即不持久化，数据来源于organization属性。主要是为了Extjs json输出
@@ -141,18 +179,18 @@ public class User extends LogicPersistEntity {
     public Serializable getOrgId() {
         if (null != organization) {
             return organization.getId();
-        } else if(null != orgId){
+        } else if (null != orgId) {
             return orgId;
-        }else{
+        } else {
             return null;
         }
     }
-    
-    public void setOrgId(String orgId){
+
+    public void setOrgId(String orgId) {
         this.orgId = orgId;
     }
-    
-    public void setOrgName(String orgName){
+
+    public void setOrgName(String orgName) {
         this.orgName = orgName;
     }
 
@@ -160,9 +198,9 @@ public class User extends LogicPersistEntity {
     public String getOrgName() {
         if (null != organization) {
             return organization.getName();
-        } else if(null != orgName){
+        } else if (null != orgName) {
             return orgName;
-        }else{
+        } else {
             return null;
         }
     }
@@ -235,6 +273,46 @@ public class User extends LogicPersistEntity {
         return mobile;
     }
 
+    public String getPhoneWork() {
+        return phoneWork;
+    }
+
+    public void setPhoneWork(String phoneWork) {
+        this.phoneWork = phoneWork;
+    }
+
+    public String getPhoneHome() {
+        return phoneHome;
+    }
+
+    public void setPhoneHome(String phoneHome) {
+        this.phoneHome = phoneHome;
+    }
+
+    public String getPhoneOther() {
+        return phoneOther;
+    }
+
+    public void setPhoneOther(String phoneOther) {
+        this.phoneOther = phoneOther;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Date getEnterDate() {
+        return enterDate;
+    }
+
+    public void setEnterDate(Date enterDate) {
+        this.enterDate = enterDate;
+    }
+
     /**
      * @param mobile the mobile to set
      */
@@ -291,20 +369,6 @@ public class User extends LogicPersistEntity {
      */
     public void setSex(Integer sex) {
         this.sex = sex;
-    }
-
-    /**
-     * @return the telephone
-     */
-    public String getTelephone() {
-        return telephone;
-    }
-
-    /**
-     * @param telephone the telephone to set
-     */
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
     }
 
     /**

@@ -2,7 +2,6 @@ package com.ted.xplatform.web;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ted.common.Constants;
+import com.ted.common.exception.BusinessException;
 import com.ted.common.spring.mvc.bind.annotation.RequestJsonParam;
 import com.ted.common.support.extjs4.JsonOut;
 import com.ted.common.support.page.JsonPage;
@@ -31,8 +31,10 @@ import com.ted.common.util.xls.PoiXlsUtils;
 import com.ted.common.web.download.DownloadHelper;
 import com.ted.common.web.download.xls.DownloadXlsHelper;
 import com.ted.common.web.download.xls.GridInfo;
+import com.ted.xplatform.exception.UserErrorCode;
 import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.service.UserService;
+import com.ted.xplatform.util.PlatformUtils;
 
 /**
  * 用户管理等的Controller
@@ -71,9 +73,9 @@ public class UserController {
         List<User> userList = userService.getUserListByOrgId(orgId);
         Workbook wb = PoiXlsUtils.createWorkBook(ExcelType.XLS);
         DownloadXlsHelper.list2Excel(userList, export, wb);
-        
+
         //return DownloadHelper.getResponseEntity("normal.xls",PoiXlsUtils.wb2bytes(wb));//这种是乱码,nnd
-        DownloadHelper.doDownload(response,"normal.xls", PoiXlsUtils.wb2bytes(wb));
+        DownloadHelper.doDownload(response, "normal.xls", PoiXlsUtils.wb2bytes(wb));
     };
 
     /**
@@ -87,12 +89,30 @@ public class UserController {
     };
 
     /**
-     * 保存用户：新增和修改
+     * 保存用户：新增和修改,这个是给管理员用的。
      */
     @RequestMapping(value = "/save")
     public @ResponseBody
     String save(@Valid User user) {
         userService.save(user);
+        return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
+    };
+
+    /**
+     * 用户在更新自己信息或密码的时候，要校验下是否跟当前登陆用户是同一个，避免把别人的信息更新了。
+     */
+    @RequestMapping(value = "/updateCurrentUser")
+    public @ResponseBody
+    String updateCurrentUser(@Valid User user) {
+        //check if current user
+        User currentUser = PlatformUtils.getCurrentUser();
+        if (user.getId() == null) {
+            throw new BusinessException("请传入用户ID!", UserErrorCode.NO_USERID);
+        }
+        if (currentUser.getId().intValue() != user.getId().intValue()) {
+            throw new BusinessException("只能更新当前登陆用户!", UserErrorCode.ONLY_UPDATE_CURRENTUSER);
+        }
+        userService.updateCurrentUser(user);
         return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
     };
 
