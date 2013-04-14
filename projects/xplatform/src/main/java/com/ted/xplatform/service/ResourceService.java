@@ -23,6 +23,7 @@ import com.ted.xplatform.pojo.common.Operation;
 import com.ted.xplatform.pojo.common.Resource;
 import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.repository.OperationDao;
+import com.ted.xplatform.util.ACLUtils;
 import com.ted.xplatform.util.PlatformUtils;
 
 /**
@@ -83,7 +84,7 @@ public class ResourceService {
         if (user.isSuperUser()) {
             return true;
         } else {
-            return hasAuthority(currentUser, resource, Operation.Type.view.name());
+            return ACLUtils.hasAuthority(currentUser, resource, Operation.Type.view.name());
             //String permission = resource.getCode() + ":" + Operation.Type.view;
             //return currentUser.isPermitted(permission);
         }
@@ -95,7 +96,7 @@ public class ResourceService {
         if (user.isSuperUser()) {
             return true;
         } else {
-            return hasAuthority(currentUser, resource, Operation.Type.readonly.name());
+            return ACLUtils.hasAuthority(currentUser, resource, Operation.Type.readonly.name());
            // String permission = resource.getCode() + ":" + Operation.Type.readonly;
            // return currentUser.isPermitted(permission);
         }
@@ -107,7 +108,7 @@ public class ResourceService {
         if (user.isSuperUser()) {
             return true;
         } else {
-            return hasAuthority(currentUser, resource, Operation.Type.disabled.name());
+            return ACLUtils.hasAuthority(currentUser, resource, Operation.Type.disabled.name());
         }
     }
     
@@ -117,13 +118,11 @@ public class ResourceService {
         if (user.isSuperUser()) {
             return true;
         } else {
-            return hasAuthority(currentUser, resource, Operation.Type.download.name());
+            return ACLUtils.hasAuthority(currentUser, resource, Operation.Type.download.name());
         }
     }
     
-    public static final boolean hasAuthority(Subject currentUser, Resource resource, String operation){
-        return currentUser.isPermitted(resource.getCode()+":"+ operation);
-    }
+    
 
     /**
      * 工具方法，带checkbox的acls

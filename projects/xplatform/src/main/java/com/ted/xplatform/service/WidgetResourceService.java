@@ -28,6 +28,7 @@ import com.ted.xplatform.pojo.common.ACL;
 import com.ted.xplatform.pojo.common.PageResource;
 import com.ted.xplatform.pojo.common.Role;
 import com.ted.xplatform.pojo.common.WidgetResource;
+import com.ted.xplatform.util.ACLUtils;
 
 /**
  * WidgetResource的Service
@@ -96,7 +97,7 @@ public class WidgetResourceService  implements InitializingBean{
                 String[] codeAndOperation = code.split(",");
                 WidgetResource resource = jpaSupportDao.findSingleByProperty(WidgetResource.class, "code", codeAndOperation[0]);
                 Subject currentUser = SecurityUtils.getSubject();
-                return ResourceService.hasAuthority(currentUser, resource, codeAndOperation[1]);
+                return ACLUtils.hasAuthority(currentUser, resource, codeAndOperation[1]);
             }
         });
     }

@@ -3,12 +3,14 @@ package com.ted.xplatform.util;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.subject.Subject;
 import org.springframework.util.Assert;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ted.xplatform.pojo.common.ACL;
 import com.ted.xplatform.pojo.common.Operation;
+import com.ted.xplatform.pojo.common.Resource;
 
 /**
  * ACL and Operation and Resource(派生的MenuResource, FileResource, PageItemResource)工具类
@@ -128,5 +130,10 @@ public abstract class ACLUtils {
             return false;
         }
     };
+    
+    //moved from ResourceService,判断当前登陆人对资源resource是否有operation权限。
+    public static final boolean hasAuthority(Subject currentUser, Resource resource, String operation){
+        return currentUser.isPermitted(resource.getCode()+":"+ operation);
+    }
 
 }
