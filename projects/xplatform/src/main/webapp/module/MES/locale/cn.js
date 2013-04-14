@@ -1,6 +1,23 @@
 T({
 	Caption : {
-		Other : {},
+		Other : {
+			"Enter Date":"入职日期",
+			"Birthday":"出生日期",
+			"Phone Other":"其他电话",
+			"Phone Office":"办公电话",
+			"Phone Home":"家庭电话",
+			"Phone Mobile":"移动电话",
+			"Sex":"性别",
+			"Email":"邮箱",
+			"Change Password Flag":"是否修改密码",
+			"Password":"密码",
+			"Login Name":"登录名",
+			"Male":"男",
+			"Female":"女",
+			"Address":"住址",
+			"User Name":"用户名称",
+			"Remark":"备注"
+		},
 		Button : {
 			//FIXME
 			"To Execel" : "导出到 Execel",

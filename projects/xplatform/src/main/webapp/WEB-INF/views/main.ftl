@@ -37,10 +37,12 @@
 
 		<script type="text/javascript">
 	    var login = {
-			username : '曹操',
-			factory : '',
+	    	id: ${user.id}, 
+			loginname : '${user.loginName}',
+			username : '${user.userName}',
 			locale : '${user.language}',
-			group : 'groupId123',
+			factory : '',
+			group : '',
 			programId : 'WEBClient'
 		};
 

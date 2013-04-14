@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -27,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.ted.common.util.ConfigUtils;
 import com.ted.common.util.ConvertUtils;
-import com.ted.xplatform.pojo.base.LogicAuditEntity;
+import com.ted.xplatform.pojo.base.LogicPersistEntity;
 
 /**
  * 用户
@@ -40,8 +39,9 @@ import com.ted.xplatform.pojo.base.LogicAuditEntity;
 @Table(name = "users")
 // 默认的缓存策略.
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@EntityListeners({ org.springframework.data.jpa.domain.support.AuditingEntityListener.class })
-public class User extends LogicAuditEntity {
+//@EntityListeners({ org.springframework.data.jpa.domain.support.AuditingEntityListener.class })
+//public class User extends LogicAuditEntity { //注释掉是因为有自关联，在createBy的时候 or updateBy
+public class User extends LogicPersistEntity {
     private static final long serialVersionUID = 5397758804160599616L;
 
     public static final Long     SUPER_USER_ID = ConfigUtils.getConfig().getLong("superuserid");

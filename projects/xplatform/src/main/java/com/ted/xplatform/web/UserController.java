@@ -173,10 +173,12 @@ public class UserController {
     /**
      * 系统管理->用户管理：获得一个User的详细信息，右边的FormPanel
      */
-    @RequestMapping(value = "/getUserById/{userId}")
+    @RequestMapping(value = "/getUserById")
     public @ResponseBody
-    Map<String, Object> getUserById(@PathVariable Long userId) {
+    //Map<String, Object> getUserById(@RequestParam Long userId) {
+    User getUserById(@RequestParam Long userId) {
         User user = userService.getUserById(userId);
-        return JsonUtils.getJsonMap(user);
+        return user;
+        //return JsonUtils.getJsonMap(user);
     };
 }

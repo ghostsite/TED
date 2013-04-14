@@ -6,6 +6,7 @@
 .paddingRL3{padding-right:3px;padding-left:3px}
 .paddingTB3{padding-top:3px;padding-bottom:3px}
 .paddingTL3{padding-top:3px;padding-left:3px}/**zhang added*/
+.paddingTR3{padding-top:3px;padding-right:3px}/**zhang added*/
 .paddingTRL3{padding-top:3px;padding-left:3px;padding-right:3px} /**zhang added*/
 .paddingAll3{padding:3px}
 
@@ -16,6 +17,7 @@
 .paddingRL5{padding-right:5px;padding-left:5px}
 .paddingTB5{padding-top:5px;padding-bottom:5px}
 .paddingTL5{padding-top:5px;padding-left:5px} /**zhang added*/
+.paddingTR5{padding-top:5px;padding-right:5px} /**zhang added*/
 .paddingTRL5{padding-top:5px;padding-left:5px;padding-right:5px} /**zhang added*/
 .paddingAll5{padding:5px}
 
@@ -26,6 +28,7 @@
 .paddingRL7{padding-right:7px !important;padding-left:7px !important}
 .paddingTB7{padding-top:7px !important;padding-bottom:7px !important}
 .paddingTL7{padding-top:7px;padding-left:7px} /**zhang added*/
+.paddingTR7{padding-top:7px;padding-right:7px} /**zhang added*/
 .paddingTRL7{padding-top:7px;padding-left:7px;padding-right:7px} /**zhang added*/
 .paddingAll7{padding:7px !important}
 
@@ -36,6 +39,7 @@
 .paddingRL10{padding-right:10px;padding-left:10px}
 .paddingTB10{padding-top:10px;padding-bottom:10px}
 .paddingTL10{padding-top:10px;padding-left:10px} /**zhang added*/
+.paddingTR10{padding-top:10px;padding-right:10px} /**zhang added*/
 .paddingTRL10{padding-top:10px;padding-left:10px;padding-right:10px} /**zhang added*/
 .paddingAll10{padding:10px}
 
@@ -46,6 +50,7 @@
 .marginRL3{margin-right:3px;margin-left:3px}
 .marginTB3{margin-top:3px;margin-bottom:3px}
 .marginTL3{margin-top:3px;margin-left:3px}/**zhang added*/
+.marginTR3{margin-top:3px;margin-right:3px}/**zhang added*/
 .marginTRL3{margin-top:3px;margin-right:3px;margin-left:3px}/**zhang added*/
 .marginAll3{margin:3px}
 
@@ -56,6 +61,7 @@
 .marginRL5{margin-right:5px;margin-left:5px !important}
 .marginTB5{margin-top:5px;margin-bottom:5px !important}
 .marginTL5{margin-top:5px;margin-left:5px}/**zhang added*/
+.marginTR5{margin-top:5px;margin-right:5px}/**zhang added*/
 .marginTRL5{margin-top:5px;margin-right:5px;margin-left:5px}/**zhang added*/
 .marginAll5{margin:5px !important}
 
@@ -66,6 +72,7 @@
 .marginRL7{margin-right:7px;margin-left:7px}
 .marginTB7{margin-top:7px;margin-bottom:7px}
 .marginTL7{margin-top:7px;margin-left:7px}/**zhang added*/
+.marginTR7{margin-top:7px;margin-right:7px}/**zhang added*/
 .marginTRL7{margin-top:7px;margin-right:7px;margin-left:7px}/**zhang added*/
 .marginAll7{margin:7px}
 
@@ -76,6 +83,7 @@
 .marginRL10{margin-right:10px !important;margin-left:10px !important}
 .marginTB10{margin-top:10px !important;margin-bottom:10px !important}
 .marginTL10{margin-top:10px;margin-left:10px}/**zhang added*/
+.marginTR10{margin-top:10px;margin-right:10px}/**zhang added*/
 .marginTRL10{margin-top:10px;margin-right:10px;margin-left:10px}/**zhang added*/
 .marginAll10{margin:10px !important}
 

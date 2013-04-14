@@ -1,4 +1,4 @@
-Ext.define('mixin.User', function() {
+Ext.define('mixin.User', function() {/**changed by zhang*/
 	var names = {};
 	var myNames = {};
 	
@@ -22,7 +22,8 @@ Ext.define('mixin.User', function() {
 	}
 	return {
 		login : {
-			id : Ext.String.htmlDecode(login.username),
+			id : login.id, //Ext.String.htmlDecode(login.username), //zhang
+			loginname : Ext.String.htmlDecode(login.loginname), //zhang added
 			name : Ext.String.htmlDecode(login.username),
 			factory : Ext.String.htmlDecode(login.factory),
 			locale : Ext.String.htmlDecode(login.locale),
