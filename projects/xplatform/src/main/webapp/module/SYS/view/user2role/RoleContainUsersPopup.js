@@ -15,6 +15,7 @@ Ext.define('SYS.view.user2role.RoleContainUsersPopup', {
 		items : ['->', {
 			itemId : 'btnDelete',
 			text : '删除',
+			minWidth : 75,
 			disabled : true
 		}, 'Save', 'Close']
 	}],
