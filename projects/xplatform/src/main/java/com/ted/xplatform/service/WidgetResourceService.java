@@ -2,8 +2,6 @@ package com.ted.xplatform.service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -11,14 +9,10 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
@@ -28,7 +22,6 @@ import com.ted.xplatform.pojo.common.ACL;
 import com.ted.xplatform.pojo.common.PageResource;
 import com.ted.xplatform.pojo.common.Role;
 import com.ted.xplatform.pojo.common.WidgetResource;
-import com.ted.xplatform.util.ACLUtils;
 
 /**
  * WidgetResource的Service
@@ -38,7 +31,7 @@ import com.ted.xplatform.util.ACLUtils;
  */
 @Transactional
 @Service("widgetResourceService")
-public class WidgetResourceService  implements InitializingBean{
+public class WidgetResourceService /**implements InitializingBean*/ {
     final Logger    logger = LoggerFactory.getLogger(WidgetResourceService.class);
 
     @Inject
@@ -56,9 +49,13 @@ public class WidgetResourceService  implements InitializingBean{
     @Inject
     ResourceService resourceService;
 
+    /**
+     * 这个注释掉是因为用不到了，直接调用currentUser.isPermitted("code"+":"+"readonl");
+     * @param jdbcTemplateDao
+     */
     //key = 'SYS.view.type.TypeManage|itemId,view'   ; result = ture or false  , enable 
     //key = 'SYS.view.type.TypeManage|itemId,readonly' ; result = ture or false, readonly
-    private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
+   // private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
 
     
     public void setJdbcTemplateDao(JdbcTemplateDao jdbcTemplateDao) {
@@ -81,26 +78,27 @@ public class WidgetResourceService  implements InitializingBean{
         this.resourceService = resourceService;
     }
 
-
-    public static final Boolean hasAuthority(String code) throws ExecutionException{
-        if(null == cachedCurrentUserToResourceHasAuthority){
-            return true;
-        }else{
-            return cachedCurrentUserToResourceHasAuthority.get(code);
-        }
-    }
+//
+//    public static final Boolean hasAuthority(String code) throws ExecutionException{
+//        if(null == cachedCurrentUserToResourceHasAuthority){
+//            return true;
+//        }else{
+//            return cachedCurrentUserToResourceHasAuthority.get(code);
+//        }
+//    }
     
-    public void afterPropertiesSet() throws Exception {
-        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
-            @Override
-            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage|itemId,readonly'
-                String[] codeAndOperation = code.split(",");
-                WidgetResource resource = jpaSupportDao.findSingleByProperty(WidgetResource.class, "code", codeAndOperation[0]);
-                Subject currentUser = SecurityUtils.getSubject();
-                return ACLUtils.hasAuthority(currentUser, resource, codeAndOperation[1]);
-            }
-        });
-    }
+//    public void afterPropertiesSet() throws Exception {
+//        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
+//            @Override
+//            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage|itemId:readonly'
+//                Subject currentUser = SecurityUtils.getSubject();
+//                return currentUser.isPermitted(code);
+////                WidgetResource resource = jpaSupportDao.findSingleByProperty(WidgetResource.class, "code", codeAndOperation[0]);
+////                String[] codeAndOperation = code.split(":");
+////                return ACLUtils.hasAuthority(currentUser, resource, codeAndOperation[1]);
+//            }
+//        });
+//    }
     //-----------------工具方法-----------------//
     /**
      * 工具方法:根据当前用户过滤菜单

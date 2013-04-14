@@ -28,7 +28,6 @@ import com.ted.common.util.BeanUtils;
 import com.ted.xplatform.pojo.common.ACL;
 import com.ted.xplatform.pojo.common.PageResource;
 import com.ted.xplatform.pojo.common.Role;
-import com.ted.xplatform.util.ACLUtils;
 
 /**
  * 菜单的Service
@@ -61,7 +60,7 @@ public class PageResourceService implements InitializingBean {
     
     //key = 'SYS.view.type.TypeManage,view'   ; result = ture or false  , enable 
     //key = 'SYS.view.type.TypeManage,readonly' ; result = ture or false, readonly
-    private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
+    //private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
 
     public static final Boolean hasController(String code) throws ExecutionException{
         if(null == cachedHasController){
@@ -71,13 +70,13 @@ public class PageResourceService implements InitializingBean {
         }
     }
     
-    public static final Boolean hasAuthority(String code) throws ExecutionException{
-        if(null == cachedCurrentUserToResourceHasAuthority){
-            return true;
-        }else{
-            return cachedCurrentUserToResourceHasAuthority.get(code);
-        }
-    }
+//    public static final Boolean hasAuthority(String code) throws ExecutionException{
+//        if(null == cachedCurrentUserToResourceHasAuthority){
+//            return true;
+//        }else{
+//            return cachedCurrentUserToResourceHasAuthority.get(code);
+//        }
+//    }
     
     public void setWidgetResourceService(WidgetResourceService widgetResourceService) {
         this.widgetResourceService = widgetResourceService;
@@ -116,15 +115,16 @@ public class PageResourceService implements InitializingBean {
             }
         });
         
-        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
-            @Override
-            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage,readonly'
-                String[] codeAndOperation = code.split(",");
-                PageResource resource = jpaSupportDao.findSingleByProperty(PageResource.class, "code", codeAndOperation[0]);
-                Subject currentUser = SecurityUtils.getSubject();
-                return ACLUtils.hasAuthority(currentUser, resource, codeAndOperation[1]);
-            }
-        });
+//        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
+//            @Override
+//            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage:readonly'
+//                Subject currentUser = SecurityUtils.getSubject();
+//                return currentUser.isPermitted(code);
+////                String[] codeAndOperation = code.split(":");
+////                PageResource resource = jpaSupportDao.findSingleByProperty(PageResource.class, "code", codeAndOperation[0]);
+////                return ACLUtils.hasAuthority(currentUser, resource, codeAndOperation[1]);
+//            }
+//        });
         
     }
 

@@ -131,7 +131,7 @@ public abstract class ACLUtils {
         }
     };
     
-    //moved from ResourceService,判断当前登陆人对资源resource是否有operation权限。
+    //moved from ResourceService,判断当前登陆人对资源resource是否有operation权限。暂时没人调用这个方法。
     public static final boolean hasAuthority(Subject currentUser, Resource resource, String operation){
         return currentUser.isPermitted(resource.getCode()+":"+ operation);
     }
