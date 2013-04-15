@@ -45,6 +45,7 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 			success : function(response) {
 				var roleMenu = Ext.decode(response.responseText);
 				statics.trimMenuCascade(roleMenu);
+				statics.addSeparatorCascade(roleMenu);
 				statics.setCheckHandlerCascade(roleMenu);
 				menu.add(roleMenu.items);
 				statics.addCheckItemCheckChangedListenerCascade(menu);
@@ -289,6 +290,34 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 				}
 			}
 		},
+		
+		//之所有有2个循环方法，是因为第一层没有menu,只有items
+		addSeparatorCascade : function(roleMenu) {
+			Ext.Array.insert(roleMenu.items, 1, [{xtype:'menuseparator'}]);
+			var length = roleMenu.items.length;
+			for (var i = length -1; i >=0 ; i--) {
+				var item = roleMenu.items[i];
+				this.addSeparatorCascadeForMenus(item);
+			}
+		},
+		
+		//这个都是有menu，而没有items的。
+		addSeparatorCascadeForMenus : function(roleMenu) {
+			if(roleMenu.menu && roleMenu.menu.items){
+				var length = roleMenu.menu.items.length;
+				for (var i = length -1; i >=0 ; i--) {
+					var item = roleMenu.menu.items[i];
+					if(item.text == '选择所有'){ //暂时先写死。
+						Ext.Array.insert(roleMenu.menu.items, 1, [{xtype:'menuseparator'}]);
+					}
+					if (item.menu && item.menu.items && item.menu.items.length > 0) {
+						SYS.view.authority.AuthorityManage.addSeparatorCascadeForMenus(item);
+					}
+				}
+			}
+		},
+		
+		
 		// 工具方法：给1个portlet 中的grid
 		// 中添加一个acl，还需要校验是否重复。
 		addACL2Grid : function(node, panel) {
@@ -404,9 +433,7 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 		// 组1:4 listener instance, baseItem is roleId
 		checkItemCheckChangedListener : function(baseItem, checked) {
 			if (baseItem.text == '选择所有') {
-				var nextAllItems = baseItem.parentMenu.query('> menucheckitem'); // [text
-				// !=选择所有]
-				// 不管用
+				var nextAllItems = baseItem.parentMenu.query('> menucheckitem'); // [text!=选择所有]不管用
 				Ext.Array.each(nextAllItems, function(item) {
 					if (item.text != '选择所有') {
 						item.setChecked(checked);
