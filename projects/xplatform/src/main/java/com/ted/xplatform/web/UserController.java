@@ -91,11 +91,12 @@ public class UserController {
 
     /**
      * 保存用户：新增和修改,这个是给管理员用的。
+     * @throws Exception 
      */
     @RequestMapping(value = "/save")
     public @ResponseBody
-    String save(@Valid User user) {
-        userService.save(user);
+    String save(@Valid User user, MultipartHttpServletRequest multipartRequest) throws Exception {
+        userService.save(user, multipartRequest);
         return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
     };
 

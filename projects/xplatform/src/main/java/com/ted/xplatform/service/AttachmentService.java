@@ -60,7 +60,28 @@ public class AttachmentService {
 
     @Transactional
     public Attachment save(MultipartHttpServletRequest multipartRequest, String typeCode, Long foreignId) throws Exception {
+        return save(multipartRequest, typeCode, foreignId, false);
+    };
+
+    /**
+     * 是否删除，也就是1:1的情况下，如果存在，则删除，然后在insert，保证1:1关系
+     * noMoreThanOne: true 则为1:1
+     * else 1:n
+     */
+    @Transactional
+    public Attachment save(MultipartHttpServletRequest multipartRequest, String typeCode, Long foreignId, boolean noMoreThanOne) throws Exception {
         MultipartFile multipartFile = AttachmentUtils.getMultipartFile(multipartRequest);
+
+        //if noMoreThanOne = true ,删除
+        if (noMoreThanOne) {
+            List<Attachment> attachList = this.getAttachmentByCodeTypeForeignId(typeCode, foreignId);
+            if (org.apache.commons.collections.CollectionUtils.isNotEmpty(attachList)) {
+                for (Attachment attach : attachList) {
+                    jpaSupportDao.getEntityManager().remove(attach);
+                }
+            }
+        }
+
         if (null != multipartFile) {
             String middleDir = AttachmentUtils.getMiddleDir();
             String dir = AttachmentUtils.getDir(middleDir);
@@ -79,7 +100,7 @@ public class AttachmentService {
         } else {
             return null;
         }
-    }
+    };
 
     /**
      * 

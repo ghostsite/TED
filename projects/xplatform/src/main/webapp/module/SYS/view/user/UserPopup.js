@@ -4,10 +4,10 @@ Ext.define('SYS.view.user.UserPopup', {
 	title : '用户信息',
 	autoScroll : true,
 	width : 600,
-	height : 400,
+	height : 450,
 	modal : true,
 	layout : 'fit',
-	iconCls:'user',
+	iconCls : 'user',
 
 	dockedItems : [{
 		xtype : 'bas_base_buttons',
@@ -25,94 +25,72 @@ Ext.define('SYS.view.user.UserPopup', {
 			layout : 'anchor',
 			itemId : 'formId',
 			bodyCls : 'paddingAll10',
-			border: false,
-			items : {
+			border : false,
+			defaults : {
+				labelWidth : 130
+			},
+			items : [{
 				xtype : 'container',
 				layout : {
-					type : 'vbox',
+					type : 'hbox',
 					align : 'stretch'
 				},
-				defaults : {
-					labelWidth : 60
-				},
 				items : [{
-					xtype : 'displayfield',
-					name : 'organization.name',
-					itemId : 'organization.name',
-					fieldLabel : '所属部门',
-					readOnly : true
-				}, {
-					xtype : 'fieldcontainer',
-					layout : {
-						type : 'hbox',
-						align : 'stretch'
-					},
+					xtype : 'container',
+					layout : 'anchor',
+					cls : 'marginR10',
+					flex : 1,
 					defaults : {
-						flex : 1,
-						labelWidth : 60
+						labelSeparator : '',
+						labelWidth : 130
 					},
 					items : [{
-						xtype : 'textfield',
-						allowBlank : false,
-						cls : 'marginR7',
-						invalidText : '登录名必填',
-						fieldLabel : '登录名',
-						name : 'loginName'
-					}, {
-						xtype : 'textfield',
-						fieldLabel : '用户名',
-						name : 'userName'
-					}]
-				}, {
-					xtype : 'fieldcontainer',
-					layout : {
-						type : 'hbox',
-						align : 'stretch'
-					},
-					defaults : {
+						xtype : 'container',
+						layout : {
+							xtype : 'hbox',
+							align : 'stretch'
+						},
+						anchor : '100%',
 						flex : 1,
-						labelWidth : 60
-					},
-					items : [{
-						xtype : 'textfield',
-						cls : 'marginR7',
-						fieldLabel : '移动电话',
-						name : 'mobile'
-					}, {
-						xtype : 'textfield',
-						fieldLabel : '办公电话',
-						name : 'phoneWork'
-					}]
-				}, {
-					xtype : 'fieldcontainer',
-					layout : {
-						type : 'hbox',
-						align : 'stretch'
-					},
-					defaults : {
-						flex : 1,
-						labelWidth : 60
-					},
-					items : [{
-						xtype : 'radiogroup',
-						fieldLabel : '性别',
-						cls : 'marginR7',
-						// width : 220,
-						columns : 3,
-						vertical : false,
 						items : [{
-							boxLabel : '男',
-							name : 'sex',
-							inputValue : 0
+							xtype : 'displayfield',
+							name : 'organization.name',
+							itemId : 'organization.name',
+							cls : 'marginT5',
+							labelWidth : 130,
+							fieldLabel : '所属部门',
+							readOnly : true
 						}, {
-							boxLabel : '女',
-							name : 'sex',
-							inputValue : 1,
-							checked : true
+							xtype : 'textfield',
+							fieldLabel : T('Caption.Other.Login Name'),
+							labelWidth : 130,
+							name : 'loginName',
+							readOnly : true,
+							flex : 1
+						}, {
+							xtype : 'textfield',
+							name : 'id',
+							itemId : 'id',
+							flex : 1,
+							hidden : true
+						}, {
+							xtype : 'textfield',
+							name : 'organization.id',
+							itemId : 'organization.id',
+							hidden : true
 						}]
+					}, {
+						xtype : 'textfield',
+						fieldLabel : T('Caption.Other.User Name'),
+						name : 'userName',
+						cls : 'marginTR5',
+						labelWidth : 130,
+						anchor : '100%'
 					}, {
 						xtype : 'combobox',
 						fieldLabel : '状态',
+						cls : 'marginTR5',
+						anchor : '100%',
 						store : Ext.create('Ext.data.ArrayStore', {
 							fields : ['stateValue', 'stateName'],
 							data : [[1, '启用'], [0, '停用']]
@@ -122,28 +100,141 @@ Ext.define('SYS.view.user.UserPopup', {
 						editable : false,
 						name : 'state',
 						itemId : 'state'
+					}, {
+						xtype : 'textfield',
+						fieldLabel : T('Caption.Other.Email'),
+						name : 'email',
+						cls : 'marginTR5',
+						labelWidth : 130,
+						anchor : '100%'
+					}, {
+						xtype : 'radiogroup',
+						fieldLabel : T('Caption.Other.Sex'),
+						width : 400,
+						items : [{
+							boxLabel : T('Caption.Other.Male'),
+							name : 'sex',
+							inputValue : 1
+						}, {
+							boxLabel : T('Caption.Other.Female'),
+							name : 'sex',
+							inputValue : 0
+						}]
 					}]
 				}, {
-					xtype : 'textfield',
-					fieldLabel : '地址',
-					name : 'address'
-				}, {
-					xtype : 'textarea',
-					fieldLabel : '备注',
-					name : 'remark'
-				}, {
-					xtype : 'hidden',
-					name : 'id',
-					itemId : 'id'
-				}, {
-					xtype : 'hidden',
-					name : 'versionLock'
-				}, {
-					xtype : 'hidden',
-					name : 'organization.id',
-					itemId : 'organization.id'
+					xtype : 'box',
+					id : 'showuserpicforpopup',
+					width : 150,
+					autoEl : {
+						tag : 'img',
+						// src : 'image/bgSupplement.gif',
+						src : '',
+						// class:'ImageStyle'
+						width : 100,
+						height : 100
+					}
 				}]
-			}
+			}, {
+				xtype : 'container',
+				layout : 'hbox',
+				cls : 'marginT5',
+				items : [{
+					xtype : 'textfield',
+					fieldLabel : T('Caption.Other.Phone Mobile'),
+					name : 'mobile',
+					cls : 'marginR10',
+					labelWidth : 130,
+					flex : 1
+				}, {
+					xtype : 'textfield',
+					fieldLabel : T('Caption.Other.Phone Home'),
+					name : 'phoneHome',
+					labelWidth : 110,
+					flex : 1
+				}]
+			}, {
+				xtype : 'container',
+				layout : 'hbox',
+				cls : 'marginT5',
+				items : [{
+					xtype : 'textfield',
+					fieldLabel : T('Caption.Other.Phone Office'),
+					name : 'phoneWork',
+					cls : 'marginR10',
+					labelWidth : 130,
+					flex : 1
+				}, {
+					xtype : 'textfield',
+					fieldLabel : T('Caption.Other.Phone Other'),
+					name : 'phoneOther',
+					labelWidth : 110,
+					flex : 1
+				}]
+			}, {
+				xtype : 'container',
+				layout : 'hbox',
+				cls : 'marginT5',
+				items : [{
+					xtype : 'datefield',
+					fieldLabel : T('Caption.Other.Birthday'),
+					name : 'birthday',
+					format : 'Y-m-d',
+					submitFormat : 'Y-m-d',
+					cls : 'marginR10',
+					labelWidth : 130,
+					flex : 1
+				}, {
+					xtype : 'datefield',
+					fieldLabel : T('Caption.Other.Enter Date'),
+					name : 'enterDate',
+					format : 'Y-m-d',
+					submitFormat : 'Y-m-d',
+					labelWidth : 110,
+					flex : 1
+				}]
+			}, {
+				xtype : 'textfield',
+				fieldLabel : T('Caption.Other.Address'),
+				cls : "marginT5",
+				anchor : '100%',
+				name : "address"
+			}, {
+				xtype : 'container',
+				layout : 'hbox',
+				anchor : '100%',
+				cls : "marginT5",
+				items : [{
+					xtype : 'filefield',
+					fieldLabel : T('Caption.Other.Pic'),
+					emptyText : '选择一张图片....',
+					labelWidth : 130,
+					flex : 1,
+					buttonText : '',
+					buttonConfig : {
+						iconCls : 'upload-icon'
+					},
+					itemId: 'userpic',
+					name : 'userpic' // 如果命名为pic，则跟user.pic
+					// （Attachment）冲突，会发生bind错误。
+				}, {
+					xtype : 'checkbox',
+					boxLabel : T('Caption.Other.Change Pic Flag'),
+					name : 'needToUpdatePic',
+					itemId : 'needToUpdatePic',
+					inputValue : 1,
+					uncheckedValue : 0,
+					cls : 'marginL5',
+					width : 70
+				}]
+			}, {
+				xtype : 'textarea',
+				fieldLabel : T('Caption.Other.Remark'),
+				cls : "marginT5",
+				anchor : '100%',
+				name : "remark"
+			}, {
+				xtype : 'separator'
+			}]
 		};
 	}
 });

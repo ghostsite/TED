@@ -178,9 +178,10 @@ public class UserService {
 
     /**
      * 用户的保存
+     * @throws Exception 
      */
     @Transactional
-    public void save(User user) {
+    public void save(User user,MultipartHttpServletRequest multipartRequest) throws Exception {
 
         //如果用户属于一个机构
         if (user.getOrganization() != null && user.getOrganization().getId() != null) {
@@ -207,6 +208,10 @@ public class UserService {
         }
         jpaSupportDao.getEntityManager().merge(user);
 
+        if(user.isNeedToUpdatePic()){
+            attachmentService.save(multipartRequest, Attachment.Type.users.name(), user.getId() , true);
+        }
+        
         //        List<Object> selectList = sqlSessionTemplate.selectList("test.getUserList");
         //        System.out.println(selectList);
         //        
