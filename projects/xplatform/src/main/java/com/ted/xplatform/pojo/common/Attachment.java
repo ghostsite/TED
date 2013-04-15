@@ -56,6 +56,7 @@ public class Attachment extends LogicAuditEntity {
     protected String          fileType;                               //种类,png jpg txt doc xls ....
 
     @Transient
+    @JsonIgnore
     protected byte[]          bytes;                                  // 临时存放文件的地方
 
     @Transient

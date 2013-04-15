@@ -21,8 +21,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -155,12 +155,40 @@ public class User extends LogicPersistEntity {
      */
     @Transient
     String                       language;
+
     @Transient
-    String                       orgId;
+    Long                         orgId;
+
     @Transient
     String                       orgName;
+
     @Transient
     boolean                      needToUpdatePwd;                                                  //是否要更新密码
+
+    @Transient
+    Attachment                   pic;                                                               //图片
+
+    @Transient
+    boolean                      needToUpdatePic;                                                   //是否更新图片
+
+    @Transient
+    public Attachment getPic() {
+        return pic;
+    }
+
+    public void setPic(Attachment pic) {
+        this.pic = pic;
+    }
+
+    @Transient
+    @JsonIgnore
+    public boolean isNeedToUpdatePic() {
+        return needToUpdatePic;
+    }
+
+    public void setNeedToUpdatePic(boolean needToUpdatePic) {
+        this.needToUpdatePic = needToUpdatePic;
+    }
 
     @Transient
     @JsonIgnore
@@ -186,7 +214,7 @@ public class User extends LogicPersistEntity {
         }
     }
 
-    public void setOrgId(String orgId) {
+    public void setOrgId(Long orgId) {
         this.orgId = orgId;
     }
 

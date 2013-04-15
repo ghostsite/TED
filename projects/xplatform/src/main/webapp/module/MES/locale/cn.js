@@ -16,7 +16,9 @@ T({
 			"Female":"女",
 			"Address":"住址",
 			"User Name":"用户名称",
-			"Remark":"备注"
+			"Remark":"备注",
+			"Pic" : "图片",
+			"Change Pic Flag" : "是否上传"
 		},
 		Button : {
 			//FIXME

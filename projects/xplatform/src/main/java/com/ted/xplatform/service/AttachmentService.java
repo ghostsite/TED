@@ -47,19 +47,38 @@ public class AttachmentService {
 
     @Transactional
     public Attachment save(MultipartHttpServletRequest multipartRequest) throws Exception {
+        return save(multipartRequest, Attachment.Type.defaults.name());
+    }
+
+    /**
+     * @param typeCode @Attachment.Type.enum
+     */
+    @Transactional
+    public Attachment save(MultipartHttpServletRequest multipartRequest, String typeCode) throws Exception {
+        return save(multipartRequest, typeCode, null);
+    }
+
+    @Transactional
+    public Attachment save(MultipartHttpServletRequest multipartRequest, String typeCode, Long foreignId) throws Exception {
         MultipartFile multipartFile = AttachmentUtils.getMultipartFile(multipartRequest);
-        String middleDir = AttachmentUtils.getMiddleDir();
-        String dir = AttachmentUtils.getDir(middleDir);
-        String fileName = AttachmentUtils.getRandomFileName(multipartFile.getOriginalFilename());
-        fileManager.save(dir, fileName, multipartFile.getBytes());
-        Attachment attachment = new Attachment();
-        attachment.setOriginName(multipartFile.getOriginalFilename());
-        attachment.setFileName(fileName);
-        attachment.setFilePath(middleDir);
-        attachment.setFileSize(new Long(multipartFile.getBytes().length));
-        attachment.setFileType(FileUtils.getExtension(multipartFile.getOriginalFilename(), true));
-        save(attachment);
-        return attachment;
+        if (null != multipartFile) {
+            String middleDir = AttachmentUtils.getMiddleDir();
+            String dir = AttachmentUtils.getDir(middleDir);
+            String fileName = AttachmentUtils.getRandomFileName(multipartFile.getOriginalFilename());
+            fileManager.save(dir, fileName, multipartFile.getBytes());
+            Attachment attachment = new Attachment();
+            attachment.setOriginName(multipartFile.getOriginalFilename());
+            attachment.setFileName(fileName);
+            attachment.setFilePath(middleDir);
+            attachment.setTypeCode(typeCode);
+            attachment.setForeignId(foreignId);
+            attachment.setFileSize(new Long(multipartFile.getBytes().length));
+            attachment.setFileType(FileUtils.getExtension(multipartFile.getOriginalFilename(), true));
+            save(attachment);
+            return attachment;
+        } else {
+            return null;
+        }
     }
 
     /**

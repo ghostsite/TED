@@ -4,6 +4,7 @@ import javax.persistence.MappedSuperclass;
 
 import org.springframework.data.jpa.domain.AbstractAuditable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ted.xplatform.pojo.common.User;
 
 @MappedSuperclass
@@ -16,5 +17,18 @@ public class AuditEntity extends AbstractAuditable<User, Long> {
     @Override
     public void setId(final Long id) {
         super.setId(id);
+    }
+    
+    /**
+     * 避免json输出的时候出现循环以来
+     */
+    @JsonIgnore
+    public User getLastModifiedBy() {
+        return (User)super.getLastModifiedBy();
+    }
+    
+    @JsonIgnore
+    public User getCreatedBy() {
+        return  (User)super.getLastModifiedBy();
     }
 }

@@ -11,6 +11,7 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.common.collect.Maps;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
@@ -21,6 +22,7 @@ import com.ted.common.exception.BusinessException;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.PasswordUtils;
 import com.ted.common.util.SpringUtils;
+import com.ted.xplatform.pojo.common.Attachment;
 import com.ted.xplatform.pojo.common.Organization;
 import com.ted.xplatform.pojo.common.User;
 
@@ -43,6 +45,13 @@ public class UserService {
 
     @Inject
     ReloadableSqlSessionTemplate sqlSessionTemplate;
+
+    @Inject
+    AttachmentService            attachmentService;
+
+    public void setAttachmentService(AttachmentService attachmentService) {
+        this.attachmentService = attachmentService;
+    }
 
     public void setSqlSessionTemplate(ReloadableSqlSessionTemplate sqlSessionTemplate) {
         this.sqlSessionTemplate = sqlSessionTemplate;
@@ -207,9 +216,10 @@ public class UserService {
 
     /**
      * 客户端用户更新密码，图片，电话等信息
+     * @throws Exception 
      */
     @Transactional
-    public void updateCurrentUser(User user) {
+    public void updateCurrentUser(User user, MultipartHttpServletRequest multipartRequest) throws Exception {
         if (user.getOrganization() != null && user.getOrganization().getId() != null) {
             Organization org = (Organization) jpaSupportDao.getEntityManager().find(Organization.class, user.getOrganization().getId());
             user.setOrganization(org);
@@ -225,6 +235,10 @@ public class UserService {
         }
         user.setPasswordKey(dbUser.getPasswordKey());
         jpaSupportDao.getEntityManager().merge(user);
+        
+        if(user.isNeedToUpdatePic()){
+            attachmentService.save(multipartRequest, Attachment.Type.users.name(), user.getId());
+        }
     }
 
     /**
@@ -254,6 +268,16 @@ public class UserService {
     @Transactional(readOnly = true)
     public User getUserById(Long userId) {
         User user = jpaSupportDao.getEntityManager().find(User.class, userId);
+        if (user.getOrganization() != null) {
+            user.setOrgId(user.getOrganization().getId());
+            user.setOrgName(user.getOrganization().getName());
+        }
+        List<Attachment> attachs = attachmentService.getAttachmentByCodeTypeForeignId(Attachment.Type.users.name(), user.getId());
+        if (attachs != null && attachs.size() > 0) {
+            Attachment pic = attachs.get(0);
+            user.setPic(pic);
+        }
+
         return user;
     }
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ted.common.Constants;
 import com.ted.common.exception.BusinessException;
@@ -103,7 +104,7 @@ public class UserController {
      */
     @RequestMapping(value = "/updateCurrentUser")
     public @ResponseBody
-    String updateCurrentUser(@Valid User user) {
+    String updateCurrentUser(@Valid User user, MultipartHttpServletRequest multipartRequest) throws Exception {
         //check if current user
         User currentUser = PlatformUtils.getCurrentUser();
         if (user.getId() == null) {
@@ -112,7 +113,7 @@ public class UserController {
         if (currentUser.getId().intValue() != user.getId().intValue()) {
             throw new BusinessException("只能更新当前登陆用户!", UserErrorCode.ONLY_UPDATE_CURRENTUSER);
         }
-        userService.updateCurrentUser(user);
+        userService.updateCurrentUser(user,multipartRequest);
         return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
     };
 
