@@ -5,7 +5,7 @@ Ext.define('mixin.UserInterface', function() {
 	function createView(view, config) {
 		var comp = null;
 		if (typeof(view) === 'string') {
-			var secControlList = {};
+			//var secControlList = {};
 			var errMsg = '';
 			var callConfig ={
 				url: 'pageresource/currentUserCanView',
