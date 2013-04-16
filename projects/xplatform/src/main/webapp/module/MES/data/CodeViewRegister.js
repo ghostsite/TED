@@ -2135,33 +2135,6 @@ Ext.define('MES.data.CodeViewRegister', {
 			} ]
 		});
 
-		SmartFactory.codeview.register('SvAlarm', {
-			type : 'service',
-			factory : SmartFactory.login.factory,
-			store : 'ALM.store.AlmViewAlarmMsgListOut.alarmList',
-			params : {
-				procstep : '1'
-			},
-			popupConfig : {
-				title : T('Caption.Other.Alarm'),
-				columns : [ {
-					header : T('Caption.Other.Alarm'),
-					dataIndex : 'alarmId',
-					flex : 1
-				}, {
-					header : T('Caption.Other.Description'),
-					dataIndex : 'alarmDesc',
-					flex : 2
-				} ]
-			},
-			fields : [ {
-				column : 'alarmId',
-				maxLength : 20,
-				enforceMaxLength : true,
-				flex : 1
-			} ]
-		});
-
 		SmartFactory.codeview.register('SvOption', {
 			type : 'service',
 			factory : SmartFactory.login.factory,

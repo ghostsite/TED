@@ -2,7 +2,6 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 
 	/* date형식을 받아서 설정한 포멧형식의 stirng으로 반환,this file changed by zhang */
 	function toStandardTime(date, format) {
-
 		if (Ext.typeOf(date) != 'date') {
 			return '';
 		}
@@ -49,67 +48,16 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 		}
 	}
 
-	// TODO :
-	function convertDate(str) {
-		var convertStr = '';
-		if (str) {
-
-			if (dt) {
-				convertStr = Ext.Date.format(dt, "Y-m-d H:i:s");
-			}
-		}
-
-		return convertStr;
-	}
-
-	// GetProcTime()
-	// - Get Sum Queue Time, Process Time and Queue Time + Process Time
-	// Return Value
-	// - Boolean : True or False
-	// Arguments
-	// - ByVal Material As String : Material ID
-	// - ByVal Flow As String : Flow
-	// - ByVal Oper As String : Operation
-	// - ByVal Qty As Double : Unit1 Qty
-	// - ByRef SumQueueTime As Double : Sum Queue Time
-	// - ByRef SumProcTime As Double : Sum Process Time
-	// - ByRef SumQueueProcTime As Double : Sum Queue Time + Process Time
-	//
-	function getProcTime(matId, matVer, flow, flowSeq, oper, qty) {
-		var result = null;
-		Ext.Ajax.request({
-			url : 'service/WipViewProctime.json',
-			method : 'GET',
-			async : false,
-			params : {
-				procstep : '1',
-				factory : SF.login.factory,
-				userId : SF.login.id,
-				matId : matId,
-				matVer : matVer,
-				flow : flow,
-				flowSeqNum : flowSeq,
-				oper : oper,
-				qty : qty
-			},
-			success : function(response, opts) {
-				result = Ext.JSON.decode(response.responseText);
-			}
-		});
-		return result;
-	}
-
 	function getSecControl(funcName) {
 		var rtnResponse = callServiceSync({
 			url : 'service/secViewFunctionDetail.json',
 			params : {
-				procstep : '1',
-				programId : SF.login.programId,
 				funcName : funcName
 			}
 		});
 		return rtnResponse;
 	}
+	
 	// except : { itemId : itemId }
 	// bResetOriginal : dirty 정보를 false 상태로 유지
 	function clearFormFields(form, except, bResetOriginal) {
@@ -230,108 +178,7 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 
 		return s;
 	}
-	function checkTranAlarmRelation(config) {
-		if (!config || !config.form || !config.params)
-			return false;
-
-		var form = config.form;
-		var params = config.params;
-		var lockAlarm = config.lockAlarm || SF.createLock();
-
-		if (lockAlarm.count < 1)
-			lockAlarm.lock();
-
-		form.isAlarmList = false;
-		var rtnResponse = callServiceSync({
-			url : 'service/almCheckConfirmMessage.json',
-			params : {
-				procstep : '1',
-				fileReturnType : 'FILEINFO',
-				lotId : params.lotId || '',
-				tranPoint : params.tranPoint || '',
-				resId : params.resId || '',
-				eventId : params.eventId || ''
-			}
-		});
-		if (!rtnResponse || !rtnResponse.result || !rtnResponse.result.success) {
-			form.checkAlarm = false;
-			form.lockAlarm.release();
-			return false;
-		} else {
-			var result = rtnResponse.result;
-			if (!result.alarmList || result.alarmList.length < 1) {
-				form.checkAlarm = true;
-				lockAlarm.release();
-				return true;
-			}
-
-			var popupFlag = false;
-			for ( var i in result.alarmList) {
-				if (result.alarmList[i].needConfirmFlag == 'Y') {
-					popupFlag = true;
-					break;
-				}
-			}
-
-			if (popupFlag) {
-				var popConfig = {
-					lockAlarm : lockAlarm,
-					targetForm : form,
-					infoData : config.params || {},
-					result : result
-				};
-				var tranAlarm = Ext.create('MES.view.window.ConfirmTranAlarm', popConfig);
-				tranAlarm.show();
-			} else {
-				form.isAlarmList = true;
-				form.checkAlarm = true;
-				lockAlarm.release();
-				return true;
-			}
-		}
-	}
-	// checkAlarmCount()
-	// - tray알람정보와 web storage에 데이터를 set하는 function
-	function checkAlarmCount() {
-		var alarmStore = Ext.getStore('ALM.store.AlarmStore');
-		var count = 0;
-		var storageData = [];
-		// confirmFlag 확인안한 alarm들 갯수 체크
-		Ext.Array.each(alarmStore.data.items, function(item) {
-			if (item.data.confirmFlag != 'Y')
-				count++;
-		});
-		// alm_tray_carousel data초기화
-		Ext.getCmp('alm_tray_carousel').setData([]);
-		Ext.getCmp('alm_tray_count').setText(count); // tray 카운트 셋
-		if (count == 0) { // 확인안한 알람이 없으면 원래되로
-			Ext.getCmp('alm_tray_carousel').setWidth(22);
-			Ext.getCmp('alm_tray_count').setVisible(false);
-		} else {
-			var data = [];
-
-			Ext.getCmp('alm_tray_carousel').setWidth(300);
-
-			Ext.Array.each(alarmStore.data.items, function(item) {
-				var date = Ext.Date.parse(item.data.createTime, 'YmdHis');
-				if (item.data.confirmFlag != 'Y') {
-					data.push({
-						time : Ext.Date.format(date, 'H:i'),
-						text : item.data.alarmMsg
-					});
-				}
-			});
-			Ext.getCmp('alm_tray_carousel').setData(data);
-			Ext.getCmp('alm_tray_count').setVisible(true);
-		}
-
-		Ext.Array.each(alarmStore.data.items, function(item) {
-			storageData.push(item.data);
-		});
-		SmartFactory.setting.set('alarm', null);
-		SmartFactory.setting.set('alarm', storageData);
-	};
-
+	
 	function callService(config) {
 		if (!config || typeof config != 'object')
 			return false;
@@ -476,6 +323,7 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 
 		return sDate;
 	}
+	
 	/* date형식을 받아서 shift time을 추가하여 stirng형식으로 반환 */
 	function fromShiftDate(date) {
 		var sDate = '';
@@ -550,46 +398,6 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 		} else {
 			return true;
 		}
-	}
-
-	function setRuleDescription(sRuleType) {
-		var sDesc = '';
-		switch (sRuleType) {
-		case 'A':
-			sDesc = "Out of Spec (OOS)";
-			break;
-		case 'B':
-			sDesc = "1 point beyond 3 sigma (OOC)";
-			break;
-		case 'C':
-			sDesc = "8 consecutive points same side of average";
-			break;
-		case 'D':
-			sDesc = "14 consecutive points increasing or decreasing";
-			break;
-		case 'E':
-			sDesc = "2 out of 3 consecutive points beyond 2 sigma";
-			break;
-		case 'F':
-			sDesc = "4 out of 5 consecutive points beyond 1 sigma";
-			break;
-		case 'G':
-			sDesc = "15 consecutive points between plus 1 sigma and minus 1 sigma";
-			break;
-		case 'H':
-			sDesc = "8 consecutive points beyond plus 1 sigma and minus 1 sigma";
-			break;
-		case 'S':
-			sDesc = "Out of Spec. Limit (OOS)";
-			break;
-		case 'W':
-			sDesc = "Out of Warning Limit (OOW)";
-			break;
-		default:
-			sDesc = "";
-			break;
-		}
-		return sDesc;
 	}
 
 	// parameter : 상위제한, 하위제한, 기본값
@@ -847,14 +655,11 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 	return {
 		cf : {
 			toStandardTime : toStandardTime,
-			getProcTime : getProcTime,
 			getExportParams : getExportParams,
 			getSecControl : getSecControl,
 			clearFormFields : clearFormFields,
 			hexToArgb : hexToArgb,
 			argbToHex : argbToHex,
-			checkTranAlarmRelation : checkTranAlarmRelation,
-			checkAlarmCount : checkAlarmCount,
 			callService : callService,
 			callServiceSync : callServiceSync,
 			callServiceForm : callServiceForm,
@@ -862,7 +667,6 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 			fromShiftDate : fromShiftDate,
 			cutStr : cutStr,
 			checkNumeric : checkNumeric,
-			setRuleDescription : setRuleDescription,
 			getSpecInfo : getSpecInfo,
 			toCamelCase : toCamelCase,
 			isValidTab : isValidTab,
