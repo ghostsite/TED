@@ -9,8 +9,8 @@ Ext.define('mixin.UserInterface', function() {
 			var errMsg = '';
 			var callConfig ={
 				url: 'pageresource/currentUserCanView',
-				params:{ //view == pageresource's code, 'SYS.view.user.UserManage'
-					pageCode : view
+				params:{ //view == pageresource's code, 'SYS.view.user.UserManage' 
+					pageCode : 'page|' + view //这里加page，是因为Resource表要求code必须唯一，好判断权限。
 				}
 			}
 			

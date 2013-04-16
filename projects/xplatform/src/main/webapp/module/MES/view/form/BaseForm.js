@@ -88,7 +88,7 @@ Ext.define('MES.view.form.BaseForm', {
 	},
 	
 	initComponent : function() {
-		this.plugins = [ Ext.create('CMN.plugin.Supplement') ];
+		this.plugins = [ Ext.create('CMN.plugin.Supplement'),Ext.create('MES.plugin.WidgetAclPlugin') ];
 
 		if (this.buildSupplement != Ext.emptyFn) {
 			this.supplement = this.buildSupplement();

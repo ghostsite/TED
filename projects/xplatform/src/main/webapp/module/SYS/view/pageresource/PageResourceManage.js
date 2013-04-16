@@ -1,3 +1,7 @@
+/**
+ * 配置的时候，要求：页面 page|CMN.view.common.ViewLogInfo
+ *  控件：CMN.view.common.ViewLogInfo|btnClosec 
+ */
 Ext.define('SYS.view.pageresource.PageResourceManage', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'admin_pageresource',
@@ -172,11 +176,11 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 						name : 'id'
 					}, {
 						xtype : 'textfield',
-						fieldLabel : '菜单值',
+						fieldLabel : '页面值',
 						name : 'code'
 					}, {
 						xtype : 'textfield',
-						fieldLabel : '菜单名称 ',
+						fieldLabel : '页面名称 ',
 						name : 'name'
 					}, {
 						xtype : 'container',
@@ -270,11 +274,11 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 						itemId : 'page.id'
 					}, {
 						xtype : 'textfield',
-						fieldLabel : '菜单值',
+						fieldLabel : '控件值',
 						name : 'code'
 					}, {
 						xtype : 'textfield',
-						fieldLabel : '菜单名称 ',
+						fieldLabel : '控件名称 ',
 						name : 'name'
 					}, {
 						xtype : 'numberfield',

@@ -104,7 +104,11 @@ public class Operation extends PersistEntity {
     }
     
     /**
-     * 资源名称: add,update,delete,view,readonly
+     * 资源名称: add, update, delete, view, readonly, disabled, download
+     * FileResource: view, download, delete
+     * WidgetResource: view, readonly, disbled.
+     * PageResource: view 
+     * MenuResource: view
      */
     String code;
 

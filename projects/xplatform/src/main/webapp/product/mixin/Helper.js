@@ -197,7 +197,7 @@ Ext.define('mixin.Helper', function() {
 		Ext.Ajax.request({
 				url : 'pageresource/hasController',
 				params: {
-					pageCode: menu.viewModel
+					pageCode: 'page|'+menu.viewModel //这里加page，是因为Resource表要求code必须唯一，好判断权限。
 				},
 				async : false,
 				callback : function(options, success, response) {

@@ -132,13 +132,21 @@ public abstract class ACLUtils {
     };
 
     //moved from ResourceService,判断当前登陆人对资源resource是否有operation权限。暂时没人调用这个方法。
+    public static final boolean hasAuthority(Subject currentUser, Resource resource, Operation operation) {
+        return hasAuthority(currentUser, resource, operation.getCode());
+    }
+    
+    //moved from ResourceService,判断当前登陆人对资源resource是否有operation权限。暂时没人调用这个方法。
     public static final boolean hasAuthority(Subject currentUser, Resource resource, String operation) {
-        //return currentUser.isPermitted(resource.getCode()+":"+ operation);
         return hasAuthority(currentUser, resource.getCode(), operation);
     }
 
     public static final boolean hasAuthority(Subject currentUser, String code, String operation) {
-        return currentUser.isPermitted(code + ":" + operation);
+        return hasAuthority(currentUser, code + ":" + operation);
+    }
+    
+    public static final boolean hasAuthority(Subject currentUser,String authString) {
+        return currentUser.isPermitted(authString);
     }
 
 }

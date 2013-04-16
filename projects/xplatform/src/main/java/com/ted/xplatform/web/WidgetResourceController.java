@@ -2,6 +2,7 @@ package com.ted.xplatform.web;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -22,10 +23,10 @@ import com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren2;
 import com.ted.common.support.extjs4.tree.TreeNode;
 import com.ted.common.support.extjs4.tree.TreeNodeUtil;
 import com.ted.common.support.extjs4.tree.TreeNodeWithChildren;
-import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.DozerUtils;
 import com.ted.common.util.JsonUtils;
 import com.ted.common.util.SpringUtils;
+import com.ted.xplatform.pojo.common.Operation;
 import com.ted.xplatform.pojo.common.WidgetResource;
 import com.ted.xplatform.service.WidgetResourceService;
 
@@ -130,5 +131,19 @@ public class WidgetResourceController implements ServletContextAware {
         widgetResourceService.delete(resourceId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };
+    
+    /**
+     * 获得当前登陆用户，对给定code的widgetResoruce的权限列表
+     * 在WidgetAuthorityPlugin.js init方法中调用。
+     * 注意：是根据pageCode
+     * Map<String, List<Operation>> : key is widget's itemId, List<Operation>是权限列表。
+     * 受限于CommonFunction.js的callServiceSync的要求，只能最后包装一层。不能return acls directly.
+     */
+    @RequestMapping(value="/currentUserWidgetAcls")
+    @ResponseBody
+    Map<String, Object> currentUserWidgetAcls(@RequestParam String pageCode) throws ExecutionException{ //'SYS.view.admin.UserManage'
+        Map<String, List<Operation>> acls = widgetResourceService.currentUserWidgetAcls(pageCode);
+        return JsonUtils.getJsonMap(acls);
+    }
 
 }

@@ -1,27 +1,36 @@
 package com.ted.xplatform.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
 import com.ted.common.dao.jpa.JpaTemplateDao;
 import com.ted.common.util.BeanUtils;
 import com.ted.xplatform.pojo.common.ACL;
+import com.ted.xplatform.pojo.common.Operation;
 import com.ted.xplatform.pojo.common.PageResource;
 import com.ted.xplatform.pojo.common.Role;
+import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.pojo.common.WidgetResource;
+import com.ted.xplatform.util.ACLUtils;
+import com.ted.xplatform.util.PlatformUtils;
 
 /**
  * WidgetResource的Service
@@ -31,7 +40,8 @@ import com.ted.xplatform.pojo.common.WidgetResource;
  */
 @Transactional
 @Service("widgetResourceService")
-public class WidgetResourceService /**implements InitializingBean*/ {
+public class WidgetResourceService /**implements InitializingBean*/
+{
     final Logger    logger = LoggerFactory.getLogger(WidgetResourceService.class);
 
     @Inject
@@ -55,9 +65,8 @@ public class WidgetResourceService /**implements InitializingBean*/ {
      */
     //key = 'SYS.view.type.TypeManage|itemId,view'   ; result = ture or false  , enable 
     //key = 'SYS.view.type.TypeManage|itemId,readonly' ; result = ture or false, readonly
-   // private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
+    // private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
 
-    
     public void setJdbcTemplateDao(JdbcTemplateDao jdbcTemplateDao) {
         this.jdbcTemplateDao = jdbcTemplateDao;
     }
@@ -78,27 +87,27 @@ public class WidgetResourceService /**implements InitializingBean*/ {
         this.resourceService = resourceService;
     }
 
-//
-//    public static final Boolean hasAuthority(String code) throws ExecutionException{
-//        if(null == cachedCurrentUserToResourceHasAuthority){
-//            return true;
-//        }else{
-//            return cachedCurrentUserToResourceHasAuthority.get(code);
-//        }
-//    }
-    
-//    public void afterPropertiesSet() throws Exception {
-//        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
-//            @Override
-//            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage|itemId:readonly'
-//                Subject currentUser = SecurityUtils.getSubject();
-//                return currentUser.isPermitted(code);
-////                WidgetResource resource = jpaSupportDao.findSingleByProperty(WidgetResource.class, "code", codeAndOperation[0]);
-////                String[] codeAndOperation = code.split(":");
-////                return ACLUtils.hasAuthority(currentUser, resource, codeAndOperation[1]);
-//            }
-//        });
-//    }
+    //
+    //    public static final Boolean hasAuthority(String code) throws ExecutionException{
+    //        if(null == cachedCurrentUserToResourceHasAuthority){
+    //            return true;
+    //        }else{
+    //            return cachedCurrentUserToResourceHasAuthority.get(code);
+    //        }
+    //    }
+
+    //    public void afterPropertiesSet() throws Exception {
+    //        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
+    //            @Override
+    //            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage|itemId:readonly'
+    //                Subject currentUser = SecurityUtils.getSubject();
+    //                return currentUser.isPermitted(code);
+    ////                WidgetResource resource = jpaSupportDao.findSingleByProperty(WidgetResource.class, "code", codeAndOperation[0]);
+    ////                String[] codeAndOperation = code.split(":");
+    ////                return ACLUtils.hasAuthority(currentUser, resource, codeAndOperation[1]);
+    //            }
+    //        });
+    //    }
     //-----------------工具方法-----------------//
     /**
      * 工具方法:根据当前用户过滤菜单
@@ -150,7 +159,7 @@ public class WidgetResourceService /**implements InitializingBean*/ {
         PageResource pageResource = jpaSupportDao.getEntityManager().find(PageResource.class, pageId);
         return pageResource.getWidgets();
     };
-    
+
     /**
      * 根据resourceId得到一个WidgetResource的详细信息
      * @return List<WidgetResource>
@@ -177,7 +186,7 @@ public class WidgetResourceService /**implements InitializingBean*/ {
         } else {//没有机构的用户,不设置为空，则抛错。
             widgetResource.setPage(null);
         }
-        
+
         //判断是add还是update
         if (widgetResource.isNew()) {//add
             //if (null != menuResource.getParent() && null != menuResource.getParent().getId()) {
@@ -210,5 +219,46 @@ public class WidgetResourceService /**implements InitializingBean*/ {
         }
         jpaSupportDao.getEntityManager().remove(widgetResource);
     }
+
+    /**
+     * 当前登陆用户对给定pageCode的widget resource的所有权限列表
+     * null表示所有的控件都可以控制。开放原则:没设置，则认为默认状态
+     */
+    @Transactional
+    public Map<String, List<Operation>> currentUserWidgetAcls(String pageCode) {
+        PageResource resource = this.jpaSupportDao.findSingleByProperty(PageResource.class, "code", pageCode);
+        if (null == resource) {
+            return null;
+        }
+        Subject currentUser = SecurityUtils.getSubject();
+        User cu = PlatformUtils.getCurrentUser();
+        if (cu.isSuperUser()) {
+            return null;
+        }
+        List<WidgetResource> widgets = resource.getWidgets();
+        if (CollectionUtils.isNotEmpty(widgets)) {
+            Map<String, List<Operation>> acls = Maps.newHashMap();
+            for (WidgetResource widget : widgets) {
+                acls.put(widget.getCode(), getCurrentUserToWidgetOperations(currentUser, widget));
+            }
+            return acls;
+        } else {
+            return null;
+        }
+    }
+
+    //当前用户对资源widget的权限列表
+    private static final List<Operation> getCurrentUserToWidgetOperations(Subject currentUser, WidgetResource widget) {
+        List<Operation> operationList = Lists.newArrayList();
+        Set<ACL> acls = widget.getAcls();
+        for (ACL acl : acls) {
+            if (ACLUtils.hasAuthority(currentUser, acl.getPermissionString())) {
+                operationList.add(acl.getOperation());
+            }
+        }
+        //排序的目的是把view放在最后，因为view的权限最大，不管readonly disabled, see WidgetAclPlugin.js
+        PropertyComparator.sort(operationList, new MutableSortDefinition("code", true, true));
+        return operationList;
+    };
 
 }

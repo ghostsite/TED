@@ -4,7 +4,7 @@ Ext.define('SEC.controller.SECController', {
 	requires : [ 'SEC.mixin.SessionInfo' ],
 
 	stores : [],
-	models : ['SEC.model.SecFunc'],
+	models : [],
 	views : [],
 
 	init : function() {
