@@ -10,6 +10,7 @@ Ext.define('MES.view.form.BaseFormComposite', {
 	requires : [ 'mixin.DeepLink' ],
 
 	initComponent : function() {
+		this.plugins = [Ext.create('MES.plugin.WidgetAclPlugin') ];
 
 		this.callParent();
 

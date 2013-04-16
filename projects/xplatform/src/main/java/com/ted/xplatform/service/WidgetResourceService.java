@@ -59,14 +59,6 @@ public class WidgetResourceService /**implements InitializingBean*/
     @Inject
     ResourceService resourceService;
 
-    /**
-     * 这个注释掉是因为用不到了，直接调用currentUser.isPermitted("code"+":"+"readonl");
-     * @param jdbcTemplateDao
-     */
-    //key = 'SYS.view.type.TypeManage|itemId,view'   ; result = ture or false  , enable 
-    //key = 'SYS.view.type.TypeManage|itemId,readonly' ; result = ture or false, readonly
-    // private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
-
     public void setJdbcTemplateDao(JdbcTemplateDao jdbcTemplateDao) {
         this.jdbcTemplateDao = jdbcTemplateDao;
     }
@@ -87,27 +79,6 @@ public class WidgetResourceService /**implements InitializingBean*/
         this.resourceService = resourceService;
     }
 
-    //
-    //    public static final Boolean hasAuthority(String code) throws ExecutionException{
-    //        if(null == cachedCurrentUserToResourceHasAuthority){
-    //            return true;
-    //        }else{
-    //            return cachedCurrentUserToResourceHasAuthority.get(code);
-    //        }
-    //    }
-
-    //    public void afterPropertiesSet() throws Exception {
-    //        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
-    //            @Override
-    //            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage|itemId:readonly'
-    //                Subject currentUser = SecurityUtils.getSubject();
-    //                return currentUser.isPermitted(code);
-    ////                WidgetResource resource = jpaSupportDao.findSingleByProperty(WidgetResource.class, "code", codeAndOperation[0]);
-    ////                String[] codeAndOperation = code.split(":");
-    ////                return ACLUtils.hasAuthority(currentUser, resource, codeAndOperation[1]);
-    //            }
-    //        });
-    //    }
     //-----------------工具方法-----------------//
     /**
      * 工具方法:根据当前用户过滤菜单

@@ -9,6 +9,7 @@ Ext.define('MES.view.form.BaseFormTabs', {
 	},
 
 	initComponent : function() {
+		this.plugins = [Ext.create('MES.plugin.WidgetAclPlugin') ];
 		this.callParent();
 	},
 
