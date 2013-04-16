@@ -1,1 +1,0 @@
-Ext.module.register('BAS', [ 'BAS.controller.BASController' ]);

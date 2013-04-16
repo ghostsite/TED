@@ -1,1 +1,0 @@
-Ext.module.register('MES', [ 'MES.controller.MESController' ]);
