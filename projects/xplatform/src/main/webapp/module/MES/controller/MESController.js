@@ -2,8 +2,7 @@ Ext.require([ 'MES.mixin.CodeView', 'MES.mixin.Constant', 'MES.mixin.Variable', 
 
 Ext.define('MES.controller.MESController', {
 	extend : 'Ext.app.Controller',
-	requires : [ 'MES.view.form.BaseForm', 'MES.view.form.BaseFormTabs', 'MES.view.form.BaseFormTabsEntity', 'MES.view.form.BaseFormComposite',
-			'MES.view.form.BaseLotTranForm', 'MES.view.form.BaseSublotTranForm', 'MES.view.form.BaseTargetLotTranForm' ],
+	requires : [ 'MES.view.form.BaseForm', 'MES.view.form.BaseFormTabs', 'MES.view.form.BaseFormComposite' ],
 	stores : [],
 	models : [],
 	views : [ 'MES.view.form.field.CodeViewField','MES.view.form.field.MultiCodeViewField', 'MES.view.form.field.CodeViewColumn', 'MES.view.form.SupplementForm',
