@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,11 +98,11 @@ public class ResourceService {
             return true;
         } else {
             return ACLUtils.hasAuthority(currentUser, resource, Operation.Type.readonly.name());
-           // String permission = resource.getCode() + ":" + Operation.Type.readonly;
-           // return currentUser.isPermitted(permission);
+            // String permission = resource.getCode() + ":" + Operation.Type.readonly;
+            // return currentUser.isPermitted(permission);
         }
     };
-    
+
     @Transactional(readOnly = true)
     protected boolean hasDisabledPermission(Subject currentUser, Resource resource) {
         User user = PlatformUtils.getCurrentUser();
@@ -111,7 +112,7 @@ public class ResourceService {
             return ACLUtils.hasAuthority(currentUser, resource, Operation.Type.disabled.name());
         }
     }
-    
+
     @Transactional(readOnly = true)
     protected boolean hasDownloadPermission(Subject currentUser, Resource resource) {
         User user = PlatformUtils.getCurrentUser();
@@ -121,8 +122,6 @@ public class ResourceService {
             return ACLUtils.hasAuthority(currentUser, resource, Operation.Type.download.name());
         }
     }
-    
-    
 
     /**
      * 工具方法，带checkbox的acls
@@ -280,4 +279,22 @@ public class ResourceService {
         resource.getAcls().add(acl);
     }
 
+    /**
+     * 当前登陆用户对给定code的resource是否有view权限,注意widgetresource 的code不是唯一的，只有menuresource, pageresource的code才是唯一的。
+     * <b>NOTE:</b> 先找一下resource表，如果没有找到，则返回true
+     */
+    @Transactional
+    public boolean currentUserCanView(String code) {
+        Resource resource = this.jpaSupportDao.findSingleByProperty(Resource.class, "code" , code);
+        if(null == resource){
+            return true;
+        }
+        Subject currentUser = SecurityUtils.getSubject();
+        User cu = PlatformUtils.getCurrentUser();
+        if (cu.isSuperUser()) {
+            return true;
+        } else {
+            return ACLUtils.hasAuthority(currentUser, code, Operation.Type.view.name());
+        }
+    }
 }

@@ -84,7 +84,7 @@ public abstract class ACLUtils {
         Assert.notNull(operation);
         return Operation.Type.readonly.name().equals(operation.getCode());
     };
-    
+
     /**
      * 判断Operation是否是Disabled's Operation
      * 不涉及到事务 
@@ -93,7 +93,7 @@ public abstract class ACLUtils {
         Assert.notNull(operation);
         return Operation.Type.disabled.name().equals(operation.getCode());
     };
-    
+
     /**
      * 判断Operation是否是Downloaed's Operation
      * 不涉及到事务 
@@ -102,7 +102,7 @@ public abstract class ACLUtils {
         Assert.notNull(operation);
         return Operation.Type.download.name().equals(operation.getCode());
     };
-    
+
     /**
      * <b>获取有效的ACLList,原因是ACL表的两个关键字段可以为空，导致肯能ACL有资源，没权限。</b>
      * @param aclList
@@ -130,10 +130,15 @@ public abstract class ACLUtils {
             return false;
         }
     };
-    
+
     //moved from ResourceService,判断当前登陆人对资源resource是否有operation权限。暂时没人调用这个方法。
-    public static final boolean hasAuthority(Subject currentUser, Resource resource, String operation){
-        return currentUser.isPermitted(resource.getCode()+":"+ operation);
+    public static final boolean hasAuthority(Subject currentUser, Resource resource, String operation) {
+        //return currentUser.isPermitted(resource.getCode()+":"+ operation);
+        return hasAuthority(currentUser, resource.getCode(), operation);
+    }
+
+    public static final boolean hasAuthority(Subject currentUser, String code, String operation) {
+        return currentUser.isPermitted(code + ":" + operation);
     }
 
 }

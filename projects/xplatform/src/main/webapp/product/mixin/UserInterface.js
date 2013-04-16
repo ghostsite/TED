@@ -5,44 +5,22 @@ Ext.define('mixin.UserInterface', function() {
 	function createView(view, config) {
 		var comp = null;
 		if (typeof(view) === 'string') {
-			var secChecked = SF.isAssemblyName(view);
-			config.secChecked = secChecked;
 			var secControlList = {};
 			var errMsg = '';
-			var result = '';
-			if (secChecked === true) {
-				var params = {
-					procstep : '1',
-					programId : SF.login.programId,
-					funcName : view
-				};
-				Ext.Ajax.request({
-					showFailureMsg : false,
-					url : 'service/secViewFunctionDetail.json', // 这个意思是从数据库中取一个页面的配置信息。zhang
-					method : 'POST',
-					jsonData : params,
-					async : false,
-					success : function(response, opts) {
-						result = Ext.JSON.decode(response.responseText) || {};
-						if (result.success) {
-							for (var i = 1; i <= 10; i++) {
-								var ctlName = result['ctlName' + i];
-								if (ctlName)
-									secControlList[ctlName] = result['ctlEnFlag' + i] || ''; // 'Y' or other
-							}
-						} else {
-							errMsg = result.msg;
-						}
-					}
-				});
-			} else if (secChecked === false) {
-				errMsg = T('Message.SEC-0008');
+			var callConfig ={
+				url: 'pageresource/currentUserCanView',
+				params:{ //view == pageresource's code, 'SYS.view.user.UserManage'
+					pageCode : view
+				}
 			}
-			if (errMsg) {
-				Ext.Msg.alert('Open Error', errMsg);
+			
+			var canView = SF.cf.callServiceSync(callConfig);
+			
+			if (canView.result.data == false) {
+				SF.alertWarn('警告', '您没有权限浏览此页面!');
 				return false;
 			}
-			config.secControlList = secControlList;
+			//config.secControlList = secControlList; //这个挪到Page initComponent的时候调用吧。
 			comp = Ext.create(view, config);
 			return comp;
 		} else {

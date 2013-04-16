@@ -58,10 +58,6 @@ public class PageResourceService implements InitializingBean {
 
     private static LoadingCache<String, Boolean> cachedHasController = null; //key is code , like 'SYS.view.type.TypeManage'
     
-    //key = 'SYS.view.type.TypeManage,view'   ; result = ture or false  , enable 
-    //key = 'SYS.view.type.TypeManage,readonly' ; result = ture or false, readonly
-    //private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
-
     public static final Boolean hasController(String code) throws ExecutionException{
         if(null == cachedHasController){
             return true;
@@ -69,14 +65,6 @@ public class PageResourceService implements InitializingBean {
             return cachedHasController.get(code);
         }
     }
-    
-//    public static final Boolean hasAuthority(String code) throws ExecutionException{
-//        if(null == cachedCurrentUserToResourceHasAuthority){
-//            return true;
-//        }else{
-//            return cachedCurrentUserToResourceHasAuthority.get(code);
-//        }
-//    }
     
     public void setWidgetResourceService(WidgetResourceService widgetResourceService) {
         this.widgetResourceService = widgetResourceService;
@@ -101,6 +89,10 @@ public class PageResourceService implements InitializingBean {
     public void setResourceService(ResourceService resourceService) {
         this.resourceService = resourceService;
     }
+    
+    public ResourceService getResourceService() {
+        return resourceService;
+    }
 
     public void afterPropertiesSet() throws Exception {
         cachedHasController = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
@@ -114,18 +106,6 @@ public class PageResourceService implements InitializingBean {
                 }
             }
         });
-        
-//        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
-//            @Override
-//            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage:readonly'
-//                Subject currentUser = SecurityUtils.getSubject();
-//                return currentUser.isPermitted(code);
-////                String[] codeAndOperation = code.split(":");
-////                PageResource resource = jpaSupportDao.findSingleByProperty(PageResource.class, "code", codeAndOperation[0]);
-////                return ACLUtils.hasAuthority(currentUser, resource, codeAndOperation[1]);
-//            }
-//        });
-        
     }
 
     //-----------------工具方法-----------------//
@@ -146,7 +126,7 @@ public class PageResourceService implements InitializingBean {
         }
         return filteredPageList;
     };
-
+    
     //--------------------业务方法用public,否则用private,但是除了依赖注入方法menuResource的显示,后台管理的级联授权的部分--------------------//
     /**
      * 根据当前用户，得到所有的孩子,并且过滤掉没有权限的菜单。(注意,PageResource不再有子关联关系，也就是一层，不会有多层的关系)

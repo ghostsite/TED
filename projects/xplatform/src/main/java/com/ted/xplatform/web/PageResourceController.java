@@ -163,12 +163,24 @@ public class PageResourceController implements ServletContextAware {
     
     /**
      * hasController for UserInterface.js , if true then load controller.js for show page
-     * @throws ExecutionException 
      */
     @RequestMapping(value="/hasController")
     @ResponseBody
     Boolean hasController(@RequestParam String pageCode) throws ExecutionException{ //'SYS.view.admin.UserManage'
         return PageResourceService.hasController(pageCode);
     }
-
+    
+    /**
+     * 获得当前登陆用户，对给定code的pageResoruce的权限列表(目前PageResource只有view权限)
+     * 用在：当用户在地址栏中敲一个地址的时候，判断当前登陆用户是否可以看到这个页面。
+     * 在UserInterface.js的方法中调用。
+     * 返回Map<String, Object>而不是返回boolean是为了适用于CommunFunction.js 中的callServiceSync()方法
+     */
+    @RequestMapping(value="/currentUserCanView")
+    @ResponseBody
+    Map<String, Object> currentUserCanView(@RequestParam String pageCode) throws ExecutionException{ //'SYS.view.admin.UserManage'
+        boolean b = pageResourceService.getResourceService().currentUserCanView(pageCode);
+        return JsonUtils.getJsonMap(b);
+    }
+    
 }

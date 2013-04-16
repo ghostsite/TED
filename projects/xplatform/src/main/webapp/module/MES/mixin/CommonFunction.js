@@ -223,6 +223,8 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 		return rtnResponse;
 	}
 
+	//这个方法要求必须有params参数，还可以配置回调函数，并且要求返回的json对象中必须有success:true 
+	//如果是POST调用在，则是jsonData传参调用，否则正常调用。默认是GET call
 	function callServiceSync(config) { //zhang changed this from Async to Sync
 		if (!config || typeof config != 'object')
 			return false;
@@ -237,7 +239,7 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 		
 		var request = {
 				url : config.url,
-				method : config.method || 'POST',
+				method : config.method || 'GET',//zhang changed from post to get
 				showSuccessMsg : config.showSuccessMsg,
 				showFailureMsg : config.showFailureMsg,
 				async : false,
