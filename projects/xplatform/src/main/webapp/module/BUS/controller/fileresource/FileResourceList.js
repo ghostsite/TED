@@ -42,7 +42,7 @@ Ext.define('BUS.controller.fileresource.FileResourceList', {
 			SF.alertWarn('警告', '您没有权限下载此文件!');
 			return false;
 		}else{
-			true;
+			return true;
 		}
 	}
 });
