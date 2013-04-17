@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.ServletContextAware;
 
 import com.ted.common.support.extjs4.JsonOut;
 import com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren2;
@@ -33,16 +31,14 @@ import com.ted.xplatform.service.WidgetResourceService;
 @Controller
 @RequestMapping(value = "/widgetresource/*")
 @SuppressWarnings("all")
-public class WidgetResourceController implements ServletContextAware {
-    final Logger           logger = LoggerFactory.getLogger(WidgetResourceController.class);
+public class WidgetResourceController {
+    final Logger          logger = LoggerFactory.getLogger(WidgetResourceController.class);
 
     @Inject
-    WidgetResourceService    widgetResourceService;
+    WidgetResourceService widgetResourceService;
 
     @Inject
-    MessageSource          messageSource;
-
-    private ServletContext servletContext;
+    MessageSource         messageSource;
 
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
@@ -51,10 +47,6 @@ public class WidgetResourceController implements ServletContextAware {
     public void setWidgetResourceService(WidgetResourceService widgetResourceService) {
         this.widgetResourceService = widgetResourceService;
     };
-
-    public void setServletContext(ServletContext servletContext) {
-        this.servletContext = servletContext;
-    }
 
     //-------------------后台管理的分级授权的显示--------------------//
     //分级授权：显示右边的菜单,注意是带角色过滤的.
@@ -99,7 +91,7 @@ public class WidgetResourceController implements ServletContextAware {
         List<WidgetResource> widgetResourceList = widgetResourceService.getWidgetResourceListByPageId(resourceId);
         return widgetResourceList;
     };
-    
+
     /**
      * 系统管理->页面管理：获得一个页面的详细信息，右边的FormPanel
      */
@@ -131,7 +123,7 @@ public class WidgetResourceController implements ServletContextAware {
         widgetResourceService.delete(resourceId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };
-    
+
     /**
      * 获得当前登陆用户，对给定code的widgetResoruce的权限列表
      * 在WidgetAuthorityPlugin.js init方法中调用。
@@ -139,9 +131,9 @@ public class WidgetResourceController implements ServletContextAware {
      * Map<String, List<Operation>> : key is widget's itemId, List<Operation>是权限列表。
      * 受限于CommonFunction.js的callServiceSync的要求，只能最后包装一层。不能return acls directly.
      */
-    @RequestMapping(value="/currentUserWidgetAcls")
+    @RequestMapping(value = "/currentUserWidgetAcls")
     @ResponseBody
-    Map<String, Object> currentUserWidgetAcls(@RequestParam String pageCode) throws ExecutionException{ //'SYS.view.admin.UserManage'
+    Map<String, Object> currentUserWidgetAcls(@RequestParam String pageCode) throws ExecutionException { //'SYS.view.admin.UserManage'
         Map<String, List<Operation>> acls = widgetResourceService.currentUserWidgetAcls(pageCode);
         return JsonUtils.getJsonMap(acls);
     }

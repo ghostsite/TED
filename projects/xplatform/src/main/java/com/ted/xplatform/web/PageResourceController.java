@@ -47,16 +47,14 @@ import com.ted.xplatform.util.PlatformUtils;
 @Controller
 @RequestMapping(value = "/pageresource/*")
 @SuppressWarnings("all")
-public class PageResourceController implements ServletContextAware {
-    final Logger           logger = LoggerFactory.getLogger(PageResourceController.class);
+public class PageResourceController {
+    final Logger        logger = LoggerFactory.getLogger(PageResourceController.class);
 
     @Inject
-    PageResourceService    pageResourceService;
+    PageResourceService pageResourceService;
 
     @Inject
-    MessageSource          messageSource;
-
-    private ServletContext servletContext;
+    MessageSource       messageSource;
 
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
@@ -65,10 +63,6 @@ public class PageResourceController implements ServletContextAware {
     public void setPageResourceService(PageResourceService pageResourceService) {
         this.pageResourceService = pageResourceService;
     };
-
-    public void setServletContext(ServletContext servletContext) {
-        this.servletContext = servletContext;
-    }
 
     //-------------------后台管理的分级授权的显示--------------------//
     //分级授权：显示右边的菜单,注意是带角色过滤的.
@@ -121,10 +115,10 @@ public class PageResourceController implements ServletContextAware {
     @RequestMapping(value = "/pagedPageResourceList")
     public @ResponseBody
     JsonPage<PageResource> pagedPageResourceList(int start, int limit) {
-        JsonPage<PageResource> pageResourcePage = pageResourceService.pagedPageResourceList(start , limit);
+        JsonPage<PageResource> pageResourcePage = pageResourceService.pagedPageResourceList(start, limit);
         return pageResourcePage;
     };
-    
+
     /**
      * 系统管理->页面管理：获得一个页面的详细信息，右边的FormPanel
      */
@@ -160,27 +154,27 @@ public class PageResourceController implements ServletContextAware {
         pageResourceService.delete(resourceId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };
-    
+
     /**
      * hasController for UserInterface.js , if true then load controller.js for show page
      */
-    @RequestMapping(value="/hasController")
+    @RequestMapping(value = "/hasController")
     @ResponseBody
-    Boolean hasController(@RequestParam String pageCode) throws ExecutionException{ //'SYS.view.admin.UserManage'
+    Boolean hasController(@RequestParam String pageCode) throws ExecutionException { //'SYS.view.admin.UserManage'
         return PageResourceService.hasController(pageCode);
     }
-    
+
     /**
      * 获得当前登陆用户，对给定code的pageResoruce的权限列表(目前PageResource只有view权限)
      * 用在：当用户在地址栏中敲一个地址的时候，判断当前登陆用户是否可以看到这个页面。
      * 在UserInterface.js的方法中调用。
      * 返回Map<String, Object>而不是返回boolean是为了适用于CommunFunction.js 中的callServiceSync()方法
      */
-    @RequestMapping(value="/currentUserCanView")
+    @RequestMapping(value = "/currentUserCanView")
     @ResponseBody
-    Map<String, Object> currentUserCanView(@RequestParam String pageCode) throws ExecutionException{ //'SYS.view.admin.UserManage'
+    Map<String, Object> currentUserCanView(@RequestParam String pageCode) throws ExecutionException { //'SYS.view.admin.UserManage'
         boolean b = pageResourceService.getResourceService().currentUserCanView(pageCode);
         return JsonUtils.getJsonMap(b);
     }
-    
+
 }

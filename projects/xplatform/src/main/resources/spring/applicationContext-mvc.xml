@@ -136,7 +136,6 @@
 	<mvc:default-servlet-handler/>
 	<mvc:resources location="/resources/"  mapping="/resources/**" cache-period="3" />
 	<mvc:resources location="/resources/css/"  mapping="/css/**" cache-period="3" />
-	<mvc:resources location="/resources/data/service/"  mapping="/service/**" cache-period="3" order="4"/>
 	<mvc:resources location="/resources/image/"  mapping="/image/**" cache-period="3" />
 	<mvc:resources location="/resources/js/ux/"  mapping="/js/ux/**" cache-period="3" />
 	<mvc:resources location="/resources/js/"  mapping="/js/**" cache-period="3" />

@@ -140,7 +140,21 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 				url : 'pageresource/getPagesFilterByRoleWithACLCheckBox'
 			},
 			root : {
-				text : '页面元素',
+				text : '页面',
+				id : null,
+				expanded : true
+			}
+		});
+		
+		var urlStore = Ext.create('Ext.data.TreeStore', {
+			autoLoad : true,
+			nodeParam : 'resourceId',
+			proxy : {
+				type : 'ajax',
+				url : 'urlresource/getUrlsFilterByRoleWithACLCheckBox'
+			},
+			root : {
+				text : 'URL',
 				id : null,
 				expanded : true
 			}
@@ -234,7 +248,7 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 				}]
 			}, {
 				xtype : 'treepanel',
-				title : '页面元素',
+				title : '页面',
 				autoScroll : true,
 				id : 'treAuthorityPageId',
 				itemId : 'treAuthorityPageId',
@@ -273,6 +287,46 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 					}
 				}
 				]
+			},{
+				xtype : 'treepanel',
+				title : 'URL',
+				id : 'treAuthorityUrlId',
+				itemId : 'treAuthorityUrlId',
+				//iconCls : 'navi',
+				icon:'image/menuIcon/0006_16.png',
+				autoScroll : true,
+				store : urlStore,
+				rootVisible : false,
+				viewConfig : {
+					plugins : {
+						ptype : 'treeviewdragdrop',
+						dragGroup : 'urlTree2GridGroup'
+					}
+				},
+				listeners : {
+					'checkchange' : {
+						fn : function(node, checked) {
+							SF.setCheckedCascade(node, checked);
+						}
+					}
+				},
+				tbar : [{
+					cls : 'expandAllBtn',
+					tooltip:'展开所有',
+					listeners : {
+						click : function(button) {
+							Ext.getCmp('treAuthorityUrlId').expandAll();
+						}
+					}
+				},{
+					cls : 'navRefreshBtn',
+					tooltip:'刷新',
+					listeners : {
+						click : function(button) {
+							Ext.getCmp('treAuthorityUrlId').getStore().reload();
+						}
+					}
+				}]
 			}]
 		};
 	},

@@ -135,6 +135,8 @@ Ext.define('SYS.view.authority.AuthorityPortlet', {
 						return '<span style="color:red;">' + '页面' + '</span>';
 					}else if(val === 'widget'){
 						return '<span style="color:maroon;">' + '控件' + '</span>';
+					}else if(val === 'url'){
+						return '<span style="color:purple;">' + 'URL' + '</span>';
 					}else{
 						return val;
 					}
@@ -189,6 +191,14 @@ Ext.define('SYS.view.authority.AuthorityPortlet', {
 						
 						var pageDropTarget = new Ext.dd.DropTarget(panel.el, {
 							ddGroup : 'pageTree2GridGroup',
+							notifyDrop : function(dragSource, event, data) {
+								return SYS.view.authority.AuthorityManage.addACL2Grid(data.records[0], panel);
+								//return SYS.view.authority.AuthorityManage.addACL2Grid(data.node, panel);
+							}
+						});
+						
+						var urlDropTarget = new Ext.dd.DropTarget(panel.el, {
+							ddGroup : 'urlTree2GridGroup',
 							notifyDrop : function(dragSource, event, data) {
 								return SYS.view.authority.AuthorityManage.addACL2Grid(data.records[0], panel);
 								//return SYS.view.authority.AuthorityManage.addACL2Grid(data.node, panel);

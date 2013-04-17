@@ -136,6 +136,27 @@
 			<b>type</b>
 		</field>
 	</mapping>
+	<mapping>
+		<class-a>com.ted.common.support.extjs4.tree.TreeNode</class-a>
+		<class-b>com.ted.xplatform.pojo.common.UrlResource</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>beanId</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>text</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+	</mapping>
+	
 	
 	<mapping>
 		<class-a>com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren</class-a>
@@ -301,6 +322,30 @@
 			<b>type</b>
 		</field>
 	</mapping>
+	<mapping>
+		<class-a>com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren2</class-a>
+		<class-b>com.ted.xplatform.pojo.common.UrlResource</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>beanId</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>text</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>children2</a>
+			<b>acls</b>
+		</field>
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+	</mapping>
 	
 	<mapping>
 		<class-a>com.ted.common.support.extjs4.tree.TreeNodeWithChildren</class-a>
@@ -433,7 +478,26 @@
 			<b>type</b>
 		</field>
 	</mapping>
-	
+	<mapping>
+		<class-a>com.ted.common.support.extjs4.tree.TreeNodeWithChildren</class-a>
+		<class-b>com.ted.xplatform.pojo.common.UrlResource</class-b>
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>beanId</a>
+			<b>id</b>
+		</field>
+		<field>
+			<a>text</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+	</mapping>
 	
 	<!--注意：CheckNode's beanId is ACL's Id-->
 	<mapping>

@@ -37,6 +37,7 @@ import com.ted.xplatform.pojo.common.Operation;
 import com.ted.xplatform.pojo.common.PageResource;
 import com.ted.xplatform.pojo.common.Resource;
 import com.ted.xplatform.pojo.common.Role;
+import com.ted.xplatform.pojo.common.UrlResource;
 import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.pojo.common.WidgetResource;
 import com.ted.xplatform.service.RoleService;
@@ -114,6 +115,8 @@ public class RoleController {
                 acl.setType(PageResource.TYPE);
             }else if(res instanceof WidgetResource){
                 acl.setType(WidgetResource.TYPE);
+            }else if(res instanceof UrlResource){
+                acl.setType(UrlResource.TYPE);
             }
         }
         

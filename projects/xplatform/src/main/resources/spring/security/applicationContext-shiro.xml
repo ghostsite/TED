@@ -65,14 +65,18 @@
 				<entry key="authcBasic">
 					<bean class="org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter"/>
 				</entry>
-				<entry key="authcAjax">
-					<bean class="com.ted.xplatform.filter.HttpStatusAuthFilter"/>
-				</entry>
 				<entry key="logout">
 					<bean class="org.apache.shiro.web.filter.authc.LogoutFilter"/>
 				</entry>
+				<entry key="authcAjax">
+					<bean class="com.ted.xplatform.filter.HttpStatusAuthFilter"/>
+				</entry>
+				<entry key="authUrl">
+					<bean class="com.ted.xplatform.filter.UrlFilter"/>
+				</entry>
 			</util:map>
 		</property>
+		<!--注意：由于设置了UrlFilter，so anon一定要覆盖全面，否则就跑到UrlFilter里面了，UrlFilter认为都是.do的业务方法。-->
 		<property name="filterChainDefinitions">
 			<value>
                 / = anon
@@ -84,11 +88,11 @@
                 /**/*.html = anon
                 /**/*.css =anon
                 /**/*.js =anon
-                /**/image/*.* =anon
-                /**/images/*.* =anon
-                /**/icons/*.* =anon
-                /**/loading/*.* =anon
-                /** = authcPass,authcAjax
+                /**/image/**/*.* =anon
+                /**/images/**/*.* =anon
+                /**/icons/**/*.* =anon
+                /**/loading/**/*.* =anon
+                /** = authcPass,authcAjax,authUrl
 			</value>
 			<!--/** = authc-->
 		</property>

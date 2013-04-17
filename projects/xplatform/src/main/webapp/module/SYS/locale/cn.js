@@ -30,6 +30,9 @@ T({
 					pageresource:{
 						"PageResourceManage":"页面管理"
 					},
+					urlresource:{
+						"UrlResourceManage":"URL管理"
+					},
 					role:{
 						"RoleManage":"角色管理"
 					},
