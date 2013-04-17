@@ -26,6 +26,7 @@ import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.CollectionUtils;
 import com.ted.common.util.DozerUtils;
 import com.ted.common.util.FileUtils;
+import com.ted.common.util.JsonUtils;
 import com.ted.common.web.download.DownloadHelper;
 import com.ted.xplatform.pojo.common.FileResource;
 import com.ted.xplatform.service.FileResourceService;
@@ -89,7 +90,6 @@ public class FileResourceController {
         fileResource.setCanView(true);//写死canView权限
         fileResource.setCanDownload(true);//写死canDownload权限
         fileResource.setCanDelete(true);//写死canDelete权限
-        fileResource.setCanHide(true);//写死canHide权限
         fileResource.setFilePath(middleDir);
         fileResource.setFileSize(new Long(multipartFile.getBytes().length));
         fileResource.setFileType(FileUtils.getExtension(multipartFile.getOriginalFilename(), true));
@@ -160,24 +160,37 @@ public class FileResourceController {
         }
     };
 
+    /**
+     * 给BUS用的，跟getFilesFilterByRole的区别是，Extjs要求返回JsonPage
+     * 并且返回的值也不一样，一个是FileResource，一个是TreeNode
+     */
+    @RequestMapping(value = "/getCurrentUserFiles")
+    public @ResponseBody
+    JsonPage<FileResource>  getCurrentUserFiles() {
+        List<FileResource> fileResourceList = fileResourceService.getFilesFilterByCurrentSubject();//TODO 注意不带分页
+        return JsonUtils.listToPage(fileResourceList);
+    };
+    
+    
     //===================以下是给分级授权用的===============================//
     //-------------------后台管理的分级授权的显示--------------------//
-    //分级授权：显示右边的菜单,注意是带角色过滤的.参考MenuResourceController,好像还做不了分页，因为根据权限，有的要不显示，怎么统计总数和每页的数据呢？
-    @RequestMapping(value = "/getFilesByIdFilterByRole")
+    /**
+     * 分级授权：显示右边的菜单,注意是带角色过滤的.参考MenuResourceController,好像还做不了分页，因为根据权限，有的要不显示，怎么统计总数和每页的数据呢？
+     */
+    @RequestMapping(value = "/getFilesFilterByRole")
     public @ResponseBody
-    List<TreeNode> getFilesByIdFilterByRole() {
-        //List<FileResource> fileResourceList = fileResourceService.getMenusByParentIdFilterByCurrentSubject(resourceId);//TODO 注意带分页
-        List<FileResource> fileResourceList = fileResourceService.getFilesFilterByCurrentSubject();//TODO 注意带分页
+    List<TreeNode> getFilesFilterByRole() {
+        List<FileResource> fileResourceList = fileResourceService.getFilesFilterByCurrentSubject();//TODO 注意不带分页
         List<TreeNode> treeNodeList = DozerUtils.mapList(fileResourceList, TreeNode.class);
         return treeNodeList;
     };
 
-    //分级授权：显示右边的菜单,注意是带角色过滤的.连带权限的leaf append to fileresource
-    //@RequestMapping(value = "/getSubMenusCascadeFilterByRoleWithACLCheckBox")
+    /**
+     * 分级授权：显示右边的菜单,注意是带角色过滤的.连带权限的leaf append to fileresource
+     */
     @RequestMapping(value = "/getFilesFilterByRoleWithACLCheckBox")
     public @ResponseBody
-    List<CheckTreeNodeWithChildren2> getFilesFilterByRoleWithACLCheckBox(@RequestParam Long resourceId) {//fileid=resourceId is parent_id
-        //List<FileResource> fileResourceList = fileResourceService.getSubMenusCascadeLoadOperationsByParentIdFilterByCurrentSubject(resourceId);
+    List<CheckTreeNodeWithChildren2> getFilesFilterByRoleWithACLCheckBox(@RequestParam Long resourceId) {//fileid=resourceId
         List<FileResource> fileResourceList = fileResourceService.getFilesLoadOperationsFilterByCurrentSubject();
         List<CheckTreeNodeWithChildren2> treeNodeList = DozerUtils.mapList(fileResourceList, CheckTreeNodeWithChildren2.class);
         TreeNodeUtil.setChildrenNotLeafCascade(treeNodeList);

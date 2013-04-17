@@ -200,7 +200,7 @@ public abstract class Resource extends LogicAuditEntity {
     
     @Transient
     public boolean isCanExecute() {
-        return canDownload;
+        return canExecute;
     }
 
     public void setCanExecute(boolean canExecute) {

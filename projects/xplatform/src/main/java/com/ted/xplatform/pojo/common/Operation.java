@@ -129,7 +129,7 @@ public class Operation extends PersistEntity {
     
     /**
      * 资源名称: add, update, delete, view, readonly, disabled, download,hide, execute
-     * FileResource: view, download, delete, hide (默认是view,如果不可见，需要配置hide)
+     * FileResource: view, download, delete (默认是不可以view,如果可见，需要配置view)-----------这个是最特殊的，跟别的都不一样。
      * WidgetResource: view, readonly, disbled, hide (默认是view，如果是不可见，需要配置hide)
      * PageResource: view (默认是不可以view，so需要配置view)              -----------这个是最特殊的，跟别的都不一样。
      * MenuResource: view (这个默认是不可见，so需要配置可见, 没有hide选项) -----------这个是最特殊的，跟别的都不一样。

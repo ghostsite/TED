@@ -332,6 +332,15 @@ public class ResourceService {
     @Transactional
     public boolean currentUserCanView(String code) {
         Resource resource = this.jpaSupportDao.findSingleByProperty(Resource.class, "code" , code);
+        return currentUserCanView(resource);
+    };
+    
+    /**
+     * 当前登陆用户对给定code的resource是否有view权限,注意widgetresource 的code不是唯一的，只有menuresource, pageresource的code才是唯一的。
+     * <b>NOTE:</b> 先找一下resource表，如果没有找到，则返回true
+     */
+    @Transactional
+    public boolean currentUserCanView(Resource resource) {
         if(null == resource){
             return true;
         }
@@ -340,7 +349,10 @@ public class ResourceService {
         if (cu.isSuperUser()) {
             return true;
         } else {
-            return ACLUtils.hasAuthority(currentUser, code, Operation.Type.view.name());
+            return ACLUtils.hasAuthority(currentUser, resource, Operation.Type.view.name());
         }
-    }
+    };
+    
+    
+    
 }

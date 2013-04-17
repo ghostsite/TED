@@ -142,7 +142,7 @@ public class MenuResourceController implements ServletContextAware {
     @RequestMapping(value = "/getMenuIconList/{size}")
     public @ResponseBody
     List<Map> getMenuIconList(@PathVariable Long size) throws IOException {
-        return getMenuIcons("_"+size);
+        return getMenuIcons("_" + size);
     }
 
     //for combobox in 后台管理页面
@@ -164,7 +164,7 @@ public class MenuResourceController implements ServletContextAware {
             String fileName = file.getName();
             icon.put("path", "image/menuIcon/" + fileName);
             icon.put("shortpath", fileName);
-            
+
             list.add(icon);
         }
         return list;
@@ -173,8 +173,6 @@ public class MenuResourceController implements ServletContextAware {
     //-------------------后台管理--------------------//
     /**
      * 系统管理->菜单管理：显示左边的菜单,注意是带角色过滤的.
-     * @param resourceId
-     * @return
      */
     @RequestMapping(value = "/getSubMenuResourceListByResourceId")
     public @ResponseBody
@@ -231,16 +229,13 @@ public class MenuResourceController implements ServletContextAware {
         if (CollectionUtils.isNotEmpty(subMenuResourceList)) {
             throw new BusinessException(SpringUtils.getMessage("message.common.hasSubMenus", messageSource));
         }
-        
+
         menuResourceService.delete(resourceId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };
 
     /**
      * 系统管理->菜单管理：move 移动,tree drag and drop
-     * @param sourceResourceId
-     * @param destResourceId
-     * @return
      */
     @RequestMapping(value = "/move", method = RequestMethod.POST)
     public @ResponseBody
