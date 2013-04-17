@@ -4,6 +4,7 @@
  * Ext.panel.Panel...上的。
  * <p>
  * 如果不是上面的顶定义的6个基类控件，需要自己写plugin=[Ext.create('MES.plugin.WidgetAclPlugin')]
+ * 
  * @author zhang
  */
 Ext.define('MES.plugin.WidgetAclPlugin', {
@@ -17,7 +18,7 @@ Ext.define('MES.plugin.WidgetAclPlugin', {
 
 	init : function(baseForm) {
 		this.callParent(arguments);
-		
+
 		this.baseForm = baseForm;
 		baseForm.on('afterrender', this.setWidgetStatus, this);
 	},
@@ -31,7 +32,7 @@ Ext.define('MES.plugin.WidgetAclPlugin', {
 	 * baseForm.itemId
 	 */
 	setWidgetStatus : function() {
-		var pageCode = 'page|'+this.baseForm.itemId; // SYS.view.menuresource.MenuResourceManage
+		var pageCode = 'page|' + this.baseForm.itemId; // SYS.view.menuresource.MenuResourceManage
 		var url = 'widgetresource/currentUserWidgetAcls';
 		var params = {
 			pageCode : pageCode
@@ -55,22 +56,26 @@ Ext.define('MES.plugin.WidgetAclPlugin', {
 	setComponentStatus : function(panel, acls) {
 		Ext.Object.each(acls, function(itemIdWidthPageId, operations, myself) {
 			var itemId = itemIdWidthPageId.split('|');
-			if(itemId.length > 0){
+			if (itemId.length > 0) {
 				itemId = itemId[1];
 			}
-			
-			//var component = panel.getComponent(itemId); //这种方式找不到，因为getDockedItems() return base_buttons，不是Button
-			var component = Ext.ComponentQuery.query('#'+itemId, panel);
-			if(component.length>0){
+
+			// var component = panel.getComponent(itemId);
+			// //这种方式找不到，因为getDockedItems() return base_buttons，不是Button
+			var component = Ext.ComponentQuery.query('#' + itemId, panel);
+			if (component.length > 0) {
 				component = component[0];
 			}
-			if (component && typeof component==='object' && component instanceof Ext.Component) {
+			if (component && typeof component === 'object' && component instanceof Ext.Component) {
 				Ext.Array.each(operations, function(oper) {
 					if (oper.code === 'readonly') {
 						component.setReadOnly(true);
 					} else if (oper.code === 'disabled') {
 						component.setDisabled(true);
+					} else if (oper.code === 'hide') {
+						component.setVisible(false);
 					} else if (oper.code === 'view') {
+						component.setVisible(true);
 						component.setReadOnly(false);
 						component.setDisabled(false);
 					}
