@@ -48,31 +48,6 @@ public class FileResourceService /**implements InitializingBean*/ {
         this.resourceService = resourceService;
     }
 
-    //key = 'code:view'   ; result = ture or false  , enable 
-    //key = 'code:download' ; result = ture or false, readonly
-    //private static LoadingCache<String, Boolean> cachedCurrentUserToResourceHasAuthority = null; //记录的是当前登陆用户对XXX资源是否有view reaonly等权限。 key is code , like 'SYS.view.type.TypeManage', Operation 
-
-//    public static final Boolean hasAuthority(String code) throws ExecutionException{
-//        if(null == cachedCurrentUserToResourceHasAuthority){
-//            return true;
-//        }else{
-//            return cachedCurrentUserToResourceHasAuthority.get(code);
-//        }
-//    }
-    
-//    public void afterPropertiesSet() throws Exception {
-//        cachedCurrentUserToResourceHasAuthority = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
-//            @Override
-//            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage|itemId,readonly'
-//                Subject currentUser = SecurityUtils.getSubject();
-//                return currentUser.isPermitted(code);
-////                String[] codeAndOperation = code.split(":");
-////                WidgetResource resource = jpaSupportDao.findSingleByProperty(WidgetResource.class, "code", codeAndOperation[0]);
-////                return ACLUtils.hasAuthority(currentUser, resource, codeAndOperation[1]);
-//            }
-//        });
-//    }
-    
     /**
      * 保存,<b>NOTE</b>:注意，由于是上传，不同于MenuResource的添加，可以在添加的时候指定权限。
      * 这里指写死：canView权限。

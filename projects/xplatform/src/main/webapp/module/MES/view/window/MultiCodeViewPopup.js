@@ -1,7 +1,7 @@
 Ext.require(['Ext.selection.CheckboxModel']);
 Ext.define('MES.view.window.MultiCodeViewPopup', {
 	extend : 'Ext.window.Window',
-	width : 450,
+	width : 500,
 	height : 327,
 	modal : true,
 	layout : {
@@ -51,6 +51,9 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 		}
 		if(configs.codeviewOpts.pageSize)
 			configs.pageSize = configs.codeviewOpts.pageSize;
+		
+		this.defaultPageSize =  window.CODEVIEW_PAGESIZE||this.defaultPageSize;
+		
 		this.callParent([ configs ]);
 	},
 
@@ -64,15 +67,31 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 		var self = this;
 
 		this.title = this.codeviewOpts.popupConfig.title || T('Caption.Other.CodeView');
-
+		this.remoteFilter = true;
+		if(this.codeviewOpts.remoteFilter === false)
+			this.remoteFilter = false;
+		
 		if (this.codeviewOpts.store) {
 			this.store = this.buildService();
 		} else {
 			this.store = this.buildStore();
 		}
+		
+		var view = this.add({
+			xtype : 'container',
+			flex : 1,
+			layout : {
+				type : 'hbox',
+				align : 'stretch'
+			},
+			items : [this.buildGrid(this.store),  this.buildList() ]
+		})
 
-		this.grid = this.add(this.buildGrid(this.store));
-		this.addDocked(this.buildToolbar());
+		this.grid = view.sub('grdCodeview');
+		this.pagebar = view.sub('pagebar');
+		this.pagebar.down('#refresh').hide();
+		
+		this.search = this.add(this.buildSearch());
 		
 		this.store.on('load', function(store, records, success) {
 			if (!success)
@@ -86,6 +105,16 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 					self.codeviewOpts.afterLoad.call(self.codeviewOpts.scope, store, self, self.codeviewOpts.afterLoadOpt);
 				else
 					self.codeviewOpts.afterLoad(store, self, self.codeviewOpts.afterLoadOpt);
+			}
+			
+			var totCount = store.totalCount||0;
+			var pageData = self.pagebar.getPageData();
+			var pageCount = pageData.pageCount;
+			if(isNaN(pageCount) || pageCount < 2){
+				self.pagebar.setVisible(false);
+			}
+			else if(totCount>0){
+				self.pagebar.setVisible(true);
 			}
 			self.selectSearchRecord(self);	
 		});
@@ -131,36 +160,68 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 		grid.store.loadData(data);
 	},
 	
+	getSearchFilters : function() {
+		var filter = [];
+		this.search.items.each(function(searchfield) {
+			if(searchfield.xtype != 'textfield')
+				return;
+			var value = searchfield.getValue();
+			if(value){
+				filter.push({
+					property : searchfield.getName(),
+					value : value
+					//value : new RegExp(value)
+				});				
+			}
+		}, this);
+		return filter;
+	},
+	getSearchConditions : function(conditions) {
+		this.search.items.each(function(searchfield) {
+			if(searchfield.xtype != 'textfield')
+				return;
+			var value = searchfield.getValue();
+			if (value) {
+				conditions.push({
+					column : searchfield.getName(),
+					value : value + '%',
+					operator : 'like'
+				});
+			}
+		}, this);
+		return conditions;
+	},
+	
 	/* 화면 갱신 및 조회시 해당 레코드 표시 */
 	selectSearchRecord : function(self) {
 		self = self||this;
-		var fieldSearch = self.codeviewOpts.fieldSearch;
 		var fieldset = self.codeviewOpts.fieldset;
-		var separator = fieldset.separator;
-		var valueList = [];
-		var column = '';
-		if (fieldSearch === true) {
-			var field = fieldset.getComponent( fieldset.itemId+'_0' );
-			var txtValue = field.getValue();
-			column = field.column;
-			valueList = txtValue.split(separator);
-		}
-		if(!column || valueList.length < 1)
+		var field = fieldset.getComponent( fieldset.itemId+'_0' );
+		var column = field.column;
+		var listStore = self.sub('grdSelect').store;
+		if(!column || listStore.getCount() < 1)
 			return false;
 		
 		var grid = self.grid;
 		var selectRecord = [];
 		var selModel = grid.getSelectionModel();
 
-		for(var i in valueList){
-			var value =  Ext.String.trim(valueList[i]);
-			var findRecord = grid.store.findRecord(column,value);
+		listStore.each(function(rec){
+			var value =  Ext.String.trim(rec.data[column]);
+			
+			var findRecord = null;
+			grid.store.findBy(function(r){
+				if(r.isEqual(r.get(column), value)){
+					findRecord = r;
+					return true;
+				}
+				return false;
+			});
 			
 			if(findRecord){
 				selectRecord.push(findRecord);
 			}
-		}
-		
+		});
 		if (selectRecord.length > 0) {
 			selModel.select(selectRecord);
 		}
@@ -169,24 +230,34 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 	 * CodeViewField의 값을 팝업 실행시 초기 검색조건으로 추가한 후 컨포넌트의 store를 읽어 온다. @param
 	 * {Boolean} fieldSearch 검색조건 추가 여부
 	 */
-	//TODO store.load 후에 callback로 서비스 실패가 떨어지면 window를 close한다.
 	loadStore : function(reload) {
-		if (reload) {
+		this.store.filters.clear();
+		
 			this.store.currentPage = 1;
 			if (this.codeviewOpts.type == 'service') {
-				this.store.load({
-					callback : function(records, oper, success){
-						if(success == false){
-							this.close();
-						}
-					},
-					scope : this
-				});
-
+				var filters = this.getSearchFilters()||[];
+				if(reload || filters.length < 1){
+					this.store.load({
+						callback : function(records, oper, success){
+							if(success == false){
+								this.close();
+							}
+						},
+						scope : this
+					});
+				}
+				else{
+					this.store.filter(filters);
+					if(this.remoteFilter === false){
+						this.store.reload();
+					}
+				}
+				
 			} else {
 				var proxy = this.store.getProxy();
 
 				var conditions = Ext.clone(this.codeviewOpts.condition);
+				conditions = this.getSearchConditions(conditions);
 
 				if (conditions.length > 0)
 					proxy.extraParams.condition = conditions;
@@ -201,9 +272,6 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 					scope : this
 				});
 			}
-		} else {
-			this.selectSearchRecord(this);
-		}
 	},
 
 	buildService : function() {
@@ -249,7 +317,6 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 		return Ext.create('Ext.data.Store', {
 			autoLoad : false,
 			remoteFilter : true,
-			// remotePaging : true,
 			filterOnLoad : false,
 			fields : this.codeviewOpts.select,
 			pageSize : this.pageSize||this.defaultPageSize, // 기본 1000개
@@ -276,10 +343,13 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 	 */
 	buildGrid : function(store) {
 		var self = this;
+		var dataIndex = self.codeviewOpts.popupConfig.columns[0].dataIndex;
 		var grid = {
 			xtype : 'grid',
 			itemId : 'grdCodeview',
-			selModel : Ext.create('Ext.selection.CheckboxModel'),
+			selModel : Ext.create('Ext.selection.CheckboxModel', {
+				mode : 'SIMPLE'
+			}),
 			store : store,
 			flex : 1,
 			sortableColumns : false,
@@ -287,6 +357,29 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 			enableColumnMove : false,
 			columnLines : true,
 			columns : self.codeviewOpts.popupConfig.columns,
+			listeners : {
+				itemclick : function(grid, recrod, item, index, e){
+					var value = recrod.get(dataIndex);
+					var listStore = self.sub('grdSelect').store;
+					var findRecord = null;
+					listStore.findBy(function(r){
+						if(r.isEqual(r.get(dataIndex), value)){
+							findRecord = r;
+							return true;
+						}
+						return false;
+					});
+					
+					if(findRecord){
+						listStore.remove([findRecord]);
+					}
+					else{
+						var obj = {};
+						obj[dataIndex] = value;
+						listStore.add(obj);
+					}
+				}
+			},
 			tbar : [ {
 				xtype : 'button',
 				itemId : 'btnEmptyField',
@@ -298,37 +391,258 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 					}, 1);
 					return false;
 				}
-			} ]
+			}],
+			bbar : self.buildPagebar(store)
 		};
 		if (self.codeviewOpts.popupConfig.viewConfig) {
 			grid.viewConfig = self.codeviewOpts.popupConfig.viewConfig;
 		}
 		return grid;
 	},
-
-	buildToolbar : function() {
-		var self = this;
+	buildPagebar : function(store){
 		return {
-	        xtype: 'toolbar',
-	        ui : 'footer',
+	        xtype: 'pagingtoolbar',
+	        itemId : 'pagebar',
+	        store: store,   // same store GridPanel is using
+	        displayInfo: false,
 	        dock: 'bottom',
-	        items : [ {
-				xtype : 'button',
-				cls : 'marginL5',
-				width : 70,
-				itemId : 'btnInputField',
-				text : T('Caption.Other.Input'),
-				handler : function(){
-					var selModel = self.grid.getSelectionModel();
-					var records = selModel.getSelection();
-					self.codeviewOpts.callback.call(self, self.codeviewOpts.fieldset, records);
-					Ext.defer(function() {
-						self.destroy();
-					}, 100);
-					return false;
-				}
-			}]
+	        hidden : true,
+	        afterPageText : '/ {0}'
 	    };
+	},
+	buildList : function(){
+		var self = this;
+		var dataIndex = self.codeviewOpts.popupConfig.columns[0].dataIndex;
+		var data = [];
+		if(self.inputValue){
+			var list = self.inputValue.split(self.codeviewOpts.fieldset.separator);
+			for(var i in list){
+				var obj = {};
+				obj[dataIndex] = list[i];
+				data.push(obj);
+			}
+		}
+		var store = Ext.create('Ext.data.Store',{
+			fields : [dataIndex],
+			data : data
+		});
+		return {
+			xtype : 'panel',
+			tbar : ['->', {
+				/*
+				//iconDelete 에 드레그 했을경우 삭제
+				xtype : 'button',
+				iconCls : 'iconDelete'
+				 */
+			}],
+			items : {
+				xtype : 'dataview',
+				itemId : 'grdSelect',
+				autoScroll : true,
+				width : 150,
+				cls : 'codeSelect-list',
+				store : store,
+				itemSelector : '.codeviewSelected',
+				overItemCls : 'codeSelect-item-hover',
+				dragItemClass : 'btnDnD',
+				tpl : '<tpl for="."><div class="codeviewSelected">'
+					+ '<span>{'+dataIndex+'}</span>' + '<button class = "btnDnD"></button>' + '</div></tpl>',
+				listeners : {
+					itemclick : function(view, rec, item, index, e) {
+						store.remove([rec]);
+						var grid = self.sub('grdCodeview');
+						var value = rec.get(dataIndex);
+						
+						var findRecord = null;
+						grid.store.findBy(function(r){
+							if(r.isEqual(r.get(dataIndex), value)){
+								findRecord = r;
+								return true;
+							}
+							return false;
+						});
+						
+						var selModel = grid.getSelectionModel();
+						selModel.deselect([findRecord]);
+						view.refresh();
+					},
+					render : function(v) {
+						self.setDragZone(v, dataIndex);
+					}
+				}
+			}
+		};
+	},
+	setDragZone : function(v, dataIndex) {
+		var me = this;
+		v.dragZone = Ext.create('Ext.dd.DragZone', v.getEl(), {
+			onInitDrag : function(x, y) {
+				var clone = '<div>Draging....</div>';
+				this.proxy.update(clone);
+				this.proxy.setStatus(' ');
+				this.onStartDrag(x, y);
+				return true;
+			},
+			onDrag : function(e) {
+				var sourceEl = e.getTarget(v.itemSelector);
+				if (sourceEl) {
+					var tIndex = v.indexOf(sourceEl);
+					var tdata = v.getRecord(sourceEl).data || {};
+					var data = v.dragData.dragData;
+					if (tdata[dataIndex] && data[dataIndex] != tdata[dataIndex]) {
+						v.store.removeAt(v.dragData.lastIndex);
+						v.store.insert(tIndex, [ data ]);
+						v.dragData.lastIndex = tIndex;
+						v.refresh();
+					}
+				}
+			},
+			onMouseUp : function(e) {
+				var sourceEl = e.getTarget(v.itemSelector);
+				var target = e.target;
+				/*
+				 //iconDelete 에 드레그 했을경우 삭제
+				if(target.className.match('iconDelete')){
+					var value = v.dragData.dragData[dataIndex];
+					
+					var grid = me.sub('grdCodeview');
+					var findRecord = null;					
+					grid.store.findBy(function(r){
+						if(r.isEqual(r.get(dataIndex), value)){
+							findRecord = r;
+							return true;
+						}
+						return false;
+					});
+					
+					var selModel = grid.getSelectionModel();
+					selModel.deselect([findRecord]);
+					
+					var rec = null;
+					v.store.findBy(function(r){
+						if(r.isEqual(r.get(dataIndex), value)){
+							rec = r;
+							return true;
+						}
+						return false;
+					});
+					v.store.remove([rec]);
+					v.refresh();
+					return;
+				}
+				*/
+				
+				if (sourceEl) {
+					var tIndex = v.indexOf(sourceEl);
+					var tdata = v.getRecord(sourceEl).data || {};
+					var data = v.dragData.dragData;
+
+					if (data[dataIndex] == tdata[dataIndex]) {
+						v.store.removeAt(tIndex);
+						data.dragItem = '';
+						v.store.insert(tIndex, [ data ]);
+						v.refresh();
+					}
+				} else {
+					var data = v.dragData.dragData;
+					var tIndex = v.dragData.lastIndex;
+					var rec = v.store.getAt(tIndex);
+					if (rec && rec.data[dataIndex] == data[dataIndex]) {
+						v.store.removeAt(tIndex);
+						data.dragItem = '';
+						v.store.insert(tIndex, [ data ]);
+						v.refresh();
+					}
+				}
+			},
+			getDragData : function(e) {
+				if (v.readOnly)
+					return;
+				var target = e.target;
+				if (target.className == v.dragItemClass) {
+					var sourceEl = e.getTarget(v.itemSelector, 10);
+					if (sourceEl) {
+						var index = v.indexOf(sourceEl);
+						var data = v.getRecord(sourceEl).data || {};
+						var d = sourceEl.cloneNode(true);
+						d.id = Ext.id();
+						data.dragItem = true;
+						v.refresh();
+						return v.dragData = {
+							sourceEl : sourceEl,
+							lastIndex : index,
+							ddel : d,
+							dragData : data
+						};
+					}
+				}
+			},
+			getRepairXY : function() {
+				return this.dragData.repairXY;
+			}
+		});
+	},
+	
+	buildSearch : function() {
+		var self = this;
+		var fieldSearch = this.codeviewOpts.fieldSearch;
+		var columns = this.codeviewOpts.popupConfig.columns;
+		var fieldset = this.codeviewOpts.fieldset;
+		var items = [];
+		for ( var i in columns) {
+			var column = columns[i];
+			var txtValue = "";
+			// column.dataIndex 컬럼명
+			items.push({
+				listeners : {
+					specialkey : function(textfield, e) {
+						if (e.getKey() == e.ENTER) {
+							self.loadStore();
+						}
+					},
+					change : function(textfield, val){
+					//	self.grid.getSelectionModel().deselectAll();
+					}
+				},
+				xtype : 'textfield',
+				name : column.dataIndex,
+				value : txtValue,
+				hideLabel : true,
+				emptyText : column.header,
+				flex : column.flex
+			});
+		}
+		items.push({
+			xtype : 'component',
+			width : 65
+		},{
+			xtype : 'button',
+			width : 80,
+			height : 15,
+			cls : 'marginB3 marginR5',
+			itemId : 'btnInputField',
+			text : T('Caption.Other.Input'),
+			handler : function(){
+				var records = self.sub('grdSelect').store.getRange();
+				self.codeviewOpts.callback.call(self, self.codeviewOpts.fieldset, records);
+				Ext.defer(function() {
+					self.destroy();
+				}, 100);
+				return false;
+			}
+		});
+		return {
+			xtype : 'panel',
+			height : 39,
+			dock : 'bottom',
+			cls : 'windowSearchField',
+			layout : {
+				align : 'stretch',
+				type : 'hbox'
+			},
+			itemId : 'searchFields',
+			items : items
+		};
 	},
 
 	/* refresh버튼을 클릭시 화면정보가 갱신된다. */

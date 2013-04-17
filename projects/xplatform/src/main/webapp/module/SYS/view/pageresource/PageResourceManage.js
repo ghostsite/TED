@@ -308,6 +308,12 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 							cls : 'marginRL10',
 							boxLabel : '只见',
 							name : 'canDisabled'
+						}, {
+							xtype : 'checkbox',
+							fieldLabel : '',
+							cls : 'marginRL10',
+							boxLabel : '隐藏',
+							name : 'canHide'
 						}]
 					}]
 				}]

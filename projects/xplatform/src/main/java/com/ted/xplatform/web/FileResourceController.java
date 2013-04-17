@@ -89,6 +89,7 @@ public class FileResourceController {
         fileResource.setCanView(true);//写死canView权限
         fileResource.setCanDownload(true);//写死canDownload权限
         fileResource.setCanDelete(true);//写死canDelete权限
+        fileResource.setCanHide(true);//写死canHide权限
         fileResource.setFilePath(middleDir);
         fileResource.setFileSize(new Long(multipartFile.getBytes().length));
         fileResource.setFileType(FileUtils.getExtension(multipartFile.getOriginalFilename(), true));

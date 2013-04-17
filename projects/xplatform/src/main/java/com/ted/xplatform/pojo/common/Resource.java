@@ -69,6 +69,10 @@ public abstract class Resource extends LogicAuditEntity {
     private boolean canDisabled;
     @Transient
     private boolean canDownload; //FileResource能下载不
+    @Transient
+    private boolean canHide;
+    @Transient
+    private boolean canExecute;
     
     
     /**
@@ -185,6 +189,24 @@ public abstract class Resource extends LogicAuditEntity {
         this.canDownload = canDownload;
     }
     
+    @Transient
+    public boolean isCanHide() {
+        return canHide;
+    }
+
+    public void setCanHide(boolean canHide) {
+        this.canHide = canHide;
+    }
+    
+    @Transient
+    public boolean isCanExecute() {
+        return canDownload;
+    }
+
+    public void setCanExecute(boolean canExecute) {
+        this.canExecute = canExecute;
+    }
+    
  // ----------Methods------------//
     /**
      * 这个方法是给canView...赋值。注意，要在Hibernate的session中完成此动作。
@@ -204,6 +226,8 @@ public abstract class Resource extends LogicAuditEntity {
             boolean canReadOnly = ACLUtils.isReadOnly(operation);
             boolean canDisabled = ACLUtils.isDisabled(operation);
             boolean canDownload = ACLUtils.isDownload(operation);
+            boolean canHide = ACLUtils.isHide(operation);
+            boolean canExecute = ACLUtils.isExecute(operation);
             if (canView) {
                 setCanView(canView);
             }
@@ -224,6 +248,12 @@ public abstract class Resource extends LogicAuditEntity {
             }
             if (canDownload) {
                 setCanDownload(canDownload);
+            }
+            if (canHide) {
+                setCanHide(canHide);
+            }
+            if (canExecute) {
+                setCanExecute(canExecute);
             }
         }
     }

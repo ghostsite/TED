@@ -102,6 +102,24 @@ public abstract class ACLUtils {
         Assert.notNull(operation);
         return Operation.Type.download.name().equals(operation.getCode());
     };
+    
+    /**
+     * 判断Operation是否是Hide's Operation
+     * 不涉及到事务 
+     */
+    public static final boolean isHide(Operation operation) {
+        Assert.notNull(operation);
+        return Operation.Type.hide.name().equals(operation.getCode());
+    };
+    
+    /**
+     * 判断Operation是否是Execute's Operation
+     * 不涉及到事务 
+     */
+    public static final boolean isExecute(Operation operation) {
+        Assert.notNull(operation);
+        return Operation.Type.execute.name().equals(operation.getCode());
+    };
 
     /**
      * <b>获取有效的ACLList,原因是ACL表的两个关键字段可以为空，导致肯能ACL有资源，没权限。</b>

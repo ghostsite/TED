@@ -58,6 +58,18 @@ public class Operation extends PersistEntity {
             public String getText() {
                 return "下载";
             }
+        },
+        hide {
+            @SuppressWarnings("all")
+            public String getText() {
+                return "隐藏";
+            }
+        },
+        execute {
+            @SuppressWarnings("all")
+            public String getText() {
+                return "执行";
+            }
         }
     }
 
@@ -103,17 +115,31 @@ public class Operation extends PersistEntity {
         return Type.download.name().equals(this.code);
     }
     
+    @Transient
+    @JsonIgnore
+    public boolean isHideOperation(){
+        return Type.hide.name().equals(this.code);
+    }
+    
+    @Transient
+    @JsonIgnore
+    public boolean isExecuteOperation(){
+        return Type.execute.name().equals(this.code);
+    }
+    
     /**
-     * 资源名称: add, update, delete, view, readonly, disabled, download
-     * FileResource: view, download, delete
-     * WidgetResource: view, readonly, disbled.
-     * PageResource: view 
-     * MenuResource: view
+     * 资源名称: add, update, delete, view, readonly, disabled, download,hide, execute
+     * FileResource: view, download, delete, hide (默认是view,如果不可见，需要配置hide)
+     * WidgetResource: view, readonly, disbled, hide (默认是view，如果是不可见，需要配置hide)
+     * PageResource: view (默认是不可以view，so需要配置view)              -----------这个是最特殊的，跟别的都不一样。
+     * MenuResource: view (这个默认是不可见，so需要配置可见, 没有hide选项) -----------这个是最特殊的，跟别的都不一样。
+     * UrlResource: hide, execute (这个默认是可执行，so需要配置hide)
+     * 
      */
     String code;
 
     /**
-     * 描述,备注: 查看,新增,更新,删除,只读
+     * 描述,备注: 查看,新增,更新,删除,只读,隐藏,执行,只见,下载
      */
     String name;
     

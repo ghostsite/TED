@@ -14,7 +14,8 @@ Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to f
 		//this.downloadUrl = config.downloadUrl;
 		if(!configs.store){
 			configs.store =  Ext.create('Ext.data.ArrayStore',{
-				fields : ['fileId','groupId', 'paramName', 'fileName', 'fileType', 'fileSize','status', 'progress', 'tmpFlag']
+				fields : ['fileId','groupId', 'paramName', 'fileName', 'fileType', 'fileSize','status', 'progress', 'tmpFlag'],
+				data : configs.defaultData||[]
 			});
 		}
 		this.callParent([ configs ]);
@@ -77,7 +78,12 @@ Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to f
 				flex : 1
 			}, {
 				text : 'Size',
-				dataIndex : 'fileSize'
+				dataIndex : 'fileSize',
+				renderer : function(v){
+					if(v)
+						v = v+' byte';
+					return v;
+				}
 			}, {
 				text : 'Status',
 				dataIndex : 'status',

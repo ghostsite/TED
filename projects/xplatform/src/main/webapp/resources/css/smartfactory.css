@@ -672,6 +672,12 @@ table.x-datepicker-inner .x-datepicker-today a{color:#cc3300}
 #content-body .codeView.x-form-item{margin-bottom:0}
 #content-body .x-form-item{margin-bottom:5px\9}
 
+/*codeview list style*/
+.codeSelect-list{background:#f8f8f8;padding:3px 5px 3px 5px;border-left:2px solid #e0e0e0}
+.codeSelect-list span{width:78%;display:inline-block;overflow:hidden;white-space:nowrap}
+.codeSelect-list div{margin-top:3px;padding:3px 3px 3px 3px;cursor:pointer;border:none;border-bottom:1px dotted #cfcfcf;}
+.codeSelect-item{background:url('../image/iconOperation16.png') 2px 0px no-repeat;}
+.codeSelect-item-hover{background-color:#eee;}
 
 /*notification style*/
 .star{background:url('../image/iconStar.png') no-repeat;width:11px;height:12px;display:inline-block}

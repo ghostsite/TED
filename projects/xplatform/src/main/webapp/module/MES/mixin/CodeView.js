@@ -180,7 +180,8 @@ Ext.define('MES.mixin.CodeView', function() {
 				}
 				if(opt === 'multi'){
 					var codeview = Ext.create('MES.view.window.MultiCodeViewPopup', {
-						codeviewOpts : codeviewOpts
+						codeviewOpts : codeviewOpts,
+						inputValue : fieldset.getComponent(0).getValue()
 					});
 					codeview.show();
 					return codeview;
