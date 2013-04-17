@@ -201,7 +201,7 @@ public class PageResourceService implements InitializingBean {
         } else {//update
             PageResource dbPageResource = (PageResource) jpaSupportDao.getEntityManager().find(PageResource.class, pageResource.getId());
             //DozerUtils.copy(menuResource, dbMenuResource);//这个不好用,copy all
-            BeanUtils.copyPropertiesByInclude(dbPageResource, pageResource, new String[] { "code", "name", "description", "idx", "canView" });
+            BeanUtils.copyPropertiesByInclude(dbPageResource, pageResource, new String[] { "code", "name", "description", "idx", "canView","hasController" });
             resourceService.updateOperationProperties2Operations(dbPageResource);
             jpaSupportDao.getEntityManager().merge(dbPageResource);
         }
