@@ -1,6 +1,16 @@
 T({
 	Caption : {
 		Other : {
+			"Desc" : "说明",
+			"Description" : "说明",
+			"Favorites" : "收藏夹",
+			"Error" : "错误",
+			"Female" : "女",
+			"File" : "文件",
+			"Menu" : "菜单",
+			"Message" : "信息",
+			"Options" : "选项",
+			"Password" : "密码",
 			"Enter Date":"入职日期",
 			"Birthday":"出生日期",
 			"Phone Other":"其他电话",
@@ -127,7 +137,19 @@ T({
 			"Edit" : "编辑"
 		},
 		Menu : {
-			
+			"Favorites" : "常用",
+			"Exit" : "退出",
+			"Help" : "帮助",
+			"Help(&H)" : "帮助(&H)",
+			"Hold Lot" : "锁定批次",
+			"Inquiry" : "查询",
+			"Log Out" : "退出登录",
+			"Label" : "标签",
+			"Menu" : "菜单",
+			"Option" : "选项",
+			"Options" : "选项",
+			"System" : "系统",
+			"Windows" : "窗口"
 		}
 	},
 	Message : {

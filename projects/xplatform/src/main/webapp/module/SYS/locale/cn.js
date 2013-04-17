@@ -54,13 +54,6 @@ T({
 				}
 			},
 			"shequinfomanage":"前台管理",
-			"special/SomebodyManage":"重点人员管理",
-			"special/GroupedManage":"特殊群体管理",
-			"special/EventManage":"情报信息管理",
-			"qiantaichaxun":"前台查询",
-			"special/SomebodyQuery":"重点人员查询",
-			"special/GroupedQuery":"特殊群体查询",
-			"special/EventQuery":"情报信息查询",
 			"systemmanage":"系统管理"
 		}
 	},

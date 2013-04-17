@@ -89,6 +89,7 @@
 		Ext.module.register('MES', [ 'MES.controller.MESController' ], false);
 		Ext.module.register('SEC', [ 'SEC.controller.SECController' ], false);
 		Ext.module.register('SYS', [  ], false);
+		Ext.module.register('BUS', [  ], false);
 		Ext.module.register('TES', [  ], false);
 		</script>
 		
