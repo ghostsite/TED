@@ -18,7 +18,7 @@ public abstract class MenuUtil {
             Menu<Item> subMenu = (Menu<Item>) item.getMenu();
             addCheckAllAndSeparatorItemCascade(subMenu);
         }
-        //menu.addFirstItem(newSeparatorItem());///注释for extjs4
+        //menu.addFirstItem(newSeparatorItem());///注释for extjs4,弄不出来，改在js端了。
         menu.addFirstItem(newCheckAllItem());
     }
 
@@ -34,7 +34,7 @@ public abstract class MenuUtil {
     public static final Item newSeparatorItem() {
         Separator separator = new Separator();
         //separator.setItemCls("x-menu-sep"); //this is for extjs3
-        //separator.setItemCls("menu-item-separator"); //extjs4
+        separator.setItemCls("menu-item-separator"); //extjs4
         return separator;
     }
     

@@ -10,20 +10,14 @@
 	<!--如果是Disk则就D:/, if ftp: /sandbox-->
 	<attachFileDir>D:/temp2/web7attachfiles/</attachFileDir>
 
-	<!--#超级用户(系统管理员)的id-->
-	<superuserid>1</superuserid>
-	
-	<!--grid的每页显示多少行-->
-	<pageSize>20</pageSize>
+	<!--#超级用户(系统管理员)的角色的code-->
+	<adminrolecode>adminrole</adminrolecode>
 	
 	<!--默认密码-->
 	<defaultPassword>123456</defaultPassword>
 	
 	<!--Extjs的等待信息-->
 	<waitMsg><![CDATA[请稍等...]]></waitMsg>
-	
-	<!--主键前缀，为业务主键生成考虑,成都的前缀是510100-->
-	<idPrefix>510100</idPrefix>
 	
 	<!--js的pretty print-->
 	<prettyPrint>true</prettyPrint>

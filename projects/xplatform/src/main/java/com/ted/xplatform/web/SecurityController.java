@@ -98,7 +98,6 @@ public class SecurityController {
             return "redirect:showLogin";
         } else {
             model.addAttribute(user);
-            model.addAttribute("pageSize", ConfigUtils.getConfig().getInt("pageSize"));
             model.addAttribute("waitMsg", ConfigUtils.getConfig().getString("waitMsg"));
             return "main";
         }

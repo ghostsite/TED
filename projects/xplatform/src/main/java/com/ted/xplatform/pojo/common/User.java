@@ -19,6 +19,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -47,7 +48,7 @@ import com.ted.xplatform.pojo.base.LogicPersistEntity;
 public class User extends LogicPersistEntity {
     private static final long    serialVersionUID = 5397758804160599616L;
 
-    public static final Long     SUPER_USER_ID    = ConfigUtils.getConfig().getLong("superuserid");
+    public static final String   ADMIN_ROLE_CODE  = ConfigUtils.getConfig().getString("adminrolecode");
 
     /**
      * 停用状态
@@ -163,13 +164,13 @@ public class User extends LogicPersistEntity {
     String                       orgName;
 
     @Transient
-    boolean                      needToUpdatePwd;                                                  //是否要更新密码
+    boolean                      needToUpdatePwd;                                                      //是否要更新密码
 
     @Transient
-    Attachment                   pic;                                                               //图片
+    Attachment                   pic;                                                                  //图片
 
     @Transient
-    boolean                      needToUpdatePic;                                                   //是否更新图片
+    boolean                      needToUpdatePic;                                                      //是否更新图片
 
     @Transient
     public Attachment getPic() {
@@ -443,7 +444,16 @@ public class User extends LogicPersistEntity {
 
     @Transient
     public boolean isSuperUser() {
-        return SUPER_USER_ID == this.getId();
+        if (CollectionUtils.isEmpty(roleList)) {
+            return false;
+        }
+        for (Role role : roleList) {
+            if (ADMIN_ROLE_CODE.equals(role.getCode())) {
+                return true;
+            }
+        }
+        return false;
+        //return SUPER_USER_ID == this.getId();
     }
 
     /**

@@ -29,7 +29,6 @@ public abstract class ConfigUtils {
 
     private static final String  ATTACH_FILE_DIR     = "attachFileDir";
 
-    private static final String  ID_PREFIX           = "idPrefix";
     private static final String  DEFAULT_PASSWORD    = "defaultPassword";
 
     private static final String  DOZER_BEAN_MAPPINGS = "dozerBeanMappings";
@@ -94,10 +93,6 @@ public abstract class ConfigUtils {
 
     public static final String getAttachFileDir() {
         return getString(ATTACH_FILE_DIR);
-    }
-
-    public static final String getIdPrefix() {
-        return getString(ID_PREFIX);
     }
 
     public static final String getDefaultPassword() {
