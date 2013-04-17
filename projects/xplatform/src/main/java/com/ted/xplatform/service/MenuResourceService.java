@@ -3,7 +3,6 @@ package com.ted.xplatform.service;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -21,9 +20,7 @@ import com.ted.common.dao.jpa.JpaSupportDao;
 import com.ted.common.dao.jpa.JpaTemplateDao;
 import com.ted.common.util.BeanUtils;
 import com.ted.common.util.CollectionUtils;
-import com.ted.xplatform.pojo.common.ACL;
 import com.ted.xplatform.pojo.common.MenuResource;
-import com.ted.xplatform.pojo.common.Role;
 
 /**
  * 菜单的Service
@@ -209,16 +206,7 @@ public class MenuResourceService {
      */
     @Transactional
     public void delete(Long resourceId) {
-        MenuResource menuResource = (MenuResource) jpaSupportDao.getEntityManager().find(MenuResource.class, resourceId);
-        Set<ACL> acls = menuResource.getAcls();
-        for (ACL acl : acls) {//这个地方一定要小心，分清cascade and mappedBy(谁是主控方)
-            List<Role> roles = acl.getRoles();
-            for (Role role : roles) {
-                role.getAcls().remove(acl);
-                jpaSupportDao.getEntityManager().merge(role);
-            }
-        }
-        jpaSupportDao.getEntityManager().remove(menuResource);
+        resourceService.delete(resourceId);
     }
 
     /**

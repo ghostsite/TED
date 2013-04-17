@@ -47,6 +47,10 @@ public class FileResourceService /**implements InitializingBean*/ {
     public void setResourceService(ResourceService resourceService) {
         this.resourceService = resourceService;
     }
+    
+    public ResourceService getResourceService() {
+        return resourceService;
+    }
 
     /**
      * 保存,<b>NOTE</b>:注意，由于是上传，不同于MenuResource的添加，可以在添加的时候指定权限。
@@ -89,9 +93,8 @@ public class FileResourceService /**implements InitializingBean*/ {
      * FileResource的删除
      */
     @Transactional
-    public void delete(Long id) {
-        FileResource fileResource = jpaSupportDao.getEntityManager().find(FileResource.class, id);
-        jpaSupportDao.getEntityManager().remove(fileResource);
+    public void delete(Long resourceId) {
+        resourceService.delete(resourceId);
     }
 
     /**

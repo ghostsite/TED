@@ -214,9 +214,9 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 					}
 				}
 			};
-		if(request.method == 'POST')
-			request.jsonData = params;
-		else
+		//if(request.method == 'POST')
+			//request.jsonData = params; zhang commentted
+		//else
 			request.params = params;
 		
 		Ext.Ajax.request(request);

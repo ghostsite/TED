@@ -26,7 +26,6 @@ import com.ted.common.util.BeanUtils;
 import com.ted.xplatform.pojo.common.ACL;
 import com.ted.xplatform.pojo.common.Operation;
 import com.ted.xplatform.pojo.common.PageResource;
-import com.ted.xplatform.pojo.common.Role;
 import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.pojo.common.WidgetResource;
 import com.ted.xplatform.util.ACLUtils;
@@ -179,16 +178,7 @@ public class WidgetResourceService /**implements InitializingBean*/
      */
     @Transactional
     public void delete(Long resourceId) {
-        WidgetResource widgetResource = (WidgetResource) jpaSupportDao.getEntityManager().find(WidgetResource.class, resourceId);
-        Set<ACL> acls = widgetResource.getAcls();
-        for (ACL acl : acls) {//这个地方一定要小心，分清cascade and mappedBy(谁是主控方)
-            List<Role> roles = acl.getRoles();
-            for (Role role : roles) {
-                role.getAcls().remove(acl);
-                jpaSupportDao.getEntityManager().merge(role);
-            }
-        }
-        jpaSupportDao.getEntityManager().remove(widgetResource);
+        resourceService.delete(resourceId);
     }
 
     /**

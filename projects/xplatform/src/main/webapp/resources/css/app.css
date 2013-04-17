@@ -8,7 +8,7 @@
 
 .icon-add {background-image: url(../image/icon/add.gif) !important;}
 .icon-modify {background-image: url(../image/icon/start.gif) !important;}
-.icon-remove {background-image: url(../image/icon/delete.gif) !important;}
+.icon-remove {background-image: url(../image/icon/delete.gif) !important;width:17px;height:17px;}
 .icon-refresh {background-image: url(../image/icon/refresh.gif) !important;}
 .tabs {background-image:url(../image/icon/tabs.gif) !important;}
 

@@ -54,6 +54,10 @@ Ext.define('SYS.view.fileresource.FileResourceManage', {
 								store.load({params:params});
 							}
 						}
+					},{
+						cls : 'icon-remove',
+						itemId: 'btnRemoveFile',
+						disabled : true
 					}],
 					bbar : SF.getContextBbar(store),
 					columns : [{

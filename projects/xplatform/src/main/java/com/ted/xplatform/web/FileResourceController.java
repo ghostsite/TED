@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -65,6 +66,13 @@ public class FileResourceController {
         for (Long id : ids) {
             fileResourceService.delete(id);
         }
+        return Constants.SUCCESS_JSON;
+    };
+    
+    @RequestMapping(value = "/delete")
+    public @ResponseBody
+    String delete(@RequestParam Long resourceId) {
+        fileResourceService.delete(resourceId);
         return Constants.SUCCESS_JSON;
     };
 
@@ -198,5 +206,17 @@ public class FileResourceController {
         TreeNodeUtil.moveChildren2ToChildrenCascade(treeNodeList);
         return treeNodeList;
     };
+    
+    /**
+     * 获得当前登陆用户，对给定code的fileResoruce的是否可下载权限
+     * 在FileResourceManage.js的方法中调用。
+     * 返回Map<String, Object>而不是返回boolean是为了适用于CommunFunction.js 中的callServiceSync()方法
+     */
+    @RequestMapping(value="/currentUserCanDownload")
+    @ResponseBody
+    Map<String, Object> currentUserCanDownload(@RequestParam String fileCode) throws ExecutionException{
+        boolean b = fileResourceService.getResourceService().currentUserCanDownload(fileCode);
+        return JsonUtils.getJsonMap(b);
+    }
     
 }
