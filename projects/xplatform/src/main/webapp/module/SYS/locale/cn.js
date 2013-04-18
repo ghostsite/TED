@@ -53,6 +53,9 @@ T({
 					},
 					attachment:{
 						"AttachmentManage":"附件管理"
+					},
+					namerule:{
+						"NameRuleManage":"NameRule管理"
 					}
 				}
 			},

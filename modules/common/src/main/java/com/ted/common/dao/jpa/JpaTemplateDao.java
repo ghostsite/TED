@@ -13,8 +13,9 @@ import com.ted.common.support.page.JsonPage;
  * 关于createNativeQuery的都没实现，请调用JdbcTemplateDao.java
  * @date 20130307
  */
-public interface JpaTemplateDao extends TemplateDao{
+public interface JpaTemplateDao extends TemplateDao {
     EntityManager getEntityManager();
+
     //-----------------------JPQL-----------------------//
     int executeJPQLUpdate(String namedQL, Map<String, Object> params);
 

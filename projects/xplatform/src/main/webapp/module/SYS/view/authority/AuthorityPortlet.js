@@ -1,7 +1,7 @@
 Ext.define('SYS.view.authority.AuthorityPortlet', {
 	extend : 'Ext.ux.portal.Portlet',
 	alias : 'widget.authorityPortlet',
-	height : 250,
+	height : 400,
 	forceFit : true,
 	tools : [{
 		type : 'gear',

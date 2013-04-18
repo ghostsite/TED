@@ -5,6 +5,10 @@ import java.io.PrintWriter;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.springframework.context.MessageSource;
+
+import com.ted.common.util.SpringUtils;
+
 public class BusinessException extends RuntimeException {
     private static final long         serialVersionUID = 1L;
     private ErrorCode                 errorCode;
@@ -69,6 +73,11 @@ public class BusinessException extends RuntimeException {
         }
     };
 
+    //工具类，给外面提供，方便多语言的。
+    public static final BusinessException create(String key, MessageSource messageSource) {
+        return new BusinessException(SpringUtils.getMessage(key, messageSource));
+    }
+
     //===================constructor and getter and setter======================
     public BusinessException(ErrorCode errorCode) {
         this.errorCode = errorCode;
@@ -77,7 +86,7 @@ public class BusinessException extends RuntimeException {
     public BusinessException(String message) {
         super(message);
     }
-    
+
     public BusinessException(String message, ErrorCode errorCode) {
         super(message);
         this.errorCode = errorCode;

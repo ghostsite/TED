@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -23,7 +21,7 @@ public class JpaTemplateDaoAdaptor extends TemplateDaoSupport implements JpaTemp
     //EntityManager em;
     @Inject
     EntityManager entityManager;
-    
+
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
