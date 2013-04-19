@@ -1,10 +1,12 @@
 package com.ted.xplatform.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -16,9 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ted.common.exception.BusinessException;
 import com.ted.common.support.extjs4.JsonOut;
+import com.ted.common.util.JsonUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.NameRule;
-import com.ted.xplatform.pojo.common.NameRuleDefine;
+import com.ted.xplatform.pojo.common.NameRuleDateTime;
+import com.ted.xplatform.pojo.common.NameRuleItem;
+import com.ted.xplatform.pojo.common.NameRulePrefix;
+import com.ted.xplatform.pojo.common.NameRuleSequence;
+import com.ted.xplatform.pojo.common.NameRuleUserDef;
 import com.ted.xplatform.service.NameRuleService;
 
 @Controller
@@ -54,24 +61,34 @@ public class NameRuleController {
     };
 
     /**
-     * 系统管理->NameRule管理
+     * 系统管理->NameRule管理,
      * 获得所有的NameRule
      */
     @RequestMapping(value = "/getNameRuleById")
     public @ResponseBody
-    NameRule getNameRuleById(@RequestParam Long ruleId) {
+    Map<String, Object> getNameRuleById(@RequestParam Long ruleId) {
         NameRule nameRule = nameRuleService.getNameRuleById(ruleId);
-        return nameRule;
+        return JsonUtils.getJsonMap(nameRule);
     };
 
     /**
-     * 系统管理->根据ruleId获得所有的NameRuleDefine
+     * 系统管理->根据ruleId获得所有的NameRuleItem
      */
-    @RequestMapping(value = "/getNameRuleDefineListByRuleId")
+    @RequestMapping(value = "/getNameRuleItemListByRuleId")
     public @ResponseBody
-    List<NameRuleDefine> getNameRuleDefineListByRuleId(@RequestParam Long ruleId) {
-        List<NameRuleDefine> nameRuleDefineList = nameRuleService.getNameRuleDefineListByRuleId(ruleId);
-        return nameRuleDefineList;
+    List<NameRuleItem> getNameRuleItemListByRuleId(@RequestParam Long ruleId) {
+        List<NameRuleItem> nameRuleItemList = nameRuleService.getNameRuleItemListByRuleId(ruleId);
+        return nameRuleItemList;
+    };
+
+    /**
+     * 系统管理->NameRuleItem管理,
+     */
+    @RequestMapping(value = "/getNameRuleItemById")
+    public @ResponseBody
+    Map<String, Object> getNameRuleItemById(@RequestParam Long ruleItemId) {
+        NameRuleItem nameRuleDef = nameRuleService.getNameRuleItemById(ruleItemId);
+        return JsonUtils.getJsonMap(nameRuleDef);
     };
 
     /**
@@ -85,12 +102,42 @@ public class NameRuleController {
     };
 
     /**
-     * 系统管理->NameRule管理：保存
+     * 系统管理->NameRuleUserDef管理：保存
      */
-    @RequestMapping(value = "/saveNameRuleDefine", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveNameRuleUserDef", method = RequestMethod.POST)
     public @ResponseBody
-    String saveNameRuleDefine(NameRuleDefine nameRuleDefine) {
-        nameRuleService.save(nameRuleDefine);
+    String saveNameRuleUserDef(NameRuleUserDef nameRuleUserDef) {
+        nameRuleService.save(nameRuleUserDef);
+        return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
+    };
+
+    /**
+     * 系统管理->NameRuleUserPrefix管理：保存
+     */
+    @RequestMapping(value = "/saveNameRulePrefix", method = RequestMethod.POST)
+    public @ResponseBody
+    String saveNameRulePrefix(NameRulePrefix nameRulePrefix) {
+        nameRuleService.save(nameRulePrefix);
+        return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
+    };
+
+    /**
+     * 系统管理->NameRuleDateTime管理：保存
+     */
+    @RequestMapping(value = "/saveNameRuleDateTime", method = RequestMethod.POST)
+    public @ResponseBody
+    String saveNameRuleDateTime(NameRuleDateTime nameRuleDateTime) {
+        nameRuleService.save(nameRuleDateTime);
+        return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
+    };
+
+    /**
+     * 系统管理->NameRuleSequence管理：保存
+     */
+    @RequestMapping(value = "/saveNameRuleSequence", method = RequestMethod.POST)
+    public @ResponseBody
+    String saveNameRuleSequence(NameRuleSequence nameRuleSequence) {
+        nameRuleService.save(nameRuleSequence);
         return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
     };
 
@@ -101,13 +148,8 @@ public class NameRuleController {
     public @ResponseBody
     String delete(@RequestParam Long ruleId) {
         NameRule nameRule = nameRuleService.getNameRuleById(ruleId);
-        if (CollectionUtils.isNotEmpty(nameRule.getRuleDefines())) {
-            //throw new BusinessException(SpringUtils.getMessage("message.common.hasNameRuleDefine", messageSource));
-            throw BusinessException.create("message.common.hasNameRuleGenerate", messageSource);
-        }
-        if (CollectionUtils.isNotEmpty(nameRule.getRuleGenerates())) {
-            //throw new BusinessException(SpringUtils.getMessage("message.common.hasNameRuleGenerate", messageSource));
-            throw BusinessException.create("message.common.hasNameRuleGenerate", messageSource);
+        if (CollectionUtils.isNotEmpty(nameRule.getRuleItems())) {
+            throw BusinessException.create("message.common.hasNameRuleItem", messageSource);
         }
 
         nameRuleService.delete(ruleId);
@@ -115,13 +157,23 @@ public class NameRuleController {
     };
 
     /**
-     * 系统管理->管理：deleteNameRuleDefine
+     * 系统管理->管理：deleteNameRuleItem
      */
-    @RequestMapping(value = "/deleteNameRuleDefine", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteNameRuleItem", method = RequestMethod.POST)
     public @ResponseBody
-    String deleteNameRuleDefine(@RequestParam Long defineId) {
-        nameRuleService.deleteNameRuleDefine(defineId);
+    String deleteNameRuleItem(@RequestParam Long itemId) {
+        nameRuleService.deleteNameRuleItem(itemId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
+    };
+    
+    /**
+     * 生成一个
+     */
+    @RequestMapping(value = "/generate")
+    public @ResponseBody
+    String generate(@RequestParam String ruleCode, @RequestParam String userDefs) {
+        String newCode = nameRuleService.generate(ruleCode, StringUtils.split(userDefs,","));
+        return JsonUtils.toJson(newCode);
     };
 
 }

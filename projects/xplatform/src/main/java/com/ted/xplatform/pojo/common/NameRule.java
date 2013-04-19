@@ -15,36 +15,23 @@ import com.ted.xplatform.pojo.base.PersistEntity;
 @Entity
 @Table(name = "name_rule")
 public class NameRule extends PersistEntity {
-    private static final long      serialVersionUID = 4978719868761544398L;
+    private static final long  serialVersionUID = 4978719868761544398L;
 
-    private String                 code;
-    private String                 name;
-    private boolean                valid;                                  //是否有效
-    private String                 remark;
+    private String             code;
+    private String             name;
+    private String             remark;
 
     @JsonIgnore
     @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "rule", fetch = FetchType.LAZY)
     @OrderBy("idx")
-    private List<NameRuleDefine>   ruleDefines;
+    private List<NameRuleItem> ruleItems;
 
-    @JsonIgnore
-    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "rule", fetch = FetchType.LAZY)
-    private List<NameRuleGenerate> ruleGenerates;
-
-    public List<NameRuleDefine> getRuleDefines() {
-        return ruleDefines;
+    public List<NameRuleItem> getRuleItems() {
+        return ruleItems;
     }
 
-    public void setRuleDefines(List<NameRuleDefine> ruleDefines) {
-        this.ruleDefines = ruleDefines;
-    }
-
-    public List<NameRuleGenerate> getRuleGenerates() {
-        return ruleGenerates;
-    }
-
-    public void setRuleGenerates(List<NameRuleGenerate> ruleGenerates) {
-        this.ruleGenerates = ruleGenerates;
+    public void setRuleItems(List<NameRuleItem> ruleItems) {
+        this.ruleItems = ruleItems;
     }
 
     public String getCode() {
@@ -61,14 +48,6 @@ public class NameRule extends PersistEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isValid() {
-        return valid;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
     }
 
     public String getRemark() {

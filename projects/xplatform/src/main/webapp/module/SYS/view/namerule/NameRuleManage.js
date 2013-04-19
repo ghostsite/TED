@@ -1,8 +1,18 @@
 Ext.define('SYS.view.namerule.NameRuleManage', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'admin_namerule',
-	requires : ['SYS.model.NameRule', 'SYS.model.NameRuleDefine'],
+	requires : ['SYS.model.NameRule','SYS.model.NameRuleItem', 'SYS.model.NameRulePrefix', 'SYS.model.NameRuleUserDef', 'SYS.model.NameRuleDateTime', 'SYS.model.NameRuleSequence'],
 	title : T('Caption.Menu.SYS.view.namerule.NameRuleManage'),
+
+	addBtnNameRuleGenerate : function() { // 生成最终的code
+		var me = this;
+		return {
+			xtype : 'button',
+			text : '生成',
+			itemId : 'btnNameRuleGenerate',
+			disabled : true
+		};
+	},
 
 	addBtnNameRuleDelete : function() {
 		var me = this;
@@ -42,43 +52,43 @@ Ext.define('SYS.view.namerule.NameRuleManage', {
 		}
 	},
 
-	addBtnNameRuleDefineDelete : function() {
+	addBtnNameRuleItemDelete : function() {
 		var me = this;
 		return {
 			xtype : 'button',
 			text : '删除',
-			itemId : 'btnNameRuleDefineDelete',
+			itemId : 'btnNameRuleItemDelete',
 			disabled : true
 		};
 	},
 
-	addBtnNameRuleDefineUpdate : function() {
+	addBtnNameRuleItemUpdate : function() {
 		var me = this;
 		return {
 			xtype : 'button',
 			text : '变更',
-			itemId : 'btnNameRuleDefineUpdate',
+			itemId : 'btnNameRuleItemUpdate',
 			disabled : true
 		}
 	},
 
-	addBtnNameRuleDefineCreate : function() {
+	addBtnNameRuleItemCreate : function() {
 		var me = this;
 		return {
 			xtype : 'button',
 			text : '创建',
 			disabled : true,
-			itemId : 'btnNameRuleDefineCreate'
+			itemId : 'btnNameRuleItemCreate'
 		}
 	},
 
-	addBtnNameRuleDefineClear : function() {
+	addBtnNameRuleItemClear : function() {
 		var me = this;
 		return {
 			xtype : 'button',
 			text : '清空',
 			disabled : true,
-			itemId : 'btnNameRuleDefineClear'
+			itemId : 'btnNameRuleItemClear'
 		}
 	},
 
@@ -86,11 +96,12 @@ Ext.define('SYS.view.namerule.NameRuleManage', {
 		this.callParent();
 
 		var basebuttons = this.getButtons();
-		basebuttons.insert(1, this.addBtnNameRuleDefineDelete());
-		basebuttons.insert(1, this.addBtnNameRuleDefineUpdate());
-		basebuttons.insert(1, this.addBtnNameRuleDefineCreate());
-		basebuttons.insert(1, this.addBtnNameRuleDefineClear());
+		basebuttons.insert(1, this.addBtnNameRuleItemDelete());
+		basebuttons.insert(1, this.addBtnNameRuleItemUpdate());
+		basebuttons.insert(1, this.addBtnNameRuleItemCreate());
+		basebuttons.insert(1, this.addBtnNameRuleItemClear());
 
+		basebuttons.insert(0, this.addBtnNameRuleGenerate());
 		basebuttons.insert(0, this.addBtnNameRuleDelete());
 		basebuttons.insert(0, this.addBtnNameRuleUpdate());
 		basebuttons.insert(0, this.addBtnNameRuleCreate());
@@ -107,8 +118,8 @@ Ext.define('SYS.view.namerule.NameRuleManage', {
 		nameRuleStore.getProxy().url = 'namerule/getNameRuleList';
 		nameRuleStore.load();
 
-		var nameRuleDefineStore = Ext.create('SYS.store.NameRuleDefine');
-		nameRuleDefineStore.getProxy().url = 'namerule/getNameRuleDefineListByRuleId';
+		var nameRuleItemStore = Ext.create('SYS.store.NameRuleItem');
+		nameRuleItemStore.getProxy().url = 'namerule/getNameRuleItemListByRuleId';
 
 		return {
 			xtype : 'container',
@@ -144,13 +155,12 @@ Ext.define('SYS.view.namerule.NameRuleManage', {
 						header : 'NameRule代码',
 						dataIndex : 'code',
 						flex : 1
-					}],
-					bbar : SF.getContextBbar(nameRuleStore)
+					}]
 				}, {
 					xtype : 'form',
 					border : false,
 					itemId : 'nameRuleFormId',
-					cls : 'marginT7',
+					cls : 'marginT5',
 					layout : {
 						type : 'vbox',
 						align : 'stretch'
@@ -164,17 +174,25 @@ Ext.define('SYS.view.namerule.NameRuleManage', {
 						xtype : 'textfield',
 						fieldLabel : '代码',
 						labelWidth : 70,
-						name : 'code'
+						name : 'code',
+						itemId: 'code'
 					}, {
 						xtype : 'textfield',
 						labelWidth : 70,
 						fieldLabel : '名称 ',
-						name : 'name'
+						name : 'name',
+						itemId : 'name'
+					}, {
+						xtype : 'textarea',
+						fieldLabel : '备注',
+						labelWidth : 70,
+						height: 40,
+						name : 'remark'
 					}]
 				}]
 			}, {
 				xtype : 'container',
-				flex : 1,
+				flex : 2,
 				layout : {
 					type : 'vbox',
 					align : 'stretch',
@@ -182,33 +200,52 @@ Ext.define('SYS.view.namerule.NameRuleManage', {
 				},
 				items : [{
 					xtype : 'grid',
-					title : '定义',
+					title : '项目',
 					cls : 'navyGrid',
 					stripeRows : true,
 					autoScroll : true,
-					itemId : 'nameRuleDefineGridId',
+					itemId : 'nameRuleItemGridId',
 					forceFit : true,
 					minHeight : 370,
-					store : nameRuleDefineStore,
+					store : nameRuleItemStore,
 					columns : [{
 						header : '序号',
 						dataIndex : 'idx',
 						flex : 1
 					}, {
-						header : '名称',
-						dataIndex : 'name',
-						flex : 1
-					}, {
-						header : '长度',
-						dataIndex : 'length',
-						flex : 1
-					}, {
 						header : '类型',
-						dataIndex : 'genType',
+						dataIndex : 'category',
+						renderer: function(val){
+							if(val =='prefix'){
+								return '固定前缀';
+							}else if(val =='userdef'){
+								return '用户定义';
+							}if(val =='datetime'){
+								return '日期';
+							}if(val =='sequence'){
+								return '序列';
+							}
+						},
+						flex : 2
+					}, {
+						header : '前缀',
+						dataIndex : 'prefix',
+						flex : 2
+					}, {
+						header : '日期格式',
+						dataIndex : 'dateFormat',
+						flex : 2
+					}, {
+						header : '序列格式',
+						dataIndex : 'seqFormat',
+						flex : 2
+					}, {
+						header : '初始值',
+						dataIndex : 'initValue',
 						flex : 1
 					}, {
-						header : '值',
-						dataIndex : 'value',
+						header : '当前值',
+						dataIndex : 'currentValue',
 						flex : 1
 					}, {
 						header : '步长',
@@ -218,12 +255,12 @@ Ext.define('SYS.view.namerule.NameRuleManage', {
 				}, {
 					xtype : 'form',
 					border : false,
-					cls : 'marginT7',
+					cls : 'marginT5',
 					layout : {
 						type : 'vbox',
 						align : 'stretch'
 					},
-					itemId : 'nameRuleDefineFormId',
+					itemId : 'nameRuleItemFormId',
 					bodyCls : 'paddingAll10',
 					flex : 1,
 					items : [{
@@ -245,64 +282,104 @@ Ext.define('SYS.view.namerule.NameRuleManage', {
 							minValue : 1,
 							labelWidth : 60,
 							name : 'idx',
-							cls:'marginR7',
+							itemId : 'idx',
+							cls : 'marginR7',
 							flex : 1
 						}, {
-							xtype : 'numberfield',
-							fieldLabel : '长度 ',
-							labelWidth : 60,
-							name : 'length',
-							flex: 1,
-							minValue : 1
-						}]
-					}, {
-						xtype : 'container',
-						cls:'marginT5',
-						layout : {
-							type : 'hbox',
-							align : 'stretch'
-						},
-						items : [{
 							xtype : 'combobox',
 							fieldLabel : '类型',
 							labelWidth : 60,
 							store : Ext.create('Ext.data.ArrayStore', {
 								fields : ['code', 'value'],
-								data : [['prefix', '固定前缀'], ['calendar', '日期'], ['userdefine', '用户定义'], ['sequence', '序列']]
+								data : [['prefix', '固定前缀'], ['datetime', '日期'], ['userdef', '用户定义'], ['sequence', '序列']]
 							}),
 							valueField : 'code',
 							displayField : 'value',
-							name : 'genType',
+							name : 'category',
 							allowBlank : false,
 							triggerAction : 'all',
 							fieldLabel : '选择类型',
-							itemId : 'genType',
+							itemId : 'category',
 							editable : false,
+							value : 'userdef',
 							queryMode : 'local',
 							selectOnTab : true,
 							lazyRender : true,
-							cls:'marginR7',
-							flex: 1
-						}, {
-							xtype : 'numberfield',
-							fieldLabel : '步长',
-							labelWidth : 60,
-							name : 'step',
-							minValue : 1,
-							flex: 1
+							flex : 1,
+							listeners : {
+								//select : function(combo, records) {
+									//me.fireEvent('categoryChanged', combo, records);
+								//},
+								change : function(combo, newValue, oldValue) {
+									me.fireEvent('categoryChanged', combo, newValue, oldValue);
+								}
+							}
 						}]
 					}, {
-						xtype : 'textfield',
-						cls:'marginT5',
-						fieldLabel : '名称 ',
-						labelWidth : 60,
-						name : 'name'
-					}, {
-						xtype : 'textfield',
-						cls:'marginT5',
-						fieldLabel : '值 ',
-						labelWidth : 60,
-						name : 'value'
+						xtype : 'fieldcontainer',
+						layout : 'card',
+						anchor : '50%',
+						itemId : 'itemDetail',
+						cls : 'marginT5',
+						items : [{
+							xtype : 'textfield',
+							fieldLabel : '前缀',
+							name : 'prefix',
+							labelWidth : 60
+						}, {
+							xtype : 'textfield',
+							fieldLabel : '格式',
+							name : 'dateFormat',
+							labelWidth : 60
+						}, {
+							xtype : 'container',
+							layout :  'fit',
+							items : [{
+								xtype : 'container',
+								layout : {
+									type : 'hbox',
+									align : 'stretch'
+								},
+								items : [{
+									xtype : 'textfield',
+									fieldLabel : '格式 ',
+									cls : 'marginR7',
+									labelWidth : 60,
+									name : 'seqFormat',
+									flex : 1
+								}, {
+									xtype : 'numberfield',
+									fieldLabel : '步长',
+									labelWidth : 60,
+									name : 'step',
+									minValue : 1,
+									flex : 1
+								}]
+							}, {
+								xtype : 'container',
+								layout : {
+									type : 'hbox',
+									align : 'stretch'
+								},
+								cls : 'marginT5',
+								items : [{
+									xtype : 'numberfield',
+									fieldLabel : '初始值 ',
+									labelWidth : 60,
+									cls : 'marginR7',
+									name : 'initValue',
+									minValue : 1,
+									flex : 1
+								}, {
+									xtype : 'numberfield',
+									fieldLabel : '当前值',
+									labelWidth : 60,
+									name : 'currentValue',
+									minValue : 1,
+									flex : 1
+								}]
+							}]
+						}]
 					}]
 				}]
 			}]

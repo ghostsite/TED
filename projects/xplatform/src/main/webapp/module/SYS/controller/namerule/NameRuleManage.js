@@ -5,14 +5,17 @@ Ext.define('SYS.controller.namerule.NameRuleManage', {
 		selector : 'admin_namerule #nameRuleGridId',
 		ref : 'nameRuleGrid'
 	}, {
-		selector : 'admin_namerule #nameRuleDefineGridId',
-		ref : 'nameRuleDefineGrid'
+		selector : 'admin_namerule #nameRuleItemGridId',
+		ref : 'nameRuleItemGrid'
 	}, {
 		selector : 'admin_namerule #nameRuleFormId',
 		ref : 'nameRuleForm'
 	}, {
-		selector : 'admin_namerule #nameRuleDefineFormId',
-		ref : 'nameRuleDefineForm'
+		selector : 'admin_namerule #nameRuleItemFormId',
+		ref : 'nameRuleItemForm'
+	}, {
+		selector : 'admin_namerule #btnNameRuleGenerate',
+		ref : 'btnNameRuleGenerate'
 	}, {
 		selector : 'admin_namerule #btnNameRuleDelete',
 		ref : 'btnNameRuleDelete'
@@ -23,21 +26,40 @@ Ext.define('SYS.controller.namerule.NameRuleManage', {
 		selector : 'admin_namerule #btnNameRuleCreate',
 		ref : 'btnNameRuleCreate'
 	}, {
-		selector : 'admin_namerule #btnNameRuleDefineDelete',
-		ref : 'btnNameRuleDefineDelete'
+		selector : 'admin_namerule #btnNameRuleItemDelete',
+		ref : 'btnNameRuleItemDelete'
 	}, {
-		selector : 'admin_namerule #btnNameRuleDefineUpdate',
-		ref : 'btnNameRuleDefineUpdate'
+		selector : 'admin_namerule #btnNameRuleItemUpdate',
+		ref : 'btnNameRuleItemUpdate'
 	}, {
-		selector : 'admin_namerule #btnNameRuleDefineCreate',
-		ref : 'btnNameRuleDefineCreate'
+		selector : 'admin_namerule #btnNameRuleItemCreate',
+		ref : 'btnNameRuleItemCreate'
 	}, {
-		selector : 'admin_namerule #btnNameRuleDefineClear',
-		ref : 'btnNameRuleDefineClear'
+		selector : 'admin_namerule #btnNameRuleItemClear',
+		ref : 'btnNameRuleItemClear'
+	}, {
+		selector : 'admin_namerule #itemDetail',
+		ref : 'itemDetail'
+	}, {
+		selector : 'admin_namerule #category',
+		ref : 'category'
+	}, {
+		selector : 'admin_namerule #idx',
+		ref : 'idx'
+	}, {
+		selector : 'admin_namerule #code',
+		ref : 'code'
+	}, {
+		selector : 'admin_namerule #name',
+		ref : 'name'
 	}],
 
 	init : function() {
 		this.control({
+			'admin_namerule' : {
+				categoryChanged : this.onCategoryChanged
+				// 当类型选择变化时
+			},
 			'admin_namerule #nameRuleGridId' : {
 				itemclick : this.showNameRuleInfo
 			},
@@ -53,34 +75,58 @@ Ext.define('SYS.controller.namerule.NameRuleManage', {
 			'admin_namerule #btnNameRuleDelete' : {
 				click : this.onNameRuleDelete
 			},
+			'admin_namerule #btnNameRuleGenerate' : {
+				click : this.onNameRuleGenerate
+			},
 
-			'admin_namerule #nameRuleDefineGridId' : {
-				itemclick : this.showNameRuleDefineResourceInfo
+			'admin_namerule #nameRuleItemGridId' : {
+				itemclick : this.showNameRuleItemInfo
 			},
-			'admin_namerule #btnNameRuleDefineClear' : {
-				click : this.onNameRuleDefineClear
+			'admin_namerule #btnNameRuleItemClear' : {
+				click : this.onNameRuleItemClear
 			},
-			'admin_namerule #btnNameRuleDefineCreate' : {
-				click : this.onNameRuleDefineCreate
+			'admin_namerule #btnNameRuleItemCreate' : {
+				click : this.onNameRuleItemCreate
 			},
-			'admin_namerule #btnNameRuleDefineUpdate' : {
-				click : this.onNameRuleDefineUpdate
+			'admin_namerule #btnNameRuleItemUpdate' : {
+				click : this.onNameRuleItemUpdate
 			},
-			'admin_namerule #btnNameRuleDefineDelete' : {
-				click : this.onNameRuleDefineDelete
+			'admin_namerule #btnNameRuleItemDelete' : {
+				click : this.onNameRuleItemDelete
 			}
 		});
 	},
 
+	//onCategoryChanged : function(combo, records) {
+	onCategoryChanged : function(combo, newValue, oldValue) {
+		//var categoryCode = records[0].get('code');
+		//alert("newValue=="+newValue)
+		this.changeItemDetailStatus(newValue);
+	},
+	
+	changeItemDetailStatus : function(categoryCode){
+		this.getItemDetail().setVisible(true);
+		if (categoryCode === 'prefix') {
+			this.getItemDetail().getLayout().setActiveItem(0);
+		} else if (categoryCode === 'datetime') {
+			this.getItemDetail().getLayout().setActiveItem(1);
+		} else if (categoryCode === 'sequence') {
+			this.getItemDetail().getLayout().setActiveItem(2);
+		} else {
+			this.getItemDetail().setVisible(false);
+		}
+	},
+
 	showNameRuleInfo : function(grid, record) {
 		this.getBtnNameRuleDelete().enable();
+		this.getBtnNameRuleGenerate().enable();
 		this.getBtnNameRuleUpdate().enable();
 		this.getBtnNameRuleCreate().disable();
 
-		this.getBtnNameRuleDefineClear().enable();
-		this.getBtnNameRuleDefineCreate().enable();
-		this.getBtnNameRuleDefineDelete().disable();
-		this.getBtnNameRuleDefineUpdate().disable();
+		this.getBtnNameRuleItemClear().enable();
+		this.getBtnNameRuleItemCreate().enable();
+		this.getBtnNameRuleItemDelete().disable();
+		this.getBtnNameRuleItemUpdate().disable();
 
 		var nameRuleForm = this.getNameRuleForm();
 		nameRuleForm.form.load({
@@ -90,14 +136,14 @@ Ext.define('SYS.controller.namerule.NameRuleManage', {
 			}
 		});
 
-		this.getNameRuleDefineGrid().getStore().load({
+		this.getNameRuleItemGrid().getStore().load({
 			params : {
 				ruleId : record.get('id')
 			}
 		});
 
-		this.clearNameRuleDefineForm();
-		this.getNameRuleDefineForm().getForm().findField('rule.id').setValue(record.get('id'));
+		this.clearNameRuleItemForm();
+		this.getNameRuleItemForm().getForm().findField('rule.id').setValue(record.get('id'));
 	},
 
 	onNameRuleClear : function(button, event, eOpts) {
@@ -106,6 +152,20 @@ Ext.define('SYS.controller.namerule.NameRuleManage', {
 		this.getBtnNameRuleCreate().enable();
 
 		SF.clearForm(this.getNameRuleForm());
+	},
+
+	// 根据category的变化，改变提交，update的url，默认是userdef
+	getSaveUrlByCategory : function() {
+		var category = this.getCategory().getValue();
+		if (category === 'prefix') {
+			return 'namerule/saveNameRulePrefix';
+		} else if (category === 'datetime') {
+			return 'namerule/saveNameRuleDateTime';
+		} else if (category === 'sequence') {
+			return 'namerule/saveNameRuleSequence';
+		} else {
+			return 'namerule/saveNameRuleUserDef';
+		}
 	},
 
 	onNameRuleCreate : function(button, event, eOpts) {
@@ -179,41 +239,63 @@ Ext.define('SYS.controller.namerule.NameRuleManage', {
 		});
 	},
 
-	showNameRuleDefineInfo : function(grid, record) {
-		this.getBtnNameRuleDefineDelete().enable();
-		this.getBtnNameRuleDefineUpdate().enable();
-		this.getBtnNameRuleDefineCreate().disable();
+	onNameRuleGenerate : function(button, event, eOpts) {
+		var params = {
+			ruleCode : this.getCode().getValue(),
+			userDefs : this.getName().getValue()
+		};
 
-		var nameRuleDefineForm = this.getNameRuleDefineForm();
-		nameRuleDefineForm.form.load({
-			url : 'namerule/getNameRuleDefineByRuleId',
-			params : {
-				ruleId : record.raw.id
+		Ext.Ajax.request({
+			url : 'namerule/generate',
+			params : params,
+			success : function(response, opts) {
+				SF.alertInfo('信息', response.responseText);
+			},
+			failure : function(response, opts) {
+				SF.alertError('错误', "自己看");
 			}
 		});
 	},
 
-	onNameRuleDefineClear : function(button, event, eOpts) {
-		this.getBtnNameRuleDefineDelete().disable();
-		this.getBtnNameRuleDefineUpdate().disable();
-		this.getBtnNameRuleDefineCreate().enable();
+	showNameRuleItemInfo : function(grid, record) {
+		this.getBtnNameRuleItemDelete().enable();
+		this.getBtnNameRuleItemUpdate().enable();
+		this.getBtnNameRuleItemCreate().disable();
 
-		this.clearNameRuleDefineForm();
+		var nameRuleItemForm = this.getNameRuleItemForm();
+		nameRuleItemForm.form.load({
+			url : 'namerule/getNameRuleItemById',
+			params : {
+				ruleItemId : record.raw.id
+			}
+		});
+		
+		//set idx and category component to ReadOnly
+		this.getIdx().setReadOnly(true);
+		this.getCategory().setReadOnly(true);
 	},
 
-	onNameRuleDefineCreate : function(button, event, eOpts) {
+	onNameRuleItemClear : function(button, event, eOpts) {
+		this.getBtnNameRuleItemDelete().disable();
+		this.getBtnNameRuleItemUpdate().disable();
+		this.getBtnNameRuleItemCreate().enable();
+
+		this.clearNameRuleItemForm();
+	},
+
+	onNameRuleItemCreate : function(button, event, eOpts) {
 		var self = this;
 		var config = {
 			checkFormValid : true,
-			form : this.getNameRuleDefineForm(),
-			url : 'namerule/saveNameRuleDefine',
+			form : this.getNameRuleItemForm(),
+			url : this.getSaveUrlByCategory(),
 			showErrorMsg : false,
 			showSuccessMsg : true,
 			callback : function(action, success) {
 				if (success) {
 					SF.alertInfo('信息', '创建成功!');
-					self.refreshNameRuleDefineGrid();
-					self.clearNameRuleDefineForm();
+					self.refreshNameRuleItemGrid();
+					self.clearNameRuleItemForm();
 				} else {
 					SF.alertError('错误', Ext.decode(action.response.responseText).msg);
 				}
@@ -224,19 +306,19 @@ Ext.define('SYS.controller.namerule.NameRuleManage', {
 		SF.cf.callServiceForm(config);
 	},
 
-	onNameRuleDefineUpdate : function(button, event, eOpts) {
+	onNameRuleItemUpdate : function(button, event, eOpts) {
 		var self = this;
 		var config = {
 			checkFormValid : true,
-			form : this.getNameRuleDefineForm(),
-			url : 'namerule/saveNameRuleDefine',
+			form : this.getNameRuleItemForm(),
+			url : this.getSaveUrlByCategory(),
 			showErrorMsg : false,
 			showSuccessMsg : true,
 			callback : function(action, success) {
 				if (success) {
 					SF.alertInfo('信息', '变更成功!');
-					self.refreshNameRuleDefineGrid();
-					self.clearNameRuleDefineForm();
+					self.refreshNameRuleItemGrid();
+					self.clearNameRuleItemForm();
 				} else {
 					SF.alertError('错误', Ext.decode(action.response.responseText).msg);
 				}
@@ -248,21 +330,21 @@ Ext.define('SYS.controller.namerule.NameRuleManage', {
 
 	},
 
-	onNameRuleDefineDelete : function(button, event, eOpts) {
-		var nameRuleDefineFormPanel = this.getNameRuleDefineForm();
+	onNameRuleItemDelete : function(button, event, eOpts) {
+		var nameRuleItemFormPanel = this.getNameRuleItemForm();
 		var self = this;
 		Ext.Msg.confirm('信息', '确认删除？', function(btn) {
 			if (btn == 'yes') {
 				Ext.Ajax.request({
 					method : 'POST',
-					url : 'namerule/deleteNameRuleDefine',
+					url : 'namerule/deleteNameRuleItem',
 					params : {
-						defineId : nameRuleDefineFormPanel.getForm().findField('id').getValue()
+						itemId : nameRuleItemFormPanel.getForm().findField('id').getValue()
 					},
 					success : function(response, opts) {
 						SF.alertInfo('信息', '删除成功!');
-						self.refreshNameRuleDefineGrid();
-						self.clearNameRuleDefineForm();
+						self.refreshNameRuleItemGrid();
+						self.clearNameRuleItemForm();
 					},
 					failure : function(response, opts) {
 						var rs = Ext.decode(response.responseText);
@@ -277,20 +359,24 @@ Ext.define('SYS.controller.namerule.NameRuleManage', {
 		this.getNameRuleGrid().getStore().loadPage(1);
 	},
 
-	refreshNameRuleDefineGrid : function() {
+	refreshNameRuleItemGrid : function() {
 		var ruleId = SF.getSelectedIdFromGrid(this.getNameRuleGrid());
 		var params = {
 			ruleId : ruleId
 		};
-		this.getNameRuleDefineGrid().getStore().load({
+		this.getNameRuleItemGrid().getStore().load({
 			params : params
 		});
 	},
 
-	clearNameRuleDefineForm : function() {
-		SF.cf.clearFormFields(this.getNameRuleDefineForm(), {
+	clearNameRuleItemForm : function() {
+		SF.cf.clearFormFields(this.getNameRuleItemForm(), {
 			'rule.id' : 'rule.id'
 		});
+		
+		this.getIdx().setReadOnly(false);
+		this.getCategory().setReadOnly(false);
+		
 	}
 
 });
