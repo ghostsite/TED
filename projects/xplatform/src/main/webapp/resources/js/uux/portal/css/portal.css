@@ -1,4 +1,6 @@
-/**this file is changed*/
+/**this file is changed delete .x-border-layout-ct {
+    background: #DFE8F6;
+}*/
 #app-header {
     color: #596F8F;
     font-size: 22px;
@@ -25,9 +27,7 @@
 .x-panel-ghost {
     z-index: 1;
 }
-.x-border-layout-ct {
-    background: #DFE8F6;
-}
+
 .x-portal-body {
     padding: 0 0 0 8px;
 }
