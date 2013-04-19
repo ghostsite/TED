@@ -157,27 +157,6 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 				},
 				items : [{
 					xtype : 'numberfield',
-					fieldLabel : 'buttonWidth',
-					name : 'buttonWidth',
-					minValue : 0,
-					cls : 'marginR10',
-					flex : 1
-				}, {
-					xtype : 'numberfield',
-					fieldLabel : 'buttonIconAlign',
-					name : 'buttonIconAlign',
-					minValue : 0,
-					flex : 1
-				}]
-			}, {
-				xtype : 'container',
-				layout : 'hbox',
-				cls : 'paddingT7',
-				defaults : {
-					labelWidth : 100
-				},
-				items : [{
-					xtype : 'numberfield',
 					fieldLabel : '序号',
 					name : 'idx',
 					minValue : 0,

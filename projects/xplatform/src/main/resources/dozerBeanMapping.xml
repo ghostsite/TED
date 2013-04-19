@@ -50,22 +50,6 @@
 			<b>icon3</b>
 		</field>
 		<field>
-			<a>buttonIconCls</a>
-			<b>buttonIconCls</b>
-		</field>
-		<field>
-			<a>buttonScale</a>
-			<b>buttonScale</b>
-		</field>
-		<field>
-			<a>buttonWidth</a>
-			<b>buttonWidth</b>
-		</field>
-		<field>
-			<a>buttonIconAlign</a>
-			<b>buttonIconAlign</b>
-		</field>
-		<field>
 			<a>qtip</a>
 			<b>quicktip</b>
 		</field>
@@ -221,10 +205,6 @@
 		<field>
 			<a>path</a>
 			<b>path</b>
-		</field>
-		<field>
-			<a>buttonIconCls</a>
-			<b>buttonIconCls</b>
 		</field>
 		<field>
 			<a>qtip</a>
@@ -385,22 +365,6 @@
 		<field>
 			<a>icon3</a>
 			<b>icon3</b>
-		</field>
-		<field>
-			<a>buttonIconCls</a>
-			<b>buttonIconCls</b>
-		</field>
-		<field>
-			<a>buttonScale</a>
-			<b>buttonScale</b>
-		</field>
-		<field>
-			<a>buttonWidth</a>
-			<b>buttonWidth</b>
-		</field>
-		<field>
-			<a>buttonIconAlign</a>
-			<b>buttonIconAlign</b>
 		</field>
 		<field>
 			<a>qtip</a>

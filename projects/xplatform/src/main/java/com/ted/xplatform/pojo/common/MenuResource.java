@@ -57,26 +57,6 @@ public class MenuResource extends Resource {
 	private Integer idx;
 
 	/**
-	 * button的装饰CSS
-	 */
-	private String buttonIconCls;
-
-	/**
-	 * buttonScale button menu
-	 */
-	private String buttonScale;
-
-	/**
-	 * buttonWidth button menu
-	 */
-	private String buttonWidth;
-
-	/**
-	 * buttonIconAlign button menu的图片对齐方式
-	 */
-	private String buttonIconAlign;
-
-	/**
 	 * 修饰icon的cls,db中还多了一个冗余:cls,现在改为iconCls
 	 */
 	public String iconCls;
@@ -148,32 +128,6 @@ public class MenuResource extends Resource {
 		this.icon = icon;
 	}
 
-	public String getButtonScale() {
-		return buttonScale;
-	}
-
-	public void setButtonScale(String buttonScale) {
-		this.buttonScale = buttonScale;
-	}
-
-	public String getButtonWidth() {
-		return buttonWidth;
-	}
-
-	public void setButtonWidth(String buttonWidth) {
-		this.buttonWidth = buttonWidth;
-	}
-
-	public String getButtonIconAlign() {
-		return buttonIconAlign;
-	}
-
-	public void setButtonIconAlign(String buttonIconAlign) {
-		this.buttonIconAlign = buttonIconAlign;
-	}
-
-	
-
 	@Transient
 	public String getParentName() {
 		return parentName;
@@ -229,14 +183,6 @@ public class MenuResource extends Resource {
 
 	public void setIconCls(String iconCls) {
 		this.iconCls = iconCls;
-	}
-
-	public String getButtonIconCls() {
-		return buttonIconCls;
-	}
-
-	public void setButtonIconCls(String buttonIconCls) {
-		this.buttonIconCls = buttonIconCls;
 	}
 
 	public String getQuicktip() {
