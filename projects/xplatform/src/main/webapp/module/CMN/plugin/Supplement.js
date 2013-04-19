@@ -28,6 +28,16 @@ Ext.define('CMN.plugin.Supplement', {
 		if (!client.setSupplement) {
 			client.setSupplement = this.setSupplement;
 		}
+		
+		//zhang added
+		client.on('afterlayout', function(){
+			if(client.getSupplement()){
+				_supplimentContainer.expand();
+			}else{
+				_supplimentContainer.collapse(Ext.Component.DIRECTION_RIGHT);
+			}
+		});
+		//end added zhang
 
 		function onAdded() {
 			var sup = this.getSupplement();

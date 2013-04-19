@@ -163,9 +163,6 @@ public class NameRuleService {
     //=================真正的对外提供的业务方法=================//
     /**
      * 生成流水号
-     * @param genId 流水号生成规则号
-     * @param genUdfs 可变参数，用户定义类型字段值
-     * @return 流水号
      */
     @Transactional
     public String generate(String ruleCode, String... userDefs) {

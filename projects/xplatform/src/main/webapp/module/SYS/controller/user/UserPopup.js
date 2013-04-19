@@ -61,7 +61,10 @@ Ext.define('SYS.controller.user.UserPopup', {
 			view.sub('userpic').setDisabled(true);
 			view.sub('needToUpdatePic').setDisabled(true);
 			view.sub('btnSave').hide();
-			Ext.getCmp('showuserpicforpopup').getEl().dom.src = 'attachment/downloadPic/' + res.responseObj.pic.id;
+			
+			if(res.responseObj && res.responseObj.pic && res.responseObj.pic.id){
+				Ext.getCmp('showuserpicforpopup').getEl().dom.src = 'attachment/downloadPic/' + res.responseObj.pic.id;
+			}
 		}
 	},
 
