@@ -69,6 +69,8 @@ Ext.define('MES.view.form.BaseForm', {
 	bodyCls : 'paddingAll10',
 
 	layout : 'anchor',
+	
+	frame: false,//zhang added 
 
 	defaults : {
 		anchor : '100%',

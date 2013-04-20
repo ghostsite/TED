@@ -42,7 +42,9 @@ Ext.define('SYS.controller.user.UserPopup', {
 			view.sub('organization.id').setValue(res.responseObj.orgId);
 			view.sub('organization.name').setValue(keys.formData.record.raw.orgName);
 			// form.findField()不行，因为这个findField返回的是Field类型，而box是Component类型，少了一个层次
-			Ext.getCmp('showuserpicforpopup').getEl().dom.src = 'attachment/downloadPic/' + res.responseObj.pic.id;
+			if(res.responseObj && res.responseObj.pic && res.responseObj.pic.id){
+				Ext.getCmp('showuserpicforpopup').getEl().dom.src = 'attachment/downloadPic/' + res.responseObj.pic.id;
+			}
 		} else if (keys.status === 'show') {// show
 			var res = this.loadData(view, {
 				userId : keys.formData.record.raw.id

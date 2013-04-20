@@ -4,11 +4,14 @@ Ext.define('MES.view.form.SupplementForm', {
 	alias : [ 'widget.formsup', 'widget.mes_view_supplementform' ],
 
 	cls : 'nav supplement',
+	
 	bodyCls : 'paddingAll7',
 
 	layout : 'anchor',
 	
 	autoScroll : true,
+	
+	frame: false,//zhang added 
 
 	defaults : {
 		labelAlign : 'left',

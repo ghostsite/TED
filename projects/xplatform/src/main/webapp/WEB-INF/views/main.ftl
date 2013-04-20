@@ -109,7 +109,7 @@
 		</script>
 	</head>
 	<body>
-		<div class="siteBrand"><span class="logo"></span></div>
+		<div class="siteBrand"><span class="logo"></span>智能管理软件有限公司.</div>
 		<div id="_loadprogress" style="margin:25% 35%;width:300px;text-align:center;font-size:14px;color:#333;position:relative\9;top:45%\9">
 			loading..
 			<div style="width:300px;height:15px;border:1px solid #ccc;margin-top:5px;padding:2px;background-color:#efefef;text-align:left">
