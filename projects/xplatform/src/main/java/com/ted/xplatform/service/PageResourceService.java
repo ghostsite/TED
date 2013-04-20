@@ -1,8 +1,6 @@
 package com.ted.xplatform.service;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -10,14 +8,10 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 import com.ted.common.dao.jdbc.JdbcTemplateDao;
 import com.ted.common.dao.jpa.JpaSupportDao;
@@ -32,7 +26,7 @@ import com.ted.xplatform.pojo.common.PageResource;
  */
 @Transactional
 @Service("pageResourceService")
-public class PageResourceService implements InitializingBean {
+public class PageResourceService {
     final Logger                                 logger              = LoggerFactory.getLogger(PageResourceService.class);
 
     @Inject
@@ -53,16 +47,6 @@ public class PageResourceService implements InitializingBean {
     @Inject
     WidgetResourceService                        widgetResourceService;
 
-    private static LoadingCache<String, Boolean> cachedHasController = null; //key is code , like 'SYS.view.type.TypeManage'
-    
-    public static final Boolean hasController(String code) throws ExecutionException{
-        if(null == cachedHasController){
-            return true;
-        }else{
-            return cachedHasController.get(code);
-        }
-    }
-    
     public void setWidgetResourceService(WidgetResourceService widgetResourceService) {
         this.widgetResourceService = widgetResourceService;
     }
@@ -89,20 +73,6 @@ public class PageResourceService implements InitializingBean {
     
     public ResourceService getResourceService() {
         return resourceService;
-    }
-
-    public void afterPropertiesSet() throws Exception {
-        cachedHasController = CacheBuilder.newBuilder().maximumSize(5000).expireAfterWrite(1, TimeUnit.MINUTES).build(new CacheLoader<String, Boolean>() {
-            @Override
-            public Boolean load(String code) throws Exception { // code like 'SYS.view.type.TypeManage'
-                PageResource pr = jpaSupportDao.findSingleByProperty(PageResource.class, "code", code);
-                if (pr == null) {
-                    return true;
-                } else {
-                    return pr.isHasController();
-                }
-            }
-        });
     }
 
     //-----------------工具方法-----------------//

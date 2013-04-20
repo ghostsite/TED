@@ -185,8 +185,8 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 					}, {
 						xtype : 'container',
 						layout : {
-							type : 'hbox',
-							align : 'stretch'
+							type : 'hbox'//,
+							//align : 'stretch'
 						},
 						defaults : {
 							labelWidth : 100
@@ -197,31 +197,15 @@ Ext.define('SYS.view.pageresource.PageResourceManage', {
 							name : 'idx',
 							minValue : 0,
 							cls : 'marginR10',
-							flex : 3
+							flex : 1
 						}, {
 							xtype : 'checkbox',
-							//fieldLabel : 'Controller',
-							boxLabel : '有Controller',
-							name : 'hasController',
-							flex : 1
-						}]
-					}, {
-						flex : 1,
-						xtype : 'container',
-						layout : 'hbox',
-						cls : 'marginR10',
-						items : [{
-							xtype : 'checkbox',
+							labelWidth : 40,
 							fieldLabel : '权限',
 							boxLabel : '查看',
-							name : 'canView'
-						}/**, {
-							xtype : 'checkbox',
-							fieldLabel : '',
-							cls : 'marginRL10',
-							boxLabel : '只见',
-							name : 'canDisabled'
-						}*/]
+							name : 'canView',
+							flex : 2
+						}]
 					}]
 				}]
 			}, {

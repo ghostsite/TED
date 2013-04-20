@@ -29,10 +29,6 @@ public class TreeNode implements Serializable {
     //比如Type 的code,属于node.attributes.value, 
     private String              code; 
     public String               path;                                //代替原来的href
-    public String               buttonIconCls;                       //给button menu 用的
-    public String               buttonScale;                         //给button menu 用的
-    public String               buttonWidth;                         //给button menu 用的
-    public String               buttonIconAlign;                     //给button menu 用的
     public String               type; //如果是MenuResource, code='menu', FileResource, code='file', PageResource ,code ='page',20130410 added this
 
     public String getType() {
@@ -87,44 +83,12 @@ public class TreeNode implements Serializable {
         this.beanId = beanId;
     }
 
-    public String getButtonScale() {
-        return buttonScale;
-    }
-
-    public void setButtonScale(String buttonScale) {
-        this.buttonScale = buttonScale;
-    }
-
-    public String getButtonWidth() {
-        return buttonWidth;
-    }
-
-    public void setButtonWidth(String buttonWidth) {
-        this.buttonWidth = buttonWidth;
-    }
-
-    public String getButtonIconAlign() {
-        return buttonIconAlign;
-    }
-
-    public void setButtonIconAlign(String buttonIconAlign) {
-        this.buttonIconAlign = buttonIconAlign;
-    }
-
     public String getPath() {
         return path;
     }
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public String getButtonIconCls() {
-        return buttonIconCls;
-    }
-
-    public void setButtonIconCls(String buttonIconCls) {
-        this.buttonIconCls = buttonIconCls;
     }
 
     public String getCode() {

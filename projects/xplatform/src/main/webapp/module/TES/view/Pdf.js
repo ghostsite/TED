@@ -3,6 +3,8 @@ Ext.define('TES.view.Pdf', {
 	title : 'Pdf',
 	xtype : 'tes_pdf',
 
+	requires : ['Ext.ux.panel.PDF'],
+	
 	initComponent : function() {
 		this.callParent();
 	},

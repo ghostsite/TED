@@ -188,25 +188,6 @@ Ext.define('mixin.Helper', function() {
 		return Ext.ClassManager.getName(content_area.getLayout());
 	}
 	
-	var hasController = function(menu){
-		//if(menu.viewModel === 'CMN.view.common.ViewLogInfo'){
-			//return false;
-		//}//
-		//return true;
-		var rtnResponse = '';
-		Ext.Ajax.request({
-				url : 'pageresource/hasController',
-				params: {
-					pageCode: 'page|'+menu.viewModel //这里加page，是因为Resource表要求code必须唯一，好判断权限。
-				},
-				async : false,
-				callback : function(options, success, response) {
-					rtnResponse = response.responseText;
-				}
-		});
-		return rtnResponse === 'true';
-	}
-	
 	return {
 		getContextBbar : getContextBbar,
 		getSelectedIdFromTree : getSelectedIdFromTree,
@@ -222,7 +203,6 @@ Ext.define('mixin.Helper', function() {
 		alertWarn : alertWarn,
 		alertQuestion : alertQuestion,
 		alertError : alertError,
-		hasController : hasController,
 		isFitLayout : isFitLayout,
 		isCardLayout: isCardLayout,
 		isTabLayout : isTabLayout

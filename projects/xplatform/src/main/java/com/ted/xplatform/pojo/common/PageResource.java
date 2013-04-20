@@ -29,17 +29,6 @@ public class PageResource extends Resource {
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "page", fetch = FetchType.LAZY , targetEntity = WidgetResource.class)
     private List<WidgetResource> widgets;
 
-    //页面是否有Controller，为了Ext.syncRequire使用
-    private boolean hasController;
-    
-    public boolean isHasController() {
-        return hasController;
-    }
-
-    public void setHasController(boolean hasController) {
-        this.hasController = hasController;
-    }
-
     public Integer getIdx() {
         return idx;
     }

@@ -4,6 +4,8 @@ Ext.define('TES.view.Notification', {
 
 	xtype : 'tes_notification',
 
+	requires : [ 'Ext.ux.window.Notification','Ext.ux.SecondTitle' ],
+	
 	layout : 'fit',
 
 	initComponent : function() {

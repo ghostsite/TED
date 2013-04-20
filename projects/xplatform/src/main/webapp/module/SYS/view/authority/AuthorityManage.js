@@ -2,7 +2,7 @@ Ext.define('SYS.view.authority.AuthorityManage', {
 	extend : 'MES.view.form.BaseForm',
 	title : T('Caption.Menu.SYS.view.authority.AuthorityManage'),
 	xtype : 'admin_authority',
-	uses : ['Ext.ux.portal.PortalPanel', 'Ext.ux.portal.PortalColumn', 'SYS.view.authority.AuthorityPortlet'],
+	uses : ['SYS.model.ACL', 'Ext.ux.portal.PortalPanel', 'Ext.ux.portal.PortalColumn', 'SYS.view.authority.AuthorityPortlet'],
 	layout : 'fit',
 
 	initComponent : function() {

@@ -3,6 +3,8 @@ Ext.define('TES.view.ToggleSlide', {
 	title : 'ToggleSlide',
 	xtype : 'tes_toggleslide',
 
+	requires : [ 'Ext.ux.form.field.ToggleSlide', 'Ext.ux.form.field.ToggleSlideField' ],
+
 	initComponent : function() {
 		this.callParent();
 	},

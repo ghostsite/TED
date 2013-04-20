@@ -75,12 +75,14 @@ Ext.define('mixin.UserInterface', function() {
 
 		try {
 			var content_area = Ext.getCmp('content');
-			if (!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1 && SF.hasController(menu)) {
+			if (!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1 ){
 				var controller = menu.viewModel.replace('.view.', '.controller.');
 				if (controller) {
 					Ext.syncRequire(controller); // load needed js file
 													// controller and view
-					SF.controller.ApplicationController.unique.getController(controller).init(); // this is for extjs4.1
+					if(Ext.ClassManager.get(controller)){
+						SF.controller.ApplicationController.unique.getController(controller).init();
+					}
 					// SF.controller.ApplicationController.unique.getController(controller);
 					// //this is for extjs4.2 ,a big bug for mesplus, for
 					// getController() has called doInit()
@@ -176,7 +178,7 @@ Ext.define('mixin.UserInterface', function() {
 			 * 뷰모델을 로드하기 전에, 관련된 컨트롤러를 먼저 동적으로 로드한다. 뷰모델과 관련된 컨트롤러는 뷰모델과 동일한
 			 * 클래스명을 가져야 하며, {모듈명}.controller.{클래스명} 이름 구조를 가져야 한다.
 			 */
-			if (!Ext.ClassManager.get(viewModel) && viewModel.indexOf('.') > 1 && SF.hasController(viewModel)) {
+			if (!Ext.ClassManager.get(viewModel) && viewModel.indexOf('.') > 1){
 				var controller = viewModel.replace('.view.', '.controller.');
 				if (controller) {
 					/*
@@ -184,7 +186,9 @@ Ext.define('mixin.UserInterface', function() {
 					 * 를 선행적으로 호출함.
 					 */
 					Ext.syncRequire(controller);
-					SF.controller.ApplicationController.unique.getController(controller).init();
+					if(Ext.ClassManager.get(controller)){
+						SF.controller.ApplicationController.unique.getController(controller).init();
+					}
 					// SF.controller.ApplicationController.unique.getController(controller);
 					// //getController() has contained calling doInit
 				}

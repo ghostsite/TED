@@ -54,6 +54,9 @@ import com.ted.common.util.ServletUtils;
  *  关于反射，可以用PropertyValues.java，不用原生的javabean，因为scan出来的就是Resource,这个转为BeanDefinition容易些，并且可以获得PropertyValues.good
  * </pre>
  * <b>要求必须有module/SYS/model/XXX/XXX.js or model/SYS/store/XXX/XXX.js
+ * 
+ * 20130420 新增特性：
+ * 访问并返回/controller/的js文件，PageResource就不用配置hasController了。咱不缓存。
  */
 
 @Controller
@@ -191,7 +194,7 @@ public class ExtController {
             }
         }
     };
-    
+
     /**
      * 注意：这个store中的api:{read需要在js端修改tab.store.getProxy().url = 'task/myMethod.json'; //<--Saki magic :)}
      */
@@ -230,14 +233,30 @@ public class ExtController {
             }
         }
     };
-    
+
+    /**
+     * 返回module 下的controller
+     */
+    @RequestMapping(value = { "/module/**/controller/**/*.js" })
+    @ResponseBody
+    public String getControllerJs(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 1 看看有没有js文件在磁盘，有就返回，没有就返回空
+        String path = getPath(request);
+        Resource resource = ResourceUtils.getResource(request, path);
+        if (resource != null) {
+            return IOUtils.toString(resource.getInputStream());
+        } else {
+            return null;
+        }
+    };
+
     /**
      * defineName is FullName,like SYS.model.WorkDay
      * shortName like WorkDay
      */
-    private String getShortName(String defineName){
+    private String getShortName(String defineName) {
         Assert.notNull(defineName);
-        return defineName.substring(defineName.lastIndexOf(".")+1);
+        return defineName.substring(defineName.lastIndexOf(".") + 1);
     }
 
     /**
@@ -262,14 +281,13 @@ public class ExtController {
         buf.append(n()).append(tab()).append(tab()).append("}");
         buf.append(n()).append(tab()).append("}");
         buf.append(n()).append("});");
-        
+
         Js js = new Js();
         js.text = buf.toString();
         js.lastModified = new Date().getTime();
         return js;
     };
-    
-    
+
     /**
      * path = /context/model/admin/User.js
      */
@@ -280,7 +298,7 @@ public class ExtController {
         String className = beanDef.getBeanClassName();
         Class clazz = ClassUtils.forName(className);// beanDef.getBeanClass();
         //Field[] fields = clazz.getFields();// getFields(); getDeclaredFields
-       //Collection<Field> fields = ReflectUtils.getFields(clazz);beanDef
+        //Collection<Field> fields = ReflectUtils.getFields(clazz);beanDef
         List<BeanPropertyDefinition> propertyDefinitions = JsonUtils.getClassPropertyDefinitions(clazz);
 
         if (propertyDefinitions != null && propertyDefinitions.size() > 0) {
@@ -323,7 +341,7 @@ public class ExtController {
     private static String toJsType(BeanPropertyDefinition propertyDefinition) {
         Class type = propertyDefinition.getGetter().getRawType();
         JsonRawValue jsonRawValue = propertyDefinition.getGetter().getAnnotated().getAnnotation(JsonRawValue.class);
-        
+
         //JsonRawValue jsonRawValue = (JsonRawValue) field.getAnnotation(JsonRawValue.class);
         if ((jsonRawValue != null) && (jsonRawValue.value())) {
             return "auto";
@@ -332,14 +350,15 @@ public class ExtController {
         if (JSTYPE_BY_JAVACLASS_MAP.containsKey(type)) {
             return (String) JSTYPE_BY_JAVACLASS_MAP.get(type);
         }
-        if ((List.class.isAssignableFrom(type)) || (Map.class.isAssignableFrom(type))  || (Set.class.isAssignableFrom(type))) {
+        if ((List.class.isAssignableFrom(type)) || (Map.class.isAssignableFrom(type)) || (Set.class.isAssignableFrom(type))) {
             return "auto";
         }
         return "string";
     }
 
     private String getPath(HttpServletRequest request) {
-        return "/" + ServletUtils.getUrlPath(request);
+        //return "/" + ServletUtils.getUrlPath(request); //有2个/
+        return ServletUtils.getUrlPath(request);
     }
 
     /**

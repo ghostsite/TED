@@ -3,6 +3,7 @@ Ext.define('TES.view.TinyMce', {
 	title : 'TinyMce',
 
 	xtype : 'tes_tinymce',
+	requires : [ 'Ext.ux.form.TinyMCETextArea'],
 
 	layout : 'fit',
 

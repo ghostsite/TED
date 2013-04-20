@@ -3,6 +3,8 @@ Ext.define('TES.view.Exporter', {
 	title : 'Exporter',
 	xtype : 'tes_exporter',
 
+	requires : ['Ext.ux.exporter.Exporter'],
+	
 	initComponent : function() {
 		this.callParent();
 	},

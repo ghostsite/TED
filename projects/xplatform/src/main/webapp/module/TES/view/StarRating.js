@@ -3,6 +3,8 @@ Ext.define('TES.view.StarRating', {
 	title : 'StarRating',
 	xtype : 'tes_starrating',
 
+	requires : [ 'Ext.ux.form.field.StarRating' ],
+	
 	initComponent : function() {
 		this.callParent();
 	},

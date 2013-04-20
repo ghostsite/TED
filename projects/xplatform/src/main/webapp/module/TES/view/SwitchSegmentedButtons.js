@@ -3,6 +3,8 @@ Ext.define('TES.view.SwitchSegmentedButtons', {
 	title : 'SwitchSegmentedButtons',
 	xtype : 'tes_switchsegmentedbuttons',
 
+	requires : [ 'Ext.ux.container.SwitchButtonSegment' ],
+
 	initComponent : function() {
 		this.callParent();
 	},

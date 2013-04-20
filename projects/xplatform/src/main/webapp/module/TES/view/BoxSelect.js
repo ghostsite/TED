@@ -5,6 +5,8 @@ Ext.define('TES.view.BoxSelect', {
 	xtype : 'tes_boxselect',
 
 	layout : 'column',
+	
+	requires : [ 'Ext.ux.form.field.BoxSelect' ],
 
 	initComponent : function() {
 

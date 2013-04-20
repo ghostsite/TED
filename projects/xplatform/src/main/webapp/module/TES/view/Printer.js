@@ -3,6 +3,8 @@ Ext.define('TES.view.Printer', {
 	title : 'Printer',
 	xtype : 'tes_printer',
 
+	requires : ['Ext.ux.grid.Printer'],
+	
 	initComponent : function() {
 		this.callParent();
 	},

@@ -156,15 +156,6 @@ public class PageResourceController {
     };
 
     /**
-     * hasController for UserInterface.js , if true then load controller.js for show page
-     */
-    @RequestMapping(value = "/hasController")
-    @ResponseBody
-    Boolean hasController(@RequestParam String pageCode) throws ExecutionException { //'SYS.view.admin.UserManage'
-        return PageResourceService.hasController(pageCode);
-    }
-
-    /**
      * 获得当前登陆用户，对给定code的pageResoruce的权限列表(目前PageResource只有view权限)
      * 用在：当用户在地址栏中敲一个地址的时候，判断当前登陆用户是否可以看到这个页面。
      * 在UserInterface.js的方法中调用。
