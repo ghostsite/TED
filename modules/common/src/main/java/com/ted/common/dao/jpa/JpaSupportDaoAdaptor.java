@@ -99,9 +99,6 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
             while(itr.hasNext()){
                 fetch = fetch.fetch((String)itr.next(), JoinType.LEFT);
             }
-//            for (String pathSegment : relation.split(".")) {
-//                fetch = fetch.fetch(pathSegment, JoinType.LEFT);
-//            }
         }
         criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id));
         return getSingleOrNoneResult(getEntityManager().createQuery(criteriaQuery));
@@ -119,9 +116,6 @@ public class JpaSupportDaoAdaptor implements JpaSupportDao {
             while(itr.hasNext()){
                 fetch = fetch.fetch((String)itr.next(), JoinType.LEFT);
             }
-//            for (String pathSegment : relation.split(".")) {
-//                fetch = fetch.fetch(pathSegment, JoinType.LEFT);
-//            }
         }
         criteriaQuery.where(criteriaBuilder.equal(root.get(property), value));
         return getSingleOrNoneResult(getEntityManager().createQuery(criteriaQuery));

@@ -330,9 +330,10 @@ Ext.define('MES.view.window.CodeViewPopup', {
 	 * 조회 조건에 맞게 설정 후 store를 생성한다.
 	 */
 	buildStore : function() {
-		var url = this.codeviewOpts.url || 'service/basViewCodeList.json';
+		//var url = this.codeviewOpts.url || 'service/basViewCodeList.json';
+		var url = this.codeviewOpts.url || 'codeview/pagedQuery';
 		var params = this.codeviewOpts.params || {
-			procstep : '1',
+			//procstep : '1', zhang comment
 			select : this.codeviewOpts.select,
 			table : this.codeviewOpts.table,
 			type : this.codeviewOpts.type
@@ -359,7 +360,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 			fields : this.codeviewOpts.select,
 			pageSize : this.pageSize||this.defaultPageSize, // 기본 1000개
 			proxy : {
-				type : 'payload',
+				type : 'payload', //to test it 
 				api : {
 					read : url
 				},
@@ -369,8 +370,10 @@ Ext.define('MES.view.window.CodeViewPopup', {
 				extraParams : params,
 				reader : {
 					type : 'json',
-					root : 'list',
-					totalProperty : 'total'
+					//root : 'list',
+					root : 'content',
+					//totalProperty : 'total'
+					totalProperty : 'totalElements' //see ExtController.java
 				}
 			}
 		});

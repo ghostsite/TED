@@ -179,7 +179,6 @@ Ext.define('MES.controller.MESController', {
 	},
 
 	setMixin : function() {
-		SF.mixin('MES.mixin.Constant');
 		SF.mixin('MES.mixin.Variable');
 		SF.mixin('MES.mixin.CodeView');
 		SF.mixin('MES.mixin.CommonFunction');

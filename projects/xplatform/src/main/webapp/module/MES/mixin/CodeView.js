@@ -43,17 +43,17 @@ Ext.define('MES.mixin.CodeView', function() {
 				title : T('Caption.Other.CodeView'),
 				columns : [{
 					header : T('Caption.Other.Name'),
-					dataIndex : 'key1',
+					dataIndex : 'code', //zhang modified, from key1
 					flex : 1
 				},{
 					header : T('Caption.Other.Desc'),
-					dataIndex : 'data1',
+					dataIndex : 'name', //zhang modified, from data1
 					flex : 2
 				}]
 			},
 			fieldSearch : false,
 			fields : [{
-				column : 'key1',
+				column : 'code',//zhang modified , from key1
 				maxLength : 30,
 				enforceMaxLength : true,
 				flex : 1
@@ -80,7 +80,7 @@ Ext.define('MES.mixin.CodeView', function() {
 		'SQLQUERY' : {
 			name : 'SQLQUERY',
 			type : 'sqlquery',
-			store : 'BAS.store.BasSqlQueryOut',
+			store : '',//SYS.store.DynamicGrid', really need? if dynamic reconfigure for grid by zhang
 			popupConfig : {
 				title : T('Caption.Other.CodeView')
 			}
@@ -107,10 +107,10 @@ Ext.define('MES.mixin.CodeView', function() {
 				var popupConfig = Ext.applyIf(codeviewOpts.popupConfig,codeviewReg.popupConfig);
 
 				if (popupConfig.headers && popupConfig.headers.length>0){
-					if(popupConfig.columns == undefined || popupConfig.keyCnt > 1){
+					if(popupConfig.columns == undefined || popupConfig.keyCnt > 1){ //here ,be careful ,you need to config columns
 						var cols = [];
 						var keyMax = popupConfig.keyCnt || 1;
-						for(var i = 0 ; i < popupConfig.headers.length ; i++){
+						/**for(var i = 0 ; i < popupConfig.headers.length ; i++){
 							cols[i] = {
 								header : popupConfig.headers[i],
 								flex : 1
@@ -119,7 +119,9 @@ Ext.define('MES.mixin.CodeView', function() {
 								cols[i].dataIndex = 'key'+(i+1);
 							else
 								cols[i].dataIndex = 'data'+(i+1-keyMax);
-						}
+						}*///by zhang
+						cols[0].dataIndex = 'code'; //zhang added
+						
 						codeviewOpts.popupConfig.columns = cols;
 					}
 					else{
@@ -172,7 +174,8 @@ Ext.define('MES.mixin.CodeView', function() {
 				if(opt === 'combo'){
 					var comboConfig = codeviewOpts.comboConfig || {};
 					
-					comboConfig.displayField = comboConfig.displayField || codeviewOpts.displayField || 'key1';
+					//comboConfig.displayField = comboConfig.displayField || codeviewOpts.displayField || 'key1'; //zhang
+					comboConfig.displayField = comboConfig.displayField || codeviewOpts.displayField || 'code'; //zhang
 					comboConfig.valueField = comboConfig.valueField || codeviewOpts.valueField || comboConfig.displayField;
 					comboConfig.listTpl = comboConfig.listTpl || codeviewOpts.listTpl || '{'+comboConfig.displayField+'}';
 					Ext.apply(codeviewOpts,comboConfig);

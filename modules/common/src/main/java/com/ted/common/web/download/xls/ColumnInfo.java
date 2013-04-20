@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class ColumnInfo implements Serializable {
     private static final long serialVersionUID = 3932428387484717770L;
     private String            header;                                 //显示的中文
-    private String            dataIndex;                                  //column key (java 反射获取数据) ==dataIndex
+    private String            dataIndex;                              //column key (java 反射获取数据) ==dataIndex
     private String            format;                                 //格式化
     private String            xtype;                                  //类型(字符串 or 日期等)默认是字符串 int string date ...
     private Integer           width;                                  //cell宽度

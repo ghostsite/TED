@@ -252,6 +252,10 @@ body{background:url('../image/bgHeader.png') repeat-x;background-color:transpare
 .x-toolbar-default-docked-bottom{background-color:#dbeafd;border-width:1px 0 0 0}
 .x-border-box .x-tab-bar-bottom .x-tab-bar-body{height:25px}
 
+/*this 2 line is copy in zhang commentted,be careful*/
+.btnCodeView{background:url('../image/iconCodeView.gif') -4px 2px no-repeat;height:21px !important}
+.btnCodeViewBorder{background:url('../image/btnCodeViewBorder.png') 50% 50% no-repeat;width:20px;height:20px}
+
 
 /*supplement panel*/
 .supplement .x-form-item-label,.supplement .x-fieldset-header,.supplement .x-form-item-label-top{margin-top:3px;color:#5371a7;}
