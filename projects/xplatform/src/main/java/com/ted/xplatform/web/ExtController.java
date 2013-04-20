@@ -239,14 +239,13 @@ public class ExtController {
      */
     @RequestMapping(value = { "/module/**/controller/**/*.js" })
     @ResponseBody
-    public String getControllerJs(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void getControllerJs(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 1 看看有没有js文件在磁盘，有就返回，没有就返回空
         String path = getPath(request);
         Resource resource = ResourceUtils.getResource(request, path);
         if (resource != null) {
-            return IOUtils.toString(resource.getInputStream());
-        } else {
-            return null;
+            //IOUtils.toString(resource.getInputStream());
+            IOUtils.copy(resource.getInputStream(),response.getOutputStream());
         }
     };
 
