@@ -2,6 +2,7 @@ T({
 	Caption : {
 		Other : {
 			"Desc" : "说明",
+			"Code" : "代码",
 			"Description" : "说明",
 			"Favorites" : "收藏夹",
 			"Error" : "错误",

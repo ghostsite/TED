@@ -30,6 +30,33 @@
 				<prop key="hibernate.enable_lazy_load_no_trans">true</prop><!--ghostzhang add 20130305,be careful with this is setted to true https://hibernate.onjira.com/browse/HHH-7457-->
 				<prop key="jadira.usertype.autoRegisterUserTypes">true</prop><!--ghostzhang added 20130319 for jodatime-->
 				<prop key="jadira.usertype.databaseZone">jvm</prop><!--ghostzhang added 20130319 for jodatime-->
+				
+				<!--prop key="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</prop-->
+                <prop key="hibernate.c3p0.acquire_increment">3</prop>
+                <prop key="hibernate.c3p0.preferredTestQuery">select 1;</prop>
+                <prop key="hibernate.c3p0.min_size">5</prop>
+                <prop key="hibernate.c3p0.max_size">20</prop>
+                <prop key="hibernate.c3p0.timeout">300</prop>
+                <prop key="hibernate.c3p0.max_statements">50</prop>
+                <prop key="hibernate.c3p0.idle_test_period">3000</prop>
+                <!--prop key="hibernate.c3p0.automaticTestTable">MY_TEST_TABLE</prop-->
+                <prop key="hibernate.connection.characterEncoding">utf-8</prop> 
+                <prop key="hibernate.connection.CharSet">utf-8</prop>
+                <prop key="hibernate.connection.useUnicode">true</prop>
+                <!-- prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory</prop-->
+                <!-- prop key="hibernate.transaction.manager_lookup_class">org.hibernate.transaction.JBossTransactionManagerLookup</prop-->
+                <prop key="hibernate.jdbc.batch_size">50</prop>
+                <!-- prop key="current_session_context_class">jta</prop-->
+                <!--prop key="hibernate.order_update">true</prop>
+                <prop key="hibernate.id.new_generator_mappings">true</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+	            <prop key="hibernate.cache.use_query_cache">true</prop>
+	            <prop key="hibernate.cache.use_minimal_puts">true</prop>
+	            <prop key="hibernate.cache.use_structured_entries">true</prop>
+	            <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+	            <prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.SingletonEhCacheProvider</prop>
+	            <prop key="hibernate.generate_statistics">true</prop-->
 			</props>
 		</property>
 	</bean>

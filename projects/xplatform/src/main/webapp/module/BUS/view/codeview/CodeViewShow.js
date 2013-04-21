@@ -41,7 +41,7 @@ Ext.define('BUS.view.codeview.CodeViewShow', {
 			condition : [{
 				column : 'name',
 				value : '散文',
-				operator : '='
+				operator : '!='
 			}],
 			//disabledIcon : true,
 			name : 'booktype',

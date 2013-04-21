@@ -59,7 +59,7 @@ Ext.define('MES.data.CodeViewRegister', {
 				operator : '!='
 			}],
 			popupConfig : {
-				title : T('Caption.Other.书的种类'),
+				title : T('Caption.Other.BookType'),
 				columns : [{
 					header : T('Caption.Other.Code'),
 					dataIndex : 'code',
@@ -84,9 +84,13 @@ Ext.define('MES.data.CodeViewRegister', {
 			}]
 		});
 
+		//由于创建的store没有url，故只能再复制url到store
+		var provinceStore = Ext.create('SYS.store.Attachment');
+		provinceStore.getProxy().url = 'attachment/pagedAllAttachment';
 		SmartFactory.codeview.register('Province', {
 			type : 'service',
-			store : 'SYS.store.Type',
+			store : provinceStore, 
+			//url: 'attachment/pagedAllAttachment', //必须分页，要求的，在CodeViewPopup.js中。
 			params : {
 				code : 'beijing'
 			},
@@ -94,26 +98,26 @@ Ext.define('MES.data.CodeViewRegister', {
 			popupConfig : {
 				title : T('Caption.Other.Province'),
 				columns : [{
-					header : T('Caption.Other.Code'),
-					dataIndex : 'code',
+					header : '文件名',
+					dataIndex : 'originName',
 					flex : 2
 				}, {
-					header : T('Caption.Other.Name'),
-					dataIndex : 'name',
+					header : '路径',
+					dataIndex : 'filePath',
 					flex : 1
 				}]
 				// optFlowFroup,optFlowOptionFlag
 			},
 
 			fields : [{
-				column : 'code',
+				column : 'originName',
 				flex : 2,
-				maxLength : 20, // check
+				maxLength : 100, // check
 				enforceMaxLength : true
 				// ,
 				// vtype : 'nospace'
 			}, {
-				column : 'name',
+				column : 'filePath',
 				flex : 1,
 				maxLength : 6, // check
 				enforceMaxLength : true
@@ -128,7 +132,7 @@ Ext.define('MES.data.CodeViewRegister', {
 				// var tableName = me.sub('cdvConstant').getValue(0);
 				var sql = "SELECT code,name FROM type WHERE parent_id = 10232388 ORDER BY code";
 				return {
-					sql : sql
+					query : sql
 				};
 			},
 			paramsScope : this,

@@ -18,6 +18,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 		type : 'vbox',
 		align : 'stretch'
 	},
+	iconCls : 'tabs', //zhang added
 	defaultPageSize : 1000,
 	/*
 	 * 컨포넌트가 생성될때 필요한 설정값을 정의한다.
@@ -330,28 +331,36 @@ Ext.define('MES.view.window.CodeViewPopup', {
 	 * 조회 조건에 맞게 설정 후 store를 생성한다.
 	 */
 	buildStore : function() {
-		//var url = this.codeviewOpts.url || 'service/basViewCodeList.json';
 		var url = this.codeviewOpts.url || 'codeview/pagedQuery';
-		var params = this.codeviewOpts.params || {
+		
+		var params;
+		if(Ext.typeOf(this.codeviewOpts.params)=='function'){
+			params = this.codeviewOpts.params.call(this.codeviewOpts.scope, this.codeviewOpts.params) || {};
+		}else{
+			params = this.codeviewOpts.params || {};
+		}
+		
+		Ext.applyIf(params, {
 			select : this.codeviewOpts.select,
 			table : this.codeviewOpts.table,
 			type : this.codeviewOpts.type
-		};
+		});
+		/**params = this.codeviewOpts.params || {
+			select : this.codeviewOpts.select,
+			table : this.codeviewOpts.table,
+			type : this.codeviewOpts.type
+		};*/
 
 		if (this.codeviewOpts.url == undefined) {
-			if (this.codeviewOpts.factory)
-				params.factory = this.codeviewOpts.factory;
-
 			if (this.codeviewOpts.order)
 				params.order = this.codeviewOpts.order;
 
 			if (this.codeviewOpts.condition)
 				params.condition = this.codeviewOpts.condition;
-
-			if (this.codeviewOpts.factoryConditionEnabled === false)
-				params.factoryConditionEnabled = this.codeviewOpts.factoryConditionEnabled;
 		}
 
+		console.log('888888888888888');
+		console.log(params);
 		return Ext.create('Ext.data.Store', {
 			autoLoad : false,
 			remoteFilter : this.remoteFilter,
@@ -359,7 +368,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 			fields : this.codeviewOpts.select,
 			pageSize : this.pageSize||this.defaultPageSize, // 기본 1000개
 			proxy : {
-				type : 'payload', //to test it 
+				type : 'payload', 
 				api : {
 					read : url
 				},
@@ -369,9 +378,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 				extraParams : params,
 				reader : {
 					type : 'json',
-					//root : 'list',
 					root : 'content',
-					//totalProperty : 'total'
 					totalProperty : 'totalElements' //see ExtController.java
 				}
 			}

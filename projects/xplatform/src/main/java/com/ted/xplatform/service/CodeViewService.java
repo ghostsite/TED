@@ -24,6 +24,8 @@ import com.ted.common.dao.jpa.support.JpaHelper;
 import com.ted.common.support.extjs4.grid.DynamicGrid;
 import com.ted.common.support.extjs4.grid.Field;
 import com.ted.common.support.page.JsonPage;
+import com.ted.common.support.page.PageMetaData;
+import com.ted.common.util.CommonUtils;
 import com.ted.common.util.ConfigUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.vo.codeview.CodeViewParam;
@@ -75,23 +77,31 @@ public class CodeViewService {
     /**
      * 对外提供的业务方法,  for 'table' or 'gcm' ,not others
      */
+    @Transactional(readOnly = true)
     public JsonPage pagedTableOrGcm(CodeViewParam param) throws ClassNotFoundException {
         String pojoName = "table".equals(param.getType()) ? param.getTable() : "common.Type"; // table 是pojo下的java bean 的类名
         CriteriaBuilder criteriaBuilder = jpaSupportDao.getEntityManager().getCriteriaBuilder();
         Class<?> entityClass = Thread.currentThread().getContextClassLoader().loadClass(ConfigUtils.getPackageScan()[0] + '.' + pojoName);
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery(entityClass);
         Root root = criteriaQuery.from(entityClass);
-        
-        if(param.getCondition() != null){
+
+        if (param.getCondition() != null) {
             for (Condition filter : param.getCondition()) {
-                //query.addFilter(filter.getColumn(), Com.toString(filter.getOperator(), "="), filter.getValue());
-                Predicate condition = criteriaBuilder.equal(root.get(filter.getColumn()), filter.getValue());
-                criteriaQuery.where(condition);
+                if (filter.getOperator() == null || filter.getOperator().equals("=")) {
+                    Predicate condition = criteriaBuilder.equal(root.get(filter.getColumn()), filter.getValue());
+                    criteriaQuery.where(condition);
+                } else if (filter.getOperator().toLowerCase().equals("like")) {
+                    Predicate condition = criteriaBuilder.like(root.get(filter.getColumn()), filter.getValue());
+                    criteriaQuery.where(condition);
+                } else if (filter.getOperator().equals("!=")) {
+                    Predicate condition = criteriaBuilder.notEqual(root.get(filter.getColumn()), filter.getValue());
+                    criteriaQuery.where(condition);
+                }
             }
         }
         criteriaQuery.select(root);
 
-        if(param.getOrder() != null){
+        if (param.getOrder() != null) {
             for (Order order : param.getOrder()) {
                 if (order.getAscending()) {
                     criteriaQuery.orderBy(criteriaBuilder.asc(root.get(order.getColumn())));
@@ -115,8 +125,19 @@ public class CodeViewService {
     /**
      * sqlquery
      * TODO fix it , add param to sql and order by...
+     * JsonPage = PageMetaData, json输出，2者是一样的。
      */
+    @Transactional(readOnly = true)
     public JsonPage pagedSqlQuery(CodeViewParam param) {
+        PageMetaData pagedData = jdbcTemplateDao.pagedByOriginalSQLWithMetaData(param.getQuery(), new HashMap(), param.getStart(), param.getLimit());
+        return CommonUtils.pageMetaData2JsonPage(pagedData);
+    };
+
+    /**
+     * back up for 动态查询sql然后然会到grid中,这个方法暂时没人用。
+     */
+    @Transactional(readOnly = true)
+    public JsonPage pagedSqlQuery1(CodeViewParam param) {
         String sql = param.getQuery();
         SqlRowSet sqlRowSet = jdbcTemplateDao.getNamedJdbcOperation().queryForRowSet(sql, new HashMap());
         List<Map<String, Object>> list = SpringUtils.convert(sqlRowSet);

@@ -46,8 +46,8 @@ public class CodeViewController {
     //JsonPage pagedQuery(@RequestParam CodeViewParam params) throws ClassNotFoundException {
     JsonPage pagedQuery(@RequestBody  CodeViewParam params) throws ClassNotFoundException {
         Assert.notNull(params.getType());
-        Assert.notNull(params.getTable());
-        Assert.notNull(params.getSelect());
+        //Assert.notNull(params.getTable());
+        //Assert.notNull(params.getSelect());
 
         if ("table".equals(params.getType()) || "gcm".equals(params.getType())) {
             return codeViewService.pagedTableOrGcm(params);

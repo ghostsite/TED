@@ -14,7 +14,7 @@
 
 	<description>Spring jdbc公共配置</description>
 
-	<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" scope="prototype">
+	<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 		<constructor-arg>
 			<ref bean="dataSource"/>
 		</constructor-arg>
