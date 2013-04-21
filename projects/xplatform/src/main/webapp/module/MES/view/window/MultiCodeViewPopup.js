@@ -294,7 +294,6 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 	buildStore : function() {
 		var url = this.codeviewOpts.url || 'service/basViewCodeList.json';
 		var params = this.codeviewOpts.params || {
-			procstep : '1',
 			select : this.codeviewOpts.select,
 			table : this.codeviewOpts.table,
 			type : this.codeviewOpts.type

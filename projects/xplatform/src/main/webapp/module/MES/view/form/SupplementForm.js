@@ -62,9 +62,6 @@ Ext.define('MES.view.form.SupplementForm', {
 
 	onBtnView : function() {
 		var params = this.getForm().getValues();
-		Ext.applyIf(params, {
-			procstep : this.procstep||'1'
-		});
 		if(this.getForm().isValid() !== false)
 			this.fireEvent('supplementSelected', params);
 		
@@ -73,10 +70,6 @@ Ext.define('MES.view.form.SupplementForm', {
 
 	onBtnReset : function() {
 		var params = this.getForm().getValues();
-		Ext.applyIf(params, {
-			procstep : this.procstep||'1'
-		});
-		
 		this.fireEvent('supplementReset', params );
 		this.getForm().reset();
 	},

@@ -19,7 +19,6 @@ Ext.define('BAS.mixin.GlobalOption', function(){
 			async  : false, //비동기식으로 callback 호출까지 함수를 끝내지 않고 대기한다.
 			method : 'GET',
 			params : {
-				procstep : '1',
 				pageSize : 5000
 			},
 			success : function(response, opts) {

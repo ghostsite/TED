@@ -28,7 +28,6 @@ Ext.define('MES.view.form.field.GCMComboBox', {
 		}
 		select = Ext.Array.unique(select);
 		this.params = {
-				procstep : '1',
 				type : configs.type,
 				select : select,
 				table : configs.table

@@ -120,12 +120,10 @@ Ext.define('BAS.view.common.AttributeStatusGrid', {
 	attrLoad : function(params) {
 		if (params) {
 			Ext.applyIf(params, {
-				procstep : '1',
 				attrType : this.attrType,
 				attrKey : this.attrKey,
 				attrFrom : this.attrFrom,
-				attrTo : this.attrTo,
-				procstep : '1'
+				attrTo : this.attrTo
 			});
 			this.attrType = params.attrType;
 			this.attrKey = params.attrKey;
@@ -185,7 +183,6 @@ Ext.define('BAS.view.common.AttributeStatusGrid', {
 			url : 'service/BasUpdateAttributeValue.json',
 			method : 'POST',
 			jsonData : {
-				procstep : '1',
 				attrType : this.attrType,
 				attrKey : this.attrKey,
 				valueList : valueList
@@ -230,7 +227,6 @@ Ext.define('BAS.view.common.AttributeStatusGrid', {
 	onBtnDetail : function(data) {
 		var win = Ext.create('BAS.view.inquiry.AttributeDetail', {
 			params : {
-				procstep : '1',
 				attrType : this.attrType,
 				attrKey : this.attrKey,
 				attrName : data.attrName

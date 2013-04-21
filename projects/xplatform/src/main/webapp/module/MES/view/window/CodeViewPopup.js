@@ -333,7 +333,6 @@ Ext.define('MES.view.window.CodeViewPopup', {
 		//var url = this.codeviewOpts.url || 'service/basViewCodeList.json';
 		var url = this.codeviewOpts.url || 'codeview/pagedQuery';
 		var params = this.codeviewOpts.params || {
-			//procstep : '1', zhang comment
 			select : this.codeviewOpts.select,
 			table : this.codeviewOpts.table,
 			type : this.codeviewOpts.type

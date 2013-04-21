@@ -231,10 +231,7 @@ Ext.define('MES.view.form.SupplementGridForm', {
 
 	// 리스트 검색 조건 설정
 	getGridParams : function() {
-		var procstep = this.grid.procstep || '1';
-
 		var params = {
-			procstep : procstep
 		};
 
 		if (this.formFields) {

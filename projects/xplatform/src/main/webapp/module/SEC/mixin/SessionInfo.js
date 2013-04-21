@@ -20,9 +20,6 @@ Ext.define('SEC.mixin.SessionInfo', function() {
 			Ext.Ajax.request({
 				url : 'service/SecViewSessionInfo.json',
 				method : 'GET',
-				params : {
-					procstep : '1'
-				},
 				success : function(response, opts) {
 					var result = Ext.JSON.decode(response.responseText);
 					

@@ -262,7 +262,6 @@ Ext.define('MES.view.form.BaseForm', {
 //		if (!self.funcName)
 //			return;
 //		var params = {
-//			procstep : '1',
 //			programId : SF.login.programId,
 //			funcName : this.funcName
 //		};
