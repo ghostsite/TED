@@ -63,9 +63,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 			switch (config.itemId) {
 			case 'btnVersionUp':
 				// 설정값이 없으면 Default configuration 추가(설정값 우선)
-				Ext.applyIf(config.params, {
-					procstep : SF_STEP_VERSION_UP
-				});
 
 				if (config.confirm) {
 					Ext.applyIf(config.confirm, {
@@ -85,9 +82,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 				break;
 			case 'btnCreate':
 				// 설정값이 없으면 Default configuration 추가(설정값 우선)
-				Ext.applyIf(config.params, {
-					procstep : SF_STEP_CREATE
-				});
 
 				if (config.confirm) {
 					Ext.applyIf(config.confirm, {
@@ -108,10 +102,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 				break;
 			case 'btnUpdate':
 				// 설정값이 없으면 Default configuration 추가(설정값 우선)
-				Ext.applyIf(config.params, {
-					procstep : SF_STEP_UPDATE
-				});
-
 				if (config.confirm) {
 					Ext.applyIf(config.confirm, {
 						title : T('Caption.Button.Update'),
@@ -130,10 +120,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 				break;
 			case 'btnDelete':
 				// 설정값이 없으면 Default configuration 추가(설정값 우선)
-				Ext.applyIf(config.params, {
-					procstep : SF_STEP_DELETE
-				});
-
 				if (config.confirm) {
 					Ext.applyIf(config.confirm, {
 						title : T('Caption.Button.Delete'),
@@ -152,10 +138,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 				break;
 			case 'btnUndelete':
 				// 설정값이 없으면 Default configuration 추가(설정값 우선)
-				Ext.applyIf(config.params, {
-					procstep : SF_STEP_UNDELETE
-				});
-
 				if (config.confirm) {
 					Ext.applyIf(config.confirm, {
 						title : T('Caption.Button.Undelete'),
@@ -178,10 +160,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 				break;
 			case 'btnProcess':
 				// 설정값이 없으면 Default configuration 추가(설정값 우선)
-				Ext.applyIf(config.params, {
-					procstep : '1'
-				});
-
 				if (config.confirm) {
 					Ext.applyIf(config.confirm, {
 						title : T('Caption.Button.Process'),
@@ -200,9 +178,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 				break;
 			case 'btnRelease':
 				// 설정값이 없으면 Default configuration 추가(설정값 우선)
-				Ext.applyIf(config.params, {
-					procstep : SF_STEP_RELEASE
-				});
 
 				if (config.confirm) {
 					Ext.applyIf(config.confirm, {

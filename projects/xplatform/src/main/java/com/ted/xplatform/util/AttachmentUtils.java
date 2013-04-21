@@ -19,8 +19,6 @@ import com.ted.common.util.FileUtils;
  * 文件路径和文件名的生成规则，需要在这里进行实现。
  */
 public abstract class AttachmentUtils {
-    private static final Logger logger = LoggerFactory.getLogger(AttachmentUtils.class);
-
     public static final String getDir() {
         return getDir(getMiddleDir());
     }

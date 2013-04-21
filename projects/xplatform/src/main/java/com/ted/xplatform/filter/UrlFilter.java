@@ -9,7 +9,6 @@ import org.apache.shiro.web.filter.AccessControlFilter;
 
 import com.google.common.collect.Lists;
 import com.ted.xplatform.pojo.common.ACL;
-import com.ted.xplatform.pojo.common.Operation;
 import com.ted.xplatform.pojo.common.Resource;
 import com.ted.xplatform.pojo.common.UrlResource;
 import com.ted.xplatform.pojo.common.User;

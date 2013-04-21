@@ -81,18 +81,23 @@ public class CodeViewService {
         Class<?> entityClass = Thread.currentThread().getContextClassLoader().loadClass(ConfigUtils.getPackageScan()[0] + '.' + pojoName);
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery(entityClass);
         Root root = criteriaQuery.from(entityClass);
-        for (Condition filter : param.getCondition()) {
-            //query.addFilter(filter.getColumn(), Com.toString(filter.getOperator(), "="), filter.getValue());
-            Predicate condition = criteriaBuilder.equal(root.get(filter.getOperator()), filter.getValue());
-            criteriaQuery.where(condition);
+        
+        if(param.getCondition() != null){
+            for (Condition filter : param.getCondition()) {
+                //query.addFilter(filter.getColumn(), Com.toString(filter.getOperator(), "="), filter.getValue());
+                Predicate condition = criteriaBuilder.equal(root.get(filter.getColumn()), filter.getValue());
+                criteriaQuery.where(condition);
+            }
         }
         criteriaQuery.select(root);
 
-        for (Order order : param.getOrder()) {
-            if (order.getAscending()) {
-                criteriaQuery.orderBy(criteriaBuilder.asc(root.get(order.getColumn())));
-            } else {
-                criteriaQuery.orderBy(criteriaBuilder.desc(root.get(order.getColumn())));
+        if(param.getOrder() != null){
+            for (Order order : param.getOrder()) {
+                if (order.getAscending()) {
+                    criteriaQuery.orderBy(criteriaBuilder.asc(root.get(order.getColumn())));
+                } else {
+                    criteriaQuery.orderBy(criteriaBuilder.desc(root.get(order.getColumn())));
+                }
             }
         }
 

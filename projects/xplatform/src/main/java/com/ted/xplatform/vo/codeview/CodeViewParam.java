@@ -9,6 +9,7 @@ import java.util.List;
  * 注意：bind到springmvc的时候，用json bind
  */
 public class CodeViewParam {
+    private Integer         page; //no use, adaptor to payloadproxy.js TODO 想办法删除之，也许ExtOverride.js 还有别的js中要删除
     private Integer         start;
     private Integer         limit;
 
@@ -18,6 +19,15 @@ public class CodeViewParam {
     private List<Condition> condition;
     private List<Order>     order;
     private String          query;
+    
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
 
     public Integer getStart() {
         return start;

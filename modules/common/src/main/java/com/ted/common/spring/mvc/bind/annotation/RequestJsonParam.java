@@ -12,7 +12,8 @@ import java.lang.annotation.Target;
  * 该注解用于绑定请求参数（JSON字符串）
  * 
  * @author Zhang Kaitao
- *
+ * zhang add comments: 这个是使用在一般字符串接受中有json格式的数据。
+ * 如果是Ext.jsonData，则不要这种方式，用一般的格式@RequestParam就好。前提是xml中配置了jackson接受json
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)

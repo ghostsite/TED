@@ -1,4 +1,4 @@
-Ext.require([ 'MES.mixin.CodeView', 'MES.mixin.Constant', 'MES.mixin.Variable', 'MES.mixin.CommonFunction', 'MES.data.CodeViewRegister']);
+Ext.require([ 'MES.mixin.CodeView', 'MES.mixin.Variable', 'MES.mixin.CommonFunction', 'MES.data.CodeViewRegister']);
 
 Ext.define('MES.controller.MESController', {
 	extend : 'Ext.app.Controller',
@@ -6,10 +6,10 @@ Ext.define('MES.controller.MESController', {
 	stores : [],
 	models : [],
 	views : [ 'MES.view.form.field.CodeViewField','MES.view.form.field.MultiCodeViewField', 'MES.view.form.field.CodeViewColumn', 'MES.view.form.SupplementForm',
-			'MES.view.form.SupplementGridForm', 'MES.view.form.SupplementTabs', 'MES.view.form.field.BaseButtons', 'MES.view.form.field.GCMComboBox',
-			'MES.view.form.field.UserStamp', 'MES.view.form.field.LineSeparator', 'MES.view.form.field.Decimalfield',
-			'MES.view.form.field.ColorField', 'MES.view.form.field.TranLotField', 'MES.view.form.field.FixedColumn',
-			'MES.view.form.field.TranTimeField','MES.view.form.field.TextActionColumn' ],
+			'MES.view.form.SupplementGridForm', 'MES.view.form.SupplementTabs', 'MES.view.form.field.BaseButtons', 
+			'MES.view.form.field.LineSeparator', 'MES.view.form.field.Decimalfield',
+			'MES.view.form.field.ColorField', 'MES.view.form.field.FixedColumn',
+			'MES.view.form.field.TextActionColumn' ],
 
 	controlSets : [ ],
 			

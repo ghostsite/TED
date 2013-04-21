@@ -5,7 +5,7 @@ import java.util.List;
 public class Condition {
     private String       column;
     private String       operator;
-    private List<String> value;
+    private String value;
 
     public String getColumn() {
         return this.column;
@@ -23,11 +23,11 @@ public class Condition {
         this.operator = operator;
     }
 
-    public List<String> getValue() {
+    public String getValue() {
         return this.value;
     }
 
-    public void setValue(List<String> value) {
+    public void setValue(String value) {
         this.value = value;
     }
 }
