@@ -141,9 +141,20 @@ Ext.define('MES.data.CodeViewRegister', {
 					header : T('Caption.Other.Code'),
 					dataIndex : 'code',
 					flex : 1
+				},{
+					header : T('Caption.Other.Name'),
+					dataIndex : 'name',
+					flex : 1
 				}]
 			},
 			fields : [{
+				name : 'code',
+				column : 'code',
+				allowBlank : false,
+				maxLength : 20,
+				enforceMaxLength : true,
+				flex : 1
+			},{
 				name : 'name',
 				column : 'name',
 				allowBlank : false,

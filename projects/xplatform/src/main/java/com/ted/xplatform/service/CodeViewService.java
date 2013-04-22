@@ -147,7 +147,7 @@ public class CodeViewService {
         SqlRowSet sqlRowSet = jdbcTemplateDao.getNamedJdbcOperation().queryForRowSet(sql, new HashMap());
         List<Map<String, Object>> list = SpringUtils.convert(sqlRowSet);
         DynamicGrid gridInfo = new DynamicGrid();
-        gridInfo.setData(list);
+        gridInfo.setContent(list);
         SqlRowSetMetaData metaData = sqlRowSet.getMetaData();
         String[] columnNames = metaData.getColumnNames();
         for (String columnName : columnNames) {
@@ -159,7 +159,7 @@ public class CodeViewService {
         Map map = new HashMap();
         map.put("success", true);
         map.put("columns", gridInfo.getFields());//适配前端js
-        map.put("rows", gridInfo.getData());
+        map.put("rows", gridInfo.getContent());
         return new JsonPage();
     };
 

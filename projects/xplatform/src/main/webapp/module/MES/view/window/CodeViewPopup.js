@@ -98,7 +98,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 			if (!success)
 				return;
 				
-			//TODO fix it ,columns and rows is for dynamicGrid, to fix it
+			//TODO fix it ,columns and rows is for dynamicGrid, to fix it,我觉得这个可以去掉了，没它也可以显示出来数据到GridPanel
 			//if (self.codeviewOpts.type == 'sqlquery' && records[0].get('columns').length > 0) {
 				//self.sqlGridLoadData(records[0].get('columns'), records[0].get('rows'));
 			//}
