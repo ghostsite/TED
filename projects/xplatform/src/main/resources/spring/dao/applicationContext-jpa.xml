@@ -31,6 +31,15 @@
 				<prop key="jadira.usertype.autoRegisterUserTypes">true</prop><!--ghostzhang added 20130319 for jodatime-->
 				<prop key="jadira.usertype.databaseZone">jvm</prop><!--ghostzhang added 20130319 for jodatime-->
 				
+				<prop key="hibernate.query.substitutions">true=1,false=0,yes='Y', no='N'</prop>
+				<prop key="hibernate.hbm2ddl.auto">none</prop><!--#create update validate none-->
+				<prop key="hibernate.autoReconnect">true</prop>
+				<prop key="hibernate.connection.release_mode">auto</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				
 				<!--prop key="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</prop-->
                 <prop key="hibernate.c3p0.acquire_increment">3</prop>
                 <prop key="hibernate.c3p0.preferredTestQuery">select 1;</prop>

@@ -27,6 +27,7 @@ import com.ted.common.support.page.JsonPage;
 import com.ted.common.support.page.PageMetaData;
 import com.ted.common.util.CommonUtils;
 import com.ted.common.util.ConfigUtils;
+import com.ted.common.util.JsonUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.vo.codeview.CodeViewParam;
 import com.ted.xplatform.vo.codeview.Condition;
@@ -126,10 +127,14 @@ public class CodeViewService {
      * sqlquery
      * TODO fix it , add param to sql and order by...
      * JsonPage = PageMetaData, json输出，2者是一样的。
+     * 暂时不支持sql中带参数
      */
     @Transactional(readOnly = true)
     public JsonPage pagedSqlQuery(CodeViewParam param) {
-        PageMetaData pagedData = jdbcTemplateDao.pagedByOriginalSQLWithMetaData(param.getQuery(), new HashMap(), param.getStart(), param.getLimit());
+        //JPA的事务传不到jdbcTemplaate，现象时查询两次（one:count, another is list)第二次会出错：说can't open a closed connection!!!
+        //@see http://stackoverflow.com/questions/14567180/spring-jpa-hibernate-valid-configuration-not-working-with-jdbctemplate
+        //@see https://jira.springsource.org/browse/SPR-10395 important
+        PageMetaData pagedData = jdbcTemplateDao.pagedByNativeSQLWithMetaData(param.getQuery(), new HashMap(), param.getStart(), param.getLimit());
         return CommonUtils.pageMetaData2JsonPage(pagedData);
     };
 

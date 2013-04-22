@@ -28,7 +28,12 @@ public interface JdbcTemplateDao extends TemplateDao{
      * 意思跟下面的queryForList不是一个意思。下面的是返回的bean
      */
     <T> List<T> queryForList(String sql, Class<T> clazz, Object... args);
-    //-----------------------SQL-----------------------//
+    
+    PageMetaData pagedByNativeSQLWithMetaData(String sql, Map<String, Object> paramMap);
+
+    PageMetaData pagedByNativeSQLWithMetaData(String sql, Map<String, Object> paramMap, int start, int limit);
+    
+    //-----------------------Named SQL-----------------------//
     <T> List<T> findBySQLBeanQuerySpring(String queryName, Map<String, Object> params, Class<?> clazz);
 
     <T> JsonPage<T> pagedBySQLBeanQuerySpring(String queryName, Map<String, Object> params, Class<?> clazz, int start, int limit);

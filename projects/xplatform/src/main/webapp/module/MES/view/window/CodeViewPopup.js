@@ -97,9 +97,11 @@ Ext.define('MES.view.window.CodeViewPopup', {
 		this.store.on('load', function(store, records, success) {
 			if (!success)
 				return;
-			if (self.codeviewOpts.type == 'sqlquery' && records[0].get('columns').length > 0) {
-				self.sqlGridLoadData(records[0].get('columns'), records[0].get('rows'));
-			}
+				
+			//TODO fix it ,columns and rows is for dynamicGrid, to fix it
+			//if (self.codeviewOpts.type == 'sqlquery' && records[0].get('columns').length > 0) {
+				//self.sqlGridLoadData(records[0].get('columns'), records[0].get('rows'));
+			//}
 			// afterLoad 함수는 store의 데이터를 변경을 원할 경우사용된다.
 			if (Ext.typeOf(self.codeviewOpts.afterLoad) == 'function') {
 				if (self.codeviewOpts.scope)
@@ -359,8 +361,6 @@ Ext.define('MES.view.window.CodeViewPopup', {
 				params.condition = this.codeviewOpts.condition;
 		}
 
-		console.log('888888888888888');
-		console.log(params);
 		return Ext.create('Ext.data.Store', {
 			autoLoad : false,
 			remoteFilter : this.remoteFilter,

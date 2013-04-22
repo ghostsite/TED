@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ted.common.dao.DaoTemplateHelper;
 import com.ted.common.dao.TemplateDaoSupport;
@@ -29,10 +30,10 @@ public class JdbcTemplateDaoAdaptor extends TemplateDaoSupport implements JdbcTe
     }
 
     @Override
-    public <T> List<T> queryForList(String sql, Class<T> clazz, Object... args){
-        return namedJdbcTemplate.getJdbcOperations().query(sql,  new BeanPropertyRowMapper(clazz), args);
+    public <T> List<T> queryForList(String sql, Class<T> clazz, Object... args) {
+        return namedJdbcTemplate.getJdbcOperations().query(sql, new BeanPropertyRowMapper(clazz), args);
     }
-    
+
     @Override
     public <T> List<T> findBySQLBeanQuerySpring(String queryName, Map<String, Object> params, Class<?> clazz) {
         String sql = getTemplatedQLString(queryName, params);
@@ -48,7 +49,7 @@ public class JdbcTemplateDaoAdaptor extends TemplateDaoSupport implements JdbcTe
     public <T> JsonPage<T> pagedBySQLBeanQuerySpring(String queryName, Map<String, Object> params, Class<?> clazz, int start, int limit) {
         String sql = getTemplatedQLString(queryName, params);
         String countSql = "select count(*) from(" + DaoTemplateHelper.removeOrders(sql) + ")t"; //sql server 要求有别名,注意order by 最好写在最后，并且是最后一行。如果要不是最后怎么办？？
-        int totalCount = namedJdbcTemplate.queryForInt(countSql, params);
+        int totalCount = namedJdbcTemplate.queryForObject(countSql, params, Integer.class);
 
         if (start >= 0 && limit > 0) {
             if (ConfigUtils.isOracle()) {
@@ -71,16 +72,31 @@ public class JdbcTemplateDaoAdaptor extends TemplateDaoSupport implements JdbcTe
     @Override
     public PageMetaData pagedBySQLWithMetaData(String queryName, Map<String, Object> paramMap) {
         String sql = getTemplatedQLString(queryName, paramMap);
-        SqlRowSet sqlRowSet = namedJdbcTemplate.queryForRowSet(sql, paramMap);
-        List<Map<String, Object>> list = SpringUtils.convert(sqlRowSet);
-        return new PageMetaData(list, list.size(), sqlRowSet.getMetaData());
+        return pagedByNativeSQLWithMetaData(sql, paramMap);
     };
 
     @Override
     public PageMetaData pagedBySQLWithMetaData(String queryName, Map<String, Object> paramMap, int start, int limit) {
         String sql = getTemplatedQLString(queryName, paramMap);
+        return pagedByNativeSQLWithMetaData(sql, paramMap);
+    }
+
+    @Override
+    public NamedParameterJdbcOperations getNamedJdbcOperation() {
+        return namedJdbcTemplate;
+    }
+
+    @Override
+    public PageMetaData pagedByNativeSQLWithMetaData(String sql, Map<String, Object> paramMap) {
+        SqlRowSet sqlRowSet = namedJdbcTemplate.queryForRowSet(sql, paramMap);
+        List<Map<String, Object>> list = SpringUtils.convert(sqlRowSet);
+        return new PageMetaData(list, list.size(), sqlRowSet.getMetaData());
+    }
+
+    @Override
+    public PageMetaData pagedByNativeSQLWithMetaData(String sql, Map<String, Object> paramMap, int start, int limit) {
         String countSql = "select count(*) from(" + DaoTemplateHelper.removeOrders(sql) + ")t";
-        int totalCount = namedJdbcTemplate.queryForInt(countSql, paramMap);
+        int totalCount = namedJdbcTemplate.queryForObject(countSql, paramMap, Integer.class);
         if (start >= 0 && limit > 0) {
             if (ConfigUtils.isOracle()) {
                 sql = "select * from (select row_.*, rownum rownum_ from (" + sql + ")row_ where rownum<=" + (start + limit) + ") where rownum_>" + start;
@@ -93,11 +109,6 @@ public class JdbcTemplateDaoAdaptor extends TemplateDaoSupport implements JdbcTe
         SqlRowSet sqlRowSet = namedJdbcTemplate.queryForRowSet(sql, paramMap);
         List<Map<String, Object>> list = SpringUtils.convert(sqlRowSet);
         return new PageMetaData(list, totalCount, sqlRowSet.getMetaData());
-    }
-
-    @Override
-    public NamedParameterJdbcOperations getNamedJdbcOperation() {
-        return namedJdbcTemplate;
     }
 
 }
