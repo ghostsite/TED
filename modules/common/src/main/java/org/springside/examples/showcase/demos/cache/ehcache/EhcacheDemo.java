@@ -1,6 +1,6 @@
 package org.springside.examples.showcase.demos.cache.ehcache;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;

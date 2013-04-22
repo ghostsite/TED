@@ -88,6 +88,7 @@ public class AttachmentService {
             String fileName = AttachmentUtils.getRandomFileName(multipartFile.getOriginalFilename());
             fileManager.save(dir, fileName, multipartFile.getBytes());
             Attachment attachment = new Attachment();
+            attachment.setBytes(multipartFile.getBytes());
             attachment.setOriginName(multipartFile.getOriginalFilename());
             attachment.setFileName(fileName);
             attachment.setFilePath(middleDir);

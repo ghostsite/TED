@@ -37,7 +37,6 @@ import com.ted.common.util.DozerUtils;
 import com.ted.common.util.JsonUtils;
 import com.ted.common.util.SpringUtils;
 import com.ted.xplatform.pojo.common.MenuResource;
-import com.ted.xplatform.pojo.common.Type;
 import com.ted.xplatform.service.MenuResourceService;
 import com.ted.xplatform.util.PlatformUtils;
 

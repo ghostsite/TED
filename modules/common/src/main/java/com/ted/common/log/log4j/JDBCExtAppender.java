@@ -6,7 +6,6 @@ import java.util.Date;
 
 import org.apache.log4j.Category;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 import org.apache.log4j.jdbc.JDBCAppender;
 import org.apache.log4j.spi.LoggingEvent;
 

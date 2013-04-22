@@ -20,6 +20,9 @@ T({
 					},
 					codeview : {
 						"CodeViewShow" : "CodeView展现"
+					},
+					excel2grid : {
+						"Excel2GridShow" : "Excel2Grid展现"
 					}
 				}
 			},

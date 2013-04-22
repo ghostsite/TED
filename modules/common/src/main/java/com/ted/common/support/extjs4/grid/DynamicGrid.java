@@ -12,10 +12,29 @@ import java.util.Map;
  */
 public class DynamicGrid implements Serializable {
     private static final long         serialVersionUID = 1L;
-    private String                    title;                                            
+    private String                    title;
     private List<Field>               fields           = new ArrayList<Field>();
     private List<Column>              columns          = new ArrayList<Column>();
-    private List<Map<String, Object>> data             = new ArrayList<Map<String, Object>>();
+    private List<Map<String, Object>> content          = new ArrayList<Map<String, Object>>();
+
+    private int                       total;
+    protected boolean                 success          = true;                                //this is 妥协的结果。for extjs
+
+    public int getNumberOfElements() {
+        return total;
+    }
+
+    public void setNumberOfElements(int total) {
+        this.total = total;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
     public String getTitle() {
         return title;
@@ -41,12 +60,12 @@ public class DynamicGrid implements Serializable {
         this.columns = columns;
     }
 
-    public List<Map<String, Object>> getData() {
-        return data;
+    public List<Map<String, Object>> getContent() {
+        return content;
     }
 
-    public void setData(List<Map<String, Object>> data) {
-        this.data = data;
+    public void setContent(List<Map<String, Object>> content) {
+        this.content = content;
     }
 
 }

@@ -15,10 +15,10 @@
  */
 package com.ted.common.dao.jpa.support;
 
-import static com.ted.common.dao.jpa.support.JpaUtil.buildJpaOrders;
 import static com.ted.common.dao.jpa.support.ByEntitySelectorUtil.byEntitySelectors;
 import static com.ted.common.dao.jpa.support.ByPropertySelectorUtil.byPropertySelectors;
 import static com.ted.common.dao.jpa.support.ByRangeUtil.byRanges;
+import static com.ted.common.dao.jpa.support.JpaUtil.buildJpaOrders;
 
 import java.io.Serializable;
 import java.util.List;

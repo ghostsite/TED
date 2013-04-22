@@ -15,10 +15,10 @@
  */
 package com.ted.common.dao.jpa.support;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static com.ted.common.dao.jpa.support.Ranges.RangeDate.rangeDate;
 import static com.ted.common.dao.jpa.support.Ranges.RangeLocalDate.rangeLocalDate;
 import static com.ted.common.dao.jpa.support.Ranges.RangeLocalDateTime.rangeLocalDateTime;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,10 +1,8 @@
 package com.ted.common.support.file;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.component.file.FileComponent;

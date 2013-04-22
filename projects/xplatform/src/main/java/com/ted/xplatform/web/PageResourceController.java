@@ -1,33 +1,21 @@
 package com.ted.xplatform.web;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.support.MutableSortDefinition;
-import org.springframework.beans.support.PropertyComparator;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.ServletContextAware;
-import org.springframework.web.context.support.ServletContextResource;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.ted.common.Constants;
 import com.ted.common.exception.BusinessException;
 import com.ted.common.support.extjs4.JsonOut;
 import com.ted.common.support.extjs4.tree.CheckTreeNodeWithChildren2;
@@ -38,11 +26,8 @@ import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.DozerUtils;
 import com.ted.common.util.JsonUtils;
 import com.ted.common.util.SpringUtils;
-import com.ted.xplatform.pojo.common.MenuResource;
 import com.ted.xplatform.pojo.common.PageResource;
-import com.ted.xplatform.pojo.common.WidgetResource;
 import com.ted.xplatform.service.PageResourceService;
-import com.ted.xplatform.util.PlatformUtils;
 
 @Controller
 @RequestMapping(value = "/pageresource/*")

@@ -14,18 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ted.common.Constants;
-import com.ted.common.support.file.FileManager;
 import com.ted.common.support.page.JsonPage;
 import com.ted.common.util.CollectionUtils;
-import com.ted.common.util.FileUtils;
 import com.ted.common.web.download.DownloadHelper;
 import com.ted.xplatform.pojo.common.Attachment;
 import com.ted.xplatform.service.AttachmentService;
-import com.ted.xplatform.util.AttachmentUtils;
 
 /**
  * 公共附件的Controller

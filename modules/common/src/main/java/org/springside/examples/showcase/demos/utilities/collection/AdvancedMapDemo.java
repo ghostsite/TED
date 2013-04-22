@@ -1,6 +1,6 @@
 package org.springside.examples.showcase.demos.utilities.collection;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Collection;
 

@@ -1,6 +1,5 @@
 package com.ted.xplatform.vo.codeview;
 
-import java.util.List;
 
 public class Condition {
     private String       column;

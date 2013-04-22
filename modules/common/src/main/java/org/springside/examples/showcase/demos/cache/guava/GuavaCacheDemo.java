@@ -1,6 +1,6 @@
 package org.springside.examples.showcase.demos.cache.guava;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springside.examples.showcase.entity.User;
 import org.springside.examples.showcase.service.AccountService;
 import org.springside.modules.test.data.DataFixtures;
-//import org.springside.modules.test.log.Log4jMockAppender;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 import org.springside.modules.utils.Threads;
 

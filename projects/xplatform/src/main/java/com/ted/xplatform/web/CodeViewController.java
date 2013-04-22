@@ -20,7 +20,6 @@ import com.ted.xplatform.vo.codeview.CodeViewParam;
  */
 @Controller
 @RequestMapping(value = "/codeview/*")
-@SuppressWarnings("all")
 public class CodeViewController {
     @Inject
     private CodeViewService codeViewService;
