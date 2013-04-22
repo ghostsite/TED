@@ -44,16 +44,69 @@ Ext.define('BUS.controller.excel2grid.Excel2GridShow', {
 	},
 
 	showDataInGrid : function(response) {
-		var rs = Ext.decode(response.responseText);
+		var rs = response.responseObj || Ext.decode(response.responseText) || {};
 		var gridStore = Ext.create('Ext.data.Store', {
 			fields : rs.fields
 		});
 		this.getGrid().reconfigure(gridStore, rs.columns);
 		gridStore.loadData(rs.content);
+
+		this.buildFilter(rs);
 	},
 
 	onBtnClose : function(view) {
 		view.close();
+	},
+
+	// 创建下面的过滤的textfield,跟CodeViewPopup不同,这个要根据返回的值来生成
+	buildFilter : function(rs) { // rs.columns, rs.fields, rs.content
+		var self = this;
+		var columns = rs.columns;
+		var fieldset = rs.fields;
+		var items = [];
+		for (var i in columns) {
+			var column = columns[i];
+			// column.dataIndex 컬럼명
+			items.push({
+				listeners : {
+					specialkey : function(textfield, e) {
+						if (e.getKey() == e.ENTER) {
+							self.doFilter(textfield);
+						}
+					},
+					change : function(textfield, val) {
+						//self.doFilter(textfield, val);
+					}
+				},
+				xtype : 'textfield',
+				name : column.dataIndex,
+				hideLabel : true,
+				emptyText : column.header,
+				height: 20,
+				flex:1
+			});
+		}
+		
+		this.getBaseForm().sub('formId').add({
+			xtype : 'panel',
+			height : 39,
+			cls : 'windowSearchField',
+			layout : {
+				align : 'stretch',
+				type : 'hbox'
+			},
+			itemId : 'searchFields',
+			items : items
+		});
+		
+	},
+
+	doFilter : function(textfield) {
+		if(textfield.getValue()){
+			this.getGrid().store.filter(textfield.name, textfield.getValue());
+		}else{
+			this.getGrid().store.clearFilter();
+		}
 	}
 
 });
