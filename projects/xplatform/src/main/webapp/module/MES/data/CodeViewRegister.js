@@ -27,7 +27,7 @@ Ext.define('MES.data.CodeViewRegister', {
 			type : 'gcm',
 			table : 'common.Type',
 			popupConfig : {
-				title : T('Caption.Other.Owner Code'),
+				title : T('Caption.Other.Code'),
 				columns : [{
 					header : T('Caption.Other.Code'),
 					dataIndex : 'code',
