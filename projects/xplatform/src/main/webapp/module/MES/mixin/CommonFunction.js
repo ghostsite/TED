@@ -302,14 +302,7 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 			return sDate;
 		}
 
-		if (SF.gv.gShiftInfor.bVariableShift == false) {
-			if (SF.gv.gShiftInfor.cShift1DayFlag == 'T') {
-				dt = Ext.Date.add(dt, Ext.Date.DAY, 1);
-			}
-		} else {
-			dt = Ext.Date.add(dt, Ext.Date.DAY, 1);
-		}
-
+		dt = Ext.Date.add(dt, Ext.Date.DAY, 1);
 		sDate = Ext.Date.format(dt, 'Ymd');
 		sDate = sDate + SF.gv.gShiftInfor.sShift1StartTime;
 
@@ -325,12 +318,6 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 			dt = new Date(Number(date.substr(0, 4)), Number(date.substr(4, 2)) - 1, Number(date.substr(6, 2)));
 		} else if (Ext.typeOf(dt) != 'date') {
 			return sDate;
-		}
-
-		if (SF.gv.gShiftInfor.bVariableShift == false) {
-			if (SF.gv.gShiftInfor.cShift1DayFlag == 'P') {
-				dt = Ext.Date.add(dt, Ext.Date.DAY, -1);
-			}
 		}
 
 		sDate = Ext.Date.format(dt, 'Ymd');

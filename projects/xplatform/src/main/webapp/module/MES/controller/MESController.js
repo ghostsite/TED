@@ -1,4 +1,4 @@
-Ext.require([ 'MES.mixin.CodeView', 'MES.mixin.Variable', 'MES.mixin.CommonFunction', 'MES.data.CodeViewRegister']);
+Ext.require([ 'MES.mixin.CodeView', 'MES.mixin.CommonFunction', 'MES.data.CodeViewRegister']);
 
 Ext.define('MES.controller.MESController', {
 	extend : 'Ext.app.Controller',
@@ -179,7 +179,6 @@ Ext.define('MES.controller.MESController', {
 	},
 
 	setMixin : function() {
-		SF.mixin('MES.mixin.Variable');
 		SF.mixin('MES.mixin.CodeView');
 		SF.mixin('MES.mixin.CommonFunction');
 		Ext.create('MES.data.CodeViewRegister');

@@ -11,6 +11,7 @@ T({
 			"Menu" : "菜单",
 			"Message" : "信息",
 			"Options" : "选项",
+			"Function" : "功能",
 			"Password" : "密码",
 			"Level" : "等级",
 			"List" : "列表",
