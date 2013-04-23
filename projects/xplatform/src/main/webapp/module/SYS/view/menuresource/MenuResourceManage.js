@@ -212,6 +212,28 @@ Ext.define('SYS.view.menuresource.MenuResourceManage', {
 					name : 'favorite',
 					flex : 1
 				}]
+			},{
+				xtype : 'container',
+				layout : 'hbox',
+				cls : 'paddingT7',
+				defaults : {
+					labelWidth : 100
+				},
+				items : [{
+					flex : 1,
+					xtype : 'container',
+					layout : 'hbox',
+					cls : 'marginR10',
+					items : [{
+						xtype : 'checkbox',
+						fieldLabel : '分割线',
+						boxLabel : '有',
+						name : 'separator'
+					}]
+				}, {
+					xtype : 'label',
+					flex : 1
+				}]
 			}]
 		};
 	},

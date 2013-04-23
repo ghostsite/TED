@@ -52,8 +52,13 @@
 		
 		initLocalization(this);
 		
+		LANGUAGE_LIST = [{text : 'English', locale : 'en', icon:'image/icon/us.png'}, {text : 'Chinese', locale : 'cn', icon:'image/icon/cn.png'}];
+		
 		// Set Auto Expiration TTL seconds. TTL should be greater than 60.
-		LOGOUT_URL = 'logout?targetUrl=/home';
+		LOGOUT_URL = 'logout?targetUrl=/showLogin';
+		
+		//codeview default pagesize 설정 기본1000
+		CODEVIEW_PAGESIZE = 1000;
 		
 		// Set URL of your WebSocketMain.swf here, for web-socket
 		WEB_SOCKET_SWF_LOCATION = 'js/web-socket/WebSocketMain.swf';
@@ -111,7 +116,7 @@
 	<body>
 		<div class="siteBrand"><span class="logo"></span>智能管理软件有限公司.</div>
 		<div id="_loadprogress" style="margin:25% 35%;width:300px;text-align:center;font-size:14px;color:#333;position:relative\9;top:45%\9">
-			loading..
+			加载中......
 			<div style="width:300px;height:15px;border:1px solid #ccc;margin-top:5px;padding:2px;background-color:#efefef;text-align:left">
 				<span id="_progressbar" style="width:0%;height:100%;background-color:#7491d1;display:block;"></span>
 			</div>

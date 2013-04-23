@@ -72,6 +72,7 @@ Ext.define('SEC.controller.SECController', {
 					xtype : 'menucheckitem',
 					text : LANGUAGE_LIST[i].text,
 					group : 'locale',
+					icon: LANGUAGE_LIST[i].icon, //zhang added
 					inputValue : LANGUAGE_LIST[i].locale,
 					checked : (SF.login.locale==LANGUAGE_LIST[i].locale),
 					checkHandler : function (item, checked){
@@ -97,6 +98,7 @@ Ext.define('SEC.controller.SECController', {
 			}
 			userMenu.push({
 				text : T('Caption.Other.Language'),
+				icon : 'image/icon/shuffle.png', //zhang added 
 				menu : {
 					xtype : 'menu',
 					ignoreParentClicks : true,
@@ -118,7 +120,7 @@ Ext.define('SEC.controller.SECController', {
 		});
 		
 		SF.addSideMenu('Ext.button.Button', {
-			text : SF.login.name + ' @ ' + SF.login.factory,
+			text : SF.login.name,
 			cls : 'iconUser',
 			menu : userMenu
 		});

@@ -80,6 +80,7 @@ public class MenuResource extends Resource {
      */
     public boolean             leaf;
 
+    @Column(name = "separators")
     public boolean             separator;                            //是否有分割线
 
     /**

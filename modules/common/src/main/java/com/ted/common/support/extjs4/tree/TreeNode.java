@@ -19,6 +19,7 @@ public class TreeNode implements Serializable {
     public String               icon2;
     public String               icon3; //ghostzhang added 20121202
     public boolean              favorite;
+    public boolean              separator; //means: hasSeparator
     public String               iconCls;
     private String              qtip;
     public boolean              singleClickExpand;
@@ -30,6 +31,15 @@ public class TreeNode implements Serializable {
     private String              code; 
     public String               path;                                //代替原来的href
     public String               type; //如果是MenuResource, code='menu', FileResource, code='file', PageResource ,code ='page',20130410 added this
+
+    
+    public boolean isSeparator() {
+        return separator;
+    }
+
+    public void setSeparator(boolean separator) {
+        this.separator = separator;
+    }
 
     public String getType() {
         return type;
