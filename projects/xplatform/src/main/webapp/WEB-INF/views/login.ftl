@@ -15,15 +15,10 @@
 
         if(remember) {
 			var username = $.cookie('username');
-			var language = $.cookie('language') || 'en';
-			var program = $.cookie('program') || 'WEBClient';
+			var language = $.cookie('language') || 'cn';
 
-            $('#j_username').val(username);
-            $('#j_language').val(language);
-            var radio = $('input[name=j_program][value=' + program + ']');
-            if(radio) {
-            	radio[0].checked = true;
-            }
+            $('#username').val(username);
+            $('#language').val(language);
             $('#remember').attr('checked', 'checked');
         }
 
@@ -31,18 +26,14 @@
 		
 		$("form").submit(function() {
 			if ($('#remember').is(':checked')) {
-				var username = $('#j_username').val();
-				var language = $('#j_language').val();
-				var program = $('input[name=j_program]:checked').val();
+				var username = $('#username').val();
+				var language = $('#language').val();
 
 				// set cookies to expire in 14 days
 				$.cookie('username', username, {
 					expires : 14
 				});
 				$.cookie('language', language, {
-					expires : 14
-				});
-				$.cookie('program', program, {
 					expires : 14
 				});
 				$.cookie('remember', true, {
@@ -52,13 +43,9 @@
 				$.cookie('username', null);
 				$.cookie('remember', null);
 				$.cookie('language', null);
-				$.cookie('program', null);
 			}
 		});
 		
-		if(true || document.referrer) {
-			$('#program_part').hide();
-		}
 	});
 	</script>
 </head>
@@ -69,7 +56,7 @@
 
 	<span style="color:red">${error}</span>
 	<form action="login" method="post" class="loginForm">
-		<label for="j_username">用户名</label>
+		<label for="username">用户名</label>
 		<input name="username" maxlength="50" type="text" class="loginInput auto-focus"/>
 		<label for="password">密码</label>
 		<input name="password" maxlength="50" type="password" class="loginInput" />
@@ -78,14 +65,7 @@
 			<option value="cn" selected="selected">中文</option>
 			<option value="en">English</option>
 		</select>
-		<div id="program_part">
-			<div>
-				<input type="radio" name="j_program" value="WEBClient" checked="checked">Standard WEB
-				<br/>
-				<input type="radio" name="j_program" value="OPCClient">Operation Center
-			</div>
-		</div>
-	
+		
 		<div class="btnline">
 			<input id="remember" type="checkbox" />
 			<span>记住用户?</span>
