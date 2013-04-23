@@ -59,7 +59,6 @@ T({
 					}
 				}
 			},
-			"shequinfomanage":"前台管理",
 			"systemmanage":"系统管理"
 		}
 	},

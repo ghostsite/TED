@@ -117,7 +117,19 @@ public class UserController {
         userService.updateCurrentUser(user,multipartRequest);
         return new JsonOut(SpringUtils.getMessage("message.common.submit.success", messageSource)).toString();
     };
-
+    
+    
+    /**
+     * 用户在更新自己语言的时候，要校验下是否跟当前登陆用户是同一个，避免把别人的locale语言更新了。
+     */
+    @RequestMapping(value = "/changeLanguage")
+    public @ResponseBody
+    String changeLanguage(@RequestParam String language) throws Exception {
+        User currentUser = PlatformUtils.getCurrentUser();
+        currentUser.setLanguage(language);
+        return Constants.SUCCESS_JSON;
+    };
+    
     /**
      * 删除用户
      */
@@ -156,7 +168,7 @@ public class UserController {
      */
     @RequestMapping(value = "/updatePassword")
     public @ResponseBody
-    String resetPassword(@RequestParam Long id, @RequestParam String oldPassword, @RequestParam String newPassword) {
+    String updatePassword(@RequestParam Long id, @RequestParam String oldPassword, @RequestParam String newPassword) {
         //check oldPassword is right
         User user = userService.getUserById(id);
         String passwordKey = user.getPasswordKey();

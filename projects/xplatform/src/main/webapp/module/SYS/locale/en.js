@@ -16,53 +16,57 @@ T({
 			SYS:{
 				view:{
 					org:{
-						"OrgManage":"OrgManage"
+						"OrgManage":"Organization Manage"
 					},
 					type:{
-						"TypeManage":"TypeManage"
+						"TypeManage":"Type Manage"
 					},
 					menuresource:{
-						"MenuResourceManage":"MenuResourceManage"
+						"MenuResourceManage":"MenuResource Manage"
+					},
+					fileresource:{
+						"FileResourceManage":"FileResource Manage"
+					},
+					pageresource:{
+						"PageResourceManage":"PageResource Manage"
+					},
+					urlresource:{
+						"UrlResourceManage":"UrlResource Manage"
 					},
 					role:{
-						"RoleManage":"RoleManage"
+						"RoleManage":"Role Manage"
 					},
 					user:{
-						"UserManage":"UserManage"
+						"UserManage":"User Manage"
 					},
 					user2role:{
-						"User2RoleManage":"User2RoleManage"
+						"User2RoleManage":"User2Role Manage"
 					},
 					authority:{
-						"AuthorityManage":"AuthorityManage"
+						"AuthorityManage":"Authority Manage"
 					},
 					workday:{
-						"WorkDayManage":"WorkDayManage"
+						"WorkDayManage":"WorkDay Manage"
 					},
 					log:{
-						"LogManage":"LogManage"
+						"LogManage":"Log Manage"
 					},
 					attachment:{
-						"AttachmentManage":"AttachmentManage"
+						"AttachmentManage":"Attachment Manage"
+					},
+					namerule:{
+						"NameRuleManage":"NameRule Manage"
 					}
 				}
 			},
-			"shequinfomanage":"FrontManage",
-			"special/SomebodyManage":"SomebodyManage",
-			"special/GroupedManage":"GroupedManage",
-			"special/EventManage":"EventManage",
-			"qiantaichaxun":"FrontQuery",
-			"special/SomebodyQuery":"SomebodyQuery",
-			"special/GroupedQuery":"GroupedQuery",
-			"special/EventQuery":"EventQuery",
-			"systemmanage":"SystemManage"
+			"systemmanage":"System Manage"
 		}
 	},
 
 	Message : {
 		"Sure Delete Data?" : "Sure Delete Data?",
-		"Info" : "Information",
-		"WorkDayGenerate?" : "Sure Generate WorkDay?",
-		"WorkDayGenOK" : "Generate OK!"
+		"Info" : "Info",
+		"WorkDayGenerate?" : "Are you sure to Generate WorkDay？",
+		"WorkDayGenOK" : "WorkDay Gen OK!"
 	}
 });

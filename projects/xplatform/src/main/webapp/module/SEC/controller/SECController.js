@@ -75,9 +75,9 @@ Ext.define('SEC.controller.SECController', {
 								return;
 							}
 							SF.cf.callService({
-								url : 'service/secChangeLanguage.json',
+								url : 'user/changeLanguage',
 								params : {
-									langCode : locale
+									language : locale
 								},
 								callback : function(options, success, response) {
 									if(success)
