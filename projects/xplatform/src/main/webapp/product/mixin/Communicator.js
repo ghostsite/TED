@@ -3,7 +3,6 @@ Ext.define('mixin.Communicator', {
 		
 		var options = {
 				username : SmartFactory.login.id,
-				factory : SmartFactory.login.factory,
 				logLevel : 1,
 				joinInChannel : '/communicator/join/in',
 				joinOutChannel : '/communicator/join/out',

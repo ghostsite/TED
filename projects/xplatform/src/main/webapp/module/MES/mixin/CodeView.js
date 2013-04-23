@@ -202,8 +202,7 @@ Ext.define('MES.mixin.CodeView', function() {
 				Ext.applyIf(config,{
 					name : name,
 					type : 'table',
-					fieldSearch : false,
-					factory : SmartFactory.login.factory
+					fieldSearch : false
 				});
 				registry[name] = config;
 			},

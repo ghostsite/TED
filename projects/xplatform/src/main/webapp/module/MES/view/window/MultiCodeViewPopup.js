@@ -300,17 +300,12 @@ Ext.define('MES.view.window.MultiCodeViewPopup', {
 		};
 
 		if (this.codeviewOpts.url == undefined) {
-			if (this.codeviewOpts.factory)
-				params.factory = this.codeviewOpts.factory;
-
 			if (this.codeviewOpts.order)
 				params.order = this.codeviewOpts.order;
 
 			if (this.codeviewOpts.condition)
 				params.condition = this.codeviewOpts.condition;
 
-			if (this.codeviewOpts.factoryConditionEnabled === false)
-				params.factoryConditionEnabled = this.codeviewOpts.factoryConditionEnabled;
 		}
 
 		return Ext.create('Ext.data.Store', {

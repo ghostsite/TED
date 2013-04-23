@@ -40,15 +40,11 @@
 	    	id: ${user.id}, 
 			loginname : '${user.loginName}',
 			username : '${user.userName}',
-			locale : '${user.language}',
-			factory : '',
-			group : '',
-			programId : 'WEBClient'
+			locale : '${user.language}'
 		};
 
 		var sessionInfo = "";
 		var roleList = undefined;
-		var globalOptionList = "";
 		
 		initLocalization(this);
 		

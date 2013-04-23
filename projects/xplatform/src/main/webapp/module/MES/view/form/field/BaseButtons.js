@@ -44,8 +44,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 		var tbfillCnt = 0;
 		
 		//버튼 권한 설정
-		var option = SF.option.get('MP_ControllBlackList')||{};
-		this.useBlackList = option.value1 || ''; //권한 적용 방식
 		this.secControlList = this.secControlList ||{}; //권한설정버튼 목록
 		
 		Ext.Array.each(this.buttonsOpt, function(config, index, allItems) {
@@ -308,9 +306,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 		
 		if(itemId && this.secChecked === true){
 			if(this.secControlList[itemId] == ''){
-				disabled = true;
-			}
-			else if(this.useBlackList === 'Y' && this.secControlList[itemId] !== 'Y'){
 				disabled = true;
 			}
 		}

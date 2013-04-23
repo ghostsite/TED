@@ -22,8 +22,6 @@ Ext.define('BAS.controller.BaseButtons', {
 
 	onAdded : function(toolbar, owner, pos){
 		//버튼 권한 설정
-		var option = SF.option.get('MP_ControllBlackList')||{};
-		toolbar.useBlackList = option.value1 || ''; //권한 적용 방식
 		toolbar.secControlList = owner.secControlList ||{}; //권한설정버튼 목록
 		toolbar.secChecked = owner.secChecked;
 				

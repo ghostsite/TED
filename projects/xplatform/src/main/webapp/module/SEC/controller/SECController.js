@@ -27,7 +27,6 @@ Ext.define('SEC.controller.SECController', {
 				queryMode : 'local',
 			    displayField: 'name',
 				valueField: 'name',
-				value : SF.login.group,
 				editable : false,
 				listConfig : {
 					getInnerTpl : function() {
@@ -48,22 +47,15 @@ Ext.define('SEC.controller.SECController', {
 		
 		//user menu
 		var userMenu =  [ ];
-		//profile 수정등록
-		var MP_AllowUpdateProfile = SF.option.get('MP_AllowUpdateProfile')||{};
-		
-		if(MP_AllowUpdateProfile.value1 != 'N'){
-			var MP_AssemblyNameOfProfile = SF.option.get('MP_AssemblyNameOfProfile')||{};
-			
-			userMenu.push({
-				text : T('Caption.Other.Profile'),
-				icon : 'image/icon/properties.gif',
-				handler : function() {
-					SF.doMenu({
-						viewModel : MP_AssemblyNameOfProfile.value1 || 'SEC.view.setup.UserProfile'
-					});
-				}
-			});
-		}
+		userMenu.push({
+			text : T('Caption.Other.Profile'),
+			icon : 'image/icon/properties.gif',
+			handler : function() {
+				SF.doMenu({
+					viewModel : 'SEC.view.setup.UserProfile'
+				});
+			}
+		});
 		// 언어설정 메뉴 등록
 		if(window.LANGUAGE_LIST && LANGUAGE_LIST.length> 0){
 			var localeList = [];

@@ -33,9 +33,6 @@ Ext.define('MES.view.form.field.GCMComboBox', {
 				table : configs.table
 			};
 		
-		if (configs.factory)
-			this.params.factory = configs.factory;
-		
 		if(configs.order)
 			this.params.order = configs.order;
 		

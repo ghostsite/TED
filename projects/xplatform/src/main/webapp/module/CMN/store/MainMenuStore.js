@@ -24,10 +24,6 @@ Ext.define('CMN.store.MainMenuStore', {
 			},
 			actionMethods : {
 				read : 'GET'
-			},
-			extraParams : {
-				programId : SF.login.programId,
-				secGrpId : SF.login.group
 			}
 		};
 		

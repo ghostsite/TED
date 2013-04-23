@@ -75,22 +75,7 @@ Ext.define('mixin.AutoExpire', function() {
 		}
 	}
 	
-	var autoExpireTTL  = '';
-	for(var i in globalOptionList.optionList){
-		var option = globalOptionList.optionList[i]||{};
-		if(option.optionName === 'MP_AutoExpireTTL' && Ext.isNumeric(option.value1)){
-			autoExpireTTL = Math.abs(Number(option.value1) * 60);
-			break;
-		}
-	}
-	if(!Ext.isNumber(autoExpireTTL)){
-		//기본설정 3600(1시간)
-		autoExpireTTL  = 60 * 60;
-	}
-	else if(autoExpireTTL < 60){
-		//최소 설정 시간은 1분
-		autoExpireTTL  = 60;
-	}
+	var autoExpireTTL  = 60 * 60;
 	if(typeof(autoExpireTTL) === 'number') {
 		on('timeout', function() {
 			document.location.href = typeof(LOGOUT_URL) === 'undefined' ? 'logout' : LOGOUT_URL;

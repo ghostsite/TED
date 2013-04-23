@@ -7,7 +7,7 @@
 Ext.define('BAS.controller.BASController', {
 	extend : 'Ext.app.Controller',
 
-	requires : [ 'BAS.controller.BaseButtons', 'BAS.mixin.GlobalOption', 'BAS.view.common.AttributeStatusGrid' ],
+	requires : [ 'BAS.controller.BaseButtons', 'BAS.view.common.AttributeStatusGrid' ],
 
 	stores : [],
 	models : [],
@@ -21,8 +21,6 @@ Ext.define('BAS.controller.BASController', {
 				afterrender : this.onViewportRendered
 			}
 		});
-
-		SF.mixin('BAS.mixin.GlobalOption');
 
 		var self = this;
 
