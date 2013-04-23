@@ -44,7 +44,7 @@
 		};
 
 		var sessionInfo = "";
-		var roleList = undefined;
+		var roleList = ${user.roleListString};
 		
 		initLocalization(this);
 		

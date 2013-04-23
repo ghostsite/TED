@@ -49,7 +49,6 @@ public class RoleService {
     @Inject
     JpaTemplateDao             jpaTemplateDao;
 
-    
     public void setJdbcTemplateDao(JdbcTemplateDao jdbcTemplateDao) {
         this.jdbcTemplateDao = jdbcTemplateDao;
     }
@@ -247,7 +246,7 @@ public class RoleService {
      */
     @Transactional(readOnly = true)
     public Role getRoleById(Serializable roleId) {
-        if(null == roleId){
+        if (null == roleId) {
             return null;
         }
         Role role = jpaSupportDao.getEntityManager().find(Role.class, roleId);
@@ -261,17 +260,28 @@ public class RoleService {
      */
     @Transactional
     public Role save(Role role) {
-        if(role.getParentId() == null){
-            role.setParent(null);
-        }else{
-            Role parentRole = jpaSupportDao.getEntityManager().find(Role.class, role.getParentId());
-            if (null == parentRole) {
+        //如果是更新需要照顾acl and users
+        if (role.isNew()) {
+            if (role.getParentId() == null) {
                 role.setParent(null);
+            } else {
+                Role parentRole = jpaSupportDao.getEntityManager().find(Role.class, role.getParentId());
+                if (null == parentRole) {
+                    role.setParent(null);
+                }
+                role.setParent(parentRole);
             }
-            role.setParent(parentRole);
+            jpaSupportDao.getEntityManager().merge(role);
+            return role;
+        } else {
+            Role dbRole = jpaSupportDao.getEntityManager().find(Role.class, role.getId());
+            dbRole.setCode(role.getCode());
+            dbRole.setName(role.getName());
+            dbRole.setIdx(role.getIdx());
+            dbRole.setRemark(role.getRemark());
+            jpaSupportDao.getEntityManager().merge(dbRole);
+            return dbRole;
         }
-        jpaSupportDao.getEntityManager().merge(role);
-        return role;
     }
 
     /**
@@ -289,9 +299,9 @@ public class RoleService {
      */
     @Transactional(readOnly = true)
     public List<User> getUserListByRoleId(Long roleId) {
-        if(null == roleId){
+        if (null == roleId) {
             return null;
-        }else{
+        } else {
             Role role = jpaSupportDao.findByIdWithDepth(Role.class, roleId, "users");
             List<User> userList = role.getUsers();
             return userList;
@@ -325,9 +335,9 @@ public class RoleService {
     public void saveUserHasRoles(Long userId, Collection<Long> roleIds) {
         User user = jpaSupportDao.getEntityManager().find(User.class, userId);
         List<Role> dbRoleList = user.getRoleList();
-        
-        if(org.apache.commons.collections.CollectionUtils.isEmpty(roleIds)){
-            if(!org.apache.commons.collections.CollectionUtils.isEmpty(dbRoleList)){
+
+        if (org.apache.commons.collections.CollectionUtils.isEmpty(roleIds)) {
+            if (!org.apache.commons.collections.CollectionUtils.isEmpty(dbRoleList)) {
                 for (Role role : dbRoleList) {
                     role.getUsers().remove(user);
                     jpaSupportDao.getEntityManager().merge(role);
@@ -335,7 +345,7 @@ public class RoleService {
             }
             return;
         }
-        
+
         for (Long roleId : roleIds) {
             Role role = jpaSupportDao.getEntityManager().find(Role.class, roleId);
             if (dbRoleList.contains(role)) {

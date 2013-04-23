@@ -190,6 +190,7 @@ public class UserService {
         } else {//没有机构的用户,不设置为空，则抛错。
             user.setOrganization(null);
         }
+        
         //判断如果是新增，则要求user.getLoginName()不重复
         if (null == user.getId()) {//新增用户
             User dbUser = getUserByLoginName(user.getLoginName());

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Max;
@@ -30,6 +32,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.ted.common.util.ConfigUtils;
 import com.ted.common.util.ConvertUtils;
+import com.ted.common.util.JsonUtils;
 import com.ted.xplatform.pojo.base.LogicPersistEntity;
 
 /**
@@ -90,6 +93,7 @@ public class User extends LogicPersistEntity {
      * 拥有角色集合,不级联。说用户有的角色，只是一级，不包括角色的角色。
      */
     @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH }, mappedBy = "users", fetch = FetchType.LAZY)
+    @OrderBy("idx")
     private java.util.List<Role> roleList         = Lists.newArrayList();
 
     /**
@@ -375,6 +379,15 @@ public class User extends LogicPersistEntity {
         return roleList;
     }
 
+    public String getRoleListString(){
+        List<Map<String,Object>> roleMapList = Lists.newArrayList();
+        for(Role role : this.getRoleList()){
+            Map<String,Object> plainRole = com.ted.common.util.CollectionUtils.newMap("code", role.getCode(), "name", role.getName());
+            roleMapList.add(plainRole);
+        }
+        return JsonUtils.toJson(roleMapList);
+    }
+    
     /**
      * @param roleList the roleList to set
      */

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Lists;
 import com.ted.xplatform.pojo.base.PersistEntity;
 
 /**
@@ -91,6 +92,27 @@ public class Role extends PersistEntity {
      */
     private String       remark;
 
+    
+    //=====tool============//
+    //获得所有的角色，包括孩子,还没有人调用这个方法。暂时放着。
+    @JsonIgnore
+    public List<Role> getAllSubRoles(List<Role> roleList, Role role){
+        List<Role> allRoleList = null;
+        if(roleList != null){
+            allRoleList = roleList;
+        }else{
+            allRoleList = Lists.newArrayList();
+        }
+        
+        allRoleList.add(role);
+        for(Role subRole :subRoles){
+            allRoleList.addAll(getAllSubRoles(allRoleList, subRole));
+        }
+        
+        return allRoleList;
+    }
+    
+    
     //----------methods------------//
 
     public String getRemark() {

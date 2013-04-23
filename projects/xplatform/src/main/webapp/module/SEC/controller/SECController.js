@@ -18,33 +18,6 @@ Ext.define('SEC.controller.SECController', {
 	},
 
 	onViewportRendered : function() {
-		if(typeof(roleList) !== 'undefined') {
-			SF.addSideMenu('Ext.form.ComboBox', {
-				store : Ext.create('Ext.data.Store', {
-					fields : ['name'],
-					data : roleList.list
-				}),
-				queryMode : 'local',
-			    displayField: 'name',
-				valueField: 'name',
-				editable : false,
-				listConfig : {
-					getInnerTpl : function() {
-						return '<div class="appSearchItem"><span class="kind">Role</span> <span class="key">{name}</span></div>'; 
-					}, 
-					minWidth : 140
-				},
-				listeners : {
-					'select' : function(combo, records, eOpts) {
-						var role = records[0].get('name');
-						var store = Ext.getStore('CMN.store.MainMenuStore');
-						store.proxy.extraParams.secGrpId = role;
-						store.load();
-					}
-				}
-			});
-		}
-		
 		//user menu
 		var userMenu =  [ ];
 		userMenu.push({
@@ -116,5 +89,33 @@ Ext.define('SEC.controller.SECController', {
 			cls : 'iconUser',
 			menu : userMenu
 		});
+		
+		//先add用户，就会在后面。
+		if(typeof(roleList) !== 'undefined') {
+			SF.addSideMenu('Ext.form.ComboBox', {
+				store : Ext.create('Ext.data.Store', {
+					fields : ['name'],
+					data : roleList
+				}),
+				queryMode : 'local',
+			    displayField: 'name',
+				valueField: 'name',
+				editable : false,
+				listConfig : {
+					getInnerTpl : function() {
+						return '<div class="appSearchItem"><span class="kind">角色:</span> <span class="key">{name}</span></div>'; 
+					}, 
+					minWidth : 140
+				},
+				listeners : {
+					'select' : function(combo, records, eOpts) {
+						var role = records[0].get('name');
+						var store = Ext.getStore('CMN.store.MainMenuStore');
+						store.proxy.extraParams.secGrpId = role;
+						store.load();
+					}
+				}
+			});
+		}
 	}
 });
