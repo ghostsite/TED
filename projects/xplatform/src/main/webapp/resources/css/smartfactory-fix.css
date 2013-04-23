@@ -183,7 +183,7 @@ body{background:url('../image/bgHeader.png') repeat-x;background-color:transpare
 .x-menu-body{margin-top:2px;border:1px solid #9ea8b3 !important}
 .appMenu .x-btn-arrow-right{background:url('../image/arrowDownDefault.gif') 102% 5px no-repeat;background-position:98% 5px\9;}
 .appMenu .x-btn-arrow-right:hover{background:url('../image/arrowDownOver.gif') 102% 5px no-repeat;}
-.appMenu .x-btn-default-toolbar-small-icon-text-left .x-btn-inner{padding-left:4px;margin-right:4px}
+/**zhang .appMenu .x-btn-default-toolbar-small-icon-text-left .x-btn-inner{padding-left:4px;margin-right:4px}*/
 .appMenu .x-form-text{background-color:transparent;background-image:none;border:none;color:#a7b6dc}
 .appMenu .x-form-trigger-wrap{margin-right:-23px}
 .appMenu .x-form-trigger-wrap input{background:url('../image/iconUserRoll16.png') 4px 0 no-repeat #1f2128;border:1px solid #51586b;-webkit-border-radius:7px;-moz-border-radius:7px;border-radius:7px;padding:2px 0 2px 24px;margin:0 0 0 5px}
