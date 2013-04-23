@@ -5,7 +5,6 @@ Ext.define('mixin.UserInterface', function() {
 	function createView(view, config) {
 		var comp = null;
 		if (typeof(view) === 'string') {
-			//var secControlList = {};
 			var errMsg = '';
 			var callConfig ={
 				url: 'pageresource/currentUserCanView',
@@ -20,7 +19,6 @@ Ext.define('mixin.UserInterface', function() {
 				SF.alertWarn('警告', '您没有权限浏览此页面!');
 				return false;
 			}
-			//config.secControlList = secControlList; //这个挪到Page initComponent的时候调用吧。
 			comp = Ext.create(view, config);
 			return comp;
 		} else {

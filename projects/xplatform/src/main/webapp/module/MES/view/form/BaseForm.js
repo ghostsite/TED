@@ -96,12 +96,8 @@ Ext.define('MES.view.form.BaseForm', {
 			this.supplement = this.buildSupplement();
 		}
 		/* callParent 이전에 버튼 옵션 설정 */
-		this.secControlList = this.secControlList||{};
 		if (this.buttonsOpt) {
 			this.dockedItems.buttonsOpt = Ext.clone(this.buttonsOpt);
-			this.dockedItems.ctrlList = this.ctrlList;
-			this.dockedItems.secControlList = this.secControlList;
-			this.dockedItems.secChecked = this.secChecked;
 		} else {
 			this.dockedItems.buttonsOpt = {};
 		}
@@ -120,14 +116,6 @@ Ext.define('MES.view.form.BaseForm', {
 		/* form control button 권한 설정 */
 		//form에 추가한 버튼 권한 설
 		var formButtons = this.query('[xtype=button][disabled=false][userConfig=undefined]');
-		if(this.secChecked){
-			for(var i in formButtons){
-				var itemId = formButtons[i].itemId;
-				if(itemId != 'btnCodeView' && this.isControlDisabled(itemId)){
-					formButtons[i].setDisabled(true);
-				}
-			}
-		}
 		
 		SF.cf.getExportForm();
 		
@@ -153,27 +141,6 @@ Ext.define('MES.view.form.BaseForm', {
 			basebuttons.setClientForm(form);
 			basebuttons.setBaseFormPanel(this);
 		}
-
-		// TODO : client util 관련 사용제한..
-		//this.funcName = this.funcName || this.itemId;
-
-		//this.getSecCmpList(this);
-		//this.getSecControl(this);
-	},
-	isControlDisabled : function(itemId){
-		//권한 여부  ture(사용), false(사용금지), null(무시) 
-		var disabled = false;
-		
-		if(itemId && this.secChecked === true){
-			if(this.secControlList[itemId] == ''){
-				disabled = true;
-			}
-			else if(this.useBlackList === 'Y' && this.secControlList[itemId] !== 'Y'){
-				disabled = true;
-			}
-		}
-		
-		return disabled;
 	},
 	//2012-09-13 App.js에 Ext.ajax 메시지박스 공용처리되서 수정(showSuccessMsg, showFailureMsg)
 	_formLoad : function(params, showMsg) {
@@ -228,78 +195,6 @@ Ext.define('MES.view.form.BaseForm', {
 	getButtons : function() {
 		return this.down('#basebuttons');
 	},
-
-//	getSecCmpList : function(self) {
-//		var cmpList = self.query('button');
-//		var ctrlCmpList = [];
-//		for ( var i in cmpList) {
-//			if (cmpList[i].xtype == 'button' && cmpList[i].itemId && cmpList[i].itemId.length > 3 && cmpList[i].itemId.substring(0, 3) == 'btn'
-//					&& cmpList[i].itemId != 'btnCodeView') {
-//				ctrlCmpList.push(cmpList[i]);
-//				cmpList[i].on('enable', function(me) {
-//					if (!self.ctrlList)
-//						return;
-//					if (self.ctrlList[me.itemId] != undefined && self.ctrlList[me.itemId] != 'Y') {
-//						me.setDisabled(true);
-//					}
-//				});
-//			}
-//		}
-//		self.ctrlCmpList = ctrlCmpList;
-//	},
-
-//	setSecControl : function(self) {
-//		var cmpList = self.ctrlCmpList || [];
-//		for ( var i in cmpList) {
-//			var itemId = cmpList[i].itemId;
-//			if (self.ctrlList[itemId] != undefined && self.ctrlList[itemId] != 'Y') {
-//				cmpList[i].setDisabled(true);
-//			}
-//		}
-//	},
-//	
-//	getSecControl : function(self) {
-//		if (!self.funcName)
-//			return;
-//		var params = {
-//			funcName : this.funcName
-//		};
-//		var service = 'secViewFunctionDetail';
-//		var successFn = function(self, response) {
-//			self.ctrlList = {};
-//			if (response.result.success != true)
-//				return;
-//
-//			for ( var i = 1; i <= 10; i++) {
-//				var ctlName = response.result['ctlName' + i];
-//				if (ctlName)
-//					self.ctrlList[ctlName] = response.result['ctlEnFlag' + i] || ''; // 'Y'
-//																						// or
-//																						// other
-//			}
-//			self.setSecControl(self);
-//		};
-//		
-//		Ext.Ajax.request({
-//			showFailureMsg : false,
-//			url : 'service/' + service + '.json',
-//			method : 'GET',
-//			params : params,
-//			success : function(response, opts) {
-//				var result = Ext.JSON.decode(response.responseText);
-//				response.result = result || {};
-//				response.params = response.request.options.params || {};
-//
-//				if (result.success !== true && result.msgcode != 'SEC-0008') {
-//					SF.msgRtn('failure', result);
-//				}
-//				
-//				if (Ext.typeOf(successFn) == 'function')
-//					successFn(self, response);
-//			},
-//			scope : self
-//		});
-//	},
 	
 	getFormLoadLock : function() {
 		return this.formLoadLock;

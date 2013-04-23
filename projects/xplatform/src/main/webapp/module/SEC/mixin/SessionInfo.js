@@ -1,4 +1,4 @@
-Ext.define('SEC.mixin.SessionInfo', function() {
+Ext.define('SEC.mixin.SessionInfo', function() { //目前这个没有用到，可以暂时保留,存放一些配置信息。
 	var info = sessionInfo;
 	
 	Ext.define('SEC.mixin.SessionInfo.Inner', {
@@ -18,7 +18,7 @@ Ext.define('SEC.mixin.SessionInfo', function() {
 		
 		reload : function() {
 			Ext.Ajax.request({
-				url : 'service/SecViewSessionInfo.json',
+				//url : 'service/SecViewSessionInfo',
 				method : 'GET',
 				success : function(response, opts) {
 					var result = Ext.JSON.decode(response.responseText);

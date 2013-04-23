@@ -16,7 +16,6 @@ Ext.define('CMN.store.MainMenuStore', {
 		/* proxy config가 SmartFactory를 참조하므로, 생성자 안쪽으로 넣었다. */
 		config.proxy = {
 			type : 'ajax',
-			//url : 'service/SecViewFunctionNodeList.json',
 			url : 'menuresource/getCurrentUserMenusCascade',
 			reader : {
 				type : 'json'

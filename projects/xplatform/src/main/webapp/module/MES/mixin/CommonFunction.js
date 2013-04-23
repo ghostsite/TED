@@ -48,16 +48,6 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 		}
 	}
 
-	function getSecControl(funcName) {
-		var rtnResponse = callServiceSync({
-			url : 'service/secViewFunctionDetail.json',
-			params : {
-				funcName : funcName
-			}
-		});
-		return rtnResponse;
-	}
-	
 	// except : { itemId : itemId }
 	// bResetOriginal : dirty 정보를 false 상태로 유지
 	function clearFormFields(form, except, bResetOriginal) {
@@ -638,27 +628,10 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 		}).toUpperCase();
 	}
 	
-	function isControlDisabled(itemId, view){
-		//권한 여부  ture(사용), false(사용금지), null(무시) 
-		var disabled = false;
-		
-		if(itemId && view.secChecked === true){
-			if(view.secControlList[itemId] == ''){
-				disabled = true;
-			}
-			else if(view.useBlackList === 'Y' && view.secControlList[itemId] !== 'Y'){
-				disabled = true;
-			}
-		}
-		
-		return disabled;
-	}
-	
 	return {
 		cf : {
 			toStandardTime : toStandardTime,
 			getExportParams : getExportParams,
-			getSecControl : getSecControl,
 			clearFormFields : clearFormFields,
 			hexToArgb : hexToArgb,
 			argbToHex : argbToHex,
@@ -677,8 +650,7 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 			getExportForm : getExportForm,
 			toUnderscoreCase : toUnderscoreCase,
 			toObjNameUnderscoreCase : toObjNameUnderscoreCase,
-			toObjNameCamelCase : toObjNameCamelCase,
-			isControlDisabled : isControlDisabled
+			toObjNameCamelCase : toObjNameCamelCase
 		}
 	};
 }());

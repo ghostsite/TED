@@ -157,7 +157,7 @@ Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to f
 		/* form submit */
 		var form = me.getForm();
 		form.submit({
-			url : me.uploadUrl,//'service/bas_upload_file_tmp.json',
+			url : me.uploadUrl,
             success: function(form, action) {
             	var fileId = action.result.fileId;
             	me.fsTmpFileId.push(fileId);

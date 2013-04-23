@@ -7,11 +7,11 @@
 Ext.define('BAS.controller.BASController', {
 	extend : 'Ext.app.Controller',
 
-	requires : [ 'BAS.controller.BaseButtons', 'BAS.view.common.AttributeStatusGrid' ],
+	requires : [ 'BAS.controller.BaseButtons' ],
 
 	stores : [],
 	models : [],
-	views : [ 'BAS.view.common.AttributeStatusGrid', 'BAS.view.common.BaseSupplement' ],
+	views : [ 'BAS.view.common.BaseSupplement' ],
 
 	controlSets : [ 'BaseButtons' ],
 

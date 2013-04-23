@@ -43,19 +43,11 @@ Ext.define('MES.view.form.field.BaseButtons', {
 		var tbarButtons = [];
 		var tbfillCnt = 0;
 		
-		//버튼 권한 설정
-		this.secControlList = this.secControlList ||{}; //권한설정버튼 목록
-		
 		Ext.Array.each(this.buttonsOpt, function(config, index, allItems) {
 			config = config || {};
 			config.params = config.params || {};
 			config.result = config.result || {};
 
-			//권한 여부  ture(사용), false(사용금지), null(무시) 
-			if(this.isControlDisabled(config.itemId)===true){
-				config.disabled = true;
-			}
-			
 			this.zbtnclose.userConfig = {};
 			
 			switch (config.itemId) {
@@ -292,25 +284,7 @@ Ext.define('MES.view.form.field.BaseButtons', {
 					self.itemAction(me);
 				}
 			});
-
-			item.on('enable', function(me, eOpts) {
-				if(self.isControlDisabled(me.itemId)===true){
-					me.setDisabled(true);
-				}
-			});
 		}
-	},
-	isControlDisabled : function(itemId){
-		//권한 여부  ture(사용), false(사용금지), null(무시) 
-		var disabled = false;
-		
-		if(itemId && this.secChecked === true){
-			if(this.secControlList[itemId] == ''){
-				disabled = true;
-			}
-		}
-		
-		return disabled;
 	},
 	getClientForm : function() {
 		if (!this.clientForm) {
@@ -683,9 +657,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 		if (!options)
 			return;
 		
-		if(this.isControlDisabled(options.itemId)===true){
-			options.disabled = true;
-		}
 		control = this.insert(index, options);
 
 		if (options.eventName && options.eventFn) {
@@ -703,10 +674,6 @@ Ext.define('MES.view.form.field.BaseButtons', {
 		var item = Ext.isNumber(itemId) ? this.items.getAt(itemId) : this.items.get(itemId);
 		if (!item)
 			return;
-		
-		if(this.isControlDisabled(itemId)===true){
-			disabled = true;
-		}
 		
 		if (disabled)
 			item.disable();
