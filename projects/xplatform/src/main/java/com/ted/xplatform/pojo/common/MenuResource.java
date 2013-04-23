@@ -26,200 +26,208 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 //@Table(name = "menu_resource")
 @DiscriminatorValue("menu")
 public class MenuResource extends Resource {
-    private static final long serialVersionUID = -279141209449027079L;
-    public static final String TYPE = "menu"; //区别于FileResource, PageResource
+    private static final long  serialVersionUID = -279141209449027079L;
+    public static final String TYPE             = "menu";              //区别于FileResource, PageResource
 
     /**
-	 * 所属上级菜单
-	 */
-	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.DETACH)
+     * 所属上级菜单
+     */
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "parent_id")
-	private MenuResource parent;
+    private MenuResource       parent;
 
-	/**
-	 * 子菜单集合
-	 */
-	@JsonIgnore
-	@OneToMany(cascade = { CascadeType.DETACH }, mappedBy = "parent", fetch = FetchType.LAZY)
+    /**
+     * 子菜单集合
+     */
+    @JsonIgnore
+    @OneToMany(cascade = { CascadeType.DETACH }, mappedBy = "parent", fetch = FetchType.LAZY)
     // mappedBy="subMenuResources"
     @Where(clause = "deleted=0")
     // @JoinColumn(name = "parent_id")
-	private List<MenuResource> subMenuResources;
+    private List<MenuResource> subMenuResources;
 
-	/**
-	 * 菜单路径
-	 */
-	private String path;
+    /**
+     * 菜单路径
+     */
+    private String             path;
 
-	/**
-	 * 索引号
-	 */
-	private Integer idx;
+    /**
+     * 索引号
+     */
+    private Integer            idx;
 
-	/**
-	 * 修饰icon的cls,db中还多了一个冗余:cls,现在改为iconCls
-	 */
-	public String iconCls;
+    /**
+     * 修饰icon的cls,db中还多了一个冗余:cls,现在改为iconCls
+     */
+    public String              iconCls;
 
-	public String icon; //最小的icon,for menu
+    public String              icon;                                   //最小的icon,for menu
 
-	public String icon2;//for Short Cut 1
-	
-	public String icon3;//for Short Cut 2
+    public String              icon2;                                   //for Short Cut 1
 
-	public boolean favorite; // 是否是快捷方式
+    public String              icon3;                                   //for Short Cut 2
 
-	/**
-	 * qtip，之所以命名为quicktip，因为在js文件中qtip有问题。
-	 */
-	@Column(name = "qtip")
-	private String quicktip;
+    public boolean             favorite;                               // 是否是快捷方式
 
-	/**
-	 * 是否是叶子
-	 */
-	public boolean leaf;
+    /**
+     * qtip，之所以命名为quicktip，因为在js文件中qtip有问题。
+     */
+    @Column(name = "qtip")
+    private String             quicktip;
 
-	/**
-	 * 父亲Id,当初为啥要写一个呢？因为已经有了啊,这个是给新增的时候用的，要load然后把Menursource传过去，不过要到parentId，然后填写，把parentId保留。
-	 * 为保存所setParent()用。不过要先通过parentId load 出parent对象。
-	 */
-	@Transient
-	private Long parentId;
+    /**
+     * 是否是叶子
+     */
+    public boolean             leaf;
 
-	/**
-	 * 父亲菜单Name，注意是：Transient，不是给持久化用的，是给页面显示用的。
-	 */
-	@Transient
-	private String parentName;
+    public boolean             separator;                            //是否有分割线
 
-	
-	public String getIcon3() {
-		return icon3;
-	}
+    /**
+     * 父亲Id,当初为啥要写一个呢？因为已经有了啊,这个是给新增的时候用的，要load然后把Menursource传过去，不过要到parentId，然后填写，把parentId保留。
+     * 为保存所setParent()用。不过要先通过parentId load 出parent对象。
+     */
+    @Transient
+    private Long               parentId;
 
-	public void setIcon3(String icon3) {
-		this.icon3 = icon3;
-	}
+    /**
+     * 父亲菜单Name，注意是：Transient，不是给持久化用的，是给页面显示用的。
+     */
+    @Transient
+    private String             parentName;
 
-	public String getIcon2() {
-		return icon2;
-	}
+    public String getIcon3() {
+        return icon3;
+    }
 
-	public void setIcon2(String icon2) {
-		this.icon2 = icon2;
-	}
+    public void setIcon3(String icon3) {
+        this.icon3 = icon3;
+    }
 
-	public boolean isFavorite() {
-		return favorite;
-	}
+    public String getIcon2() {
+        return icon2;
+    }
 
-	public void setFavorite(boolean favorite) {
-		this.favorite = favorite;
-	}
+    public void setIcon2(String icon2) {
+        this.icon2 = icon2;
+    }
 
+    public boolean isSeparator() {
+        return separator;
+    }
 
+    public void setSeparator(boolean separator) {
+        this.separator = separator;
+    }
 
-	public String getIcon() {
-		return icon;
-	}
+    public boolean isFavorite() {
+        return favorite;
+    }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
 
-	@Transient
-	public String getParentName() {
-		return parentName;
-	}
+    public String getIcon() {
+        return icon;
+    }
 
-	public void loadParentName() {
-		if (null != parent) {
-			this.parentName = parent.getName();
-		}
-	}
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-	public void setParentName(String parentName) {
-		this.parentName = parentName;
-	}
+    @Transient
+    public String getParentName() {
+        return parentName;
+    }
 
-	@JsonIgnore
-	public MenuResource getParent() {
-		return parent;
-	}
+    public void loadParentName() {
+        if (null != parent) {
+            this.parentName = parent.getName();
+        }
+    }
 
-	public void setParent(MenuResource parent) {
-		this.parent = parent;
-	}
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
 
-	@JsonIgnore
-	public List<MenuResource> getSubMenuResources() {
-		return subMenuResources;
-	}
+    @JsonIgnore
+    public MenuResource getParent() {
+        return parent;
+    }
 
-	public void setSubMenuResources(List<MenuResource> subMenuResources) {
-		this.subMenuResources = subMenuResources;
-	}
+    public void setParent(MenuResource parent) {
+        this.parent = parent;
+    }
 
-	public String getPath() {
-		return path;
-	}
+    @JsonIgnore
+    public List<MenuResource> getSubMenuResources() {
+        return subMenuResources;
+    }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+    public void setSubMenuResources(List<MenuResource> subMenuResources) {
+        this.subMenuResources = subMenuResources;
+    }
 
-	public Integer getIdx() {
-		return idx;
-	}
+    public String getPath() {
+        return path;
+    }
 
-	public void setIdx(Integer idx) {
-		this.idx = idx;
-	}
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-	public String getIconCls() {
-		return iconCls;
-	}
+    public Integer getIdx() {
+        return idx;
+    }
 
-	public void setIconCls(String iconCls) {
-		this.iconCls = iconCls;
-	}
+    public void setIdx(Integer idx) {
+        this.idx = idx;
+    }
 
-	public String getQuicktip() {
-		return quicktip;
-	}
+    public String getIconCls() {
+        return iconCls;
+    }
 
-	public void setQuicktip(String quicktip) {
-		this.quicktip = quicktip;
-	}
+    public void setIconCls(String iconCls) {
+        this.iconCls = iconCls;
+    }
 
-	public boolean isLeaf() {
-		return leaf;
-	}
+    public String getQuicktip() {
+        return quicktip;
+    }
 
-	public void setLeaf(boolean leaf) {
-		this.leaf = leaf;
-	}
+    public void setQuicktip(String quicktip) {
+        this.quicktip = quicktip;
+    }
 
-//	@Column(name = "parent_id")
-	public Long getParentId() {
-	    if (getParent() == null) {
+    public boolean isLeaf() {
+        return leaf;
+    }
+
+    public void setLeaf(boolean leaf) {
+        this.leaf = leaf;
+    }
+
+    //	@Column(name = "parent_id")
+    public Long getParentId() {
+        if (getParent() == null) {
             return parentId;
         } else {
             return getParent().getId();
         }
-	}
-	
-	//这个跟getParent不是1:1对应的，这个是给临时变量parentId赋值，getParentId()是通过parent对象获得parentId的。
-	public void setParentId(Long parentId){
-	    this.parentId = parentId;
-	}
-//
-//	public void setParentId(Serializable parentId) {
-//		this.parentId = parentId;
-//	}
+    }
 
-	public String getType(){
-	    return TYPE;
-	}
+    //这个跟getParent不是1:1对应的，这个是给临时变量parentId赋值，getParentId()是通过parent对象获得parentId的。
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    //
+    //	public void setParentId(Serializable parentId) {
+    //		this.parentId = parentId;
+    //	}
+
+    public String getType() {
+        return TYPE;
+    }
 }

@@ -57,6 +57,10 @@
 			<a>type</a>
 			<b>type</b>
 		</field>
+		<field>
+			<a>separator</a>
+			<b>separator</b>
+		</field>
 	</mapping>
 	
 	<mapping>

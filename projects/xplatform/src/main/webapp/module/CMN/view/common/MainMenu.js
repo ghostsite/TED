@@ -42,7 +42,8 @@ Ext.define('CMN.view.common.MainMenu', {
 				title : child.get('text'),
 				icon : child.get('icon')//zhang added 20130423, top level menu icon
 			};
-			if (child.get('separator') === 'Y') {
+			//if (child.get('separator') === 'Y') {
+			if (child.get('separator')=='true') {//zhang modified this 20130423 Ext.typeOf(child.get('separator') =string
 				result.push({
 					xtype : 'menuseparator'
 				});
