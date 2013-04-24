@@ -14,6 +14,20 @@ Ext.define('mixin.Helper', function() {
     
 		return bbar;
 	}
+	
+	//没有combo的
+	function getPagingBbar(store){
+		var bbar =  Ext.create('Ext.toolbar.Paging',{
+			dock : 'bottom',
+            pageSize: 20,
+            store: store,
+            displayInfo: true,
+            displayMsg : '显示{0}条到{1}条,共{2}条',
+            emptyMsg : "没有符合条件的记录"
+        });
+    
+		return bbar;
+	}
 
 	// if operation =='delete'or 'remove' or update then refresh
 	// parentNode, else
@@ -190,6 +204,7 @@ Ext.define('mixin.Helper', function() {
 	
 	return {
 		getContextBbar : getContextBbar,
+		getPagingBbar : getPagingBbar,
 		getSelectedIdFromTree : getSelectedIdFromTree,
 		getAllIdArrayFromGrid : getAllIdArrayFromGrid,
 		getSelectedIdArrayFromGrid : getSelectedIdArrayFromGrid,

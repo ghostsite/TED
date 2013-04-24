@@ -30,8 +30,7 @@ T({
 						simple : {
 							"Start" : "显示GIS应用"
 						}
-					},
-					"GISTree" : "显示GIS树"
+					}
 				}
 			},
 			"test" : "控件示例"

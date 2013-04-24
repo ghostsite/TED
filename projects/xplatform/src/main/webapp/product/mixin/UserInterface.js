@@ -177,10 +177,10 @@ Ext.define('mixin.UserInterface', function() {
 
 			return screen;
 		} catch (e) {
-			console.log(e)
 			SF.error('SYS-E001', {
 				view : menu.viewModel
 			}, e);
+			Ext.log(e)
 		}
 	}
 
