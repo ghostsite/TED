@@ -3,7 +3,12 @@ Ext.define('TES.view.GIS', {//more examples: file:///E:/Project/Ext/downloaded/g
 	title : T('Caption.Menu.TES.view.GIS'),
 	xtype : 'tes_gis',
 
-	requires : ['GeoExt.panel.Map', 'GeoExt.data.FeatureStore', 'GeoExt.grid.column.Symbolizer', 'GeoExt.selection.FeatureModel', 'Ext.grid.GridPanel', 'Ext.layout.container.Border'],
+	requires : ['GeoExt.panel.Map',
+	'GeoExt.data.FeatureStore', 
+	'GeoExt.grid.column.Symbolizer', 
+	'GeoExt.selection.FeatureModel', 
+	'Ext.grid.GridPanel', 
+	'Ext.layout.container.Border'],
 
 	initComponent : function() {
 		this.callParent();

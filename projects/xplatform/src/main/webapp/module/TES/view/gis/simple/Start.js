@@ -29,9 +29,9 @@ Ext.define('TES.view.gis.simple.Start', {
                 dockedItems: [
                     Ext.create('TES.view.gis.simple.Header')
                 ],
-                items: [/**{
+                items: [{
                     xtype: 'cf_mappanel'
-                }*/Ext.create('TES.view.gis.simple.Map'), {
+                }, {
                     xtype: 'panel',
                     region: 'center',
                     border: false,

@@ -69,7 +69,8 @@ Ext.define('TES.controller.gis.simple.Start', {
                 'default': style
             }),
             protocol: new OpenLayers.Protocol.HTTP({
-                url: "resources/data/tes/gis-simple-summits.json",
+                //url: "resources/data/tes/gis-simple-summits.json",
+            	url : "resources/data/tes/summits.json",
                 format: new OpenLayers.Format.GeoJSON()
             }),
             strategies: [new OpenLayers.Strategy.Fixed()]
@@ -91,23 +92,21 @@ Ext.define('TES.controller.gis.simple.Start', {
         })]);
 
         // for dev purpose
-        map = mapPanel.map;
-        mapPanel = mapPanel;
+        //map = mapPanel.map;
+        //mapPanel = mapPanel; 这2个都是全局变量，我没用。
     },
 
     onLaunch: function() {
         var me = this;
 
         // for dev purpose
-        ctrl = this;
-		alert('launched112235');
+        //ctrl = this;
     },
     
     onSummitsStoreLoad: function(store, records) {
         // do custom stuff on summits load if you want, for example here we
         // zoom to summits extent
         var dataExtent = store.layer.getDataExtent();
-        alert(dataExtent)
         if (dataExtent) {
             store.layer.map.zoomToExtent(dataExtent);
         }

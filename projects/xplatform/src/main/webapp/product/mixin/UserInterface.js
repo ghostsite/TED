@@ -73,7 +73,7 @@ Ext.define('mixin.UserInterface', function() {
 			if (Ext.ClassManager.get(controller)) {
 				var ctrl = SF.controller.ApplicationController.unique.getController(controller);
 				ctrl.init();
-				ctrl.onLaunch();
+				//ctrl.onLaunch(); //这还还不确定到底调用还是不调用
 			}
 			// SF.controller.ApplicationController.unique.getController(controller);
 			// //this is for extjs4.2 ,a big bug for mesplus, for

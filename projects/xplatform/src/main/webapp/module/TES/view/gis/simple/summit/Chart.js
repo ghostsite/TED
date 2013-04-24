@@ -14,7 +14,7 @@ Ext.define('TES.view.gis.simple.summit.Chart', {
                 position: 'right'
             },
             shadow: true,
-            store: Ext.create('TES.store.gis.simple.Summits'),
+            store: 'TES.store.gis.simple.Summits',
             style: 'background:#fff',
             axes: [{
                 type: 'Numeric',

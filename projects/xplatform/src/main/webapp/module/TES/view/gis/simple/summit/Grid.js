@@ -51,7 +51,7 @@ Ext.define('TES.view.gis.simple.summit.Grid', {
 				flex : 2
 			}],
 			flex : 1,
-			store : Ext.create('TES.store.gis.simple.Summits'),
+			store : 'TES.store.gis.simple.Summits',
 			selType : 'featuremodel',
 			plugins : [Ext.create('Ext.grid.plugin.CellEditing', {
 				clicksToEdit : 2
