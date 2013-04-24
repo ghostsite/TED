@@ -87,8 +87,6 @@ public class ResourceService {
             return true;
         } else {
             return ACLUtils.hasAuthority(currentUser, resource, Operation.Type.view.name());
-            //String permission = resource.getCode() + ":" + Operation.Type.view;
-            //return currentUser.isPermitted(permission);
         }
     };
 

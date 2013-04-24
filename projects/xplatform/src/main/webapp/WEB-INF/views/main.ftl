@@ -44,11 +44,13 @@
 		};
 
 		var sessionInfo = "";
-		var roleList = ${user.roleListString};
+		var roleList = ${user.roleListString} || [];
+		roleList.splice(0,0,{code:'',name:'所有'});
+		var currentRole = '${(user.currentRole.code)!}';
 		
 		initLocalization(this);
 		
-		LANGUAGE_LIST = [{text : 'English', locale : 'en', icon:'image/icon/us.png'}, {text : 'Chinese', locale : 'cn', icon:'image/icon/cn.png'}];
+		LANGUAGE_LIST = [{text : 'English', locale : 'en', icon:'image/icon/us.png'}, {text : '中文', locale : 'cn', icon:'image/icon/cn.png'}];
 		
 		// Set Auto Expiration TTL seconds. TTL should be greater than 60.
 		LOGOUT_URL = 'logout?targetUrl=/showLogin';

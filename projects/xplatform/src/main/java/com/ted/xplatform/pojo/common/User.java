@@ -177,6 +177,17 @@ public class User extends LogicPersistEntity {
     boolean                      needToUpdatePic;                                                      //是否更新图片
 
     @Transient
+    Role                         currentRole;                                                           //这个是给选角色用的，可以为空
+
+    public Role getCurrentRole() {
+        return currentRole;
+    }
+
+    public void setCurrentRole(Role currentRole) {
+        this.currentRole = currentRole;
+    }
+
+    @Transient
     public Attachment getPic() {
         return pic;
     }
@@ -379,15 +390,15 @@ public class User extends LogicPersistEntity {
         return roleList;
     }
 
-    public String getRoleListString(){
-        List<Map<String,Object>> roleMapList = Lists.newArrayList();
-        for(Role role : this.getRoleList()){
-            Map<String,Object> plainRole = com.ted.common.util.CollectionUtils.newMap("code", role.getCode(), "name", role.getName());
+    public String getRoleListString() {
+        List<Map<String, Object>> roleMapList = Lists.newArrayList();
+        for (Role role : this.getRoleList()) {
+            Map<String, Object> plainRole = com.ted.common.util.CollectionUtils.newMap("code", role.getCode(), "name", role.getName());
             roleMapList.add(plainRole);
         }
         return JsonUtils.toJson(roleMapList);
     }
-    
+
     /**
      * @param roleList the roleList to set
      */

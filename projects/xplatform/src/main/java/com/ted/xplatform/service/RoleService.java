@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -251,6 +252,15 @@ public class RoleService {
         }
         Role role = jpaSupportDao.getEntityManager().find(Role.class, roleId);
         role.loadParentName();
+        return role;
+    };
+    
+    @Transactional(readOnly = true)
+    public Role getRoleByCode(String roleCode) {
+        if (StringUtils.isBlank(roleCode)) {
+            return null;
+        }
+        Role role = jpaSupportDao.findSingleByProperty(Role.class, "code",roleCode);
         return role;
     };
 

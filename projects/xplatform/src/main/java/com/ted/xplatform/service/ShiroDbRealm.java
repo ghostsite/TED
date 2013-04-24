@@ -19,7 +19,9 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ted.xplatform.pojo.common.ACL;
+import com.ted.xplatform.pojo.common.Role;
 import com.ted.xplatform.pojo.common.User;
+import com.ted.xplatform.util.PlatformUtils;
 
 /**
  * <p>Title: 此类可参考JdbcRealm from shiro</p>
@@ -65,9 +67,25 @@ public class ShiroDbRealm extends AuthorizingRealm {
         User user = (User) principals.fromRealm(getName()).iterator().next();
         if (user != null) {
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-            List<ACL> aclList = user.getAcls();
-            for (ACL acl : aclList) {
-                info.addStringPermission(acl.getPermissionString());
+            
+            User currentUser = PlatformUtils.getCurrentUser();
+            //Role currentRole = user.getCurrentRole(); 这个currentRole永远是空，因为user是从doGetAuthenticationInfo()方法的来的。
+            if (null == currentUser || null == currentUser.getCurrentRole()) {
+                //基于Permission的权限信息
+                List<ACL> aclList = user.getAcls();
+                for (ACL acl : aclList) {
+                    info.addStringPermission(acl.getPermissionString());
+                }
+
+                //基于Role的权限信息,stop here,如何判断一个角色对一个资源的权限，hasViewPermission
+                for (Role role : user.getRoleList()) {
+                    info.addRole(role.getCode());
+                }
+            } else {
+                for (ACL acl : currentUser.getCurrentRole().getAcls()) {
+                    info.addStringPermission(acl.getPermissionString());
+                }
+                info.addRole(currentUser.getCurrentRole().getCode());
             }
             return info;
         } else {

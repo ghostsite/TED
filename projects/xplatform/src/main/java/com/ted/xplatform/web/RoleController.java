@@ -2,12 +2,16 @@ package com.ted.xplatform.web;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.RealmSecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -41,8 +45,10 @@ import com.ted.xplatform.pojo.common.UrlResource;
 import com.ted.xplatform.pojo.common.User;
 import com.ted.xplatform.pojo.common.WidgetResource;
 import com.ted.xplatform.service.RoleService;
+import com.ted.xplatform.service.ShiroDbRealm;
 import com.ted.xplatform.util.ACLUtils;
 import com.ted.xplatform.util.PlatformUtils;
+import com.ted.xplatform.util.ShiroUtils;
 
 @Controller
 @RequestMapping(value = "/role/*")
@@ -103,23 +109,23 @@ public class RoleController {
     public @ResponseBody
     List<Map<String, Object>> getRoleHasACLList(Long roleId) {
         List<ACL> aclList = roleService.getRoleHasACLList(roleId);
-        
+
         //set acl type for 显示
-        for(ACL acl :aclList){
+        for (ACL acl : aclList) {
             Resource res = acl.getResource();
-            if(res instanceof MenuResource){
+            if (res instanceof MenuResource) {
                 acl.setType(MenuResource.TYPE);
-            }else if(res instanceof FileResource){
+            } else if (res instanceof FileResource) {
                 acl.setType(FileResource.TYPE);
-            }else if(res instanceof PageResource){
+            } else if (res instanceof PageResource) {
                 acl.setType(PageResource.TYPE);
-            }else if(res instanceof WidgetResource){
+            } else if (res instanceof WidgetResource) {
                 acl.setType(WidgetResource.TYPE);
-            }else if(res instanceof UrlResource){
+            } else if (res instanceof UrlResource) {
                 acl.setType(UrlResource.TYPE);
             }
         }
-        
+
         return ACLUtils.acl2MapList(aclList);
     };
 
@@ -198,7 +204,7 @@ public class RoleController {
         if (org.apache.commons.collections.CollectionUtils.isNotEmpty(subRoleList)) {
             throw new BusinessException(SpringUtils.getMessage("message.common.hasSubRoles", messageSource));
         }
-        
+
         roleService.delete(roleId);
         return new JsonOut(SpringUtils.getMessage("message.common.delete.success", messageSource)).toString();
     };
@@ -229,7 +235,7 @@ public class RoleController {
      */
     @RequestMapping(value = "/saveUserHasRoles")
     public @ResponseBody
-    String saveUserHasRoles(@RequestParam Long userId, @RequestParam(required=false) Collection<Long> roleIds) {
+    String saveUserHasRoles(@RequestParam Long userId, @RequestParam(required = false) Collection<Long> roleIds) {
         roleService.saveUserHasRoles(userId, roleIds);
         return Constants.SUCCESS_JSON;
     };
@@ -254,6 +260,35 @@ public class RoleController {
         String sql = "select r.name,r.id,u.user_name as userName, 1 checked from role r inner join user_role ur on r.id=ur.role_id inner join users u on u.id=ur.user_id where u.id=:userId";
         List<Map<String, Object>> list = this.namedJdbcTemplate.queryForList(sql, para);
         return list;
+    };
+
+    //===========================================//
+    /**
+     * 用户在更新自己语言的时候，要校验下是否跟当前登陆用户是同一个，避免把别人的locale语言更新了。不用，因为是取自currentUser
+     */
+    @RequestMapping(value = "/changeCurrentRole")
+    public @ResponseBody
+    String changeCurrentRole(@RequestParam String roleCode) throws Exception {
+        User currentUser = PlatformUtils.getCurrentUser();
+
+        //clear cache,否则改变不了，还用的是cache里面的权限。
+        ShiroUtils.clearCachedAuthenticationInfo();
+
+        List<Role> roleList = currentUser.getRoleList();
+        boolean find = false;
+        for (Role role : roleList) {
+            if (role.getCode().equals(roleCode)) {
+                currentUser.setCurrentRole(role);
+                find = true;
+                break;
+            }
+        }
+
+        if (!find) {
+            currentUser.setCurrentRole(null);
+        }
+
+        return Constants.SUCCESS_JSON;
     };
 
 }

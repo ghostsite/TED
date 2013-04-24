@@ -94,13 +94,14 @@ Ext.define('SEC.controller.SECController', {
 		if(typeof(roleList) !== 'undefined') {
 			SF.addSideMenu('Ext.form.ComboBox', {
 				store : Ext.create('Ext.data.Store', {
-					fields : ['name'],
+					fields : ['code','name'],
 					data : roleList
 				}),
 				queryMode : 'local',
 			    displayField: 'name',
-				valueField: 'name',
+				valueField: 'code',
 				editable : false,
+				value : currentRole,
 				listConfig : {
 					getInnerTpl : function() {
 						return '<div class="appSearchItem"><span class="kind">角色:</span> <span class="key">{name}</span></div>'; 
@@ -109,10 +110,17 @@ Ext.define('SEC.controller.SECController', {
 				},
 				listeners : {
 					'select' : function(combo, records, eOpts) {
-						var role = records[0].get('name');
-						var store = Ext.getStore('CMN.store.MainMenuStore');
-						store.proxy.extraParams.secGrpId = role;
-						store.load();
+						var roleCode = records[0].get('code'); //changed by zhang
+						SF.cf.callService({
+							url : 'role/changeCurrentRole',
+							params : {
+								roleCode : roleCode
+							},
+							callback : function(options, success, response) {
+								if(success)
+									location.reload();
+							}
+						});
 					}
 				}
 			});

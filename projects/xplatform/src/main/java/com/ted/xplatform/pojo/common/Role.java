@@ -31,12 +31,11 @@ public class Role extends PersistEntity {
     private static final long serialVersionUID = 6538222617721177737L;
 
     /**
-     * 资源名称,view ,add, update,delete and so on.
+     * 角色名称
      */
     String               code;
 
     /**
-     * 描述,备注:新增 , 修改 , 添加, 删除
      */
     String               name;
 

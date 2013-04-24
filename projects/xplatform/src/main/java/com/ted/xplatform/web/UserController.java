@@ -120,7 +120,7 @@ public class UserController {
     
     
     /**
-     * 用户在更新自己语言的时候，要校验下是否跟当前登陆用户是同一个，避免把别人的locale语言更新了。
+     * 用户在更新自己语言的时候，要校验下是否跟当前登陆用户是同一个，避免把别人的locale语言更新了。不用，因为是取自currentUser
      */
     @RequestMapping(value = "/changeLanguage")
     public @ResponseBody
