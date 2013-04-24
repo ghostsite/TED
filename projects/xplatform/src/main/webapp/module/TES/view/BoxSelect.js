@@ -1,6 +1,6 @@
 Ext.define('TES.view.BoxSelect', {
 	extend : 'MES.view.form.BaseForm',
-	title : 'BoxSelect',
+	title : T('Caption.Menu.TES.view.BoxSelect'),
 
 	xtype : 'tes_boxselect',
 

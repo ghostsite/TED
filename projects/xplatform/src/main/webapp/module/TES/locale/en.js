@@ -25,7 +25,9 @@ T({
 					"Exporter":"Export Excel",
 					"Printer":"Printer",
 					"Pdf":"PDF",
-					"GIS":"GIS"
+					"GIS":"GIS",
+					"GISSimple":"GISSimple",
+					"GISTree":"GISTree"
 				}
 			},
 			"test":"Widget Sample"

@@ -1,6 +1,7 @@
 Ext.define('TES.view.SegmentedButtons', {
 	extend : 'MES.view.form.BaseForm',
-	title : 'SegmentedButtons',
+	title : T('Caption.Menu.TES.view.SegmentedButtons'),
+	
 	xtype : 'tes_segmentedbuttons',
 
 	requires : [ 'Ext.ux.container.ButtonSegment' ],

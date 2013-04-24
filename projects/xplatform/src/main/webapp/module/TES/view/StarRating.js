@@ -1,6 +1,6 @@
 Ext.define('TES.view.StarRating', {
 	extend : 'MES.view.form.BaseForm',
-	title : 'StarRating',
+	title : T('Caption.Menu.TES.view.StarRating'),
 	xtype : 'tes_starrating',
 
 	requires : [ 'Ext.ux.form.field.StarRating' ],

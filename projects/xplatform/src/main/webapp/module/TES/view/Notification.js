@@ -1,6 +1,6 @@
 Ext.define('TES.view.Notification', {
 	extend : 'MES.view.form.BaseForm',
-	title : 'Notification',
+	title : T('Caption.Menu.TES.view.Notification'),
 
 	xtype : 'tes_notification',
 

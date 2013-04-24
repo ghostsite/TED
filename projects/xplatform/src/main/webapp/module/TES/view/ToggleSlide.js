@@ -1,6 +1,6 @@
 Ext.define('TES.view.ToggleSlide', {
 	extend : 'MES.view.form.BaseForm',
-	title : 'ToggleSlide',
+	title : T('Caption.Menu.TES.view.ToggleSlide'),
 	xtype : 'tes_toggleslide',
 
 	requires : [ 'Ext.ux.form.field.ToggleSlide', 'Ext.ux.form.field.ToggleSlideField' ],

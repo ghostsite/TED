@@ -1,6 +1,6 @@
 Ext.define('TES.view.Exporter', {
 	extend : 'MES.view.form.BaseForm',
-	title : 'Exporter',
+	title : T('Caption.Menu.TES.view.Exporter'),
 	xtype : 'tes_exporter',
 
 	requires : ['Ext.ux.exporter.Exporter'],

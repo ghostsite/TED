@@ -6,15 +6,16 @@ Ext.define('mixin.UserInterface', function() {
 		var comp = null;
 		if (typeof(view) === 'string') {
 			var errMsg = '';
-			var callConfig ={
-				url: 'pageresource/currentUserCanView',
-				params:{ //view == pageresource's code, 'SYS.view.user.UserManage' 
-					pageCode : 'page|' + view //这里加page，是因为Resource表要求code必须唯一，好判断权限。
+			var callConfig = {
+				url : 'pageresource/currentUserCanView',
+				params : { // view == pageresource's code,
+							// 'SYS.view.user.UserManage'
+					pageCode : 'page|' + view // 这里加page，是因为Resource表要求code必须唯一，好判断权限。
 				}
 			}
-			
+
 			var canView = SF.cf.callServiceSync(callConfig);
-			
+
 			if (canView.result.data == false) {
 				SF.alertWarn('警告', '您没有权限浏览此页面!');
 				return false;
@@ -65,6 +66,32 @@ Ext.define('mixin.UserInterface', function() {
 		}
 	}
 
+	function loadController(controller) {//controller is string
+		if (controller) {
+			Ext.syncRequire(controller); // load needed js file
+			// controller and view
+			if (Ext.ClassManager.get(controller)) {
+				var ctrl = SF.controller.ApplicationController.unique.getController(controller);
+				ctrl.init();
+				ctrl.onLaunch();
+			}
+			// SF.controller.ApplicationController.unique.getController(controller);
+			// //this is for extjs4.2 ,a big bug for mesplus, for
+			// getController() has called doInit()
+		}
+	}
+	
+	function loadViewController(viewName){
+		var controller = viewName.replace('.view.', '.controller.');
+		loadController(controller);
+	}
+	
+	function loadMenuController(menu){
+		if (!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1) {
+			loadViewController(menu.viewModel);
+		}
+	}
+
 	function doMenu(menu, history) {
 		if (!menu.viewModel) {
 			SF.error('SYS-E002');
@@ -73,19 +100,7 @@ Ext.define('mixin.UserInterface', function() {
 
 		try {
 			var content_area = Ext.getCmp('content');
-			if (!Ext.ClassManager.get(menu.viewModel) && menu.viewModel.indexOf('.') > 1 ){
-				var controller = menu.viewModel.replace('.view.', '.controller.');
-				if (controller) {
-					Ext.syncRequire(controller); // load needed js file
-													// controller and view
-					if(Ext.ClassManager.get(controller)){
-						SF.controller.ApplicationController.unique.getController(controller).init();
-					}
-					// SF.controller.ApplicationController.unique.getController(controller);
-					// //this is for extjs4.2 ,a big bug for mesplus, for
-					// getController() has called doInit()
-				}
-			}
+			loadMenuController(menu);
 
 			menu.itemId = menu.itemId || menu.viewModel;
 
@@ -95,8 +110,10 @@ Ext.define('mixin.UserInterface', function() {
 					itemId : menu.itemId,
 					closable : false
 				};
-				if(menu.icon){
-					Ext.apply(config, {icon: menu.icon});
+				if (menu.icon) {
+					Ext.apply(config, {
+						icon : menu.icon
+					});
 				}
 				var newView = createView(menu.viewModel, config);
 				if (newView === false) {
@@ -115,11 +132,13 @@ Ext.define('mixin.UserInterface', function() {
 						itemId : menu.itemId,
 						closable : closable
 					};
-					if(menu.icon){
-						Ext.apply(config, {icon: menu.icon});
+					if (menu.icon) {
+						Ext.apply(config, {
+							icon : menu.icon
+						});
 					}
-				
-					var newView = createView(menu.viewModel,config);
+
+					var newView = createView(menu.viewModel, config);
 					if (newView === false) {
 						return false;
 					}
@@ -158,6 +177,7 @@ Ext.define('mixin.UserInterface', function() {
 
 			return screen;
 		} catch (e) {
+			console.log(e)
 			SF.error('SYS-E001', {
 				view : menu.viewModel
 			}, e);
@@ -171,27 +191,7 @@ Ext.define('mixin.UserInterface', function() {
 		}
 
 		try {
-			/*
-			 * 모듈 이름이 4자 이상인 경우는 커스터마이즈된 코드로 인식한다. 커스터마이즈된 코드는 MVC구조를 사용하므로,
-			 * 뷰모델을 로드하기 전에, 관련된 컨트롤러를 먼저 동적으로 로드한다. 뷰모델과 관련된 컨트롤러는 뷰모델과 동일한
-			 * 클래스명을 가져야 하며, {모듈명}.controller.{클래스명} 이름 구조를 가져야 한다.
-			 */
-			if (!Ext.ClassManager.get(viewModel) && viewModel.indexOf('.') > 1){
-				var controller = viewModel.replace('.view.', '.controller.');
-				if (controller) {
-					/*
-					 * Synchronously Loading 경고를 방지하기 위해서 명시적으로 Ext.syncRequire
-					 * 를 선행적으로 호출함.
-					 */
-					Ext.syncRequire(controller);
-					if(Ext.ClassManager.get(controller)){
-						SF.controller.ApplicationController.unique.getController(controller).init();
-					}
-					// SF.controller.ApplicationController.unique.getController(controller);
-					// //getController() has contained calling doInit
-				}
-			}
-
+			loadViewController(viewModel);
 			var screen = Ext.create(viewModel);
 			screen.show();
 

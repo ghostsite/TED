@@ -1,6 +1,7 @@
 Ext.define('TES.view.Printer', {
 	extend : 'MES.view.form.BaseForm',
-	title : 'Printer',
+	title : T('Caption.Menu.TES.view.Printer'),
+		
 	xtype : 'tes_printer',
 
 	requires : ['Ext.ux.grid.Printer'],

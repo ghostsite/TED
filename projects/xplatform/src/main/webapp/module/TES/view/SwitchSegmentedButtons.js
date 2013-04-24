@@ -1,6 +1,7 @@
 Ext.define('TES.view.SwitchSegmentedButtons', {
 	extend : 'MES.view.form.BaseForm',
-	title : 'SwitchSegmentedButtons',
+	title : T('Caption.Menu.TES.view.SwitchSegmentedButtons'),
+
 	xtype : 'tes_switchsegmentedbuttons',
 
 	requires : [ 'Ext.ux.container.SwitchButtonSegment' ],

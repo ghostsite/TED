@@ -1,7 +1,7 @@
 Ext.define('TES.view.TinyMce', {
 	extend : 'MES.view.form.BaseForm',
-	title : 'TinyMce',
-
+	title : T('Caption.Menu.TES.view.TinyMce'),
+	
 	xtype : 'tes_tinymce',
 	requires : [ 'Ext.ux.form.TinyMCETextArea'],
 

@@ -1,6 +1,6 @@
 Ext.define('TES.view.Pdf', {
 	extend : 'MES.view.form.BaseForm',
-	title : 'Pdf',
+	title : T('Caption.Menu.TES.view.Pdf'),
 	xtype : 'tes_pdf',
 
 	requires : ['Ext.ux.panel.PDF'],
