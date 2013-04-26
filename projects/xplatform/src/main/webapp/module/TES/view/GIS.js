@@ -12,6 +12,13 @@ Ext.define('TES.view.GIS', {//more examples: file:///E:/Project/Ext/downloaded/g
 
 	initComponent : function() {
 		this.callParent();
+		
+		//test
+		//SF.sound.notice();
+		//SF.communicator.subscribe('/service/chat',function(msg){
+			//console.log(msg);
+		//});
+		//SF.communicator.publish('/service/chat',{"name":"hello , i am zwz"});
 	},
 
 	buildForm : function() {

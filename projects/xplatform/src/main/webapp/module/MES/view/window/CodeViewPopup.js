@@ -402,6 +402,7 @@ Ext.define('MES.view.window.CodeViewPopup', {
 			columns : self.codeviewOpts.popupConfig.columns,
 			listeners : {
 				itemclick : function(grid, record, item, index, eOpts) {
+					alert(self.codeviewOpts.callback);
 					self.codeviewOpts.callback.call(self, self.codeviewOpts.fieldset, record);
 					// 처리도중 destroy 하면 오류가 발생하여 wait time 추가
 					Ext.defer(function() {

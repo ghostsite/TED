@@ -22,8 +22,8 @@
 	<!--js的pretty print-->
 	<prettyPrint>true</prettyPrint>
 	
-	<!--ExtModelController.java scan-->
-	<packageScan>com.ted.xplatform.pojo,com.ted.xplatform.vo</packageScan>
+	<!--ExtModelController.java scan，注意分隔符|-->
+	<packageScan>com.ted.xplatform.pojo|com.ted.xplatform.vo</packageScan>
 	
 	<dozerBeanMappings>dozerBeanMapping.xml</dozerBeanMappings>
 	<!--todo:可以存放系统的名称，欢迎信息等-->

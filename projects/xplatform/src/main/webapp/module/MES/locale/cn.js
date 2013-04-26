@@ -50,6 +50,9 @@ T({
 			"Options" : "选项",
 			"Options" : "选项",
 			"Issue Date" : "发生日期",
+			'Local Setting' : 'Local Setting',
+			'URL' : 'URL',
+			'Agent Setup' : 'Agent Setup',
 			
 			"Enter Date":"入职日期",
 			"Birthday":"出生日期",
@@ -174,7 +177,11 @@ T({
 			"SQL Test" : "SQL测试",
 			"Export" : "导出",
 			"Clip Copy" : "粘贴板",
-			"Edit" : "编辑"
+			"Edit" : "编辑",
+			
+			'Print' : '打印',
+			'Save' : '保存',
+			'Save & Re-connect' : '保存并连接'
 		},
 		Menu : {
 			"Favorites" : "常用",

@@ -92,6 +92,7 @@
                 /**/images/**/*.* =anon
                 /**/icons/**/*.* =anon
                 /**/loading/**/*.* =anon
+                /cometd/** = anon
                 /** = authcPass,authcAjax,authUrl
 			</value>
 			<!--/** = authc-->

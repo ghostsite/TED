@@ -13,11 +13,15 @@
 
 	<description>Spring公共配置</description>
 
+	<context:property-placeholder ignore-resource-not-found="true"
+			location="classpath*:/application.properties" />
+			
 	<import resource="security/applicationContext-shiro.xml" />
 	<import resource="dao/applicationContext-jdbc.xml" />
 	<import resource="dao/applicationContext-jpa.xml" />
 	<import resource="dao/applicationContext-mybatis.xml" />
 	<import resource="cache/applicationContext-ehcache.xml" />
+	<import resource="cometd/applicationContext-cometd.xml" />
 	<!--import resource="cache/applicationContext-memcached.xml" />
 	<import resource="email/applicationContext-email.xml" />
 	<import resource="jms/applicationContext-jms-simple.xml" />

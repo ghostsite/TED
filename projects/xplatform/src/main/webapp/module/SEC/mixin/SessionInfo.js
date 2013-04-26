@@ -1,4 +1,4 @@
-Ext.define('SEC.mixin.SessionInfo', function() { //目前这个没有用到，可以暂时保留,存放一些配置信息。
+Ext.define('SEC.mixin.SessionInfo', function() { //目前这个没有用到，可以暂时保留,存放一些配置信息。不过有SF.setting，这个可以先不用。
 	var info = sessionInfo;
 	
 	Ext.define('SEC.mixin.SessionInfo.Inner', {

@@ -68,7 +68,7 @@
 	</logger>
 	
 	<logger name="com.ted">
-		<level value="WARN"/>
+		<level value="INFO"/>
 		<appender-ref ref="STDOUT"/>
 	</logger>
 	

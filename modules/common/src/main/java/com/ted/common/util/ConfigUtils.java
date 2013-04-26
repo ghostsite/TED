@@ -57,6 +57,14 @@ public abstract class ConfigUtils {
     public static final String getString(String key) {
         return getConfig().getString(key);
     }
+    
+    public static final Boolean getBoolean(String key) {
+        return getConfig().getBoolean(key);
+    }
+    
+    public static final Integer getInteger(String key, Integer defaultValue) {
+        return getConfig().getInteger(key, defaultValue);
+    }
 
     //================下面的方法跟配置内容相关=====================//
     public static final String getRunMode() {
@@ -122,6 +130,6 @@ public abstract class ConfigUtils {
     
     //packagescan
     public static final String[] getPackageScan() {
-        return StringUtils.split(getString(PACKAGE_SCAN),",");
+        return StringUtils.split(getString(PACKAGE_SCAN),"|");//用,的话，是取不到后面的，不知道为啥。com.ted.xplatform.pojo|com.ted.xplatform.vo
     }
 }

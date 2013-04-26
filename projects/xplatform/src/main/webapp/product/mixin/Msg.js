@@ -112,6 +112,7 @@ Ext.define('mixin.Msg', function() {
 		if (!focus)
 			focus = 'ok';
 
+		var btnFocus = Ext.Array.indexOf(this.buttonIds, focus);
 		if (Ext.isString(cfg)) {
 			cfg = {
 				title : cfg,

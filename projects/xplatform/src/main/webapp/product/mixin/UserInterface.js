@@ -183,6 +183,56 @@ Ext.define('mixin.UserInterface', function() {
 			Ext.log(e)
 		}
 	}
+	
+	// TODO : resource List Main에 active 이벤트를 위해서 수정하였음. 문제가 된다면 기존
+	// addContentView로 복원필요
+	function addContentView(view) {
+		var comp = null;
+		var bNewComp = false; // 새로 생성된 comp 여부
+		var content_area = Ext.getCmp('content');
+
+		if (typeof (view) === 'string') {
+			comp = createView(view, {
+				closable : true
+			});
+
+			if(!comp){
+				return false;
+			}
+		
+			content_area.add(comp);
+			bNewComp = true;
+		} else {
+			if (view.itemId) {
+
+				comp = content_area.getComponent(view.itemId);
+			}
+
+			if (comp) {
+				// 중복 Tab
+				if (view.opt) {
+					comp.opt = view.opt;
+				}
+			} else {
+				// 새로 생성 Tab
+				view.closable = true;
+				comp = content_area.add(view);
+				bNewComp = true;
+			}
+		}
+
+		if (comp.tab.active) {
+			// tab이 active 상태라면 다시 하번 active 이벤트 발생
+			comp.setActive(true);
+		} else {
+			// tab이 active 상태가 아니라면 active tab으로 지정
+			content_area.setActiveTab(comp);
+			if (bNewComp && content_area.items.length == 1) {
+				// 새로 생성되는 tab라면 active 이벤트 발생
+				comp.setActive(true);
+			}
+		}
+	}
 
 	function popup(viewModel, keys) {
 		if (!viewModel) {
@@ -213,7 +263,7 @@ Ext.define('mixin.UserInterface', function() {
 
 	return {
 		doMenu : doMenu,
-		// addContentView : addContentView,
+		addContentView : addContentView,
 		addNav : addNav,
 		addSideMenu : addSideMenu,
 		popup : popup
