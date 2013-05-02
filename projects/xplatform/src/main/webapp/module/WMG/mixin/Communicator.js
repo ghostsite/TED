@@ -2,7 +2,7 @@
  * Communicator ..
  */
 
-Ext.define('MES.mixin.Communicator', {
+Ext.define('WMG.mixin.Communicator', {
 	constructor : function(config) {
 		/* 
 		 * TODO remove contextPath
@@ -10,14 +10,15 @@ Ext.define('MES.mixin.Communicator', {
 		var options = {
 			protocol : location.protocol,
 			host : location.host,
-			contextPath : '/xp',
+			contextPath : '/xp',//TODO need to fix it hard code
 			cometdPath : '/cometd',
 			noticeChannel : '/communicator/notice',
 			joinInChannel : '/communicator/join/in',
 			joinOutChannel : '/communicator/join/out',
 			privateChannel : '/communicator/private',
 			membersChannel : '/communicator/members',
-			username : SmartFactory.login.id,
+			loginname : SmartFactory.login.loginname,
+			username : SmartFactory.login.username,
 			logLevel : 1,
 			connectionClosed : function() {},
 			connectionEstablished : function() {},
@@ -58,7 +59,7 @@ Ext.define('MES.mixin.Communicator', {
 			presence_join_in_subscription = dojox.cometd.subscribe(options.joinInChannel, options.memberJoinedIn);
 			presence_join_out_subscription = dojox.cometd.subscribe(options.joinOutChannel, options.memberJoinedOut);
 			members_subscription = dojox.cometd.subscribe(options.membersChannel, options.membersReceived);
-			private_message_subscription = dojox.cometd.subscribe(options.privateChannel + '/' + options.username, options.messageReceived);
+			private_message_subscription = dojox.cometd.subscribe(options.privateChannel + '/' + options.loginname, options.messageReceived);
 		}
 
 		function unsubscribeAll() {
@@ -124,7 +125,7 @@ Ext.define('MES.mixin.Communicator', {
 					subscribeAll();
 					dojox.cometd.publish(options.joinInChannel, {
 						username : options.username,
-						userid : options.username
+						loginname : options.loginname
 					});
 				});
 			} catch (e) {
@@ -140,10 +141,6 @@ Ext.define('MES.mixin.Communicator', {
 				options.connectionInitialized();
 		}
 
-		/*
-		 * Now, we gonna construct this communicator.
-		 * 
-		 */
 		dojox.cometd.addListener('/meta/connect', function(message) {
 			if (state === 'disconnecting') {
 				state = 'disconnected';
@@ -166,10 +163,6 @@ Ext.define('MES.mixin.Communicator', {
 			}
 		});
 
-		/**$(window).unload(function() {
-			leave();
-			dojox.cometd.disconnect();
-		});*/
 		// Disconnect when the page unloads
 		dojo.addOnUnload(function() {
 			leave();
@@ -195,7 +188,7 @@ Ext.define('MES.mixin.Communicator', {
 			dojox.cometd.batch(function() {
 				dojox.cometd.publish(options.joinOutChannel, {
 					username : options.username,
-					userid : options.username
+					loginname : options.loginname
 				});
 				unsubscribeAll();
 			});
@@ -227,7 +220,7 @@ Ext.define('MES.mixin.Communicator', {
 		
 		function chatStore(key) {
 			if (!stores[key])
-				stores[key] = Ext.create('MES.store.ChattingStore');	//TODO			
+				stores[key] = Ext.create('WMG.store.ChattingStore');				
 			return stores[key];
 		}
 		

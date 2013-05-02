@@ -95,6 +95,7 @@
 		Ext.module.register('SYS', [  ], false);
 		Ext.module.register('BUS', [  ], false);
 		Ext.module.register('TES', [  ], false);
+		Ext.module.register('WMG', [ 'WMG.controller.WMGController' ], false);
 		</script>
 		
 		<script>

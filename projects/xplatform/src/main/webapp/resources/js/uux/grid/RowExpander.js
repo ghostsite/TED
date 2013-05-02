@@ -10,8 +10,9 @@
  * on clicking of the column, double click of the row, and/or hitting enter while a row is selected.
  *
  * @ptype rowexpander
+ * @BECAREFUL: renamed from Ext.ux.RowExpander to Ext.ux.grid.RowExpander
  */
-Ext.define('Ext.ux.RowExpander', {
+Ext.define('Ext.ux.grid.RowExpander', {
     extend: 'Ext.AbstractPlugin',
 
     requires: [

@@ -2,7 +2,7 @@
  * Communicator ..
  */
 
-Ext.define('MES.mixin.FayeCommunicator', {
+Ext.define('WMG.mixin.FayeCommunicator', {
 	constructor : function(config) {
 		/* 
 		 * TODO remove contextPath
@@ -10,14 +10,15 @@ Ext.define('MES.mixin.FayeCommunicator', {
 		var options = {
 			protocol : location.protocol,
 			host : location.host,
-			contextPath : '/xp',
+			contextPath : '/mesplus',
 			cometdPath : '/cometd',
 			noticeChannel : '/communicator/notice',
 			joinInChannel : '/communicator/join/in',
 			joinOutChannel : '/communicator/join/out',
 			privateChannel : '/communicator/private',
 			membersChannel : '/communicator/members',
-			username : SmartFactory.login.id,
+			username : SmartFactory.login.loginname,
+			factory : SmartFactory.login.factory,
 			logLevel : 1,
 			connectionClosed : function() {},
 			connectionEstablished : function() {},
@@ -202,7 +203,7 @@ Ext.define('MES.mixin.FayeCommunicator', {
 		
 		function chatStore(key) {
 			if (!stores[key])
-				stores[key] = Ext.create('MES.store.ChattingStore');				
+				stores[key] = Ext.create('WMG.store.ChattingStore');				
 			return stores[key];
 		}
 		

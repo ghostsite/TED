@@ -1,13 +1,18 @@
-Ext.define('MES.view.communicate.common.ChildChatting', {
+Ext.define('WMG.view.common.ChildChatting', {
 	extend : 'Ext.panel.Panel',
-
+	
 	layout : {
 		type : 'vbox',
 		align : 'stretch'
 	},
-
-	tpl : ['<tpl for=".">', '<div class="{[values.itsme ? "chatItemMe" : "chatItemOther"]}">', '<div class="chatInfo">{userName}<div class="chatTime">{chatTime}</div></div>', '<div class="chatContent"><div></div>{msg}</div>', '</div>', '</tpl>'],
-
+	
+	tpl : ['<tpl for=".">',
+	         '<div class="{[values.itsme ? "chatItemMe" : "chatItemOther"]}">',
+	          '<div class="chatInfo">{name}<div class="chatTime">{time}</div></div>',
+	          '<div class="chatContent"><div></div>{content}</div>',
+	         '</div>',
+	       '</tpl>' ],
+	
 	initComponent : function() {
 
 		var self = this;
@@ -19,13 +24,12 @@ Ext.define('MES.view.communicate.common.ChildChatting', {
 		this.sub('btn_send').on('click', function() {
 			var value = self.sub('chat_textarea').getValue();
 			if (value) {
-				SmartFactory.communicator.send(self.title, SmartFactory.login.id, value);
+				SmartFactory.communicator.send(self.title, SmartFactory.login.loginname, value);
 
 				self.store.add({
-					userId : SmartFactory.login.id,
-					userName : SmartFactory.login.username,
-					chatTime : Ext.Date.format(new Date(),'Y-m-d H:i:s'),
-					msg : value,
+					name : SmartFactory.login.loginname,
+					time : new Date(),
+					content : value,
 					itsme : true
 				});
 
@@ -35,7 +39,7 @@ Ext.define('MES.view.communicate.common.ChildChatting', {
 	},
 
 	buildItems : function(self) {
-		return [{
+		return [ {
 			layout : 'hbox',
 			html : '<div class="chattingHeader paddingT7 paddingRL7 paddingB5"><span class="chattingIcon"></span>shnam 님과 채팅 중입니다.</div>'
 		}, {
@@ -53,7 +57,7 @@ Ext.define('MES.view.communicate.common.ChildChatting', {
 			layout : {
 				type : 'hbox'
 			},
-			items : [{
+			items : [ {
 				xtype : 'textarea',
 				itemId : 'chat_textarea',
 				flex : 1,
@@ -61,16 +65,16 @@ Ext.define('MES.view.communicate.common.ChildChatting', {
 				cls : 'marginR5'
 			}, {
 				xtype : 'button',
-				text : T('sample.chat.button'),
+				text : '发送',
 				itemId : 'btn_send',
 				height : 35
-			}]
-		}];
+			} ]
+		} ];
 	},
 
 	listeners : {
 		beforeClose : function(panel, opt) {
-			var cmp = Ext.getCmp('mes.tray_chatnotice');
+			var cmp = Ext.getCmp('wmg.tray_chatnotice');
 			if (cmp)
 				cmp.destroy();
 		}

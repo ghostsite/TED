@@ -25,6 +25,7 @@ Ext.define('SYS.view.user.UserPopup', {
 			layout : 'anchor',
 			itemId : 'formId',
 			bodyCls : 'paddingAll10',
+			frame: true,
 			border : false,
 			defaults : {
 				labelWidth : 130
