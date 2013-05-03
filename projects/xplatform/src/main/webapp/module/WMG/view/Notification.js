@@ -4,7 +4,8 @@ Ext.define('WMG.view.Notification', {
 
 	alias : 'widget.wmg_notification',
 
-	uses : ['Ext.ux.grid.RowExpander', 'Ext.ux.PagingToolbarResizer'],
+	//uses : ['Ext.ux.grid.RowExpander', 'Ext.ux.PagingToolbarResizer'], //for extjs 4.1.1
+	uses : ['Ext.grid.plugin.RowExpander', 'Ext.ux.PagingToolbarResizer'],//for extjs 4.2.0
 
 	title : T('Caption.Other.Notification'),
 

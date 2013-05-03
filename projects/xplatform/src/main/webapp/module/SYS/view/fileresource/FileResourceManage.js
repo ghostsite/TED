@@ -1,7 +1,7 @@
 Ext.define('SYS.view.fileresource.FileResourceManage', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'admin_fileresource',
-	requires : ['SYS.model.FileResource', 'Ext.ux.ProgressBarPager', 'Ext.ux.grid.RowExpander'],
+	requires : ['SYS.model.FileResource', 'Ext.ux.ProgressBarPager'],
 
 	title : T('Caption.Menu.SYS.view.fileresource.FileResourceManage'),
 	// layout : 'fit',
