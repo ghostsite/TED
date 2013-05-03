@@ -34,8 +34,8 @@
 		<!-- JavaScripts For Locale -->
 	    <script type="text/javascript" src="js/locale/locale.js"></script>
 
-		<!--Extjs version 4.2.0 or 4.1.1-->
-		<#assign extjsVersion="4.2.0" />
+		<!--Extjs version 4.2.1 or 4.2.0 or 4.1.1-->
+		<#assign extjsVersion="4.2.1" />
 
 		<script type="text/javascript">
 	    var login = {
@@ -79,7 +79,10 @@
 		<link rel="stylesheet" href="js/uux/window/css/Notification.css"></link>
 		<link rel="stylesheet" href="css/tes.css"></link>
 		<link rel="stylesheet" href="js/uux/SecondTitle.css"></link>
-		<link rel="stylesheet" href="js/uux/form/field/BoxSelect.css"></link>
+		
+		<!--IE8 下这个有问题。-->
+		<!--link rel="stylesheet" href="js/uux/form/field/BoxSelect.css"></link-->
+		
 		<link rel="stylesheet" href="js/uux/container/ButtonSegment.css"></link>
 		<link rel="stylesheet" href="js/uux/form/field/StarRating/css/style.css"></link>
 		<link rel="stylesheet" href="js/uux/form/field/ToggleSlide/css/toggle-slide.css"></link>

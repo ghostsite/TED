@@ -57,6 +57,9 @@ Ext.module = function() {
 }();
 
 Ext.onReady(function() {
+	Ext.QuickTips.init();
+	Ext.tip.Tip.prototype.minWidth = 'auto';
+	
 	Ext.application({
 		name : 'SmartFactory',
 		autoCreateViewport : true,
