@@ -1,7 +1,8 @@
 <html lang='en'>
 <head>
 <base href="${basePath}">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<!--meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"-->
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
 	<title>智能信息管理系统</title>
 	<link rel="stylesheet" href="css/login.css"></link>
 	<link rel="shortcut icon" href="image/faviconMESplus.ico">

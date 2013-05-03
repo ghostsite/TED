@@ -2,7 +2,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <base href="${basePath}">
 	<head>
-	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <!--meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"-->
+	    <!-- Google Chrome Frame -->
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
 		<title>智能信息管理系统</title>
 		<link rel="stylesheet" href="css/app.css"></link>
 		<link rel="stylesheet" href="js/uux/statusbar/css/statusbar.css"></link>
@@ -15,9 +17,6 @@
 		<link rel="stylesheet" type="text/css" href="js/uux/portal/css/portal.css">
 		<link rel="shortcut icon" href="image/faviconMESplus.ico">
 		<link rel="icon" href="image/faviconMESplus.ico"> 
-		
-		<!-- Google Chrome Frame -->
-		<meta http-equiv="X-UA-Compatible" content="chrome=1">
 		
 		<!-- JavaScripts For StackTracing -->
 		<script src="js/stacktrace/stacktrace.js"></script>
