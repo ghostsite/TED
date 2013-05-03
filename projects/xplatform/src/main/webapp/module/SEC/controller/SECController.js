@@ -85,7 +85,7 @@ Ext.define('SEC.controller.SECController', {
 		});
 		
 		SF.addSideMenu('Ext.button.Button', {
-			text : SF.login.name,
+			text : SF.login.username,
 			cls : 'iconUser',
 			menu : userMenu
 		});

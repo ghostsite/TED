@@ -112,7 +112,8 @@ Ext.define('mixin.Msg', function() {
 		if (!focus)
 			focus = 'ok';
 
-		var btnFocus = Ext.Array.indexOf(this.buttonIds, focus);
+		var buttonIds = [ 'ok', 'yes', 'no', 'abort', 'retry', 'cancel', 'ignore' ];
+		var btnFocus = Ext.Array.indexOf(buttonIds, focus);
 		if (Ext.isString(cfg)) {
 			cfg = {
 				title : cfg,

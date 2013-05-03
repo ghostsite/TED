@@ -22,26 +22,26 @@ Ext.define('WMG.controller.WMGController', {
 			messageNoticed : function(message) {
 				console.log(message);//this message is strange a little.
 				Ext.create('widget.uxNotification', {
-					//title : message.data.title.title,
 					title : message.data.title,
 					position : 'br',
-					//manager : 'demo1',
 					iconCls : 'ux-notification-icon-information',
 					autoCloseDelay : 3000,
 					spacing : 20,
 					html : message.data.message
-					//html : message.data.title.message
 				}).show();
 			},
 			memberJoinedIn : function(message) {
 				self.joinIn(message.data.loginname);
-				SF.msg('Joined in.', message.data.loginname);
+				//如果是自己，则不提示。
+				if(SF.login.loginname !== message.data.loginname){
+					SF.msg('登陆', message.data.loginname);
+				}
 			},
 			memberJoinedOut : function(message) {
-				alert('memberJoinedOut is called.');
+				console.log('22222222');
 				console.log(message);
-				self.joinOut(message.data.username);
-				SF.msg('Joined out.', message.data.username);
+				self.joinOut(message.data.loginname,message.data.username);
+				SF.msg('退出', message.data.loginname);
 			},
 			messageReceived : function(message) {
 				var chatStore = SF.communicator.chatStore(message.data.sender);
@@ -50,7 +50,12 @@ Ext.define('WMG.controller.WMGController', {
 					time : new Date(),
 					content : message.data.text
 				});
-				SF.msg(message.data.sender, message.data.text);
+				
+				var chatView = Ext.getCmp('wmg_chatview');
+				
+				if(!chatView){
+					SF.msg(message.data.sender, message.data.text);
+				}
 
 				// 말 풍선 클릭 시
 				var cmp = Ext.getCmp('wmg_tray_chat');
@@ -66,7 +71,6 @@ Ext.define('WMG.controller.WMGController', {
 								viewModel : 'WMG.view.common.ChatContainer'
 							});
 
-							var chatView = Ext.getCmp('wmg_chatview');
 							if(chatView){
 								var chat = chatView.getComponent(message.data.sender);
 								if (!chat) {
@@ -153,18 +157,18 @@ Ext.define('WMG.controller.WMGController', {
 	},
 
 	//TODO need to broadcast to remove user in context in java
-	joinOut : function(user) {
-		alert('user=='+user);
+	joinOut : function(loginname,username) {
+		//alert('username=='+username+',loginname='+loginname);
 		var store = Ext.getStore('WMG.store.CommunicatorStore');
 
-		var idx = store.findExact('loginName', user);
-		alert(idx)
+		var idx = store.findExact('loginname', username);
+		//alert(idx)
 		if (idx !== -1) {
 			store.getAt(idx).set('status', 'off');
 		} else {
 			store.add({
-				loginname : user,
-				username : user,
+				loginname : loginname,
+				username : username,
 				status : 'off'
 			});
 		}

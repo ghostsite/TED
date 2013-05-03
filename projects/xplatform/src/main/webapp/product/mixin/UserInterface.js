@@ -98,7 +98,7 @@ Ext.define('mixin.UserInterface', function() {
 			return;
 		}
 
-		try {
+		//try {
 			var content_area = Ext.getCmp('content');
 			loadMenuController(menu);
 
@@ -176,13 +176,11 @@ Ext.define('mixin.UserInterface', function() {
 			}
 
 			return screen;
-		} catch (e) {
-			console.log(e);
-			Ext.log(e);
-			SF.error('SYS-E001', {
-				view : menu.viewModel
-			}, e);
-		}
+		//} catch (e) {
+			//SF.error('SYS-E001', {
+			//	view : menu.viewModel
+			//}, e);
+		//}
 	}
 	
 	// TODO : resource List Main에 active 이벤트를 위해서 수정하였음. 문제가 된다면 기존

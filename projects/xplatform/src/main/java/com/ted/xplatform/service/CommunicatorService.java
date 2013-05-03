@@ -105,6 +105,7 @@ public class CommunicatorService {
     public void processJoinOut(ServerSession remote, ServerMessage.Mutable message) {
         Map<String, Object> input = message.getDataAsMap();
         String loginname = (String) input.get("loginname"); //loginName, for the key
+        String username = (String) input.get("username"); //userName, for the key
         Iterator<DefaultKeyValue> iterator = onLineUsers.iterator();
         while (iterator.hasNext()) {
             DefaultKeyValue user = (DefaultKeyValue) iterator.next();

@@ -24,8 +24,8 @@ Ext.define('mixin.User', function() {/**changed by zhang*/
 		login : {
 			id : login.id, //Ext.String.htmlDecode(login.username), //zhang
 			loginname : Ext.String.htmlDecode(login.loginname), //zhang added
-			name : Ext.String.htmlDecode(login.username),
-			locale : Ext.String.htmlDecode(login.locale),
+			username : Ext.String.htmlDecode(login.username),
+			locale : Ext.String.htmlDecode(login.locale)
 		},
 		isAssemblyName : isName
 	};
