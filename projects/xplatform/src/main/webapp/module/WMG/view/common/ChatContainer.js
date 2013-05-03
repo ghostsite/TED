@@ -5,7 +5,9 @@ Ext.define('WMG.view.common.ChatContainer', {
 	
 	title : T('Caption.Other.Chatting'),
 	
-	cls : 'chatting innerBottomTab',
+	//cls : 'chatting innerBottomTab',
+	
+	icon:'image/iconCommunicator16.png',
 	
 	tabPosition : 'bottom',
 	

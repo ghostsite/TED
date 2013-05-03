@@ -62,7 +62,7 @@ Ext.define('mixin.Ajax', function() { //this file is changed by zhang
 			Ext.Msg.confirm(T('Caption.Other.Invalid Session'), T('Message.SYS-E009'), function(btn) {
 				if(btn === 'yes')
 					//document.location.reload(); //zhang
-					document.location='/xp';
+					document.location = contextPath;//'/xp';
 			});
 		} else if (resp.status >= 500) {
 			SF.error('SYS-E010');

@@ -280,7 +280,9 @@
   if ('dataset' in div)
     return; // dataset property exists
 
-  Object.defineProperty(HTMLElement.prototype, 'dataset', {
+  //zhang modified for IE8 ,no support IE7 and 6
+  var elementPrototype = typeof HTMLElement !== "undefined" ? HTMLElement.prototype : Element.prototype;
+  Object.defineProperty(elementPrototype, 'dataset', { //end of modified
     get: function() {
       if (this._dataset)
         return this._dataset;

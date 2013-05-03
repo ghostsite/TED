@@ -20,15 +20,17 @@ Ext.define('WMG.controller.WMGController', {
 
 		SF.mixin('WMG.mixin.Communicator', {
 			messageNoticed : function(message) {
-				// console.log(message);//this message is strange a little.
+				console.log(message);//this message is strange a little.
 				Ext.create('widget.uxNotification', {
-					title : message.data.title.title,
+					//title : message.data.title.title,
+					title : message.data.title,
 					position : 'br',
-					manager : 'demo1',
+					//manager : 'demo1',
 					iconCls : 'ux-notification-icon-information',
 					autoCloseDelay : 3000,
 					spacing : 20,
-					html : message.data.title.message
+					html : message.data.message
+					//html : message.data.title.message
 				}).show();
 			},
 			memberJoinedIn : function(message) {
@@ -36,6 +38,8 @@ Ext.define('WMG.controller.WMGController', {
 				SF.msg('Joined in.', message.data.loginname);
 			},
 			memberJoinedOut : function(message) {
+				alert('memberJoinedOut is called.');
+				console.log(message);
 				self.joinOut(message.data.username);
 				SF.msg('Joined out.', message.data.username);
 			},
@@ -62,16 +66,19 @@ Ext.define('WMG.controller.WMGController', {
 								viewModel : 'WMG.view.common.ChatContainer'
 							});
 
-							var chatview = Ext.getCmp('wmg_chatview').getComponent(message.data.sender);
-							if (!chatview) {
-								chatview = Ext.getCmp('wmg_chatview').add(Ext.create('WMG.view.common.ChildChatting', {
-									itemId : message.data.sender,
-									title : message.data.sender,
-									closable : true,
-									store : chatStore
-								}));
+							var chatView = Ext.getCmp('wmg_chatview');
+							if(chatView){
+								var chat = chatView.getComponent(message.data.sender);
+								if (!chat) {
+									chat = chatView.add(Ext.create('WMG.view.common.ChildChatting', {
+										itemId : message.data.sender,
+										title : message.data.sender,
+										closable : true,
+										store : chatStore
+									}));
+								}
+								chat.show();
 							}
-							chatview.show();
 						}
 					});
 				}
@@ -89,11 +96,10 @@ Ext.define('WMG.controller.WMGController', {
 			cls : 'trayNotice',
 			iconCls : 'trayNoticeIcon',
 			handler : function() {
-				SF.communicator.notice(SF.login.loginname, 'notice message...');
-
+				//SF.communicator.notice(SF.login.loginname, 'notice message...');
 				SF.addContentView({
 					xtype : 'wmg_notification',
-					itemId : 'wmg_notification'
+					itemId : 'WMG.view.Notification'//F5刷新Notification调用的是doMenu，默认是Name作为itemId，so这里最好用Name做ItemId，好不出现重复。
 				});
 			}
 		});
@@ -132,7 +138,6 @@ Ext.define('WMG.controller.WMGController', {
 	},
 
 	joinIn : function(loginname) {//user = loginname
-		alert('loginname=='+loginname);
 		var store = Ext.getStore('WMG.store.CommunicatorStore');
 
 		var idx = store.findExact('loginname', loginname);
@@ -147,11 +152,13 @@ Ext.define('WMG.controller.WMGController', {
 		}
 	},
 
+	//TODO need to broadcast to remove user in context in java
 	joinOut : function(user) {
 		alert('user=='+user);
 		var store = Ext.getStore('WMG.store.CommunicatorStore');
 
 		var idx = store.findExact('loginName', user);
+		alert(idx)
 		if (idx !== -1) {
 			store.getAt(idx).set('status', 'off');
 		} else {

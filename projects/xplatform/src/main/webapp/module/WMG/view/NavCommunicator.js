@@ -37,16 +37,19 @@ Ext.define('WMG.view.NavCommunicator', {
 					viewModel : 'WMG.view.common.ChatContainer'
 				});
 
-				var cmp = Ext.getCmp('wmg_chatview').getComponent(record.get('loginname'));
-				if (!cmp) {
-					cmp = Ext.getCmp('wmg_chatview').add(Ext.create('WMG.view.common.ChildChatting', {
-						itemId : record.get('loginname'),
-						title : record.get('loginname'),
-						closable : true,
-						store : SmartFactory.communicator.chatStore(record.get('loginname'))
-					}));
+				var chatView = Ext.getCmp('wmg_chatview');
+				if(chatView){
+					var cmp = chatView.getComponent(record.get('loginname'));
+					if (!cmp) {
+						cmp = chatView.add(Ext.create('WMG.view.common.ChildChatting', {
+							itemId : record.get('loginname'),
+							title : record.get('loginname'),
+							closable : true,
+							store : SmartFactory.communicator.chatStore(record.get('loginname'))
+						}));
+					}
+					cmp.show();
 				}
-				cmp.show();
 			}
 		}
 	} ]

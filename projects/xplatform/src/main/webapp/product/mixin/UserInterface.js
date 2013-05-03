@@ -177,10 +177,11 @@ Ext.define('mixin.UserInterface', function() {
 
 			return screen;
 		} catch (e) {
+			console.log(e);
+			Ext.log(e);
 			SF.error('SYS-E001', {
 				view : menu.viewModel
 			}, e);
-			Ext.log(e)
 		}
 	}
 	
@@ -204,7 +205,6 @@ Ext.define('mixin.UserInterface', function() {
 			bNewComp = true;
 		} else {
 			if (view.itemId) {
-
 				comp = content_area.getComponent(view.itemId);
 			}
 

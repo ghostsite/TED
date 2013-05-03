@@ -1,16 +1,13 @@
 /*
  * Communicator ..
  */
-
 Ext.define('WMG.mixin.Communicator', {
 	constructor : function(config) {
-		/* 
-		 * TODO remove contextPath
-		 */
+		//alert('SmartFactory.login.loginname='+SmartFactory.login.loginname)
 		var options = {
 			protocol : location.protocol,
 			host : location.host,
-			contextPath : '/xp',//TODO need to fix it hard code
+			contextPath : contextPath, //main.ftl
 			cometdPath : '/cometd',
 			noticeChannel : '/communicator/notice',
 			joinInChannel : '/communicator/join/in',
@@ -166,7 +163,8 @@ Ext.define('WMG.mixin.Communicator', {
 		// Disconnect when the page unloads
 		dojo.addOnUnload(function() {
 			leave();
-			cometd.disconnect(true);
+			//cometd.disconnect(true);
+			dojox.cometd.disconnect(true);
 		});
 
 		// TODO confirm log levels, please. please. please.

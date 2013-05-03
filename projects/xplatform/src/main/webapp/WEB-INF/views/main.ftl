@@ -48,6 +48,8 @@
 		roleList.splice(0,0,{code:'',name:'所有'});
 		var currentRole = '${(user.currentRole.code)!}';
 		
+		var contextPath = '/xp';
+		
 		initLocalization(this);
 		
 		LANGUAGE_LIST = [{text : 'English', locale : 'en', icon:'image/icon/us.png'}, {text : '中文', locale : 'cn', icon:'image/icon/cn.png'}];
@@ -67,7 +69,7 @@
 		<!--native extjs 4.1.1-->
 		<link rel="stylesheet" href="js/extjs-4.1.1/resources/css/ext-all.css"></link>
 		<link rel="stylesheet" href="css/smartfactory-fix.css"></link>
-		<script src="js/extjs-4.1.1/ext-all-dev.js"></script>
+		<script src="js/extjs-4.1.1/ext-all.js"></script>
 		<script src="js/extjs-4.1.1/locale/ext-lang-${user.language}.js" charset="UTF-8"></script>
 
 		<!--TES,这个最好在extjs4.2.0下演示，因为smartfactory的css干扰了效果-->

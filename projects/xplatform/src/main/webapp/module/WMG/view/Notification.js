@@ -8,6 +8,10 @@ Ext.define('WMG.view.Notification', {
 
 	title : T('Caption.Other.Notification'),
 
+	//icon:'image/iconStatusBarNotice.gif',
+	
+	icon:'image/iconStatusBarAlarm.png',
+	
 	layout : 'fit',
 
 	supplement : {
@@ -77,10 +81,7 @@ Ext.define('WMG.view.Notification', {
 							
 							//走cometd
 							console.log(action)
-							SF.communicator.notice({
-								title:action.result.title,
-								message:action.result.message
-							});
+							SF.communicator.notice(action.result.title,action.result.message);
 						} else {
 							SF.alertError('错误', Ext.decode(action.response.responseText).msg);
 						}
