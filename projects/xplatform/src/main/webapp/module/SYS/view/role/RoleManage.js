@@ -94,7 +94,7 @@ Ext.define('SYS.view.role.RoleManage', {
 				xtype : 'treepanel',
 				itemId : 'roleTreeId',
 				flex : 1,
-				rootVisible : true,
+				rootVisible : false,
 				root : {
 					expanded : true,
 					text : '角色',

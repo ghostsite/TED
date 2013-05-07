@@ -1,7 +1,7 @@
 Ext.define('BUS.view.fileresource.FileResourceList', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'bus_fileresource',
-	requires : ['SYS.model.FileResource', 'Ext.ux.ProgressBarPager', 'Ext.ux.grid.RowExpander'],
+	requires : ['SYS.model.FileResource', 'Ext.ux.ProgressBarPager'],
 
 	title : T('Caption.Menu.BUS.view.fileresource.FileResourceList'),
 	// layout : 'fit',
