@@ -9,14 +9,23 @@ import ch.qos.logback.classic.db.DBAppender;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
 import com.ted.common.log.slf4j.event.Slf4jLoggingEvent;
+import com.ted.common.util.ConfigUtils;
 import com.ted.common.util.DateUtils;
 
 public class Slf4jDBAppender extends DBAppender {
 
+    /**
+     * 注意：如果是oracle，如果logs表没有EVENT_ID字段，则会报错。number类型。手工建一个EVENT_ID吧。
+     */
     @Override
     public void start() {
         super.start();
-        insertSQL = "INSERT INTO logs(user_id, user_name,type, clazz, method, create_time, log_level, error_code, msg) VALUES (?,?,?,'','',?,'',?,?)";
+        if(ConfigUtils.isMysql()){
+            insertSQL = "INSERT INTO logs(user_id, user_name,type, clazz, method, create_time, log_level, error_code, msg) VALUES (?,?,?,'','',?,'',?,?)";
+        }
+        if(ConfigUtils.isOracle()){
+            insertSQL = "INSERT INTO logs(id,user_id, user_name,type, clazz, method, create_time, log_level, error_code, msg) VALUES (HIBERNATE_SEQUENCE.nextval , ?,?,?,'','',?,'',?,?)";
+        }
     }
 
     @Override

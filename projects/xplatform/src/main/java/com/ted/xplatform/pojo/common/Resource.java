@@ -28,7 +28,7 @@ import com.ted.xplatform.util.ACLUtils;
  * @created 2012-02-13
  */
 @Entity
-@Table(name = "resource")
+@Table(name = "resources")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name = "category", discriminatorType = DiscriminatorType.STRING)

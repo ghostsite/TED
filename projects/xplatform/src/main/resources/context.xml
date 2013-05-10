@@ -4,7 +4,7 @@
 	<runMode>dev</runMode>
 	
 	<!--#db config : oracle, mysql ,sqlserver-->
-	<dbType>mysql</dbType>
+	<dbType>oracle</dbType>
 
 	<!--#附件的存放根目录.附件的存放方案是：根目录的常量在这里定义，中间的目录作为一个变量传进service，最后的随机数UUID生成。数据库中并不记录root，只记录相对路径。-->
 	<!--如果是Disk则就D:/, if ftp: /sandbox-->

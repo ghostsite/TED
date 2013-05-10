@@ -2,11 +2,22 @@
 	<default-config>  
 	</default-config>
 	
-	<named-config name="log4j">
+	<named-config name="log4j-mysql">
 		<property name="user">root</property>
 		<property name="password">zwz</property>
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
 		<property name="jdbcUrl">jdbc:mysql://localhost:3306/xplatform</property>
+		<property name="initialPoolSize">3</property>
+		<property name="maxIdleTime">3</property>
+		<property name="maxPoolSize">9</property>
+		<property name="minPoolSize">3</property>
+	</named-config>
+	
+	<named-config name="log4j">
+		<property name="user">CMFRAMEWORK</property>
+		<property name="password">CMFRAMEWORK</property>
+		<property name="driverClass">oracle.jdbc.driver.OracleDriver</property>
+		<property name="jdbcUrl">jdbc:oracle:thin:@109.52.21.7:1521:SWENG</property>
 		<property name="initialPoolSize">3</property>
 		<property name="maxIdleTime">3</property>
 		<property name="maxPoolSize">9</property>

@@ -578,8 +578,9 @@ Ext.define('MES.mixin.CommonFunction', function() { //this file has been change 
 	function toCamelCase(str, sp) {
 		if (!str)
 			return;
-		opt = opt || '_';
-		var regexp = new RegExp('\\' + opt + 'w*[^' + opt + ']', 'gi');
+			
+		sp = sp || '_';
+		var regexp = new RegExp('\\' + sp + 'w*[^' + sp + ']', 'gi');
 		var chgStr = str.toLowerCase();
 
 		while (true) {
