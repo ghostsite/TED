@@ -4,11 +4,11 @@
 	<runMode>dev</runMode>
 	
 	<!--#db config : oracle, mysql ,sqlserver-->
-	<dbType>oracle</dbType>
+	<dbType>mysql</dbType>
 
 	<!--#附件的存放根目录.附件的存放方案是：根目录的常量在这里定义，中间的目录作为一个变量传进service，最后的随机数UUID生成。数据库中并不记录root，只记录相对路径。-->
 	<!--如果是Disk则就D:/, if ftp: /sandbox-->
-	<attachFileDir>D:/temp2/web7attachfiles/</attachFileDir>
+	<attachFileDir>D:/Temp/web7attachfiles/</attachFileDir>
 
 	<!--#超级用户(系统管理员)的角色的code-->
 	<adminrolecode>adminrole</adminrolecode>

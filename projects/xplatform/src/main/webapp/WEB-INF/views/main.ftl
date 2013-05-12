@@ -35,7 +35,7 @@
 	    <script type="text/javascript" src="js/locale/locale.js"></script>
 
 		<!--Extjs version 4.2.1 or 4.2.0 or 4.1.1-->
-		<#assign extjsVersion="4.2.1" />
+		<#assign extjsVersion="4.1.1" />
 
 		<script type="text/javascript">
 	    var login = {
