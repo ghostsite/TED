@@ -43,6 +43,11 @@ public abstract class ResourceUtils {
         Resource resource = new ClassPathResource(path.trim(), ClassUtils.getDefaultClassLoader());
         return IOUtils.toString(resource.getInputStream());
     }
+    
+    public static Resource getResourceByClasspath(String path) throws Exception {
+        Resource resource = new ClassPathResource(path.trim(), ClassUtils.getDefaultClassLoader());
+        return (resource != null) && (resource.exists())? resource : null;
+    }
 
     public static Resource getResource(HttpServletRequest request, String path) throws Exception {
         if (request == null){

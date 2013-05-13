@@ -84,6 +84,8 @@ public class ExtController {
 
     private MetadataReaderFactory                            metadataReaderFactory    = new CachingMetadataReaderFactory(this.resourcePatternResolver);
 
+    private static final String RESOURCE_INCLASSPATH_PREFIX                           = "META-INF/resources"; //发布的时候资源存放的路径
+    
     static {
         JSTYPE_BY_JAVACLASS_MAP.put(String.class, "string");
         JSTYPE_BY_JAVACLASS_MAP.put(Character.TYPE, "string");
@@ -159,6 +161,15 @@ public class ExtController {
         return isPrettyPrint() ? "\r\n" : " ";
     }
 
+    //tool method,先看磁盘文件，如果没有，则看classpath
+    private Resource getResource(HttpServletRequest request, String path) throws Exception{
+        Resource resource = ResourceUtils.getResource(request, path);
+        if(null == resource){
+            resource = ResourceUtils.getResourceByClasspath(RESOURCE_INCLASSPATH_PREFIX+path);
+        }
+        return resource;
+    }
+    
     @RequestMapping(value = { "/module/**/model/**/*.js" })
     @ResponseBody
     public String getModelJs(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -168,7 +179,7 @@ public class ExtController {
         // 3 然后看jsCache中是否有，有就返回，没有就根据beanMap中的BeanDefinition生成,放到缓存中。
         String path = getPath(request);
         String defineName = getDefineName(path);//defineName like 'SYS.model.WorkDay'
-        Resource resource = ResourceUtils.getResource(request, path);
+        Resource resource = getResource(request, path);
         if (resource != null && resource.exists()) {
             Js jsFromCache = jsCache.get(defineName);
             if (jsFromCache == null || resource.lastModified() > jsFromCache.lastModified) {
@@ -207,7 +218,7 @@ public class ExtController {
         // 3 然后看jsCache中是否有，有就返回，没有就根据beanMap中的BeanDefinition生成,放到缓存中。
         String path = getPath(request);
         String defineName = getDefineName(path);//defineName like 'SYS.model.WorkDay'
-        Resource resource = ResourceUtils.getResource(request, path);
+        Resource resource = getResource(request, path);
         if (resource != null && resource.exists()) {
             Js jsFromCache = jsCache.get(defineName);
             if (jsFromCache == null || resource.lastModified() > jsFromCache.lastModified) {
@@ -236,13 +247,16 @@ public class ExtController {
 
     /**
      * 返回module 下的controller
+     * 先load classpath，如果没有则load 磁盘文件
      */
     @RequestMapping(value = { "/module/**/controller/**/*.js" })
     @ResponseBody
     public void getControllerJs(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 1 看看有没有js文件在磁盘，有就返回，没有就返回空
         String path = getPath(request);
-        Resource resource = ResourceUtils.getResource(request, path);
+        
+        //先看classpath里面有没有，对于路径有个要求：META-INF/resources/resources/module/**/controller/**/MESController.js
+        Resource resource = getResource(request, path);
         if (resource != null) {
             //IOUtils.toString(resource.getInputStream());
             IOUtils.copy(resource.getInputStream(),response.getOutputStream());

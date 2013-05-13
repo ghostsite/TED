@@ -60,6 +60,19 @@ Ext.onReady(function() {
 	Ext.QuickTips.init();
 	Ext.tip.Tip.prototype.minWidth = 'auto';
 	
+	/**
+	 * Extjs 4.2.0 and 4.2.1744 bug
+	 * http://www.sencha.com/forum/showthread.php?262900-Ext.Date.dayNames-Error-in-4.2.0
+	 * TODO fixit by 4.2.1 final version
+	 * http://gogo1217.iteye.com/blog/1864940 fix method
+	 */
+	var proto = Ext.picker.Date.prototype,  
+         date = Ext.Date;  
+  
+    proto.monthNames = date.monthNames;  
+    proto.dayNames   = date.dayNames;  
+    proto.format     = date.defaultFormat;  //end of bug fix
+	
 	Ext.application({
 		name : 'SmartFactory',
 		autoCreateViewport : true,
