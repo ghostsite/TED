@@ -154,6 +154,11 @@ public class User extends LogicPersistEntity {
      * 状态： 0 停用 1 启用
      */
     private Integer              state            = STATE_ENABLE;
+    
+    /**
+     * 排序
+     */
+    private Integer              idx ;
 
     /**
      * 当前登录用户的语言,en, cn, kr. 这个不持久化到数据库。
@@ -524,6 +529,14 @@ public class User extends LogicPersistEntity {
             acls.addAll(role.getAcls());
         }
         return acls;
+    }
+
+    public Integer getIdx() {
+        return idx;
+    }
+
+    public void setIdx(Integer idx) {
+        this.idx = idx;
     }
 
 }

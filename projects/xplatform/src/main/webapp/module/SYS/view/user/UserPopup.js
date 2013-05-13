@@ -25,10 +25,10 @@ Ext.define('SYS.view.user.UserPopup', {
 			layout : 'anchor',
 			itemId : 'formId',
 			bodyCls : 'paddingAll10',
-			frame: true,
+			frame : true,
 			border : false,
 			defaults : {
-				labelWidth : 130
+				labelWidth : 80
 			},
 			items : [{
 				xtype : 'container',
@@ -43,7 +43,7 @@ Ext.define('SYS.view.user.UserPopup', {
 					flex : 1,
 					defaults : {
 						labelSeparator : '',
-						labelWidth : 130
+						labelWidth : 80
 					},
 					items : [{
 						xtype : 'container',
@@ -58,13 +58,13 @@ Ext.define('SYS.view.user.UserPopup', {
 							name : 'organization.name',
 							itemId : 'organization.name',
 							cls : 'marginT5',
-							labelWidth : 130,
+							labelWidth : 80,
 							fieldLabel : '所属部门',
 							readOnly : true
 						}, {
 							xtype : 'textfield',
 							fieldLabel : T('Caption.Other.Login Name'),
-							labelWidth : 130,
+							labelWidth : 80,
 							name : 'loginName',
 							readOnly : true,
 							flex : 1
@@ -85,28 +85,43 @@ Ext.define('SYS.view.user.UserPopup', {
 						fieldLabel : T('Caption.Other.User Name'),
 						name : 'userName',
 						cls : 'marginTR5',
-						labelWidth : 130,
+						labelWidth : 80,
 						anchor : '100%'
 					}, {
-						xtype : 'combobox',
-						fieldLabel : '状态',
-						cls : 'marginTR5',
-						anchor : '100%',
-						store : Ext.create('Ext.data.ArrayStore', {
-							fields : ['stateValue', 'stateName'],
-							data : [[1, '启用'], [0, '停用']]
-						}),
-						displayField : 'stateName',
-						valueField : 'stateValue',
-						editable : false,
-						name : 'state',
-						itemId : 'state'
+						xtype : 'container',
+						layout : 'hbox',
+						cls : 'marginT5',
+						items : [{
+							xtype : 'combobox',
+							fieldLabel : '状态',
+							//anchor : '100%',
+							labelWidth : 80,
+							flex:1,
+							cls : 'marginR5',
+							store : Ext.create('Ext.data.ArrayStore', {
+								fields : ['stateValue', 'stateName'],
+								data : [[1, '启用'], [0, '停用']]
+							}),
+							displayField : 'stateName',
+							valueField : 'stateValue',
+							editable : false,
+							name : 'state',
+							itemId : 'state'
+						}, {
+							xtype : 'numberfield',
+							flex:1,
+							labelWidth : 30,
+							cls : 'marginR5',
+							fieldLabel : '序号',
+							minValue : 0,
+							name : 'idx'
+						}]
 					}, {
 						xtype : 'textfield',
 						fieldLabel : T('Caption.Other.Email'),
 						name : 'email',
 						cls : 'marginTR5',
-						labelWidth : 130,
+						labelWidth : 80,
 						anchor : '100%'
 					}, {
 						xtype : 'radiogroup',
@@ -144,7 +159,7 @@ Ext.define('SYS.view.user.UserPopup', {
 					fieldLabel : T('Caption.Other.Phone Mobile'),
 					name : 'mobile',
 					cls : 'marginR10',
-					labelWidth : 130,
+					labelWidth : 80,
 					flex : 1
 				}, {
 					xtype : 'textfield',
@@ -162,7 +177,7 @@ Ext.define('SYS.view.user.UserPopup', {
 					fieldLabel : T('Caption.Other.Phone Office'),
 					name : 'phoneWork',
 					cls : 'marginR10',
-					labelWidth : 130,
+					labelWidth : 80,
 					flex : 1
 				}, {
 					xtype : 'textfield',
@@ -182,7 +197,7 @@ Ext.define('SYS.view.user.UserPopup', {
 					format : 'Y-m-d',
 					submitFormat : 'Y-m-d',
 					cls : 'marginR10',
-					labelWidth : 130,
+					labelWidth : 80,
 					flex : 1
 				}, {
 					xtype : 'datefield',
@@ -208,13 +223,13 @@ Ext.define('SYS.view.user.UserPopup', {
 					xtype : 'filefield',
 					fieldLabel : T('Caption.Other.Pic'),
 					emptyText : '选择一张图片....',
-					labelWidth : 130,
+					labelWidth : 80,
 					flex : 1,
 					buttonText : '',
 					buttonConfig : {
 						iconCls : 'upload-icon'
 					},
-					itemId: 'userpic',
+					itemId : 'userpic',
 					name : 'userpic' // 如果命名为pic，则跟user.pic
 					// （Attachment）冲突，会发生bind错误。
 				}, {
