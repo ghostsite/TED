@@ -98,6 +98,7 @@ Ext.define('mixin.ExtOverride', function() {
 		}
 	});
 
+	//注意：这个override只兼容extjs4.1.1,对于extjs4.2.0 or 4.2.1 会有exception，操作用户管理就能见异常。
 	Ext.override(Ext.form.action.Submit, {
 		doSubmit : function() {
 			var formEl, ajaxOptions = Ext.apply(this.createCallback(), {
@@ -123,7 +124,6 @@ Ext.define('mixin.ExtOverride', function() {
 					//payload 방식의 form submit
 					ajaxOptions.jsonData = params;
 				} else {
-
 					for ( var key in params) {
 						if (Ext.typeOf(params[key]) === 'object' || Ext.typeOf(params[key]) === 'array') {
 							params[key] = Ext.JSON.encode(params[key]);
@@ -144,7 +144,6 @@ Ext.define('mixin.ExtOverride', function() {
 
 	Ext.override(Ext.form.action.Load, {
 		run : function() {
-
 			this.form.payload = this.form.payload || {};
 			var params = this.getParams();
 			Ext.applyIf(params, {
@@ -165,7 +164,6 @@ Ext.define('mixin.ExtOverride', function() {
 					params : params
 				}));
 			}
-
 		}
 	});
 	
