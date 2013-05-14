@@ -4,6 +4,9 @@ Ext.define('BUS.controller.fileresource.FileResourceList', {
 	refs : [{
 		selector : 'bus_fileresource #fileresourcegrid',
 		ref : 'grid'
+	},{
+		selector : 'bus_fileresource #showfilepicforbus',
+		ref : 'pic'
 	}],
 
 	init : function() {
@@ -24,7 +27,9 @@ Ext.define('BUS.controller.fileresource.FileResourceList', {
 	},
 
 	showPic : function(view, record) {
-		Ext.getCmp('showfilepicforbus').getEl().dom.src = 'fileresource/downloadPic/' + record.data.id;// 显示图片
+		//Ext.getCmp('showfilepicforbus').getEl().dom.src = 'fileresource/downloadPic/' + record.data.id;// 显示图片
+		//Ext.getCmp('showfilepicforbus').setSrc('fileresource/downloadPic/' + record.data.id);// 显示图片
+		this.getPic().setSrc('fileresource/downloadPic/' + record.data.id);// 显示图片
 	},
 	
 	checkCanDownload  : function(){

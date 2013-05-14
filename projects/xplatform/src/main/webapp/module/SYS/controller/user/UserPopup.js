@@ -8,6 +8,9 @@ Ext.define('SYS.controller.user.UserPopup', {
 	refs : [{
 		selector : 'admin_userpopup',
 		ref : 'form'
+	},{
+		selector : 'admin_userpopup #showuserpicforpopup',
+		ref : 'pic'
 	}],
 
 	init : function() {
@@ -43,7 +46,8 @@ Ext.define('SYS.controller.user.UserPopup', {
 			view.sub('organization.name').setValue(keys.formData.record.raw.orgName);
 			// form.findField()不行，因为这个findField返回的是Field类型，而box是Component类型，少了一个层次
 			if(res.responseObj && res.responseObj.pic && res.responseObj.pic.id){
-				Ext.getCmp('showuserpicforpopup').getEl().dom.src = 'attachment/downloadPic/' + res.responseObj.pic.id;
+				//Ext.getCmp('showuserpicforpopup').getEl().dom.src = 'attachment/downloadPic/' + res.responseObj.pic.id;
+				this.getPic().setSrc('attachment/downloadPic/' + res.responseObj.pic.id);
 			}
 		} else if (keys.status === 'show') {// show
 			var res = this.loadData(view, {
@@ -65,7 +69,8 @@ Ext.define('SYS.controller.user.UserPopup', {
 			view.sub('btnSave').hide();
 			
 			if(res.responseObj && res.responseObj.pic && res.responseObj.pic.id){
-				Ext.getCmp('showuserpicforpopup').getEl().dom.src = 'attachment/downloadPic/' + res.responseObj.pic.id;
+				//Ext.getCmp('showuserpicforpopup').getEl().dom.src = 'attachment/downloadPic/' + res.responseObj.pic.id;
+				this.getPic().setSrc('attachment/downloadPic/' + res.responseObj.pic.id);
 			}
 		}
 	},

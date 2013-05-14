@@ -2,9 +2,9 @@
 Ext.define('SYS.view.log.LogManage', {
 	extend : 'MES.view.form.BaseForm',
 	xtype : 'admin_log',
-	//requires : ['SYS.model.Log', 'Ext.ux.grid.RowExpander', 'Ext.ux.PagingToolbarResizer'], //for extjs 4.1.1
+	requires : ['SYS.model.Log', 'Ext.ux.grid.RowExpander', 'Ext.ux.PagingToolbarResizer'], //for extjs 4.1.1
 	
-	requires : ['SYS.model.Log', 'Ext.grid.plugin.RowExpander', 'Ext.ux.PagingToolbarResizer'], //for extjs 4.2.0
+	//requires : ['SYS.model.Log', 'Ext.grid.plugin.RowExpander', 'Ext.ux.PagingToolbarResizer'], //for extjs 4.2.0
 
 	title : T('Caption.Menu.SYS.view.log.LogManage'),
 	// layout : 'fit',
