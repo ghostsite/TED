@@ -68,14 +68,15 @@
 	</logger>
 	
 	<logger name="com.ted">
-		<level value="INFO"/>
+		<level value="DEBUG"/>
 		<appender-ref ref="STDOUT"/>
 	</logger>
 	
 	<root level="ERROR">
-		<appender-ref ref="STDOUT"/>
+		<!--注释掉下面3个，是因为都配置在logger里面了，否则就会出现2个log语句在console,db,rolling file,配置在logger里面，更灵活控制-->
+		<!--appender-ref ref="STDOUT"/>
 		<appender-ref ref="ROLLING"/>
-		<appender-ref ref="DB"/>
+		<appender-ref ref="DB"/-->
 	</root>
 
 </configuration>

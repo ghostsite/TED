@@ -165,7 +165,15 @@ public class ExtController {
     private Resource getResource(HttpServletRequest request, String path) throws Exception{
         Resource resource = ResourceUtils.getResource(request, path);
         if(null == resource){
-            resource = ResourceUtils.getResourceByClasspath(RESOURCE_INCLASSPATH_PREFIX+path);
+            logger.debug("resource: " + path + " does not exist in disc.");
+            resource = ResourceUtils.getResourceByClasspath(RESOURCE_INCLASSPATH_PREFIX + path);
+            if(null == resource){
+                logger.debug("resource: " + RESOURCE_INCLASSPATH_PREFIX + path + " does not exist in classpath.");
+            }else{
+                logger.debug("resource: " + RESOURCE_INCLASSPATH_PREFIX + path + " exist in classpath.");
+            }
+        }else{
+            logger.debug("resource: " + path + " exist in disc.");
         }
         return resource;
     }
@@ -183,17 +191,21 @@ public class ExtController {
         if (resource != null && resource.exists()) {
             Js jsFromCache = jsCache.get(defineName);
             if (jsFromCache == null || resource.lastModified() > jsFromCache.lastModified) {
+                logger.debug("model: " + path +" to load from resource.");
                 Js newJs = makeJsByResource(resource);
                 jsCache.put(defineName, newJs);
                 return newJs.text;
             } else {
+                logger.debug("model: " + path +" to load from cache.");
                 return jsFromCache.text;
             }
         } else {
             Js jsFromCache = jsCache.get(defineName);
             if (jsFromCache != null) {
+                logger.debug("model: " + path +" to load from cache, for the path does not exist in resource, cache from bean.");
                 return jsFromCache.text;
             } else {
+                logger.debug("model: " + path +" does not exist in resource, need to reflect from bean");
                 refreshBeanMap();
                 AbstractBeanDefinition beanDef = beanMap.get(getShortName(defineName));
                 if (null == beanDef) {
@@ -222,17 +234,21 @@ public class ExtController {
         if (resource != null && resource.exists()) {
             Js jsFromCache = jsCache.get(defineName);
             if (jsFromCache == null || resource.lastModified() > jsFromCache.lastModified) {
+                logger.debug("store: " + path +" to load from resource.");
                 Js newJs = makeJsByResource(resource);
                 jsCache.put(defineName, newJs);
                 return newJs.text;
             } else {
+                logger.debug("store: " + path +" to load from cache.");
                 return jsFromCache.text;
             }
         } else {
             Js jsFromCache = jsCache.get(defineName);
             if (jsFromCache != null) {
+                logger.debug("store: " + path +" to load from cache, for the path does not exist in resource, cache from bean.");
                 return jsFromCache.text;
             } else {
+                logger.debug("store: " + path +" does not exist in resource, need to reflect from bean");
                 refreshBeanMap();
                 AbstractBeanDefinition beanDef = beanMap.get(getShortName(defineName));
                 if (null == beanDef) {
