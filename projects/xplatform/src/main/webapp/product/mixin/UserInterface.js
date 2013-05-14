@@ -72,7 +72,11 @@ Ext.define('mixin.UserInterface', function() {
 			if (Ext.ClassManager.get(controller)) {
 				var ctrl = SF.controller.ApplicationController.unique.getController(controller);
 				if(extjsVersion === '4.1.1'){
-					ctrl.init();
+					if(!ctrl.inited){//注意：这个inited是我自己加的，因为window destroy,但是controller还在，第二次win.show()的时候，
+						//又执行了一次init，也就bind event 一次，导致多次打开window，多次bindevent。extjs4.2还没测试，因为它不走init()
+						ctrl.init();
+						ctrl.inited = true;
+					}
 					//ctrl.onLaunch(); //这还还不确定到底调用还是不调用
 				}
 			}
