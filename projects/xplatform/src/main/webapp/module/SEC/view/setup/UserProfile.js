@@ -45,7 +45,8 @@ Ext.define('SEC.view.setup.UserProfile', {
 		if (result.success) {
 			form.findField('organization.id').setValue(data.orgId);
 			//form.findField()不行，因为这个findField返回的是Field类型，而box是Component类型，少了一个层次
-			Ext.getCmp('showuserpic').getEl().dom.src = 'attachment/downloadPic/' + data.pic.id;
+			//Ext.getCmp('showuserpic').getEl().dom.src = 'attachment/downloadPic/' + data.pic.id;
+			form.findField('showuserpic').setSrc('attachment/downloadPic/' + data.pic.id);
 		}
 	},
 
@@ -149,6 +150,14 @@ Ext.define('SEC.view.setup.UserProfile', {
 				}]
 			}]
 		}, {
+			xtype:'image',
+			itemId:'showuserpic',
+			name:'showuserpic',
+			autoScroll: true,
+			autoEl: 'div', // wrap in a div
+			width : 100,
+			height : 100
+			/**		
 			xtype : 'box',
 			id : 'showuserpic',
 			width : 150,
@@ -159,7 +168,7 @@ Ext.define('SEC.view.setup.UserProfile', {
 				// class:'ImageStyle'
 				width : 100,
 				height : 100
-			}
+			}*/
 		}]
 	}, {
 		xtype : 'container',

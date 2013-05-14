@@ -75,6 +75,15 @@ Ext.define('SYS.view.attachment.AttachmentManage', {
 					}],
 					bbar : SF.getContextBbar(store)
 				}, {
+					xtype:'image',
+					itemId:'showattachmentpic',
+					autoEl: 'div', // wrap in a div
+					width : 240,
+					height : 300,
+					autoScroll: true,
+					cls : 'paddingL10'
+					
+					/**
 					xtype : 'box',
 					cls:'paddingL10',
 					id : 'showattachmentpic',
@@ -86,7 +95,7 @@ Ext.define('SYS.view.attachment.AttachmentManage', {
 						// class:'ImageStyle'
 						width : 240,
 						height : 300
-					}
+					}*/
 				}]
 			}, Ext.create('MES.view.form.field.MultiFileUploader', {
 				title : '附件管理',

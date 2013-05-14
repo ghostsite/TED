@@ -138,6 +138,14 @@ Ext.define('SYS.view.user.UserPopup', {
 						}]
 					}]
 				}, {
+					xtype:'image',
+					itemId:'showuserpicforpopup',
+					autoEl: 'div', // wrap in a div
+					autoScroll: true,
+					width : 100,
+					height : 100
+					
+					/**
 					xtype : 'box',
 					id : 'showuserpicforpopup',
 					width : 150,
@@ -148,7 +156,7 @@ Ext.define('SYS.view.user.UserPopup', {
 						// class:'ImageStyle'
 						width : 100,
 						height : 100
-					}
+					}*/
 				}]
 			}, {
 				xtype : 'container',

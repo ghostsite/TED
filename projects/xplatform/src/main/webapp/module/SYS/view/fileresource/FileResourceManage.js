@@ -78,6 +78,15 @@ Ext.define('SYS.view.fileresource.FileResourceManage', {
 						flex : 1
 					}]
 				}, {
+					xtype:'image',
+					itemId:'showfilepic',
+					autoEl: 'div', // wrap in a div
+					width : 240,
+					autoScroll: true,
+					height : 300,
+					cls : 'paddingL10'
+					
+					/**
 					xtype : 'box',
 					cls : 'paddingL10',
 					id : 'showfilepic',
@@ -89,7 +98,7 @@ Ext.define('SYS.view.fileresource.FileResourceManage', {
 						// class:'ImageStyle'
 						width : 240,
 						height : 300
-					}
+					}*/
 				}]
 			}, Ext.create('MES.view.form.field.MultiFileUploader', {
 				title : '附件管理',

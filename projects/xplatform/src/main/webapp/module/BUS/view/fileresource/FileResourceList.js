@@ -74,6 +74,14 @@ Ext.define('BUS.view.fileresource.FileResourceList', {
 						flex : 1
 					}]
 				}, {
+					xtype:'image',
+					itemId:'showfilepicforbus',
+					autoEl: 'div', // wrap in a div
+					width : 240,
+					height : 300,
+					autoScroll: true,
+					cls : 'paddingL10'
+				}/**,{
 					xtype : 'box',
 					cls : 'paddingL10',
 					id : 'showfilepicforbus',
@@ -86,7 +94,7 @@ Ext.define('BUS.view.fileresource.FileResourceList', {
 						width : 240,
 						height : 300
 					}
-				}]
+				}*/]
 			}]
 		};
 	}

@@ -4,6 +4,9 @@ Ext.define('SYS.controller.attachment.AttachmentManage', {
 	refs : [{
 		selector : 'admin_attachment #attachmentgrid',
 		ref : 'grid'
+	},{
+		selector : 'admin_attachment #showattachmentpic',
+		ref : 'pic'
 	}],
 
 	init : function() {
@@ -22,6 +25,7 @@ Ext.define('SYS.controller.attachment.AttachmentManage', {
 	},
 
 	showPic : function(view, record) {
-		Ext.getCmp('showattachmentpic').getEl().dom.src = 'attachment/downloadPic/' + record.data.id;// 显示图片
+		//Ext.getCmp('showattachmentpic').getEl().dom.src = 'attachment/downloadPic/' + record.data.id;// 显示图片
+		this.getPic().setSrc('attachment/downloadPic/' + record.data.id);// 显示图片
 	}
 });

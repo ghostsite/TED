@@ -7,6 +7,9 @@ Ext.define('SYS.controller.fileresource.FileResourceManage', {
 	},{
 		selector : 'admin_fileresource #btnRemoveFile',
 		ref : 'btnRemoveFile'
+	},{
+		selector : 'admin_fileresource #showfilepic',
+		ref : 'pic'
 	}],
 
 	init : function() {
@@ -43,7 +46,8 @@ Ext.define('SYS.controller.fileresource.FileResourceManage', {
 	//展示pic
 	showPic : function(view, record) {
 		console.log(record);
-		Ext.getCmp('showfilepic').getEl().dom.src = 'fileresource/downloadPic/' + record.data.id;// 显示图片
+		//Ext.getCmp('showfilepic').getEl().dom.src = 'fileresource/downloadPic/' + record.data.id;// 显示图片
+		this.getPic().setSrc('fileresource/downloadPic/' + record.data.id);// 显示图片
 	},
 	
 	//删除, no check
