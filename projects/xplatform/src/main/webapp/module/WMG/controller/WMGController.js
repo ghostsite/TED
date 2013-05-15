@@ -38,8 +38,6 @@ Ext.define('WMG.controller.WMGController', {
 				}
 			},
 			memberJoinedOut : function(message) {
-				console.log('22222222');
-				console.log(message);
 				self.joinOut(message.data.loginname,message.data.username);
 				SF.msg('退出', message.data.loginname);
 			},

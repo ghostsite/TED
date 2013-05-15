@@ -134,13 +134,28 @@ Ext.define('MES.view.form.field.MultiFileUploader',{//TODO change this file to f
 		else{
 			form = body.getById(id+'Form');
 		}
-				
 		return form;
 	},
 
+	getFileNameAndSize : function(fileUploadCmp){
+		var name;
+		var size;
+		if(Ext.isIE){
+			var fso = new ActiveXObject("Scripting.FileSystemObject");
+            size = fso.GetFile(fileUploadCmp.getValue()).size;
+            name = fso.GetFile(fileUploadCmp.getValue()).name;
+		}else{
+			var fileInfo = fileUploadCmp.fileInputEl.dom.files[0];
+			size = fileInfo.size;
+			name = fileInfo.name;
+		}
+		return {name:name,size:size};
+	},
+	
+	//TODO fix it , for IE,实在不行就读取返回值，不用浏览器本地功能读取name and size
 	onChangeFile : function(field, value){
 		var me = this;
-		var fileInfo = field.fileInputEl.dom.files[0];
+		var fileInfo = this.getFileNameAndSize(field);// field.fileInputEl.dom.files[0];
 		var size = fileInfo.size;
 		var name = fileInfo.name;
 		
