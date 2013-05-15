@@ -218,5 +218,14 @@ Ext.define('mixin.ExtOverride', function() {
 	//flash component Adobe provides a tool called(install/version up) 경로수정
 	Ext.flash.Component.EXPRESS_INSTALL_URL = 'swf/expressInstall.swf';
 	
+	
+	//zhang add,this is a bug : http://www.sencha.com/forum/showthread.php?245613-Ext.tree.Panel-and-Ext.enableFx-bug
+	//Ext.enableFx = false; //zhang added in application.js onReady(){} 不管用，so放到这里了。
+	Ext.override(Ext.tree.TreePanel, {
+		animate : false,
+		animCollapse : false
+	});
+	//end of zhang add
+	
 	return {};
 }());

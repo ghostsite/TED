@@ -97,8 +97,8 @@ Ext.define('SYS.view.log.LogManage', {
 			columns : [{
 				header : '日期',
 				dataIndex : 'createTime',
-				width : 140,
-				renderer : Ext.util.Format.dateRenderer('Y-m-d H:i:s')
+				width : 140//,
+				//renderer : Ext.util.Format.dateRenderer('Y-m-d H:i:s') //string类型，so不用转换
 			}, {
 				header : '类型',
 				width : 50,

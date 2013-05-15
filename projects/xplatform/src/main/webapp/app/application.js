@@ -59,8 +59,10 @@ Ext.module = function() {
 Ext.onReady(function() {
 	Ext.QuickTips.init();
 	Ext.tip.Tip.prototype.minWidth = 'auto';
+	Ext.enableFx = false; //zhang added,不管用，放到ExtOverride.js里面了。
 	
 	/**
+	 * zhang
 	 * Extjs 4.2.0 and 4.2.1744 bug
 	 * http://www.sencha.com/forum/showthread.php?262900-Ext.Date.dayNames-Error-in-4.2.0
 	 * TODO fixit by 4.2.1 final version

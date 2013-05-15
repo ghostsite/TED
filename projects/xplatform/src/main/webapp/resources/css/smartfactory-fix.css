@@ -110,6 +110,7 @@
 .textAlignCenter,.textAlignCenter input{text-align:center}
 .textAlignRight label,.textAlignCenter label{text-align:left}
 
+/** zhang IE organe yellow in textfield
 .textColorRed,.textColorRed .x-form-field,.textColorRed .x-form-display-field,.textColorRed .x-grid-cell{color:#cc3300}
 .textColorOrange,.textColorOrange.x-form-field,.textColorOrange .x-form-display-field,.textColorOrange .x-grid-cell{color:#FD7201}
 .textColorGreen,.textColorGreen .x-form-field,.textColorGreen .x-form-display-field,.textColorGreen .x-grid-cell{color:#0aa00a}
@@ -117,6 +118,7 @@
 .textColorViolet,.textColorViolet .x-form-field,.textColorViolet .x-form-display-field,.textColorViolet .x-grid-cell{color:#a42eb6}
 .textColorGray,.textColorGray .x-form-field,.textColorGray .x-form-display-field,.textColorGray .x-grid-cell{color:#999}
 .textColorTransparent,.textColorTransparent .x-form-field,.textColorTransparent .x-form-display-field,.textColorTransparent .x-grid-cell{color:transparent}
+*/
 
 .fontWeightBold,.fontWeightBold *{font-weight:bold !important}
 .fontWeightNormal,.fontWeightNormal *{font-weight:normal}
