@@ -119,8 +119,12 @@ public class MenuResourceService {
     public List<MenuResource> getSubMenusCascadeLoadOperationsByParentIdFilterByCurrentSubject(Serializable menuid) {
         List<MenuResource> menuResourceList = getMenusLoadOperationsByParentIdFilterByCurrentSubject(menuid);
         for (MenuResource menu : menuResourceList) {
-            List<MenuResource> subMenuResourceList = getSubMenusCascadeLoadOperationsByParentIdFilterByCurrentSubject(menu.getId());
-            menu.setSubMenuResources(subMenuResourceList);
+			if(!menu.isLeaf()){ //modify 20130524
+				List<MenuResource> subMenuResourceList = getSubMenusCascadeLoadOperationsByParentIdFilterByCurrentSubject(menu.getId());
+				menu.setSubMenuResources(subMenuResourceList);
+			}else{
+        		menu.setSubMenuResources(null);//zhang add 20130524
+        	}
         }
         return menuResourceList;
     };
@@ -134,8 +138,12 @@ public class MenuResourceService {
     public List<MenuResource> getSubMenusCascadeByParentIdFilterByCurrentSubject(Serializable menuid) {
         List<MenuResource> menuResourceList = getMenusByParentIdFilterByCurrentSubject(menuid);
         for (MenuResource menu : menuResourceList) {
-            List<MenuResource> subMenuResourceList = getSubMenusCascadeByParentIdFilterByCurrentSubject(menu.getId());
-            menu.setSubMenuResources(subMenuResourceList);
+			if(!menu.isLeaf()){ //modify 20130524
+				List<MenuResource> subMenuResourceList = getSubMenusCascadeByParentIdFilterByCurrentSubject(menu.getId());
+				menu.setSubMenuResources(subMenuResourceList);
+			}else{
+        		menu.setSubMenuResources(null);//zhang add 20130524
+        	}
         }
         return menuResourceList;
     };

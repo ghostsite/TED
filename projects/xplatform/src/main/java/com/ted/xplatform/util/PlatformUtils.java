@@ -90,8 +90,11 @@ public abstract class PlatformUtils {
     //ghostzhang added 20121130 favorite menu
     public static final List<MenuResource> getFavorite(List<MenuResource> menuResourceList){
     	List<MenuResource> favoriteList = Lists.newArrayList();
-    	for(MenuResource menu : menuResourceList){
-    		if(menu.isLeaf() && menu.isFavorite()){
+    	if(menuResourceList == null){
+    		return favoriteList;
+    	}
+		for(MenuResource menu : menuResourceList){
+    		if(menu != null && menu.isLeaf() && menu.isFavorite()){
     			favoriteList.add(menu);
     		}
     		favoriteList.addAll(getFavorite(menu.getSubMenuResources()));
