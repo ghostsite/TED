@@ -10,7 +10,7 @@
 
 	<properties>
 		<spring.version>3.2.2.RELEASE</spring.version>
-		<hibernate.version>4.1.11.Final</hibernate.version>
+		<hibernate.version>4.2.1.Final</hibernate.version>
 		<mybatis.version>3.2.0</mybatis.version>
 		<mybatis-spring.version>1.1.1</mybatis-spring.version>
 		<spring-data-jpa.version>1.2.0.RELEASE</spring-data-jpa.version>
@@ -20,9 +20,9 @@
 		<quartz.version>2.1.7</quartz.version>
 		<ehcache.version>2.6.5</ehcache.version>
 		<spymemcached.version>2.8.9</spymemcached.version>
-		<hibernate-validator.version>4.3.1.Final</hibernate-validator.version>
-		<jackson.version>2.1.2</jackson.version>
-		<slf4j.version>1.7.2</slf4j.version>
+		<hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
+		<jackson.version>2.2.1</jackson.version>
+		<slf4j.version>1.7.5</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
 		<commons-lang3.version>3.1</commons-lang3.version>
 		<commons-io.version>2.4</commons-io.version>
@@ -292,7 +292,7 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
+			<version>1.1.0.Final</version>
 			<classifier />
 		</dependency>
 		<dependency>
@@ -410,7 +410,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
-			<version>2.1.4</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<!-- JAX-RS end -->
 
@@ -453,12 +453,12 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.1.4</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.module</groupId>
 			<artifactId>jackson-module-jaxb-annotations</artifactId>
-			<version>2.1.4</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
@@ -803,6 +803,12 @@
 			<groupId>org.htmlparser</groupId>
 			<artifactId>htmlparser</artifactId>
 			<version>2.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>tools</artifactId>
+					<groupId>com.sun</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>jmagick</groupId>
