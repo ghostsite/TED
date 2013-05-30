@@ -49,7 +49,7 @@ public abstract class TreeNodeUtil {
             List<CheckTreeNodeWithChildren2> children = treeNode.getChildren();
             TreeNodeUtil.setLeaf(children, false);
             
-            setChildren2LeafCascade(treeNode.getChildren());
+            setChildrenNotLeafCascade(treeNode.getChildren());
         }
     }
     
