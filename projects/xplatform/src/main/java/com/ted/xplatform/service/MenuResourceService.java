@@ -2,6 +2,7 @@ package com.ted.xplatform.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -123,7 +124,7 @@ public class MenuResourceService {
 				List<MenuResource> subMenuResourceList = getSubMenusCascadeLoadOperationsByParentIdFilterByCurrentSubject(menu.getId());
 				menu.setSubMenuResources(subMenuResourceList);
 			}else{
-        		menu.setSubMenuResources(null);//zhang add 20130524
+        		menu.setSubMenuResources(new ArrayList<MenuResource>());//zhang add 20130524
         	}
         }
         return menuResourceList;
@@ -142,7 +143,7 @@ public class MenuResourceService {
 				List<MenuResource> subMenuResourceList = getSubMenusCascadeByParentIdFilterByCurrentSubject(menu.getId());
 				menu.setSubMenuResources(subMenuResourceList);
 			}else{
-        		menu.setSubMenuResources(null);//zhang add 20130524
+        		menu.setSubMenuResources(new ArrayList<MenuResource>());//zhang add 20130524
         	}
         }
         return menuResourceList;
