@@ -8,10 +8,16 @@ import java.util.List;
  */
 public abstract class TreeNodeUtil {
     public static final void setLeaf(TreeNode node , boolean leaf){
+    	if(null == node){
+    		return;
+    	}
         node.setLeaf(leaf);
     }
     
     public static final void setLeaf(List<? extends TreeNode> nodes , boolean leaf){
+    	if(null == nodes){
+    		return;
+    	}
         for(TreeNode node: nodes){
             setLeaf(node, leaf);
         }
@@ -21,6 +27,9 @@ public abstract class TreeNodeUtil {
      * 级联设置TreeNodeWithChildren2Check 的children2为leaf
      */
     public static final void setChildren2LeafCascade(List<CheckTreeNodeWithChildren2> treeNodeList){
+    	if(null == treeNodeList){
+    		return;
+    	}
         for(CheckTreeNodeWithChildren2 treeNode:treeNodeList){
             List<CheckTreeNodeWithChildren2> children2 = treeNode.getChildren2();
             TreeNodeUtil.setLeaf(children2, true);
@@ -33,6 +42,9 @@ public abstract class TreeNodeUtil {
      * 级联设置TreeNodeWithChildrenCheck 的children为leaf=false
      */
     public static final void setChildrenNotLeafCascade(List<CheckTreeNodeWithChildren2> treeNodeList){
+    	if(null == treeNodeList){
+    		return;
+    	}
         for(CheckTreeNodeWithChildren2 treeNode:treeNodeList){
             List<CheckTreeNodeWithChildren2> children = treeNode.getChildren();
             TreeNodeUtil.setLeaf(children, false);
@@ -45,6 +57,9 @@ public abstract class TreeNodeUtil {
      * 级联把childre2 append 到children
      */
     public static final void moveChildren2ToChildrenCascade(List<CheckTreeNodeWithChildren2> treeNodeList){
+    	if(null == treeNodeList){
+    		return;
+    	}
         for(CheckTreeNodeWithChildren2 treeNode:treeNodeList){
             moveChildren2ToChildrenCascade(treeNode.getChildren());
             

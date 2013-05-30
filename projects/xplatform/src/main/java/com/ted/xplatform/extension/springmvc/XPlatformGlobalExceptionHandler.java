@@ -77,7 +77,9 @@ public class XPlatformGlobalExceptionHandler implements InitializingBean {
         String userName = (String) MDC.get("userName");
         String createTime = DateUtils.getCurrentStringDate(DateUtils.PATTERN_YYYYMMDDHHMMSS);
         Slf4jLoggingEvent evet = getEvent(userId, userName, type, createTime, errorCode, msg);
-        jdbcExtAppender.append(evet);
+		if(null != jdbcExtAppender){
+        	jdbcExtAppender.append(evet);
+        }        
     }
 
     @ExceptionHandler(value = { MaxUploadSizeExceededException.class, BusinessException.class, Exception.class })
