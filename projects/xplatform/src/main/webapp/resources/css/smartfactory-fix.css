@@ -230,7 +230,7 @@ body{background:url('../image/bgHeader.png') repeat-x;background-color:transpare
 .x-nlg .x-toolbar.appmenu,.x-toolbar.appmenu{background:url('../image/bgAppMenu.gif') repeat-x !important;}
 .x-nlg .x-toolbar.appTool,.x-toolbar.appTool{background:url('../image/bgAppQuickIcon.gif') repeat-x !important;}
 .appTool .x-toolbar-item{margin:0 5px}
-.x-tab em{padding-top:1px;padding-left:4px}
+/** zhang .x-tab em{padding-top:1px;padding-left:4px} */
 /*zhang .x-toolbar-default-docked-top,.nav .x-toolbar-default,.x-nlg .nav .x-toolbar-default{background:url('../image/bgDockedTop.png') 0 -1px repeat-x !important;top:-1px;}*/
 .supplement .x-toolbar-default,.x-nlg .supplement .x-toolbar-default{background-image:none !important;background-color:#f0f0f0 !important}
 
