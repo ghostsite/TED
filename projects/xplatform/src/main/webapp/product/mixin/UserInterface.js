@@ -193,6 +193,7 @@ Ext.define('mixin.UserInterface', function() {
 		var content_area = Ext.getCmp('content');
 
 		if (typeof (view) === 'string') {
+			loadViewController(view);
 			comp = createView(view, {
 				closable : true
 			});
