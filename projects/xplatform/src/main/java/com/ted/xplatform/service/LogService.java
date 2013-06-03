@@ -60,12 +60,18 @@ public class LogService {
      */
     @Transactional(readOnly = true)
     public JsonPage<Log> query(Date from, Date to, Integer type, int start, int limit) {
+       
         Map<String, Object> params = Maps.newHashMap();
-        params.put("from", from);
-        params.put("to", to);
+        if(null != from){
+        	params.put("from", DateUtils.date2Str(from,DateUtils.PATTERN_YYYYMMDDHHMMSS));
+        }
+        if(null != to){
+        	params.put("to", DateUtils.date2Str(to,DateUtils.PATTERN_YYYYMMDDHHMMSS));
+        }
         params.put("type", type);
         JsonPage<Log> page = jpaTemplateDao.pagedByJPQLQuery("admin-jpql-queryLog", params, Log.class, start, limit);
         return page;
+    
     };
 
     /**

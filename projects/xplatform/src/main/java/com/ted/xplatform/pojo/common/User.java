@@ -472,6 +472,7 @@ public class User extends LogicPersistEntity {
     }
 
     @Transient
+	@JsonIgnore
     public boolean isSuperUser() {
         if (CollectionUtils.isEmpty(roleList)) {
             return false;
