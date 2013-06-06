@@ -259,7 +259,7 @@ public class RoleController {
         Map<String, Object> para = CollectionUtils.newMap("userId", userId);
         String sql = "select r.name,r.id,u.user_name as userName, 1 checked from role r inner join user_role ur on r.id=ur.role_id inner join users u on u.id=ur.user_id where u.id=:userId";
         List<Map<String, Object>> list = this.namedJdbcTemplate.queryForList(sql, para);
-        return list;
+         return PlatformUtils.key2LowerCase(list);
     };
 
     //===========================================//

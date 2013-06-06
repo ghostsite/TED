@@ -102,4 +102,23 @@ public abstract class PlatformUtils {
     	return favoriteList;
     };
 
+		// 如果是oracl，用spring queryForList 方法，返回的key都是大写。
+	public static final List<Map<String, Object>> key2LowerCase(List<Map<String, Object>> list) {
+		if (list == null) {
+			return null;
+		}
+		List<Map<String, Object>> lowerList = Lists.newArrayList();
+		for (Map<String, Object> mapData : list) {
+			Map<String, Object> lowerMap = Maps.newHashMap();
+			Iterator<Entry<String, Object>> iterator = mapData.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Entry<String, Object> entry = iterator.next();
+				String key = entry.getKey();
+				String lowerKey = key.toLowerCase();
+				lowerMap.put(lowerKey, entry.getValue());
+			}
+			lowerList.add(lowerMap);
+		}
+		return lowerList;
+	}
 }
